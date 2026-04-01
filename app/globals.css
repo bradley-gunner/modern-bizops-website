@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Brand Colors */
+  --color-navy: #0E1F38;
+  --color-navy-mid: #1C3A5C;
+  --color-navy-light: #244E88;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-amber: #C85D0A;
+  --color-amber-light: #E8873A;
+  --color-amber-pale: #FEF3E8;
+
+  --color-cream: #F6F2EB;
+  --color-cream-dark: #EDE5D5;
+
+  --color-border: #D8CEBC;
+
+  --color-text-primary: #1A1A2A;
+  --color-text-mid: #4A5568;
+  --color-text-light: #8A9AB0;
+
+  /* Secondary Colors */
+  --color-green: #1A5E3A;
+  --color-green-mid: #28885A;
+  --color-green-pale: #EBF5F0;
+
+  --color-red: #B83A2B;
+  --color-red-mid: #D45040;
+  --color-red-pale: #FDF0EE;
+
+  /* Fonts */
+  --font-display: var(--font-cormorant);
+  --font-body: var(--font-jost);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 6px rgba(14, 31, 56, 0.05);
+  --shadow-md: 0 2px 14px rgba(14, 31, 56, 0.07);
+  --shadow-lg: 0 4px 24px rgba(14, 31, 56, 0.10);
+  --shadow-xl: 0 8px 40px rgba(14, 31, 56, 0.14);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-text-primary);
+  font-family: var(--font-body), 'Segoe UI', sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), Georgia, serif;
+  color: var(--color-navy);
 }
