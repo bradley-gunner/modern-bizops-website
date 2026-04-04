@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata = {
   title: "Watch How It Works",
@@ -58,34 +59,16 @@ export default function WatchPage() {
           </p>
         </div>
 
-        {/* Calendar embed placeholder */}
-        <div className="bg-cream border border-border rounded-[14px] p-8 md:p-12 mb-10">
-          <div className="text-center">
-            <svg
-              className="mx-auto h-16 w-16 text-text-light mb-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-              />
-            </svg>
-            <p className="font-body text-text-mid font-medium mb-2">
-              HubSpot Meetings Calendar
-            </p>
-            <p className="font-body text-sm text-text-light">
-              Replace this placeholder with your HubSpot Meetings embed code
-            </p>
-            {/*
-              To embed HubSpot Meetings, replace this div with:
-              <div className="meetings-iframe-container" data-src="YOUR_HUBSPOT_MEETINGS_URL?embed=true"></div>
-              <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
-            */}
-          </div>
+        {/* HubSpot Meetings Calendar Embed */}
+        <div className="mb-10">
+          <div
+            className="meetings-iframe-container"
+            data-src="https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true"
+          ></div>
+          <Script
+            src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"
+            strategy="afterInteractive"
+          />
         </div>
 
         {/* Trust indicators */}
