@@ -1,28 +1,19 @@
+import Image from "next/image";
 import Section from "../ui/Section";
 
 export default function AboutCoach() {
   return (
     <Section bg="white">
       <div className="flex flex-col md:flex-row gap-10 items-start">
-        {/* Photo placeholder */}
         <div className="flex-shrink-0">
-          <div className="w-48 h-48 md:w-56 md:h-56 bg-cream-dark rounded-[14px] border border-border flex items-center justify-center">
-            <div className="text-center">
-              <svg
-                className="mx-auto h-12 w-12 text-text-light mb-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1}
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"
-                />
-              </svg>
-              <p className="font-body text-xs text-text-light">Photo</p>
-            </div>
+          <div className="w-48 h-48 md:w-56 md:h-56 rounded-[14px] overflow-hidden">
+            <Image
+              src="/images/bradley-desk.jpg"
+              alt="Bradley de Wet at work"
+              width={224}
+              height={224}
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Button from "../ui/Button";
 
 export default function Hero() {
@@ -27,27 +28,16 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* Photo placeholder */}
           <div className="flex-shrink-0">
-            <div className="w-64 h-80 md:w-72 md:h-96 bg-cream-dark rounded-[18px] border border-border flex items-center justify-center">
-              <div className="text-center">
-                <svg
-                  className="mx-auto h-16 w-16 text-text-light mb-3"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0"
-                  />
-                </svg>
-                <p className="font-body text-xs text-text-light">
-                  Photo placeholder
-                </p>
-              </div>
+            <div className="w-64 h-80 md:w-72 md:h-96 rounded-[18px] overflow-hidden">
+              <Image
+                src="/images/bradley-headshot.jpg"
+                alt="Bradley de Wet — Revenue Operations Coach"
+                width={288}
+                height={384}
+                className="w-full h-full object-cover"
+                priority
+              />
             </div>
           </div>
         </div>
