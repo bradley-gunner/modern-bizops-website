@@ -17,6 +17,32 @@ const revenueOptions = [
 
 const teamSizeOptions = ["1–5", "6–15", "16–30", "30+"];
 
+const FREE_EMAIL_DOMAINS = [
+  "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com",
+  "icloud.com", "mail.com", "protonmail.com", "zoho.com", "yandex.com",
+  "live.com", "msn.com", "me.com", "mac.com", "comcast.net",
+  "verizon.net", "att.net", "sbcglobal.net", "cox.net", "charter.net",
+];
+
+function validateEmail(email) {
+  if (!email) return "Email is required";
+  const domain = email.split("@")[1]?.toLowerCase();
+  if (!domain) return "Please enter a valid email address";
+  if (FREE_EMAIL_DOMAINS.includes(domain)) {
+    return "Please enter your work email — we use it to prepare for your call";
+  }
+  return null;
+}
+
+function validatePhone(phone) {
+  if (!phone) return null; // optional field
+  const digits = phone.replace(/\D/g, "");
+  if (digits.length < 10 || digits.length > 15) {
+    return "Please enter a valid phone number";
+  }
+  return null;
+}
+
 function HubSpotCalendar({ email, firstName, lastName }) {
   const baseUrl =
     "https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true";
@@ -61,8 +87,13 @@ export default function BookPage() {
     phone: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: null });
+    }
   };
 
   const [submitting, setSubmitting] = useState(false);
@@ -74,6 +105,13 @@ export default function BookPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const emailError = validateEmail(form.email);
+    const phoneError = validatePhone(form.phone);
+    if (emailError || phoneError) {
+      setErrors({ email: emailError, phone: phoneError });
+      return;
+    }
     trackFormSubmit("book_call_qualifying", {
       revenue: form.revenue,
       team_size: form.teamSize,
@@ -294,8 +332,11 @@ export default function BookPage() {
                   onChange={handleChange}
                   required
                   placeholder="marcus@company.com"
-                  className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent"
+                  className={`w-full border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent ${errors.email ? "border-red-400" : "border-border"}`}
                 />
+                {errors.email && (
+                  <p className="font-body text-sm text-red-500 mt-1.5">{errors.email}</p>
+                )}
               </div>
 
               {/* Phone */}
@@ -313,8 +354,11 @@ export default function BookPage() {
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="+1 (555) 123-4567"
-                  className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent"
+                  className={`w-full border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent ${errors.phone ? "border-red-400" : "border-border"}`}
                 />
+                {errors.phone && (
+                  <p className="font-body text-sm text-red-500 mt-1.5">{errors.phone}</p>
+                )}
               </div>
 
               <div className="flex gap-4">
