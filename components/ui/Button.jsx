@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { trackCTAClick } from "@/lib/analytics";
 
 export default function Button({
   href,
@@ -6,6 +9,7 @@ export default function Button({
   variant = "primary",
   size = "default",
   className = "",
+  onClick,
   ...props
 }) {
   const base =
@@ -26,16 +30,25 @@ export default function Button({
 
   const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
 
+  const handleClick = (e) => {
+    if (href === "/book" || href === "/watch") {
+      const destination = href === "/book" ? "book_call" : "watch";
+      const label = typeof children === "string" ? children : destination;
+      trackCTAClick(destination, label);
+    }
+    if (onClick) onClick(e);
+  };
+
   if (href) {
     return (
-      <Link href={href} className={classes} {...props}>
+      <Link href={href} className={classes} onClick={handleClick} {...props}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button className={classes} {...props}>
+    <button className={classes} onClick={handleClick} {...props}>
       {children}
     </button>
   );

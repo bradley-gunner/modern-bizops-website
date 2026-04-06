@@ -68,7 +68,7 @@ export default function WatchPage() {
         <div className="mb-10">
           <div
             className="meetings-iframe-container"
-            data-src="https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true"
+            data-src="https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true&redirectUrl=https://modernbizops.com/thank-you?source=watch"
           ></div>
           <Script
             src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"

@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/ui/Section";
+import TrackConversion from "@/components/TrackConversion";
 
 export const metadata = {
   title: "You're Booked!",
@@ -11,6 +13,9 @@ export const metadata = {
 export default function ThankYouPage() {
   return (
     <>
+      <Suspense fallback={null}>
+        <TrackConversion />
+      </Suspense>
       <Header />
       <main>
         <Section bg="white">

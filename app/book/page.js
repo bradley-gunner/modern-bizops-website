@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Button from "@/components/ui/Button";
+import { trackFormSubmit } from "@/lib/analytics";
 
 const revenueOptions = [
   "Under $1M",
@@ -30,7 +31,7 @@ function HubSpotCalendar() {
   return (
     <div
       className="meetings-iframe-container"
-      data-src="https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true"
+      data-src="https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true&redirectUrl=https://modernbizops.com/thank-you?source=book"
     ></div>
   );
 }
@@ -52,6 +53,10 @@ export default function BookPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    trackFormSubmit("book_call_qualifying", {
+      revenue: form.revenue,
+      team_size: form.teamSize,
+    });
     // In production, this would submit to HubSpot Forms API
     setSubmitted(true);
   };
