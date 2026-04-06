@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Button from "@/components/ui/Button";
+import HubSpotMeetingRedirect from "@/components/HubSpotMeetingRedirect";
 import { trackFormSubmit } from "@/lib/analytics";
 
 const revenueOptions = [
@@ -16,7 +17,17 @@ const revenueOptions = [
 
 const teamSizeOptions = ["1–5", "6–15", "16–30", "30+"];
 
-function HubSpotCalendar() {
+function HubSpotCalendar({ email, firstName, lastName }) {
+  const baseUrl =
+    "https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true";
+  const params = new URLSearchParams();
+  if (email) params.set("email", email);
+  if (firstName) params.set("firstName", firstName);
+  if (lastName) params.set("lastName", lastName);
+  const dataSrc = params.toString()
+    ? `${baseUrl}&${params.toString()}`
+    : baseUrl;
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
@@ -31,14 +42,17 @@ function HubSpotCalendar() {
   return (
     <div
       className="meetings-iframe-container"
-      data-src="https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true&redirectUrl=https://modernbizops.com/thank-you?source=book"
+      data-src={dataSrc}
     ></div>
   );
 }
 
 export default function BookPage() {
-  const [submitted, setSubmitted] = useState(false);
+  const [step, setStep] = useState(1);
   const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
     revenue: "",
     teamSize: "",
     bottleneck: "",
@@ -51,15 +65,65 @@ export default function BookPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleStepOne = (e) => {
+    e.preventDefault();
+    setStep(2);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     trackFormSubmit("book_call_qualifying", {
       revenue: form.revenue,
       team_size: form.teamSize,
     });
-    // In production, this would submit to HubSpot Forms API
-    setSubmitted(true);
+
+    setSubmitting(true);
+
+    try {
+      const res = await fetch("/api/submit-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        console.error("Form submission failed:", await res.text());
+      }
+    } catch (err) {
+      // Graceful degradation — still show the calendar even if API call fails
+      console.error("Form submission error:", err);
+    }
+
+    setSubmitting(false);
+    setStep(3);
   };
+
+  const stepIndicator = (
+    <div className="flex items-center justify-center gap-3 mb-10">
+      <div className={`flex items-center gap-2 ${step >= 1 ? "text-navy" : "text-text-light"}`}>
+        <span className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-semibold font-body ${step >= 1 ? "bg-navy text-white" : "bg-cream-dark text-text-light"}`}>
+          1
+        </span>
+        <span className="font-body text-sm hidden sm:inline">Your Business</span>
+      </div>
+      <div className="w-8 h-px bg-border" />
+      <div className={`flex items-center gap-2 ${step >= 2 ? "text-navy" : "text-text-light"}`}>
+        <span className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-semibold font-body ${step >= 2 ? "bg-navy text-white" : "bg-cream-dark text-text-light"}`}>
+          2
+        </span>
+        <span className="font-body text-sm hidden sm:inline">Your Details</span>
+      </div>
+      <div className="w-8 h-px bg-border" />
+      <div className={`flex items-center gap-2 ${step >= 3 ? "text-navy" : "text-text-light"}`}>
+        <span className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-semibold font-body ${step >= 3 ? "bg-navy text-white" : "bg-cream-dark text-text-light"}`}>
+          3
+        </span>
+        <span className="font-body text-sm hidden sm:inline">Pick a Time</span>
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -69,12 +133,16 @@ export default function BookPage() {
           <h1 className="font-display text-[32px] md:text-[42px] font-semibold text-navy mb-4">
             Let&apos;s Talk About Your Revenue Engine
           </h1>
-          <p className="font-body text-text-mid text-lg mb-10">
-            Answer a few quick questions so I can prepare for our conversation.
+          <p className="font-body text-text-mid text-lg mb-8">
+            {step === 1 && "Answer a few quick questions so I can prepare for our conversation."}
+            {step === 2 && "Great — now tell me how to reach you."}
+            {step === 3 && "Last step — pick a time that works for you."}
           </p>
 
-          {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-8">
+          {stepIndicator}
+
+          {step === 1 && (
+            <form onSubmit={handleStepOne} className="space-y-8">
               {/* Revenue */}
               <div>
                 <label className="block font-body font-medium text-text-primary mb-2">
@@ -174,6 +242,62 @@ export default function BookPage() {
                 )}
               </div>
 
+              <Button type="submit" size="large" className="w-full">
+                Continue
+              </Button>
+            </form>
+          )}
+
+          {step === 2 && (
+            <form onSubmit={handleSubmit} className="space-y-8">
+              {/* Name */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block font-body font-medium text-text-primary mb-2">
+                    First name
+                  </label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={form.firstName}
+                    onChange={handleChange}
+                    required
+                    placeholder="Marcus"
+                    className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block font-body font-medium text-text-primary mb-2">
+                    Last name
+                  </label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={form.lastName}
+                    onChange={handleChange}
+                    required
+                    placeholder="Chen"
+                    className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="block font-body font-medium text-text-primary mb-2">
+                  Work email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="marcus@company.com"
+                  className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent"
+                />
+              </div>
+
               {/* Phone */}
               <div>
                 <label className="block font-body font-medium text-text-primary mb-1">
@@ -193,20 +317,35 @@ export default function BookPage() {
                 />
               </div>
 
-              <Button type="submit" size="large" className="w-full">
-                Continue to Calendar
-              </Button>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="inline-flex items-center justify-center font-body font-semibold transition-colors duration-200 rounded-full text-navy-mid hover:text-navy underline underline-offset-4 px-6 py-4 text-lg"
+                >
+                  Back
+                </button>
+                <Button type="submit" size="large" className="flex-1" disabled={submitting}>
+                  {submitting ? "Submitting..." : "Continue to Calendar"}
+                </Button>
+              </div>
             </form>
-          ) : (
-            /* Post-form: HubSpot Calendar embed */
+          )}
+
+          {step === 3 && (
             <div>
               <div className="bg-green-pale border border-green/20 rounded-[10px] p-4 mb-8">
                 <p className="font-body text-green font-medium">
-                  Thanks! Now pick a time that works for you.
+                  Thanks, {form.firstName}! Now pick a time that works for you.
                 </p>
               </div>
 
-              <HubSpotCalendar />
+              <HubSpotMeetingRedirect source="book" />
+              <HubSpotCalendar
+                email={form.email}
+                firstName={form.firstName}
+                lastName={form.lastName}
+              />
 
               <p className="font-body text-sm text-text-mid text-center mt-6">
                 What to expect: A 45-minute conversation about where your

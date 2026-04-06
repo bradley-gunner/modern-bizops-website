@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
+import HubSpotMeetingRedirect from "@/components/HubSpotMeetingRedirect";
 
 export const metadata = {
   title: "Watch How It Works",
@@ -65,10 +66,11 @@ export default function WatchPage() {
         </div>
 
         {/* HubSpot Meetings Calendar Embed */}
+        <HubSpotMeetingRedirect source="watch" />
         <div className="mb-10">
           <div
             className="meetings-iframe-container"
-            data-src="https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true&redirectUrl=https://modernbizops.com/thank-you?source=watch"
+            data-src="https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true"
           ></div>
           <Script
             src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"

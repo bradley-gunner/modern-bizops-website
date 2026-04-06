@@ -101,33 +101,6 @@ export default function ThankYouPage() {
             </ul>
           </div>
 
-          {/* Add to calendar */}
-          <div className="mb-10">
-            <h2 className="font-display text-2xl font-semibold text-navy mb-4">
-              Add to Your Calendar
-            </h2>
-            <div className="flex flex-wrap gap-3">
-              {[
-                { label: "Google Calendar", icon: "G" },
-                { label: "Outlook", icon: "O" },
-                { label: "Apple Calendar", icon: "A" },
-              ].map((cal) => (
-                <button
-                  key={cal.label}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border rounded-full font-body text-sm text-text-primary hover:border-navy-mid transition-colors"
-                >
-                  <span className="w-5 h-5 bg-cream-dark rounded-full flex items-center justify-center text-xs font-semibold text-navy">
-                    {cal.icon}
-                  </span>
-                  {cal.label}
-                </button>
-              ))}
-            </div>
-            <p className="font-body text-xs text-text-light mt-2">
-              Calendar links will be included in your confirmation email.
-            </p>
-          </div>
-
           {/* Social links */}
           <div className="border-t border-border pt-8">
             <h2 className="font-display text-2xl font-semibold text-navy mb-3">
