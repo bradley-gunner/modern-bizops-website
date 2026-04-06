@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -6,9 +7,14 @@ export default function Footer() {
       <div className="mx-auto max-w-[1200px] px-6 md:px-8">
         <div className="flex flex-col md:flex-row justify-between gap-8">
           <div>
-            <p className="font-display text-xl font-semibold mb-2">
-              Modern BizOps
-            </p>
+            <Image
+              src="/logos/horizontal-one-color-white.png"
+              alt="Modern BizOps"
+              width={560}
+              height={152}
+              className="h-14 md:h-[88px] w-auto"
+              className="mb-2"
+            />
             <p className="font-body text-text-light text-sm max-w-xs">
               The operating system for capital-efficient growth.
             </p>

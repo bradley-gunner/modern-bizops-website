@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Button from "./ui/Button";
 
 export default function Header() {
@@ -9,9 +10,16 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-border">
-      <div className="mx-auto max-w-[1200px] px-6 md:px-8 flex items-center justify-between h-16">
-        <Link href="/" className="font-display text-xl font-semibold text-navy">
-          Modern BizOps
+      <div className="mx-auto max-w-[1200px] px-6 md:px-8 flex items-center justify-between py-0">
+        <Link href="/" className="-ml-3">
+          <Image
+            src="/logos/horizontal-full-color-light.png"
+            alt="Modern BizOps"
+            width={560}
+            height={152}
+            className="h-18 md:h-24 w-auto"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}

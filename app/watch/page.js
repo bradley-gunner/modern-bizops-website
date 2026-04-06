@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Script from "next/script";
 
 export const metadata = {
@@ -15,11 +16,15 @@ export default function WatchPage() {
     <div className="min-h-screen bg-white">
       {/* Minimal header — logo only */}
       <div className="px-6 md:px-8 py-5">
-        <Link
-          href="/"
-          className="font-display text-xl font-semibold text-navy"
-        >
-          Modern BizOps
+        <Link href="/">
+          <Image
+            src="/logos/horizontal-full-color-light.png"
+            alt="Modern BizOps"
+            width={560}
+            height={152}
+            className="h-14 md:h-[88px] w-auto"
+            priority
+          />
         </Link>
       </div>
 

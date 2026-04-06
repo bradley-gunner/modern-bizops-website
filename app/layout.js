@@ -32,6 +32,14 @@ export const metadata = {
     title: "Modern BizOps — Revenue Growth Coaching for SMBs",
     description:
       "Grow your revenue without growing your headcount. Done-with-you coaching that builds the sales, marketing, and delivery systems that turn growth into profit.",
+    images: [
+      {
+        url: "/logos/og-image-dark.png",
+        width: 1200,
+        height: 630,
+        alt: "Modern BizOps — Revenue Growth Coaching for SMBs",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
