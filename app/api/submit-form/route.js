@@ -3,6 +3,19 @@ import { NextResponse } from "next/server";
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 const HUBSPOT_BASE = "https://api.hubapi.com";
 
+// RevOps Coaching pipeline
+const REVOPS_PIPELINE_ID = "2172760768";
+const DISCOVERY_CALL_BOOKED_STAGE = "3477396170";
+
+// Map revenue ranges to deal amounts (pricing tiers)
+const REVENUE_TO_DEAL_AMOUNT = {
+  "Under $1M": 8000,
+  "$1M–$3M": 8000,
+  "$3M–$5M": 8000,
+  "$5M–$15M": 15000,
+  "$15M+": 25000,
+};
+
 // Maps form field values to internal HubSpot enumeration values
 const REVENUE_OPTIONS = {
   "Under $1M": "under_1m",
@@ -210,6 +223,58 @@ async function upsertContact(formData) {
   return { id: created.id, action: "created" };
 }
 
+/**
+ * Create a deal in the RevOps Coaching pipeline at "Discovery Call Booked" stage.
+ * Associates the deal with the contact.
+ */
+async function createDeal(contactId, formData) {
+  const headers = {
+    Authorization: `Bearer ${HUBSPOT_API_KEY}`,
+    "Content-Type": "application/json",
+  };
+
+  const dealAmount = REVENUE_TO_DEAL_AMOUNT[formData.revenue] || 15000;
+  const contactName = [formData.firstName, formData.lastName]
+    .filter(Boolean)
+    .join(" ");
+
+  const dealRes = await fetch(`${HUBSPOT_BASE}/crm/v3/objects/deals`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      properties: {
+        dealname: `RevOps Coaching — ${contactName}`,
+        pipeline: REVOPS_PIPELINE_ID,
+        dealstage: DISCOVERY_CALL_BOOKED_STAGE,
+        amount: String(dealAmount),
+        dealtype: "newbusiness",
+        engagement_type: "DWY Coaching",
+        project_type: "RevOps Coaching",
+      },
+      associations: [
+        {
+          to: { id: contactId },
+          types: [
+            {
+              associationCategory: "HUBSPOT_DEFINED",
+              associationTypeId: 3, // deal-to-contact
+            },
+          ],
+        },
+      ],
+    }),
+  });
+
+  if (!dealRes.ok) {
+    const err = await dealRes.text();
+    console.error("Failed to create deal:", err);
+    return null;
+  }
+
+  const deal = await dealRes.json();
+  return { id: deal.id, amount: dealAmount };
+}
+
 export async function POST(request) {
   // Validate API key is configured
   if (!HUBSPOT_API_KEY) {
@@ -229,10 +294,14 @@ export async function POST(request) {
     // Create or update the contact
     const result = await upsertContact(formData);
 
+    // Create a deal in the RevOps Coaching pipeline
+    const deal = await createDeal(result.id, formData);
+
     return NextResponse.json({
       success: true,
       contactId: result.id,
       action: result.action,
+      dealId: deal?.id || null,
     });
   } catch (error) {
     console.error("HubSpot submit error:", error);
