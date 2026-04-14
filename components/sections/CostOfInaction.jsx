@@ -18,7 +18,7 @@ export default function CostOfInaction() {
         </p>
         <p>
           Meanwhile, headcount keeps creeping up, margins keep shrinking, and
-          your business becomes less valuable — not more.
+          your business becomes less valuable, not more.
         </p>
         <p>
           The cost of inaction isn&apos;t just lost revenue. It&apos;s the

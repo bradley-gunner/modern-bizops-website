@@ -29,7 +29,7 @@ function validateEmail(email) {
   const domain = email.split("@")[1]?.toLowerCase();
   if (!domain) return "Please enter a valid email address";
   if (FREE_EMAIL_DOMAINS.includes(domain)) {
-    return "Please enter your work email — we use it to prepare for your call";
+    return "Please enter your work email. We use it to prepare for your call.";
   }
   return null;
 }
@@ -173,8 +173,8 @@ export default function BookPage() {
           </h1>
           <p className="font-body text-text-mid text-lg mb-8">
             {step === 1 && "Answer a few quick questions so I can prepare for our conversation."}
-            {step === 2 && "Great — now tell me how to reach you."}
-            {step === 3 && "Last step — pick a time that works for you."}
+            {step === 2 && "Great. Now tell me how to reach you."}
+            {step === 3 && "Last step. Pick a time that works for you."}
           </p>
 
           {stepIndicator}
@@ -397,8 +397,8 @@ export default function BookPage() {
 
               <p className="font-body text-sm text-text-mid text-center mt-6">
                 What to expect: A 45-minute conversation about where your
-                business is now and where it could be. Come as you are — no prep
-                required.
+                business is now and where it could be. Come as you are. No
+                prep required.
               </p>
             </div>
           )}

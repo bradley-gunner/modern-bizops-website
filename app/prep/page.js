@@ -199,7 +199,7 @@ function PrepFormInner() {
       console.error(err);
       setError(
         err.message ||
-          "Something went wrong. Please try again, or just come to the call — Bradley will ask these questions live."
+          "Something went wrong. Please try again, or just come to the call. Bradley will ask these questions live."
       );
     } finally {
       setSubmitting(false);
@@ -219,7 +219,7 @@ function PrepFormInner() {
               </h1>
               <p className="font-body text-text-primary text-lg leading-relaxed">
                 Your responses are in. I&apos;ll review them before our call
-                so we can spend the 45 minutes on the real conversation — not
+                so we can spend the 45 minutes on the real conversation. Not
                 on catching up.
               </p>
             </div>
@@ -231,7 +231,7 @@ function PrepFormInner() {
                 </h2>
                 <p>
                   You&apos;ll get a reminder the day before our call. Nothing
-                  else to do on your end. Come as you are — no slides, no
+                  else to do on your end. Come as you are. No slides. No
                   reports.
                 </p>
               </div>
@@ -290,12 +290,12 @@ function PrepFormInner() {
           <p className="font-body text-text-mid text-lg mb-2">
             {form.firstName && <>Hi {form.firstName}. </>}
             Eleven questions, about five minutes. These help me walk into our
-            call with a real point of view on your business — so we spend the
+            call with a real point of view on your business. So we spend the
             time on the conversation, not on me catching up.
           </p>
           <p className="font-body text-text-mid text-base mb-10">
             Be as specific as you can. If a question doesn&apos;t apply, or
-            you don&apos;t know the answer, say so — &ldquo;I don&apos;t
+            you don&apos;t know the answer, say so. &ldquo;I don&apos;t
             know&rdquo; is useful information too.
           </p>
 
@@ -369,7 +369,7 @@ function PrepFormInner() {
             </div>
 
             <div>
-              <FieldLabel required hint="Not the most — the best.">
+              <FieldLabel required hint="Not the most. The best.">
                 Which of these produces your best-fit customers?
               </FieldLabel>
               <input
@@ -456,7 +456,7 @@ function PrepFormInner() {
             />
 
             <div>
-              <FieldLabel required hint="Pick the closest match — 'Other' is fine.">
+              <FieldLabel required hint="Pick the closest match. 'Other' is fine.">
                 What tools does your team use today?
               </FieldLabel>
               <div className="space-y-4 mt-3">
@@ -501,7 +501,7 @@ function PrepFormInner() {
             </div>
 
             <div>
-              <FieldLabel hint="Fractional leaders, agencies, contractors — anyone helping with sales, marketing, or ops.">
+              <FieldLabel hint="Fractional leaders, agencies, contractors. Anyone helping with sales, marketing, or ops.">
                 Are you currently working with any external help? If yes, what
                 are they doing for you?
               </FieldLabel>
@@ -529,7 +529,7 @@ function PrepFormInner() {
                 required
                 hint="The specific moment or signal. 'Missed our Q1 number.' 'Lost a key rep.' 'Investor asked about our pipeline.' Whatever the real story is."
               >
-                What actually triggered you to book this call — and why now,
+                What actually triggered you to book this call, and why now,
                 not six months ago?
               </FieldLabel>
               <textarea
@@ -630,7 +630,7 @@ function PrepFormInner() {
               </Button>
               <p className="font-body text-sm text-text-light text-center mt-4">
                 Your responses go directly to Bradley. No list, no automated
-                sequence — just prep for our conversation.
+                sequence. Just prep for our conversation.
               </p>
             </div>
           </form>

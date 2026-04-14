@@ -157,8 +157,8 @@ export default function PrivacyPage() {
               Information automatically collected
             </h3>
             <p>
-              Some information — such as your Internet Protocol (IP) address
-              and/or browser and device characteristics — is collected
+              Some information (such as your Internet Protocol (IP) address
+              and/or browser and device characteristics) is collected
               automatically when you visit our Services. This information does
               not reveal your specific identity but may include device and usage
               information, such as your IP address, browser and device

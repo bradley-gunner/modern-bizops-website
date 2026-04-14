@@ -23,14 +23,14 @@ export default function AboutCoach() {
           </h2>
           <div className="space-y-5 font-body text-text-primary text-base leading-relaxed">
             <p>
-              I&apos;ve spent 15+ years inside the machine — not advising from
+              I&apos;ve spent 15+ years inside the machine. Not advising from
               the outside, but in the seat, building the revenue operations that
               powered high-growth, VC-backed startups.
             </p>
             <p>
               I&apos;ve worked as an individual contributor in sales, marketing,
               and customer support. I know what it actually feels like to work
-              these jobs — and to have processes that either help you or make
+              these jobs, and to have processes that either help you or make
               your life harder.
             </p>
             <p>

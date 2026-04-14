@@ -10,13 +10,13 @@ export default function Problem() {
         <p>
           You built this business from the ground up. You&apos;ve got real
           revenue, a real team, and real clients. But somewhere along the way,
-          growth started requiring more people — and your margins started
+          growth started requiring more people, and your margins started
           shrinking.
         </p>
         <p>
           Your sales team is buried in manual work. Marketing generates leads but
           no one can prove which ones actually turn into revenue. Client
-          onboarding is inconsistent — some clients love you, others churn in 90
+          onboarding is inconsistent. Some clients love you, others churn in 90
           days. Your CRM is a mess that nobody trusts.
         </p>
         <p>

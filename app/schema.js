@@ -54,7 +54,7 @@ export function getFAQSchema() {
         name: "How is this different from a marketing agency or CRM consultant?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Agencies execute tactics. CRM consultants configure software. I build the operational system that connects your marketing, sales, and delivery into one revenue engine — and I coach your team to run it. When we're done, you don't need me anymore.",
+          text: "Agencies execute tactics. CRM consultants configure software. I build the operational system that connects your marketing, sales, and delivery into one revenue engine, and I coach your team to run it. When we're done, you don't need me anymore.",
         },
       },
       {
@@ -62,7 +62,7 @@ export function getFAQSchema() {
         name: "We're only a $3M company. Are we too small for this?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "If you have a sales team, a marketing function, and clients to serve, you have a revenue engine — even if it's held together with duct tape. The earlier you build the right systems, the faster you grow.",
+          text: "If you have a sales team, a marketing function, and clients to serve, you have a revenue engine, even if it's held together with duct tape. The earlier you build the right systems, the faster you grow.",
         },
       },
       {
@@ -70,7 +70,7 @@ export function getFAQSchema() {
         name: "What if my team resists the changes?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "That's exactly why this is done-with-you, not done-to-you. Your team is involved in every phase — mapping their own processes, defining their own metrics, choosing the AI tools they'll actually use. People don't resist change they helped create.",
+          text: "That's exactly why this is done-with-you, not done-to-you. Your team is involved in every phase: mapping their own processes, defining their own metrics, choosing the AI tools they'll actually use. People don't resist change they helped create.",
         },
       },
       {

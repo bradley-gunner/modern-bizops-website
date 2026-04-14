@@ -19,7 +19,7 @@ const jost = Jost({
 
 export const metadata = {
   title: {
-    default: "Modern BizOps — Revenue Growth Coaching for SMBs",
+    default: "Modern BizOps | Revenue Growth Coaching for SMBs",
     template: "%s | Modern BizOps",
   },
   description:
@@ -30,13 +30,13 @@ export const metadata = {
     locale: "en_US",
     url: "https://modernbizops.com",
     siteName: "Modern BizOps",
-    title: "Modern BizOps — Revenue Growth Coaching for SMBs",
+    title: "Modern BizOps | Revenue Growth Coaching for SMBs",
     description:
       "Grow your revenue without growing your headcount. Done-with-you coaching that builds the sales, marketing, and delivery systems that turn growth into profit.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Modern BizOps — Revenue Growth Coaching for SMBs",
+    title: "Modern BizOps | Revenue Growth Coaching for SMBs",
     description:
       "Grow your revenue without growing your headcount. Done-with-you coaching for $3M–$15M companies.",
   },

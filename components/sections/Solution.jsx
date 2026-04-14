@@ -20,9 +20,10 @@ export default function Solution() {
         <p className="font-semibold text-navy">Not anymore.</p>
         <p>
           I take everything I&apos;ve learned from building revenue operations
-          inside 15+ high-growth, VC-backed startups — where I personally cut
-          sales cycles in half, doubled conversion rates, and saved over $1M in
-          annual recurring revenue — and I bring it to companies like yours.
+          inside 15+ high-growth, VC-backed startups. I personally cut sales
+          cycles in half, doubled conversion rates, and saved over $1M in
+          annual recurring revenue. I bring that experience to companies like
+          yours.
         </p>
         <p>
           This isn&apos;t consulting where someone drops in, builds a binder,
@@ -38,8 +39,8 @@ export default function Solution() {
           <span className="font-semibold text-navy">
             Powered by proprietary diagnostic technology
           </span>{" "}
-          that connects to your existing tools — CRM, marketing platform,
-          support systems — and analyzes your real data to build a custom
+          that connects to your existing tools (CRM, marketing platform,
+          support systems) and analyzes your real data to build a custom
           roadmap. No guesswork. No generic playbooks.
         </p>
       </div>

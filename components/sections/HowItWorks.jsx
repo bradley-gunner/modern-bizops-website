@@ -5,7 +5,7 @@ const steps = [
     number: "1",
     title: "Diagnose",
     description:
-      "Book a discovery call. We'll connect our diagnostic app to your tools, analyze your data, and show you exactly where your revenue engine is leaking — with numbers, not opinions.",
+      "Book a discovery call. We'll connect our diagnostic app to your tools, analyze your data, and show you exactly where your revenue engine is leaking. With numbers, not opinions.",
   },
   {
     number: "2",

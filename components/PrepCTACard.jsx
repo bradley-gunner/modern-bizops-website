@@ -40,7 +40,7 @@ export default function PrepCTACard({ email = "", firstName = "" }) {
           trying to solve
         </li>
         <li>
-          • Not a sales qualifier — your responses go straight to my prep notes
+          • Not a sales qualifier. Your responses go straight to my prep notes
         </li>
       </ul>
       <div className="ml-11">

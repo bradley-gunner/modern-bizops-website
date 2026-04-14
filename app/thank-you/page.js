@@ -58,14 +58,14 @@ export default async function ThankYouPage({ searchParams }) {
               What to Expect
             </h2>
             <p className="font-body text-text-primary leading-relaxed">
-              This is a real conversation — not a sales pitch. We&apos;ll talk
+              This is a real conversation. Not a sales pitch. We&apos;ll talk
               about:
             </p>
             <ul className="mt-4 space-y-3">
               {[
                 "Where your revenue engine is right now",
                 "What's working and what isn't",
-                "Whether I can help — and if so, exactly how",
+                "Whether I can help, and if so, exactly how",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <svg

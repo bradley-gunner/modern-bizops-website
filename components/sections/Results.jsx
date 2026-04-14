@@ -15,12 +15,12 @@ const results = [
   {
     metric: "$1M in Churn Saved",
     description:
-      "Structured onboarding and client lifecycle playbooks reduced annual churn by 40% — protecting over $1M in recurring revenue.",
+      "Structured onboarding and client lifecycle playbooks reduced annual churn by 40%, protecting over $1M in recurring revenue.",
   },
   {
     metric: "Zero New Hires",
     description:
-      "Revenue grew 31% in one quarter with the same team. The difference wasn't people — it was systems.",
+      "Revenue grew 31% in one quarter with the same team. The difference wasn't people. It was systems.",
   },
 ];
 

@@ -12,7 +12,7 @@ export default function Hero() {
             </h1>
             <p className="font-body text-lg md:text-xl text-text-mid leading-relaxed mb-8">
               I help $3M–$15M companies build the sales, marketing, and delivery
-              systems that turn growth into profit — not just more payroll.
+              systems that turn growth into profit, not just more payroll.
             </p>
             <div className="flex flex-col sm:flex-row items-start gap-4 mb-8">
               <Button href="/book" size="large">
@@ -32,7 +32,7 @@ export default function Hero() {
             <div className="w-64 h-80 md:w-72 md:h-96 rounded-[18px] overflow-hidden">
               <Image
                 src="/images/bradley-headshot.jpg"
-                alt="Bradley de Wet — Revenue Operations Coach"
+                alt="Bradley de Wet, Revenue Operations Coach"
                 width={288}
                 height={384}
                 className="w-full h-full object-cover"
