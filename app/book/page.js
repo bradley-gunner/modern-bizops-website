@@ -384,7 +384,11 @@ export default function BookPage() {
                 </p>
               </div>
 
-              <HubSpotMeetingRedirect source="book" />
+              <HubSpotMeetingRedirect
+                source="book"
+                email={form.email}
+                firstName={form.firstName}
+              />
               <HubSpotCalendar
                 email={form.email}
                 firstName={form.firstName}

@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/ui/Section";
 import TrackConversion from "@/components/TrackConversion";
+import PrepCTACard from "@/components/PrepCTACard";
 
 export const metadata = {
   title: "You're Booked!",
@@ -43,6 +44,11 @@ export default function ThankYouPage() {
             </p>
           </div>
 
+          {/* Prep questionnaire CTA — primary next action */}
+          <Suspense fallback={null}>
+            <PrepCTACard />
+          </Suspense>
+
           {/* What to expect */}
           <div className="bg-cream rounded-[14px] p-6 md:p-8 mb-8">
             <h2 className="font-display text-2xl font-semibold text-navy mb-4">
@@ -72,29 +78,6 @@ export default function ThankYouPage() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  <span className="font-body text-text-primary">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Optional prep */}
-          <div className="mb-8">
-            <h2 className="font-display text-2xl font-semibold text-navy mb-4">
-              Want to Come Prepared?
-            </h2>
-            <p className="font-body text-text-mid mb-4">
-              Totally optional, but if you&apos;d like to make the most of our
-              time, think about:
-            </p>
-            <ul className="space-y-2">
-              {[
-                "Your current sales process (even if it's informal)",
-                "The tools your team uses day to day",
-                "What a win looks like for you in the next 90 days",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="text-amber font-bold mt-0.5">·</span>
                   <span className="font-body text-text-primary">{item}</span>
                 </li>
               ))}
