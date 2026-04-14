@@ -30,29 +30,21 @@ export default function WatchPage() {
       </div>
 
       <main className="mx-auto max-w-[900px] px-6 md:px-8 py-8 md:py-16">
-        {/* Video embed placeholder */}
-        <div className="aspect-video bg-navy rounded-[14px] flex items-center justify-center mb-10">
-          <div className="text-center text-white">
-            <svg
-              className="mx-auto h-20 w-20 mb-4 opacity-60"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
-              />
-            </svg>
-            <p className="font-body text-sm opacity-60">
-              Video Sales Letter placeholder
-            </p>
-            <p className="font-body text-xs opacity-40 mt-1">
-              Replace with YouTube/Vimeo embed
-            </p>
-          </div>
+        {/* VSSL \u2014 YouTube unlisted embed.
+            rel=0             : only show recommendations from this channel at end.
+            modestbranding=1  : minimize YouTube branding on the player chrome.
+            playsinline=1     : iOS plays inline instead of forcing fullscreen.
+            color=white       : progress bar matches cream/navy palette better than red. */}
+        <div className="aspect-video rounded-[14px] overflow-hidden mb-10 shadow-lg">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/4fVPWZ8MNEg?rel=0&modestbranding=1&playsinline=1&color=white"
+            title="How $3M-$15M Founders Grow Revenue Without Growing Headcount"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            className="w-full h-full border-0"
+          ></iframe>
         </div>
 
         {/* CTA copy */}
