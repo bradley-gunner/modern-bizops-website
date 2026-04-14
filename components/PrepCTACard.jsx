@@ -1,18 +1,11 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
 import Button from "@/components/ui/Button";
 
 /**
- * Prep questionnaire call-to-action card, shown on the thank-you page
- * immediately after a meeting is booked. The deep link passes through
- * email + firstName from the /book form so the /prep page can pre-fill.
+ * Prep questionnaire call-to-action card. Rendered server-side on the
+ * thank-you page. The parent passes email + firstName read from the
+ * page's searchParams so the /prep deep link pre-fills.
  */
-export default function PrepCTACard() {
-  const params = useSearchParams();
-  const email = params.get("email") || "";
-  const firstName = params.get("firstName") || "";
-
+export default function PrepCTACard({ email = "", firstName = "" }) {
   const prepParams = new URLSearchParams();
   if (email) prepParams.set("email", email);
   if (firstName) prepParams.set("firstName", firstName);

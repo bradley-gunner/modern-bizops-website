@@ -11,7 +11,12 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function ThankYouPage() {
+export default async function ThankYouPage({ searchParams }) {
+  const params = (await searchParams) || {};
+  const email = typeof params.email === "string" ? params.email : "";
+  const firstName =
+    typeof params.firstName === "string" ? params.firstName : "";
+
   return (
     <>
       <Suspense fallback={null}>
@@ -45,9 +50,7 @@ export default function ThankYouPage() {
           </div>
 
           {/* Prep questionnaire CTA — primary next action */}
-          <Suspense fallback={null}>
-            <PrepCTACard />
-          </Suspense>
+          <PrepCTACard email={email} firstName={firstName} />
 
           {/* What to expect */}
           <div className="bg-cream rounded-[14px] p-6 md:p-8 mb-8">
