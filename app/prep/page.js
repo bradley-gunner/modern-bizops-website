@@ -243,10 +243,10 @@ function PrepFormInner() {
                   The reschedule link is in your confirmation email. If you
                   can&apos;t find it, just email{" "}
                   <a
-                    href="mailto:bradley@modernbizops.com"
+                    href="mailto:bradley@bradleydewet.com"
                     className="text-amber hover:underline"
                   >
-                    bradley@modernbizops.com
+                    bradley@bradleydewet.com
                   </a>
                   .
                 </p>
