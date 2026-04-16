@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Section from "@/components/ui/Section";
 import TrackConversion from "@/components/TrackConversion";
 import PrepCTACard from "@/components/PrepCTACard";
+import WatchQualifyForm from "@/components/WatchQualifyForm";
 
 export const metadata = {
   title: "You're Booked!",
@@ -13,9 +14,12 @@ export const metadata = {
 
 export default async function ThankYouPage({ searchParams }) {
   const params = (await searchParams) || {};
+  const source = typeof params.source === "string" ? params.source : "";
   const email = typeof params.email === "string" ? params.email : "";
   const firstName =
     typeof params.firstName === "string" ? params.firstName : "";
+
+  const isWatch = source === "watch";
 
   return (
     <>
@@ -49,8 +53,15 @@ export default async function ThankYouPage({ searchParams }) {
             </p>
           </div>
 
-          {/* Prep questionnaire CTA — primary next action */}
-          <PrepCTACard email={email} firstName={firstName} />
+          {/*
+            /watch bookers: qualifying form first, prep CTA after submit.
+            /book bookers: already qualified, show prep CTA directly.
+          */}
+          {isWatch ? (
+            <WatchQualifyForm email={email} firstName={firstName} />
+          ) : (
+            <PrepCTACard email={email} firstName={firstName} />
+          )}
 
           {/* What to expect */}
           <div className="bg-cream rounded-[14px] p-6 md:p-8 mb-8">
