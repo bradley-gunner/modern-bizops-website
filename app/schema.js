@@ -75,6 +75,22 @@ export function getFAQSchema() {
       },
       {
         "@type": "Question",
+        name: "What kind of AI tools will we implement?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Depends on where your biggest time drains are. Common implementations include AI-powered lead scoring, automated follow-up sequences, chatbots for initial customer support, and automated reporting dashboards. We focus on tools that save your team measurable hours per week, not shiny objects.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "I've been burned by consultants before.",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Most consulting engagements fail because the consultant builds something in a silo that the team rejects, or because the engagement ends and nobody knows how to maintain what was built. My model solves both problems: your team builds it with my guidance, so they own it. And every recommendation comes from your actual data, not a generic template.",
+        },
+      },
+      {
+        "@type": "Question",
         name: "What's the investment?",
         acceptedAnswer: {
           "@type": "Answer",

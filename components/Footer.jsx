@@ -23,7 +23,7 @@ export default function Footer() {
           <div className="flex gap-12">
             <div>
               <p className="font-body font-semibold text-sm mb-3">Pages</p>
-              <nav className="flex flex-col gap-2">
+              <nav aria-label="Site pages" className="flex flex-col gap-2">
                 <Link
                   href="/"
                   className="font-body text-sm text-text-light hover:text-white transition-colors"
@@ -47,7 +47,7 @@ export default function Footer() {
 
             <div>
               <p className="font-body font-semibold text-sm mb-3">Connect</p>
-              <nav className="flex flex-col gap-2">
+              <nav aria-label="Social links" className="flex flex-col gap-2">
                 <a
                   href="https://linkedin.com/in/bradleydewet"
                   target="_blank"

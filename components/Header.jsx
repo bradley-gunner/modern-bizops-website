@@ -23,7 +23,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
           <Link
             href="/#how-it-works"
             className="font-body text-sm text-text-mid hover:text-navy transition-colors"
@@ -79,7 +79,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-border bg-cream px-6 py-4 space-y-4">
+        <nav aria-label="Mobile navigation" className="md:hidden border-t border-border bg-cream px-6 py-4 space-y-4">
           <Link
             href="/#how-it-works"
             className="block font-body text-text-mid hover:text-navy"
@@ -104,7 +104,7 @@ export default function Header() {
           <Button href="/book" size="small" className="w-full">
             Book a Discovery Call
           </Button>
-        </div>
+        </nav>
       )}
     </header>
   );

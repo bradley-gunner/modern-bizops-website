@@ -1,11 +1,13 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileCtaBar from "@/components/MobileCtaBar";
 import Hero from "@/components/sections/Hero";
 import Problem from "@/components/sections/Problem";
 import CostOfInaction from "@/components/sections/CostOfInaction";
 import Solution from "@/components/sections/Solution";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Results from "@/components/sections/Results";
+import ScorecardCTA from "@/components/sections/ScorecardCTA";
 import MidPageCTA from "@/components/sections/MidPageCTA";
 import AboutCoach from "@/components/sections/AboutCoach";
 import FAQ from "@/components/sections/FAQ";
@@ -31,12 +33,14 @@ export default function Home() {
         <Solution />
         <HowItWorks />
         <Results />
+        <ScorecardCTA />
         <MidPageCTA />
         <AboutCoach />
         <FAQ />
         <FinalCTA />
       </main>
       <Footer />
+      <MobileCtaBar />
     </>
   );
 }

@@ -16,7 +16,7 @@ export default function Button({
     "inline-flex items-center justify-center font-body font-semibold transition-colors duration-200 rounded-full";
 
   const variants = {
-    primary: "bg-amber text-white hover:bg-amber-light",
+    primary: "bg-amber text-white hover:bg-amber-hover",
     secondary:
       "bg-white text-navy border border-border hover:border-navy-mid",
     ghost: "text-navy-mid hover:text-navy underline underline-offset-4",

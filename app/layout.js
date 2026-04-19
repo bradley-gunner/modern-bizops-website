@@ -3,18 +3,22 @@ import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import { getOrganizationSchema, getServiceSchema, getPersonSchema, getFAQSchema } from "./schema";
 
+// next/font self-hosts both fonts, adds <link rel="preload"> automatically,
+// and applies font-display: swap — no manual preload tags needed.
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   display: "swap",
+  preload: true,
 });
 
 const jost = Jost({
   variable: "--font-jost",
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   display: "swap",
+  preload: true,
 });
 
 export const metadata = {

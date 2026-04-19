@@ -7,10 +7,10 @@ export default function Hero() {
       <div className="mx-auto max-w-[1200px] px-6 md:px-8">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1 max-w-[620px]">
-            <h1 className="font-display text-[40px] md:text-[62px] font-semibold leading-[1.1] text-navy mb-6">
+            <h1 className="font-display text-[36px] md:text-[40px] lg:text-[62px] font-semibold leading-[1.1] text-navy mb-6">
               Grow Your Revenue Without Growing Your Headcount
             </h1>
-            <p className="font-body text-lg md:text-xl text-text-mid leading-relaxed mb-8">
+            <p className="font-body text-[15px] md:text-base lg:text-lg text-text-mid leading-relaxed mb-8">
               I help $3M–$15M companies build the sales, marketing, and delivery
               systems that turn growth into profit, not just more payroll.
             </p>
@@ -32,7 +32,7 @@ export default function Hero() {
             <div className="w-64 h-80 md:w-72 md:h-96 rounded-[18px] overflow-hidden">
               <Image
                 src="/images/bradley-headshot.jpg"
-                alt="Bradley de Wet, Revenue Operations Coach"
+                alt="Bradley de Wet, founder of Modern BizOps"
                 width={288}
                 height={384}
                 className="w-full h-full object-cover"

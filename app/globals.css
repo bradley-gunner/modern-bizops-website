@@ -6,7 +6,8 @@
   --color-navy-mid: #1C3A5C;
   --color-navy-light: #244E88;
 
-  --color-amber: #C85D0A;
+  --color-amber: #B5520A;
+  --color-amber-hover: #9E4508;
   --color-amber-light: #E8873A;
   --color-amber-pale: #FEF3E8;
 
@@ -43,6 +44,13 @@ body {
   background-color: var(--color-cream);
   color: var(--color-text-primary);
   font-family: var(--font-body), 'Segoe UI', sans-serif;
+  font-size: 15px;
+}
+
+@media (min-width: 1024px) {
+  body {
+    font-size: 16px;
+  }
 }
 
 /* Smooth scrolling */
@@ -52,7 +60,7 @@ html {
 
 /* Focus styles for keyboard navigation */
 :focus-visible {
-  outline: 2px solid #C85D0A;
+  outline: 2px solid var(--color-amber);
   outline-offset: 2px;
 }
 
