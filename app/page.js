@@ -6,6 +6,7 @@ import CostOfInaction from "@/components/sections/CostOfInaction";
 import Solution from "@/components/sections/Solution";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Results from "@/components/sections/Results";
+import MidPageCTA from "@/components/sections/MidPageCTA";
 import AboutCoach from "@/components/sections/AboutCoach";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
@@ -23,13 +24,14 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <Hero />
         <Problem />
         <CostOfInaction />
         <Solution />
         <HowItWorks />
         <Results />
+        <MidPageCTA />
         <AboutCoach />
         <FAQ />
         <FinalCTA />

@@ -17,7 +17,7 @@
 
   --color-text-primary: #1A1A2A;
   --color-text-mid: #4A5568;
-  --color-text-light: #8A9AB0;
+  --color-text-light: #6B7A8E;
 
   /* Secondary Colors */
   --color-green: #1A5E3A;
@@ -48,6 +48,12 @@ body {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Focus styles for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #C85D0A;
+  outline-offset: 2px;
 }
 
 /* Typography defaults */

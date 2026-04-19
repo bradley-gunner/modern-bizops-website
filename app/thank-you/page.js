@@ -27,7 +27,7 @@ export default async function ThankYouPage({ searchParams }) {
         <TrackConversion />
       </Suspense>
       <Header />
-      <main>
+      <main id="main-content">
         <Section bg="white">
           <div className="text-center mb-12">
             <div className="w-16 h-16 bg-green-pale rounded-full flex items-center justify-center mx-auto mb-6">

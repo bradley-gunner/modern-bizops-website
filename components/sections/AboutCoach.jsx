@@ -3,7 +3,7 @@ import Section from "../ui/Section";
 
 export default function AboutCoach() {
   return (
-    <Section bg="white">
+    <Section bg="cream">
       <div className="flex flex-col md:flex-row gap-10 items-start">
         <div className="flex-shrink-0">
           <div className="w-48 h-48 md:w-56 md:h-56 rounded-[14px] overflow-hidden">

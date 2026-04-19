@@ -26,7 +26,7 @@ const results = [
 
 export default function Results() {
   return (
-    <Section bg="cream" id="results" narrow={false}>
+    <Section bg="white" id="results" narrow={false}>
       <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-12 text-center">
         What Changes Look Like
       </h2>

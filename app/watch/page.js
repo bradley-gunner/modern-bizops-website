@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 import HubSpotMeetingRedirect from "@/components/HubSpotMeetingRedirect";
+import VSSLPlayer from "@/components/VSSLPlayer";
 
 export const metadata = {
   title: "Watch How It Works",
@@ -10,6 +11,7 @@ export const metadata = {
   alternates: {
     canonical: "https://modernbizops.com/watch",
   },
+  robots: { index: false, follow: false },
 };
 
 export default function WatchPage() {
@@ -29,23 +31,8 @@ export default function WatchPage() {
         </Link>
       </div>
 
-      <main className="mx-auto max-w-[900px] px-6 md:px-8 py-8 md:py-16">
-        {/* VSSL \u2014 YouTube unlisted embed.
-            rel=0             : only show recommendations from this channel at end.
-            modestbranding=1  : minimize YouTube branding on the player chrome.
-            playsinline=1     : iOS plays inline instead of forcing fullscreen.
-            color=white       : progress bar matches cream/navy palette better than red. */}
-        <div className="aspect-video rounded-[14px] overflow-hidden mb-10 shadow-lg">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/4fVPWZ8MNEg?rel=0&modestbranding=1&playsinline=1&color=white"
-            title="How $3M-$15M Founders Grow Revenue Without Growing Headcount"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-            className="w-full h-full border-0"
-          ></iframe>
-        </div>
+      <main id="main-content" className="mx-auto max-w-[900px] px-6 md:px-8 py-8 md:py-16">
+        <VSSLPlayer />
 
         {/* CTA copy */}
         <div className="text-center mb-10">
