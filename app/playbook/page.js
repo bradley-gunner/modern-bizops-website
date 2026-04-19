@@ -3,9 +3,9 @@ import Image from "next/image";
 import PlaybookForm from "./PlaybookForm";
 
 export const metadata = {
-  title: "Headcount Optimizer Playbook",
+  title: "The Revenue Without Headcount Playbook",
   description:
-    "A practical framework for right-sizing your revenue team. Know who to hire, when to hire them, and how to structure for growth without over-hiring.",
+    "7 operational frameworks to grow revenue without adding headcount. Used by $3M-$15M founders to fix broken go-to-market systems.",
   alternates: {
     canonical: "https://modernbizops.com/playbook",
   },
@@ -13,20 +13,32 @@ export const metadata = {
 
 const WHAT_YOU_GET = [
   {
-    title: "The right sequence",
-    body: "Which roles to hire in what order based on your revenue stage, not headcount intuition.",
+    title: "The GTM Flywheel Audit",
+    body: "Map your entire revenue engine and pinpoint the friction slowing growth before you spend another dollar on headcount.",
   },
   {
-    title: "Capacity math",
-    body: "How to calculate when a role earns back its cost and how long until it pays off.",
+    title: "The Sales-Marketing SLA",
+    body: "Fix the handoff between sales and marketing. Define shared accountability and stop letting qualified leads fall through the cracks.",
   },
   {
-    title: "Org design patterns",
-    body: "The three structures that work at $3M, $8M, and $15M and why each breaks at the next threshold.",
+    title: "The Inspectable Sales Process",
+    body: "Pipeline stages with clear exit criteria so revenue becomes forecastable. Includes a real example: sales cycle cut from 47 to 26 days.",
   },
   {
-    title: "Common hiring mistakes",
-    body: "The five over-hiring traps founders fall into and how to avoid them before they stall growth.",
+    title: "Tech Stack and Data Governance",
+    body: "Audit your tools, eliminate overlap, and ensure your data is clean enough to make good decisions.",
+  },
+  {
+    title: "The Client Lifecycle Playbook",
+    body: "Structured onboarding, retention, and expansion frameworks. Includes a case study: churn reduced from 22% to 11%.",
+  },
+  {
+    title: "Resource Utilization and Capacity",
+    body: "Measure AE productivity and understand exactly when your team is at capacity. Know when to hire based on data, not gut feel.",
+  },
+  {
+    title: "The Capital-Efficient Growth Scorecard",
+    body: "A 15-question self-assessment across all 7 dimensions. See where you stand and where to focus. Includes a case study: pipeline value up 22% in 60 days.",
   },
 ];
 
@@ -48,7 +60,7 @@ export default function PlaybookPage() {
       </div>
 
       <main>
-        {/* ── HERO ─────────────────────────────────────────────────────────── */}
+        {/* HERO */}
         <section className="mx-auto max-w-[1100px] px-6 md:px-8 pt-10 pb-16 md:pt-16 md:pb-24">
           <div className="grid md:grid-cols-[1fr_400px] gap-12 md:gap-16 items-start">
             {/* Left: copy */}
@@ -58,13 +70,13 @@ export default function PlaybookPage() {
               </p>
 
               <h1 className="font-display text-[36px] md:text-[52px] leading-tight font-semibold text-navy mb-6">
-                The Headcount Optimizer Playbook
+                The Revenue Without Headcount Playbook
               </h1>
 
               <p className="font-body text-lg md:text-xl text-text-mid mb-8 leading-relaxed">
-                A practical framework for right-sizing your revenue team. Know
-                who to hire, when, and how to structure for growth without
-                over-hiring.
+                7 operational frameworks to grow revenue without adding
+                headcount. Used by $3M-$15M founders to fix broken
+                go-to-market systems.
               </p>
 
               {/* Trust signals */}
@@ -101,6 +113,27 @@ export default function PlaybookPage() {
                   </div>
                 ))}
               </div>
+
+              {/* What the PDF delivers */}
+              <div className="mt-10 bg-navy/5 border border-navy/10 rounded-[10px] p-6">
+                <h3 className="font-display text-navy text-[18px] font-semibold mb-4">
+                  Also included in the PDF
+                </h3>
+                <ul className="space-y-2">
+                  {[
+                    "A 15-question self-assessment with scoring across all 7 dimensions",
+                    "7 detailed case studies with real metrics",
+                    "A framework diagram showing how the 7 systems connect",
+                    "Diagnostic checklists for each chapter",
+                    "A curated resources section",
+                  ].map((item) => (
+                    <li key={item} className="flex gap-3 items-start">
+                      <span className="text-amber font-bold mt-0.5">&#10003;</span>
+                      <span className="font-body text-sm text-text-mid">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             {/* Right: form */}
@@ -110,17 +143,17 @@ export default function PlaybookPage() {
           </div>
         </section>
 
-        {/* ── PAIN SECTION ─────────────────────────────────────────────────── */}
+        {/* PAIN SECTION */}
         <section className="bg-navy">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-14 md:py-20 text-center">
             <h2 className="font-display text-[26px] md:text-[36px] font-semibold text-cream mb-5">
-              Most founders over-hire before they are ready
+              More revenue does not require more people
             </h2>
             <p className="font-body text-base md:text-lg text-cream/80 leading-relaxed">
-              A VP of Sales at $4M in revenue. A full marketing team before
-              the product is proven. Headcount that costs $600K a year before
-              the revenue is there to carry it. This playbook shows you how to
-              build a revenue team that earns its keep at every stage.
+              Most $3M-$15M founders are sitting on a broken go-to-market
+              system. Leaky pipelines, misaligned teams, tools that do not
+              talk to each other. Fixing those systems compounds faster than
+              adding headcount. This playbook shows you exactly how.
             </p>
           </div>
         </section>
