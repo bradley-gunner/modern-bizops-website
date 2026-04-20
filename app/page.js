@@ -2,7 +2,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCtaBar from "@/components/MobileCtaBar";
 import Hero from "@/components/sections/Hero";
+import TrustBar from "@/components/sections/TrustBar";
 import Problem from "@/components/sections/Problem";
+import PullQuote from "@/components/sections/PullQuote";
 import CostOfInaction from "@/components/sections/CostOfInaction";
 import Solution from "@/components/sections/Solution";
 import HowItWorks from "@/components/sections/HowItWorks";
@@ -28,7 +30,9 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
+        <TrustBar />
         <Problem />
+        <PullQuote />
         <CostOfInaction />
         <Solution />
         <HowItWorks />
