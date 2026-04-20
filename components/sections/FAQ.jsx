@@ -28,11 +28,6 @@ const faqItems = [
     answer:
       "I hear this a lot. Most consulting engagements fail because the consultant builds something in a silo that the team rejects, or because the engagement ends and nobody knows how to maintain what was built. My model solves both problems: your team builds it with my guidance, so they own it. And every recommendation comes from your actual data, not a generic template.",
   },
-  {
-    question: "What's the investment?",
-    answer:
-      "It depends on your company's size and complexity. Engagements range from $8,000 for early-stage companies to $25,000+ for mature organizations. Book a discovery call and we'll scope it to your situation.",
-  },
 ];
 
 export default function FAQ() {

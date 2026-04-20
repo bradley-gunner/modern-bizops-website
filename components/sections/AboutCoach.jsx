@@ -1,6 +1,12 @@
 import Image from "next/image";
 import Section from "../ui/Section";
 
+const credentialStats = [
+  "15 Years in RevOps",
+  "25 Businesses Served",
+  "HubSpot Certified Partner",
+];
+
 export default function AboutCoach() {
   return (
     <Section bg="cream">
@@ -21,30 +27,34 @@ export default function AboutCoach() {
           <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-6">
             Meet Bradley
           </h2>
+
           <div className="space-y-5 font-body text-text-primary text-base leading-relaxed">
             <p>
-              I&apos;ve spent 15+ years inside the machine. Not advising from
-              the outside, but in the seat, building the revenue operations that
-              powered high-growth, VC-backed startups.
+              15 years in revenue operations, across 25 companies ranging from
+              seed-stage startups to established mid-market businesses. I have
+              built and scaled sales, marketing, and customer success teams from
+              scratch, and worked in the seat in all three functions, not just as
+              an outside advisor.
             </p>
             <p>
-              I&apos;ve worked as an individual contributor in sales, marketing,
-              and customer support. I know what it actually feels like to work
-              these jobs, and to have processes that either help you or make
-              your life harder.
+              I kept seeing the same thing: good companies with talented people,
+              stalling out because their operations could not keep up with their
+              ambition. Sales and marketing misaligned. Customer data siloed.
+              Leaders making decisions on gut instead of numbers. I built a
+              methodology and a custom diagnostic platform to fix these problems
+              systematically, so the solutions stick and the results are
+              measurable.
             </p>
-            <p>
-              I&apos;ve seen firsthand how the right operational architecture
-              turns a chaotic $5M company into a scalable $15M company without
-              doubling the team. And I&apos;ve seen what happens when companies
-              try to grow without it.
-            </p>
-            <p>
-              I built Modern BizOps to bring startup-grade revenue operations to
-              small and mid-size businesses. Because the playbooks that work
-              shouldn&apos;t be locked behind a $200K executive hire or a
-              six-figure agency retainer.
-            </p>
+          </div>
+
+          {/* Credential stats */}
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+            {credentialStats.map((stat, i) => (
+              <span key={stat} className="flex items-center gap-2 font-body text-sm text-text-mid">
+                {i > 0 && <span className="text-border hidden sm:inline" aria-hidden="true">|</span>}
+                <span className="font-semibold text-navy">{stat}</span>
+              </span>
+            ))}
           </div>
 
           {/* Brendan Troy quote */}
