@@ -62,7 +62,14 @@ export default function AboutCoach() {
             <p className="font-display text-lg md:text-xl italic text-navy leading-snug mb-2">
               &ldquo;Bradley checks all the boxes. His greatest strengths fall outside the standard roles and responsibilities.&rdquo;
             </p>
-            <footer className="font-body text-sm text-text-mid font-medium">
+            <footer className="flex items-center gap-3 font-body text-sm text-text-mid font-medium">
+              <Image
+                src="/images/brendan-troy.jpeg"
+                alt="Brendan Troy"
+                width={48}
+                height={48}
+                className="w-12 h-12 rounded-full object-cover border-2 border-border shrink-0"
+              />
               Brendan Troy, GTM Operator, 2 Successful Exits
             </footer>
           </blockquote>
