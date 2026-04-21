@@ -1,27 +1,9 @@
-import Image from "next/image";
 import Section from "../ui/Section";
-
-function BrowserFrame({ src, alt }) {
-  return (
-    <div className="mt-5 rounded-xl overflow-hidden border border-border shadow-md">
-      <div className="bg-navy px-3 py-2 flex items-center gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full bg-white/20" aria-hidden="true" />
-        <span className="w-2.5 h-2.5 rounded-full bg-white/20" aria-hidden="true" />
-        <span className="w-2.5 h-2.5 rounded-full bg-white/20" aria-hidden="true" />
-        <div className="flex-1 mx-2 bg-white/10 rounded h-4 flex items-center px-2">
-          <span className="text-[9px] text-white/40 font-mono">app.modernbizops.com</span>
-        </div>
-      </div>
-      <Image src={src} alt={alt} width={600} height={400} className="w-full block" />
-    </div>
-  );
-}
 
 const steps = [
   {
     title: "Connect",
-    description: "You connect your existing tools — CRM, marketing platform, accounting software — so the diagnostic can work with your real data, not a survey.",
-    screenshot: { src: "/images/app/integration-connect.png", alt: "Integration connection screen showing HubSpot, Salesforce, QuickBooks and other tools" },
+    description: "You connect your existing tools (CRM, marketing platform, accounting software)",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -31,8 +13,8 @@ const steps = [
   },
   {
     title: "Diagnose",
-    description: "The platform analyzes your data across 7 revenue health dimensions and produces a scored baseline. This is your before picture.",
-    screenshot: { src: "/images/app/radar-scorecard.png", alt: "Radar scorecard showing Revenue Operations score across 7 dimensions" },
+    description: "My custom-built diagnostic app analyzes your real data across 7 dimensions",
+    differentiator: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <circle cx="11" cy="11" r="8" />
@@ -42,7 +24,7 @@ const steps = [
   },
   {
     title: "Discover",
-    description: "We run structured interviews with your team to understand the human side — where the friction is, what's working, and what nobody wants to say in a meeting.",
+    description: "We do in-depth interviews with your team to understand the human side",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -51,7 +33,7 @@ const steps = [
   },
   {
     title: "Plan",
-    description: "I deliver a prioritized roadmap built around what your diagnostic found. Every recommendation is specific to your data — no generic playbooks.",
+    description: "I deliver a custom roadmap to fix the specific problems we found",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
@@ -63,8 +45,7 @@ const steps = [
   },
   {
     title: "Coach",
-    description: "Weekly coaching calls work through each phase with your team. You build the skills in-house. I track KPIs in real time so we always know what's moving.",
-    screenshot: { src: "/images/app/kpi-dashboard.png", alt: "KPI dashboard showing live metrics including sales cycle, close rate, and churn" },
+    description: "I coach you and your team to implement the solutions on weekly calls",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <polygon points="23 7 16 12 23 17 23 7" />
@@ -74,8 +55,7 @@ const steps = [
   },
   {
     title: "Measure",
-    description: "When we close out, you get a before-and-after scorecard that shows exactly what changed and by how much. Proof you can take to the board.",
-    screenshot: { src: "/images/app/scorecard-comparison.png", alt: "Scorecard comparison showing baseline vs current score with a +22 point gain" },
+    description: "We track KPIs until you achieve the results you're looking for",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <line x1="18" y1="20" x2="18" y2="10" />
@@ -94,42 +74,92 @@ export default function HowItWorks() {
         How It Works
       </h2>
 
-      <div className="grid lg:grid-cols-2 gap-5">
-        {steps.map((step, i) => {
-          const rowIndex = Math.floor(i / 2);
-          const bg = rowIndex % 2 === 0
-            ? "bg-white border border-border"
-            : "bg-cream border border-border/60";
-          return (
-            <div
-              key={step.title}
-              className={`${bg} rounded-[18px] p-7 md:p-8 flex flex-col`}
-            >
-              {/* Step number + icon row */}
-              <div className="flex items-start justify-between mb-2">
-                <span className="font-display text-[64px] leading-none font-semibold text-amber select-none">
+      {/* ── DESKTOP: 6-column horizontal flow ── */}
+      <div className="hidden lg:block relative">
+        {/* Horizontal connector line spanning circle centers */}
+        <div
+          className="absolute top-7 h-px bg-border"
+          style={{ left: "calc(100% / 12)", right: "calc(100% / 12)" }}
+        />
+
+        <div className="grid grid-cols-6 gap-4">
+          {steps.map((step, i) => (
+            <div key={step.title} className="flex flex-col items-center text-center gap-3">
+              {/* Amber number circle — sits on the connector line */}
+              <div className="relative z-10 w-14 h-14 rounded-full bg-amber flex items-center justify-center shrink-0 shadow-sm">
+                <span className="font-display text-xl font-semibold text-white leading-none">
                   {i + 1}
                 </span>
-                <div className="text-navy mt-3">{step.icon}</div>
               </div>
 
+              {/* Icon */}
+              <div className="text-navy mt-1">{step.icon}</div>
+
               {/* Title */}
-              <h3 className="font-display text-[22px] md:text-[26px] font-semibold text-navy mb-3">
+              <h3 className="font-display text-lg font-semibold text-navy leading-tight">
                 {step.title}
               </h3>
 
               {/* Description */}
-              <p className="font-body text-base text-text-mid leading-relaxed">
-                {step.description}
-              </p>
-
-              {/* App screenshot */}
-              {step.screenshot && (
-                <BrowserFrame src={step.screenshot.src} alt={step.screenshot.alt} />
+              {step.differentiator ? (
+                <p className="font-body text-sm text-text-mid leading-relaxed">
+                  My{" "}
+                  <span className="font-semibold text-amber">
+                    custom-built diagnostic app
+                  </span>{" "}
+                  analyzes your real data across 7 dimensions
+                </p>
+              ) : (
+                <p className="font-body text-sm text-text-mid leading-relaxed">
+                  {step.description}
+                </p>
               )}
             </div>
-          );
-        })}
+          ))}
+        </div>
+      </div>
+
+      {/* ── MOBILE: vertical stack with connector line ── */}
+      <div className="lg:hidden flex flex-col">
+        {steps.map((step, i) => (
+          <div key={step.title} className="relative flex gap-5">
+            {/* Left column: circle + vertical line */}
+            <div className="flex flex-col items-center shrink-0">
+              <div className="w-14 h-14 rounded-full bg-amber flex items-center justify-center shrink-0 shadow-sm z-10">
+                <span className="font-display text-xl font-semibold text-white leading-none">
+                  {i + 1}
+                </span>
+              </div>
+              {i < steps.length - 1 && (
+                <div className="w-px flex-1 bg-border my-1" />
+              )}
+            </div>
+
+            {/* Right column: icon + title + description */}
+            <div className={`pb-8 ${i === steps.length - 1 ? "pb-0" : ""}`}>
+              <div className="flex items-center gap-2 mb-1">
+                <div className="text-navy">{step.icon}</div>
+                <h3 className="font-display text-lg font-semibold text-navy">
+                  {step.title}
+                </h3>
+              </div>
+
+              {step.differentiator ? (
+                <p className="font-body text-sm text-text-mid leading-relaxed">
+                  My{" "}
+                  <span className="font-semibold text-amber">
+                    custom-built diagnostic app
+                  </span>{" "}
+                  analyzes your real data across 7 dimensions
+                </p>
+              ) : (
+                <p className="font-body text-sm text-text-mid leading-relaxed">
+                  {step.description}
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </Section>
   );

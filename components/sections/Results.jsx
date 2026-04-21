@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Section from "../ui/Section";
 import Card from "../ui/Card";
 
@@ -50,30 +49,6 @@ export default function Results() {
             </p>
           </Card>
         ))}
-      </div>
-
-      {/* Scorecard comparison visual */}
-      <div className="mt-12 max-w-[900px] mx-auto">
-        <p className="font-body text-sm text-text-mid text-center mb-4 font-medium">
-          Before and after — the platform tracks every dimension in real time
-        </p>
-        <div className="rounded-xl overflow-hidden border border-border shadow-md">
-          <div className="bg-navy px-3 py-2 flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-white/20" aria-hidden="true" />
-            <span className="w-2.5 h-2.5 rounded-full bg-white/20" aria-hidden="true" />
-            <span className="w-2.5 h-2.5 rounded-full bg-white/20" aria-hidden="true" />
-            <div className="flex-1 mx-2 bg-white/10 rounded h-4 flex items-center px-2">
-              <span className="text-[9px] text-white/40 font-mono">app.modernbizops.com</span>
-            </div>
-          </div>
-          <Image
-            src="/images/app/scorecard-comparison.png"
-            alt="Scorecard comparison showing baseline score of 57 vs current score of 79, a 22-point gain"
-            width={900}
-            height={600}
-            className="w-full block"
-          />
-        </div>
       </div>
     </Section>
   );

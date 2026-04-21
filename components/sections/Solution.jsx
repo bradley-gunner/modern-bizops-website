@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Section from "../ui/Section";
 
 export default function Solution() {
@@ -48,25 +47,6 @@ export default function Solution() {
         <p className="font-medium text-navy">
           By the time we&apos;re done, you have a before-and-after scorecard that proves exactly what changed.
         </p>
-
-        {/* Radar chart preview */}
-        <div className="mt-6 rounded-xl overflow-hidden border border-border shadow-md">
-          <div className="bg-navy px-3 py-2 flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-white/20" aria-hidden="true" />
-            <span className="w-2.5 h-2.5 rounded-full bg-white/20" aria-hidden="true" />
-            <span className="w-2.5 h-2.5 rounded-full bg-white/20" aria-hidden="true" />
-            <div className="flex-1 mx-2 bg-white/10 rounded h-4 flex items-center px-2">
-              <span className="text-[9px] text-white/40 font-mono">app.modernbizops.com</span>
-            </div>
-          </div>
-          <Image
-            src="/images/app/radar-scorecard.png"
-            alt="Revenue Operations scorecard showing a baseline score of 57 across 7 dimensions"
-            width={900}
-            height={600}
-            className="w-full block"
-          />
-        </div>
       </div>
     </Section>
   );
