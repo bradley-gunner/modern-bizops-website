@@ -64,8 +64,11 @@ html {
   outline-offset: 2px;
 }
 
-/* Typography defaults */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display), Georgia, serif;
-  color: var(--color-navy);
+/* Typography defaults — in @layer base so Tailwind utility classes (e.g.
+   text-white on dark backgrounds) can override the heading color. */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), Georgia, serif;
+    color: var(--color-navy);
+  }
 }
