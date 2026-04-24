@@ -31,6 +31,12 @@ export default function Footer() {
                   Home
                 </Link>
                 <Link
+                  href="/about"
+                  className="font-body text-sm text-text-light hover:text-white transition-colors"
+                >
+                  About
+                </Link>
+                <Link
                   href="/watch"
                   className="font-body text-sm text-text-light hover:text-white transition-colors"
                 >
