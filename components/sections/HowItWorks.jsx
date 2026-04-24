@@ -70,9 +70,25 @@ const steps = [
 export default function HowItWorks() {
   return (
     <Section bg="cream" id="how-it-works" narrow={false}>
-      <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-12 text-center">
+      <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-6 text-center">
         How It Works
       </h2>
+
+      {/* Diagnostic platform framing */}
+      <div className="max-w-[720px] mx-auto mb-12 space-y-4 font-body text-text-primary text-base leading-relaxed">
+        <p className="font-semibold text-navy text-lg">
+          Most consultants hand you a binder and wish you luck. I built something different.
+        </p>
+        <p>
+          You get access to a custom platform that connects to the tools your team already uses and analyzes your real data. If that data is messy (and for most businesses at your stage, it is), the diagnostic does not give you bad readings. It shows you where your data has gaps and makes fixing that part of the work, not a prerequisite.
+        </p>
+        <p>
+          The platform guides the entire engagement: your baseline score, your custom roadmap, your KPIs tracked in real time. As we work through each phase on weekly coaching calls, you watch your numbers move in a live dashboard built around your business. Not a spreadsheet I email you.
+        </p>
+        <p className="font-medium text-navy">
+          By the time we&apos;re done, you have a before-and-after scorecard that proves exactly what changed.
+        </p>
+      </div>
 
       {/* ── DESKTOP: 6-column horizontal flow ── */}
       <div className="hidden lg:block relative">

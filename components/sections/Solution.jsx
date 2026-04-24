@@ -33,21 +33,7 @@ export default function Solution() {
         </p>
       </div>
 
-      {/* Diagnostic platform callout */}
-      <div className="mt-10 bg-cream rounded-[14px] p-6 md:p-8 space-y-4 font-body text-text-primary text-base leading-relaxed">
-        <p>
-          Most consultants hand you a binder and wish you luck. I built something different.
-        </p>
-        <p>
-          You get access to a custom platform that connects to the tools your team already uses and analyzes your real data. If that data is messy (and for most businesses at your stage, it is), the diagnostic does not give you bad readings. It shows you where your data has gaps and makes fixing that part of the work, not a prerequisite.
-        </p>
-        <p>
-          The platform guides the entire engagement: your baseline score, your custom roadmap, your KPIs tracked in real time. As we work through each phase on weekly coaching calls, you watch your numbers move in a live dashboard built around your business. Not a spreadsheet I email you.
-        </p>
-        <p className="font-medium text-navy">
-          By the time we&apos;re done, you have a before-and-after scorecard that proves exactly what changed.
-        </p>
-      </div>
+
     </Section>
   );
 }
