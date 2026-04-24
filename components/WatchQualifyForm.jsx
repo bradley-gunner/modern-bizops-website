@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Button from "@/components/ui/Button";
 import PrepCTACard from "@/components/PrepCTACard";
+import { trackFormSubmit } from "@/lib/analytics";
 
 const revenueOptions = [
   "Under $1M",
@@ -78,6 +79,15 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
     }
 
     setSubmitting(true);
+
+    // Fire the form-engagement event on submit. The `generate_lead`
+    // conversion already fires via TrackConversion on the thank-you page
+    // when the user lands here, so this is just the form signal.
+    trackFormSubmit("watch_qualify", {
+      revenue: form.revenue,
+      team_size: form.teamSize,
+      previous_consultant: form.previousConsultant,
+    });
 
     try {
       const res = await fetch("/api/qualify-watch-lead", {
@@ -295,6 +305,7 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
                 value={form.firstName}
                 onChange={handleChange}
                 required
+                autoComplete="given-name"
                 placeholder="Marcus"
                 className={inputClasses}
               />
@@ -309,6 +320,7 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
                 value={form.lastName}
                 onChange={handleChange}
                 required
+                autoComplete="family-name"
                 placeholder="Chen"
                 className={inputClasses}
               />
@@ -327,6 +339,7 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
                 value={form.email}
                 onChange={handleChange}
                 required
+                autoComplete="email"
                 placeholder="marcus@company.com"
                 className={errors.email ? inputErrorClasses : inputClasses}
               />

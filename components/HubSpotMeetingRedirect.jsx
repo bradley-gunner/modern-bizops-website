@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { trackEvent } from "@/lib/analytics";
 
 /**
  * Listens for HubSpot Meetings' `meetingBookSucceeded` postMessage event.
@@ -40,6 +41,15 @@ export default function HubSpotMeetingRedirect({ source, email, firstName }) {
         contactData?.properties?.firstname;
       const bookerLastName =
         contactData?.lastname || contactData?.properties?.lastname;
+
+      // Fire a GA4 event at the exact moment HubSpot confirms the booking.
+      // This sits upstream of the thank-you page `generate_lead` event so we
+      // can measure drop-off between meeting-booked and thank-you-loaded if
+      // there's ever a redirect issue.
+      trackEvent("book_call_succeeded", {
+        source,
+        has_email: Boolean(bookerEmail),
+      });
 
       // For /watch bookings, create the deal that HubSpot Meetings can't
       if (source === "watch" && bookerEmail) {

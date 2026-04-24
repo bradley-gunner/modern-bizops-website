@@ -18,6 +18,7 @@ export default function AboutCoach() {
               alt="Bradley de Wet, founder of Modern BizOps"
               width={224}
               height={224}
+              sizes="(max-width: 768px) 192px, 224px"
               className="w-full h-full object-cover"
             />
           </div>
@@ -68,6 +69,7 @@ export default function AboutCoach() {
                 alt="Brendan Troy"
                 width={48}
                 height={48}
+                sizes="48px"
                 className="w-12 h-12 rounded-full object-cover border-2 border-border shrink-0"
               />
               Brendan Troy, GTM Operator, 2 Successful Exits

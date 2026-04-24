@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Button from "@/components/ui/Button";
@@ -55,22 +56,17 @@ function HubSpotCalendar({ email, firstName, lastName, company }) {
     ? `${baseUrl}&${params.toString()}`
     : baseUrl;
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
-    <div
-      className="meetings-iframe-container"
-      data-src={dataSrc}
-    ></div>
+    <>
+      <Script
+        src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"
+        strategy="afterInteractive"
+      />
+      <div
+        className="meetings-iframe-container"
+        data-src={dataSrc}
+      ></div>
+    </>
   );
 }
 
@@ -309,6 +305,7 @@ export default function BookPageClient() {
                     value={form.firstName}
                     onChange={handleChange}
                     required
+                    autoComplete="given-name"
                     placeholder="Marcus"
                     className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent"
                   />
@@ -323,6 +320,7 @@ export default function BookPageClient() {
                     value={form.lastName}
                     onChange={handleChange}
                     required
+                    autoComplete="family-name"
                     placeholder="Chen"
                     className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent"
                   />
@@ -339,6 +337,7 @@ export default function BookPageClient() {
                   value={form.email}
                   onChange={handleChange}
                   required
+                  autoComplete="email"
                   placeholder="marcus@company.com"
                   className={`w-full border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent ${errors.email ? "border-red-400" : "border-border"}`}
                 />
@@ -360,6 +359,7 @@ export default function BookPageClient() {
                   name="phone"
                   value={form.phone}
                   onChange={handleChange}
+                  autoComplete="tel"
                   placeholder="+1 (555) 123-4567"
                   className={`w-full border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent ${errors.phone ? "border-red-400" : "border-border"}`}
                 />

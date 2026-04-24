@@ -4,7 +4,7 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/thank-you"],
+        disallow: ["/thank-you", "/prep", "/book"],
       },
     ],
     sitemap: "https://modernbizops.com/sitemap.xml",

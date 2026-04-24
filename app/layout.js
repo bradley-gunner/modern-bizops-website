@@ -2,6 +2,7 @@ import Script from "next/script";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import { getOrganizationSchema, getServiceSchema, getPersonSchema, getFAQSchema } from "./schema";
+import { GA_MEASUREMENT_ID } from "@/lib/analytics";
 
 // next/font self-hosts both fonts, adds <link rel="preload"> automatically,
 // and applies font-display: swap — no manual preload tags needed.
@@ -90,7 +91,7 @@ export default function RootLayout({ children }) {
           Skip to main content
         </a>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-Z6WJF5K49D"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"
         />
         <Script id="ga4-init" strategy="afterInteractive">
@@ -98,7 +99,7 @@ export default function RootLayout({ children }) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-Z6WJF5K49D');
+            gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
         {children}

@@ -10,10 +10,10 @@ export default function Footer() {
             <Image
               src="/logos/horizontal-one-color-white.png"
               alt="Modern BizOps"
-              width={560}
-              height={152}
-              className="h-14 md:h-[88px] w-auto"
-              className="mb-2"
+              width={300}
+              height={82}
+              sizes="(max-width: 768px) 150px, 200px"
+              className="h-14 md:h-[88px] w-auto mb-2"
             />
             <p className="font-body text-text-light text-sm max-w-xs">
               The operating system for capital-efficient growth.

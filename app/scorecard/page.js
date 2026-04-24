@@ -41,6 +41,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import ScorecardStartLink from "@/components/ScorecardStartLink";
 
 export const metadata = {
   title: "Free Revenue Engine Health Score",
@@ -114,8 +115,9 @@ export default function ScorecardPage() {
           <Image
             src="/logos/horizontal-full-color-light.png"
             alt="Modern BizOps"
-            width={560}
-            height={152}
+            width={330}
+            height={90}
+            sizes="(max-width: 768px) 180px, 300px"
             className="h-14 md:h-[88px] w-auto"
             priority
           />
@@ -138,12 +140,13 @@ export default function ScorecardPage() {
             friction report showing exactly where your growth is stalling.
           </p>
 
-          <a
+          <ScorecardStartLink
             href={SCORECARD_URL}
             className="inline-flex items-center justify-center font-body font-semibold bg-amber text-white hover:bg-amber-light transition-colors duration-200 rounded-full px-10 py-4 text-lg"
+            label="scorecard_hero_cta"
           >
             Get My Free Score
-          </a>
+          </ScorecardStartLink>
 
           {/* Trust bar */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
@@ -277,12 +280,13 @@ export default function ScorecardPage() {
             <p className="font-body text-cream/80 text-lg mb-8">
               17 questions. Free. Results in your inbox immediately.
             </p>
-            <a
+            <ScorecardStartLink
               href={SCORECARD_URL}
               className="inline-flex items-center justify-center font-body font-semibold bg-amber text-white hover:bg-amber-light transition-colors duration-200 rounded-full px-10 py-4 text-lg"
+              label="scorecard_bottom_cta"
             >
               Get My Free Score
-            </a>
+            </ScorecardStartLink>
             <p className="font-body text-sm text-cream/60 mt-5">
               15+ companies have used this diagnostic. No sales pitch included.
             </p>

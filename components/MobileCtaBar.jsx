@@ -18,6 +18,7 @@ export default function MobileCtaBar() {
   return (
     <div
       className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border shadow-xl px-4 py-3 flex items-center gap-3"
+      style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
       role="complementary"
       aria-label="Book a call"
     >

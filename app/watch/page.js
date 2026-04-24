@@ -44,8 +44,9 @@ export default function WatchPage() {
           <Image
             src="/logos/horizontal-full-color-light.png"
             alt="Modern BizOps"
-            width={560}
-            height={152}
+            width={330}
+            height={90}
+            sizes="(max-width: 768px) 180px, 300px"
             className="h-14 md:h-[88px] w-auto"
             priority
           />

@@ -15,8 +15,9 @@ export default function Header() {
           <Image
             src="/logos/horizontal-full-color-light.png"
             alt="Modern BizOps"
-            width={560}
-            height={152}
+            width={360}
+            height={98}
+            sizes="(max-width: 768px) 180px, 300px"
             className="h-18 md:h-24 w-auto"
             priority
           />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const VIDEO_ID = "4fVPWZ8MNEg";
 
@@ -28,11 +29,13 @@ export default function VSSLPlayer() {
       className="relative w-full aspect-video rounded-[14px] overflow-hidden mb-10 shadow-lg cursor-pointer group block"
       aria-label="Play: How $3M-$15M Founders Grow Revenue Without Growing Headcount"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
         alt="Video thumbnail: How $3M-$15M Founders Grow Revenue Without Growing Headcount"
-        className="w-full h-full object-cover"
+        fill
+        sizes="(max-width: 768px) 100vw, 900px"
+        priority
+        className="object-cover"
       />
       <div className="absolute inset-0 flex items-center justify-center bg-navy/30 group-hover:bg-navy/40 transition-colors duration-200">
         <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-xl group-hover:scale-105 transition-transform duration-200">

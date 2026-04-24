@@ -15,6 +15,7 @@ export default function PullQuote() {
               alt="Katie Ellis MacMillan"
               width={48}
               height={48}
+              sizes="48px"
               className="w-12 h-12 rounded-full object-cover border-2 border-border shrink-0"
             />
             Katie Ellis MacMillan, Marketing Leader

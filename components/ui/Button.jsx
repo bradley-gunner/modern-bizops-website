@@ -30,9 +30,19 @@ export default function Button({
 
   const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
 
+  // Map internal funnel destinations to analytics labels. Extend this as new
+  // funnel pages are added so every CTA shows up in GA4 without a one-off
+  // onClick at every call site.
+  const CTA_DESTINATIONS = {
+    "/book": "book_call",
+    "/watch": "watch",
+    "/scorecard": "scorecard",
+    "/playbook": "playbook",
+  };
+
   const handleClick = (e) => {
-    if (href === "/book" || href === "/watch") {
-      const destination = href === "/book" ? "book_call" : "watch";
+    const destination = CTA_DESTINATIONS[href];
+    if (destination) {
       const label = typeof children === "string" ? children : destination;
       trackCTAClick(destination, label);
     }

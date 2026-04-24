@@ -35,6 +35,7 @@ export default function Hero() {
                 alt="Bradley de Wet, founder of Modern BizOps"
                 width={288}
                 height={384}
+                sizes="(max-width: 768px) 256px, 288px"
                 className="w-full h-full object-cover"
                 priority
               />

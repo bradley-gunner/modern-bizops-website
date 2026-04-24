@@ -10,6 +10,29 @@ export const metadata = {
   alternates: {
     canonical: "https://modernbizops.com/about",
   },
+  openGraph: {
+    title: "About Bradley de Wet | Modern BizOps",
+    description:
+      "15 years building revenue systems from the inside. Bradley de Wet is the founder of Modern BizOps and a former revenue operator at VC-backed startups.",
+    url: "https://modernbizops.com/about",
+    siteName: "Modern BizOps",
+    images: [
+      {
+        url: "/og/og-about.png",
+        width: 1200,
+        height: 630,
+        alt: "Meet Bradley de Wet, founder of Modern BizOps",
+      },
+    ],
+    type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Bradley de Wet | Modern BizOps",
+    description:
+      "15 years building revenue systems from the inside. Operator, not consultant.",
+    images: ["/og/og-about.png"],
+  },
 };
 
 const credentials = [
@@ -93,6 +116,7 @@ export default function AboutPage() {
                     alt="Bradley de Wet, founder of Modern BizOps"
                     width={256}
                     height={256}
+                    sizes="(max-width: 768px) 208px, 256px"
                     className="w-full h-full object-cover"
                     priority
                   />
@@ -272,6 +296,7 @@ export default function AboutPage() {
                       alt="Katie Ellis MacMillan"
                       width={52}
                       height={52}
+                      sizes="52px"
                       className="w-13 h-13 rounded-full object-cover border-2 border-border shrink-0"
                     />
                     <div>
@@ -297,6 +322,7 @@ export default function AboutPage() {
                       alt="Brendan Troy"
                       width={52}
                       height={52}
+                      sizes="52px"
                       className="w-13 h-13 rounded-full object-cover border-2 border-border shrink-0"
                     />
                     <div>

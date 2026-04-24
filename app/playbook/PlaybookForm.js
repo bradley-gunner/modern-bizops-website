@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import Button from "@/components/ui/Button";
+import {
+  trackEvent,
+  trackFormSubmit,
+  trackLeadGenerated,
+} from "@/lib/analytics";
 
 const PLAYBOOK_PDF_PATH = "/revenue-without-headcount-playbook.pdf";
 
@@ -33,6 +38,16 @@ export default function PlaybookForm() {
         throw new Error(payload.error || "Submission failed");
       }
 
+      // Fire analytics AFTER the API accepts the submission so we don't count
+      // failed attempts as leads. `form_submit` surfaces in the form
+      // engagement report; `generate_lead` is the GA4-recommended conversion
+      // event (includes value/currency for reporting).
+      trackFormSubmit("playbook_download", {
+        has_name: Boolean(form.name),
+        has_company: Boolean(form.company),
+      });
+      trackLeadGenerated("playbook");
+
       setSubmitted(true);
     } catch (err) {
       console.error(err);
@@ -58,6 +73,13 @@ export default function PlaybookForm() {
         <a
           href={PLAYBOOK_PDF_PATH}
           download
+          onClick={() =>
+            trackEvent("file_download", {
+              file_name: "revenue-without-headcount-playbook.pdf",
+              file_extension: "pdf",
+              link_url: PLAYBOOK_PDF_PATH,
+            })
+          }
           className="inline-flex items-center justify-center font-body font-semibold bg-amber text-white hover:bg-amber-light transition-colors duration-200 rounded-full px-8 py-4 text-lg w-full text-center"
         >
           Download Playbook (PDF)
@@ -92,6 +114,7 @@ export default function PlaybookForm() {
             value={form.name}
             onChange={handleChange}
             required
+            autoComplete="name"
             placeholder="Sarah Kim"
             className={inputClass}
           />
@@ -107,6 +130,7 @@ export default function PlaybookForm() {
             value={form.email}
             onChange={handleChange}
             required
+            autoComplete="email"
             placeholder="sarah@company.com"
             className={inputClass}
           />
@@ -122,6 +146,7 @@ export default function PlaybookForm() {
             value={form.company}
             onChange={handleChange}
             required
+            autoComplete="organization"
             placeholder="Acme Corp"
             className={inputClass}
           />
