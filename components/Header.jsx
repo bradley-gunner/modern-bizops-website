@@ -37,6 +37,12 @@ export default function Header() {
             Results
           </Link>
           <Link
+            href="/about"
+            className="font-body text-sm text-text-mid hover:text-navy transition-colors"
+          >
+            About
+          </Link>
+          <Link
             href="/#faq"
             className="font-body text-sm text-text-mid hover:text-navy transition-colors"
           >
@@ -93,6 +99,13 @@ export default function Header() {
             onClick={() => setMobileOpen(false)}
           >
             Results
+          </Link>
+          <Link
+            href="/about"
+            className="block font-body text-text-mid hover:text-navy"
+            onClick={() => setMobileOpen(false)}
+          >
+            About
           </Link>
           <Link
             href="/#faq"
