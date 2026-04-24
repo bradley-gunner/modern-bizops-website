@@ -22,6 +22,27 @@ export const metadata = {
   alternates: {
     canonical: "https://modernbizops.com",
   },
+  openGraph: {
+    title: "Grow Your Revenue Without Growing Your Headcount",
+    description:
+      "Done-with-you coaching that builds the sales, marketing, and delivery systems that turn growth into profit.",
+    url: "https://modernbizops.com",
+    images: [
+      {
+        url: "https://modernbizops.com/og/og-homepage.png",
+        width: 1200,
+        height: 630,
+        alt: "Modern BizOps - Grow Your Revenue Without Growing Your Headcount",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Grow Your Revenue Without Growing Your Headcount",
+    description:
+      "Done-with-you coaching for $3M-$15M companies.",
+    images: ["https://modernbizops.com/og/og-homepage.png"],
+  },
 };
 
 export default function Home() {

@@ -12,6 +12,27 @@ export const metadata = {
     canonical: "https://modernbizops.com/watch",
   },
   robots: { index: false, follow: false },
+  openGraph: {
+    title: "Watch How It Works",
+    description:
+      "See how Modern BizOps helps $3M-$15M companies build revenue engines that scale.",
+    url: "https://modernbizops.com/watch",
+    images: [
+      {
+        url: "https://modernbizops.com/og/og-watch.png",
+        width: 1200,
+        height: 630,
+        alt: "Modern BizOps - Watch How It Works",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Watch How It Works",
+    description:
+      "See the revenue engine framework in action.",
+    images: ["https://modernbizops.com/og/og-watch.png"],
+  },
 };
 
 export default function WatchPage() {

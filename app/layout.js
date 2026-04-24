@@ -37,12 +37,21 @@ export const metadata = {
     title: "Modern BizOps | Revenue Growth Coaching for SMBs",
     description:
       "Grow your revenue without growing your headcount. Done-with-you coaching that builds the sales, marketing, and delivery systems that turn growth into profit.",
+    images: [
+      {
+        url: "https://modernbizops.com/og/og-homepage.png",
+        width: 1200,
+        height: 630,
+        alt: "Modern BizOps - Grow Your Revenue Without Growing Your Headcount",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Modern BizOps | Revenue Growth Coaching for SMBs",
     description:
       "Grow your revenue without growing your headcount. Done-with-you coaching for $3M–$15M companies.",
+    images: ["https://modernbizops.com/og/og-homepage.png"],
   },
   robots: {
     index: true,

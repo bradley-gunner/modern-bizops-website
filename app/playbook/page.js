@@ -9,6 +9,27 @@ export const metadata = {
   alternates: {
     canonical: "https://modernbizops.com/playbook",
   },
+  openGraph: {
+    title: "The Revenue Without Headcount Playbook",
+    description:
+      "7 operational frameworks to grow revenue without adding headcount. Free download.",
+    url: "https://modernbizops.com/playbook",
+    images: [
+      {
+        url: "https://modernbizops.com/og/og-playbook.png",
+        width: 1200,
+        height: 630,
+        alt: "Modern BizOps - The Revenue Without Headcount Playbook, 7 Chapters",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Revenue Without Headcount Playbook",
+    description:
+      "7 chapters of operational frameworks for $3M-$15M companies. Free download.",
+    images: ["https://modernbizops.com/og/og-playbook.png"],
+  },
 };
 
 const WHAT_YOU_GET = [

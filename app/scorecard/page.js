@@ -49,6 +49,27 @@ export const metadata = {
   alternates: {
     canonical: "https://modernbizops.com/scorecard",
   },
+  openGraph: {
+    title: "Get Your Free Revenue Engine Health Score",
+    description:
+      "Score across 7 revenue dimensions in 5 minutes. Free, no obligation.",
+    url: "https://modernbizops.com/scorecard",
+    images: [
+      {
+        url: "https://modernbizops.com/og/og-scorecard.png",
+        width: 1200,
+        height: 630,
+        alt: "Modern BizOps - Free Revenue Engine Health Score across 7 dimensions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Get Your Free Revenue Engine Health Score",
+    description:
+      "17 questions. 5 minutes. Score across 7 revenue dimensions.",
+    images: ["https://modernbizops.com/og/og-scorecard.png"],
+  },
 };
 
 /* Cross-domain CTA target — UTM params need Bradley's confirmation (see note above). */
