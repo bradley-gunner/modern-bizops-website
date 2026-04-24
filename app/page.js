@@ -10,7 +10,6 @@ import Solution from "@/components/sections/Solution";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Results from "@/components/sections/Results";
 import ScorecardCTA from "@/components/sections/ScorecardCTA";
-import MidPageCTA from "@/components/sections/MidPageCTA";
 import AboutCoach from "@/components/sections/AboutCoach";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
@@ -59,7 +58,6 @@ export default function Home() {
         <HowItWorks />
         <Results />
         <ScorecardCTA />
-        <MidPageCTA />
         <AboutCoach />
         <FAQ />
         <FinalCTA />
