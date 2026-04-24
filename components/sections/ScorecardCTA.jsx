@@ -11,7 +11,7 @@ export default function ScorecardCTA() {
         <h2 className="font-display text-[28px] md:text-[34px] font-semibold text-white mb-4">
           Not Ready for a Call Yet?
         </h2>
-        <p className="font-body text-white/80 text-base md:text-lg leading-relaxed mb-8">
+        <p className="font-body text-white text-base md:text-lg leading-relaxed mb-8">
           Get your free Revenue Engine Health Score. Answer 17 questions and
           see exactly where your growth is leaking. Instant results. No call
           required.
