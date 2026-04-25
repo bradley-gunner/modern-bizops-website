@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Section from "../ui/Section";
+import BrowserFrame from "../ui/BrowserFrame";
 
 const steps = [
   {
@@ -70,29 +72,18 @@ const steps = [
 export default function HowItWorks() {
   return (
     <Section bg="cream" id="how-it-works" narrow={false}>
-      <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-6 text-center">
+      <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-5 text-center">
         How It Works
       </h2>
 
-      {/* Diagnostic platform framing */}
-      <div className="max-w-[720px] mx-auto mb-12 space-y-4 font-body text-text-primary text-base leading-relaxed">
-        <p className="font-semibold text-navy text-lg">
-          Most consultants hand you a binder and wish you luck. I built something different.
-        </p>
-        <p>
-          You get access to a custom platform that connects to the tools your team already uses and analyzes your real data. If that data is messy (and for most businesses at your stage, it is), the diagnostic does not give you bad readings. It shows you where your data has gaps and makes fixing that part of the work, not a prerequisite.
-        </p>
-        <p>
-          The platform guides the entire engagement: your baseline score, your custom roadmap, your KPIs tracked in real time. As we work through each phase on weekly coaching calls, you watch your numbers move in a live dashboard built around your business. Not a spreadsheet I email you.
-        </p>
-        <p className="font-medium text-navy">
-          By the time we&apos;re done, you have a before-and-after scorecard that proves exactly what changed.
-        </p>
-      </div>
+      {/* Lead hook — sits above the timeline */}
+      <p className="font-body text-navy text-lg md:text-xl font-medium text-center max-w-[720px] mx-auto mb-14">
+        Most consultants hand you a binder and wish you luck. I built something different.
+      </p>
 
-      {/* ── DESKTOP: 6-column horizontal flow ── */}
-      <div className="hidden lg:block relative">
-        {/* Horizontal connector line spanning circle centers */}
+      {/* ── Timeline: 6-step flow (moved up, right under the title) ── */}
+      {/* Desktop horizontal */}
+      <div className="hidden lg:block relative mb-20">
         <div
           className="absolute top-7 h-px bg-border"
           style={{ left: "calc(100% / 12)", right: "calc(100% / 12)" }}
@@ -101,22 +92,18 @@ export default function HowItWorks() {
         <div className="grid grid-cols-6 gap-4">
           {steps.map((step, i) => (
             <div key={step.title} className="flex flex-col items-center text-center gap-3">
-              {/* Amber number circle — sits on the connector line */}
               <div className="relative z-10 w-14 h-14 rounded-full bg-amber flex items-center justify-center shrink-0 shadow-sm">
                 <span className="font-display text-xl font-semibold text-white leading-none">
                   {i + 1}
                 </span>
               </div>
 
-              {/* Icon */}
               <div className="text-navy mt-1">{step.icon}</div>
 
-              {/* Title */}
               <h3 className="font-display text-lg font-semibold text-navy leading-tight">
                 {step.title}
               </h3>
 
-              {/* Description */}
               {step.differentiator ? (
                 <p className="font-body text-sm text-text-mid leading-relaxed">
                   My{" "}
@@ -135,11 +122,10 @@ export default function HowItWorks() {
         </div>
       </div>
 
-      {/* ── MOBILE: vertical stack with connector line ── */}
-      <div className="lg:hidden flex flex-col">
+      {/* Mobile vertical stack */}
+      <div className="lg:hidden flex flex-col mb-16">
         {steps.map((step, i) => (
           <div key={step.title} className="relative flex gap-5">
-            {/* Left column: circle + vertical line */}
             <div className="flex flex-col items-center shrink-0">
               <div className="w-14 h-14 rounded-full bg-amber flex items-center justify-center shrink-0 shadow-sm z-10">
                 <span className="font-display text-xl font-semibold text-white leading-none">
@@ -151,7 +137,6 @@ export default function HowItWorks() {
               )}
             </div>
 
-            {/* Right column: icon + title + description */}
             <div className={`pb-8 ${i === steps.length - 1 ? "pb-0" : ""}`}>
               <div className="flex items-center gap-2 mb-1">
                 <div className="text-navy">{step.icon}</div>
@@ -176,6 +161,66 @@ export default function HowItWorks() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* ── Two-column block 1: text left (40%), radar chart right (60%) ── */}
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-12 lg:gap-16 items-center mb-16 md:mb-24">
+        <div className="md:col-span-2 space-y-4 font-body text-text-primary text-base md:text-lg leading-relaxed">
+          <h3 className="font-display text-[24px] md:text-[28px] font-semibold text-navy leading-tight">
+            A diagnostic built on your real data
+          </h3>
+          <p>
+            You get access to a custom platform that connects to the tools your team already uses and analyzes your real data. If that data is messy (and for most businesses at your stage, it is), the diagnostic does not give you bad readings.
+          </p>
+          <p>
+            It shows you where your data has gaps and makes fixing that part of the work, not a prerequisite.
+          </p>
+        </div>
+
+        <div className="md:col-span-3">
+          <BrowserFrame
+            url="app.modernbizops.com/dashboard"
+            aspectRatio="999/783"
+          >
+            <Image
+              src="/images/mockups/dashboard-overview.png"
+              alt="ClearPath Solutions client dashboard showing RevOps Audit Progress at 2 of 7 phases complete with engagement status active, the next coaching step, and key revenue metrics: 86 deals, 4280 contacts, 38K average deal size, 42-day average sales cycle, 42800 sessions, with an Overall Data Quality grade of A"
+              fill
+              sizes="(max-width: 768px) 100vw, 720px"
+              className="object-cover"
+            />
+          </BrowserFrame>
+        </div>
+      </div>
+
+      {/* ── Two-column block 2: dashboard left (60%), text right (40%) — alternated ── */}
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-12 lg:gap-16 items-center">
+        <div className="md:col-span-2 md:order-2 space-y-4 font-body text-text-primary text-base md:text-lg leading-relaxed">
+          <h3 className="font-display text-[24px] md:text-[28px] font-semibold text-navy leading-tight">
+            Your progress, tracked in real time
+          </h3>
+          <p>
+            The platform guides the entire engagement: your baseline score, your custom roadmap, your KPIs tracked in real time. As we work through each phase on weekly coaching calls, you watch your numbers move in a live dashboard built around your business. Not a spreadsheet I email you.
+          </p>
+          <p className="font-semibold text-navy">
+            By the time we&apos;re done, you have a before-and-after scorecard that proves exactly what changed.
+          </p>
+        </div>
+
+        <div className="md:col-span-3 md:order-1">
+          <BrowserFrame
+            url="app.modernbizops.com/dashboard"
+            aspectRatio="991/650"
+          >
+            <Image
+              src="/images/mockups/scorecard-radar.png"
+              alt="Revenue Engine Scorecard inside the diagnostic app, showing a 73 out of 100 score with 7 dimensions assessed: Go-to-Market Health, Sales-Marketing Alignment, Sales Process Maturity, Tech Stack Efficiency, Client Lifecycle, Resource Utilization, and Capital Efficiency"
+              fill
+              sizes="(max-width: 768px) 100vw, 720px"
+              className="object-cover"
+            />
+          </BrowserFrame>
+        </div>
       </div>
     </Section>
   );
