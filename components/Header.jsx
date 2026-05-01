@@ -49,6 +49,13 @@ export default function Header() {
           >
             FAQ
           </Link>
+          <a
+            href="https://app.modernbizops.com"
+            rel="noopener"
+            className="font-body text-sm text-text-mid hover:text-navy transition-colors"
+          >
+            Client Login
+          </a>
           <Button href="/book" size="small">
             Book a Discovery Call
           </Button>
@@ -115,6 +122,14 @@ export default function Header() {
           >
             FAQ
           </Link>
+          <a
+            href="https://app.modernbizops.com"
+            rel="noopener"
+            className="block font-body text-text-mid hover:text-navy"
+            onClick={() => setMobileOpen(false)}
+          >
+            Client Login
+          </a>
           <Button href="/book" size="small" className="w-full">
             Book a Discovery Call
           </Button>

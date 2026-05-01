@@ -48,6 +48,13 @@ export default function Footer() {
                 >
                   Book a Call
                 </Link>
+                <a
+                  href="https://app.modernbizops.com"
+                  rel="noopener"
+                  className="font-body text-sm text-text-light hover:text-white transition-colors"
+                >
+                  Client Login
+                </a>
               </nav>
             </div>
 
