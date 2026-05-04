@@ -4,6 +4,8 @@ import {
   ensureCustomContactProperties,
   upsertContactByEmail,
   createContactTask,
+  UTM_CUSTOM_PROPERTIES,
+  pickUtmProperties,
 } from "@/lib/hubspot";
 
 // ---------------------------------------------------------------------------
@@ -237,7 +239,10 @@ export async function POST(request) {
     }
 
     if (!propertiesEnsured) {
-      await ensureCustomContactProperties(PREP_CUSTOM_PROPERTIES);
+      await ensureCustomContactProperties([
+        ...PREP_CUSTOM_PROPERTIES,
+        ...UTM_CUSTOM_PROPERTIES,
+      ]);
       propertiesEnsured = true;
     }
 
@@ -285,6 +290,8 @@ export async function POST(request) {
     );
     set("prep_other", data.prepOther);
     set("prep_submitted_at", new Date().toISOString());
+
+    Object.assign(props, pickUtmProperties(data.utms));
 
     const result = await upsertContactByEmail(data.email, props);
 

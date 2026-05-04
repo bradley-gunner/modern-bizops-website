@@ -1,42 +1,38 @@
 /*
  * Best practices applied from CRO research:
  *
- * 1. NO NAVIGATION — Removed header nav to eliminate "leakage" on a conversion-
+ * 1. NO NAVIGATION. Removed header nav to eliminate leakage on a conversion-
  *    focused funnel page (standard quiz-funnel CRO practice). Matches /watch pattern.
  *
- * 2. PAIN-FIRST HERO — Leads with the problem ("you can't fix what you can't see")
+ * 2. PAIN-FIRST HERO. Leads with the problem ("you can't fix what you can't see")
  *    before the solution. Outcome-focused headline vs. feature-focused.
  *
- * 3. ABOVE-THE-FOLD CTA — Primary button visible without scrolling on all breakpoints.
+ * 3. ABOVE-THE-FOLD CTA. Primary button visible without scrolling on all breakpoints.
  *    Repeated at the bottom of the page to capture scrollers.
  *
- * 4. PERSONALIZED CTA COPY — "Get My Free Score" outperforms generic "Start Assessment"
+ * 4. PERSONALIZED CTA COPY. "Get My Free Score" outperforms generic "Start Assessment"
  *    (personal phrasing lifts click-through in multiple A/B studies).
  *
- * 5. TANGIBLE DELIVERABLES SECTION — Shows the four concrete outputs (score, grade,
+ * 5. TANGIBLE DELIVERABLES SECTION. Shows the four concrete outputs (score, grade,
  *    friction report, email) rather than describing the process. Visitors need to see
  *    the artifact before they'll invest time.
  *
- * 6. DIMENSION GRID — Listing all 7 dimensions builds credibility and signals depth
+ * 6. DIMENSION GRID. Listing all 7 dimensions builds credibility and signals depth
  *    without overwhelming. B2B buyers want to know exactly what they're being assessed on.
  *
- * 7. 3-STEP HOW IT WORKS — Reduces commitment anxiety by showing the path is short.
+ * 7. 3-STEP HOW IT WORKS. Reduces commitment anxiety by showing the path is short.
  *    "17 questions" is a concrete number that manages time expectations.
  *
- * 8. TRUST BAR — Free + fast + no sales pitch. Addresses the three most common objections
+ * 8. TRUST BAR. Free + fast + no sales pitch. Addresses the three most common objections
  *    to filling in a diagnostic form.
  *
- * 9. SOCIAL PROOF — Anchors near the hero CTA so skeptical visitors see evidence before
+ * 9. SOCIAL PROOF. Anchors near the hero CTA so skeptical visitors see evidence before
  *    clicking. "15+ companies" matches the trust signal used across the site.
  *
- * UTM NOTE (needs Bradley's confirmation):
- *   utm_source=website   — "website" is not in the approved UTM source picklist.
- *                          Closest registered options: website_modernbizops (internal
- *                          banner exception in section 8) or a new cross-property source.
- *   utm_medium=cta       — "cta" is not in the approved UTM medium picklist.
- *                          No existing medium covers "website button to app subdomain."
- *   utm_campaign=lm_scorecard — VALID per taxonomy section 4.
- *   Please confirm or update source + medium before launch.
+ * UTM values follow the project's lowercase/underscore taxonomy:
+ *   utm_source=website_modernbizops   internal source (this marketing site)
+ *   utm_medium=internal_link          cross-property handoff to app subdomain
+ *   utm_campaign=lm_scorecard         lead magnet, scorecard
  */
 
 import Link from "next/link";
@@ -73,9 +69,9 @@ export const metadata = {
   },
 };
 
-/* Cross-domain CTA target — UTM params need Bradley's confirmation (see note above). */
+/* Cross-domain CTA target. UTM values follow approved taxonomy (see note above). */
 const SCORECARD_URL =
-  "https://app.modernbizops.com/scorecard?utm_source=website&utm_medium=cta&utm_campaign=lm_scorecard";
+  "https://app.modernbizops.com/scorecard?utm_source=website_modernbizops&utm_medium=internal_link&utm_campaign=lm_scorecard";
 
 const DIMENSIONS = [
   { name: "GTM Strategy", description: "Ideal customer, positioning, and market focus" },

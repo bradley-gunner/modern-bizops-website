@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import { getOrganizationSchema, getServiceSchema, getPersonSchema, getFAQSchema } from "./schema";
 import { GA_MEASUREMENT_ID } from "@/lib/analytics";
+import UtmCapture from "@/components/UtmCapture";
 
 // next/font self-hosts both fonts, adds <link rel="preload"> automatically,
 // and applies font-display: swap — no manual preload tags needed.
@@ -102,6 +103,7 @@ export default function RootLayout({ children }) {
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
+        <UtmCapture />
         {children}
       </body>
     </html>

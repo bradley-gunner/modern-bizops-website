@@ -3,7 +3,12 @@ import {
   assertHubSpotConfigured,
   upsertContactByEmail,
   createContactTask,
+  ensureCustomContactProperties,
+  UTM_CUSTOM_PROPERTIES,
+  pickUtmProperties,
 } from "@/lib/hubspot";
+
+let propertiesEnsured = false;
 
 export async function POST(request) {
   try {
@@ -22,10 +27,16 @@ export async function POST(request) {
     const firstName = nameParts[0] || "";
     const lastName = nameParts.slice(1).join(" ") || "";
 
+    if (!propertiesEnsured) {
+      await ensureCustomContactProperties(UTM_CUSTOM_PROPERTIES);
+      propertiesEnsured = true;
+    }
+
     const props = {};
     if (firstName) props.firstname = firstName;
     if (lastName) props.lastname = lastName;
     if (data.company) props.company = data.company;
+    Object.assign(props, pickUtmProperties(data.utms));
 
     const result = await upsertContactByEmail(data.email, props);
 

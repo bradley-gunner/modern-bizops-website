@@ -1,4 +1,9 @@
 import { NextResponse } from "next/server";
+import {
+  UTM_CUSTOM_PROPERTIES,
+  pickUtmProperties,
+  ensureCustomContactProperties,
+} from "@/lib/hubspot";
 
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 const HUBSPOT_BASE = "https://api.hubapi.com";
@@ -172,6 +177,7 @@ async function upsertContact(formData) {
     growth_bottleneck: formData.bottleneck || "",
     previous_consultant: formData.previousConsultant || "",
     previous_consultant_details: formData.previousConsultantDetails || "",
+    ...pickUtmProperties(formData.utms),
   };
 
   // Only set phone if provided
@@ -290,6 +296,7 @@ export async function POST(request) {
 
     // Ensure custom properties exist in HubSpot (idempotent, cached after first run)
     await ensureCustomProperties();
+    await ensureCustomContactProperties(UTM_CUSTOM_PROPERTIES);
 
     // Create or update the contact
     const result = await upsertContact(formData);

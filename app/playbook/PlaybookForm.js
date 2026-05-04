@@ -7,6 +7,7 @@ import {
   trackFormSubmit,
   trackLeadGenerated,
 } from "@/lib/analytics";
+import { getUtms } from "@/lib/utm";
 
 const PLAYBOOK_PDF_PATH = "/revenue-without-headcount-playbook.pdf";
 
@@ -30,7 +31,7 @@ export default function PlaybookForm() {
       const res = await fetch("/api/submit-playbook-form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, utms: getUtms() }),
       });
 
       if (!res.ok) {

@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Button from "@/components/ui/Button";
 import { trackFormSubmit } from "@/lib/analytics";
+import { getUtms } from "@/lib/utm";
 
 // ---------------------------------------------------------------------------
 // Form option catalogues (kept in sync with the API route)
@@ -185,7 +186,7 @@ function PrepFormInner() {
       const res = await fetch("/api/submit-prep-form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, utms: getUtms() }),
       });
       if (!res.ok) {
         const payload = await res.json().catch(() => ({}));
