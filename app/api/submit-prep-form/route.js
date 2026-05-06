@@ -8,6 +8,10 @@ import {
   pickUtmProperties,
 } from "@/lib/hubspot";
 
+// Allow up to 60s. First cold-start submission may need to create ~19
+// custom properties in HubSpot before upserting the contact.
+export const maxDuration = 60;
+
 // ---------------------------------------------------------------------------
 // Custom contact properties for the discovery call prep form
 // ---------------------------------------------------------------------------
@@ -119,7 +123,7 @@ const PREP_CUSTOM_PROPERTIES = [
   },
   {
     name: "tech_stack_crm",
-    label: "Tech Stack — CRM",
+    label: "Tech Stack - CRM",
     type: "enumeration",
     fieldType: "select",
     groupName: "contactinformation",
@@ -127,7 +131,7 @@ const PREP_CUSTOM_PROPERTIES = [
   },
   {
     name: "tech_stack_marketing",
-    label: "Tech Stack — Marketing",
+    label: "Tech Stack - Marketing",
     type: "enumeration",
     fieldType: "select",
     groupName: "contactinformation",
@@ -135,7 +139,7 @@ const PREP_CUSTOM_PROPERTIES = [
   },
   {
     name: "tech_stack_support",
-    label: "Tech Stack — Support",
+    label: "Tech Stack - Support",
     type: "enumeration",
     fieldType: "select",
     groupName: "contactinformation",
@@ -143,7 +147,7 @@ const PREP_CUSTOM_PROPERTIES = [
   },
   {
     name: "tech_stack_analytics",
-    label: "Tech Stack — Analytics",
+    label: "Tech Stack - Analytics",
     type: "enumeration",
     fieldType: "select",
     groupName: "contactinformation",
@@ -151,7 +155,7 @@ const PREP_CUSTOM_PROPERTIES = [
   },
   {
     name: "tech_stack_bi",
-    label: "Tech Stack — BI",
+    label: "Tech Stack - BI",
     type: "enumeration",
     fieldType: "select",
     groupName: "contactinformation",
@@ -187,7 +191,7 @@ const PREP_CUSTOM_PROPERTIES = [
   },
   {
     name: "desired_outcome_90d",
-    label: "Desired Outcome — 90 Day",
+    label: "Desired Outcome - 90 Day",
     type: "string",
     fieldType: "textarea",
     groupName: "contactinformation",
@@ -204,7 +208,7 @@ const PREP_CUSTOM_PROPERTIES = [
   },
   {
     name: "prep_other",
-    label: "Prep — Anything Else",
+    label: "Prep - Anything Else",
     type: "string",
     fieldType: "textarea",
     groupName: "contactinformation",
@@ -218,7 +222,7 @@ const PREP_CUSTOM_PROPERTIES = [
   },
 ];
 
-// Module-level cache — HubSpot property creation only needs to happen once
+// Module-level cache - HubSpot property creation only needs to happen once
 // per cold start of the serverless function.
 let propertiesEnsured = false;
 
@@ -246,7 +250,7 @@ export async function POST(request) {
       propertiesEnsured = true;
     }
 
-    // Build contact property payload — only include fields that were filled,
+    // Build contact property payload - only include fields that were filled,
     // so we never blank out existing data.
     const props = {};
     const set = (k, v) => {
@@ -262,7 +266,7 @@ export async function POST(request) {
     );
     set("best_fit_channel", data.bestFitChannel);
 
-    // Numeric fields — coerce from string to number where possible
+    // Numeric fields - coerce from string to number where possible
     const num = (v) => {
       if (v === undefined || v === null || v === "") return undefined;
       const n = Number(String(v).replace(/[^0-9.]/g, ""));
@@ -325,7 +329,7 @@ export async function POST(request) {
 
     await createContactTask({
       contactId: result.id,
-      subject: `Prep responses submitted — ${data.email}`,
+      subject: `Prep responses submitted - ${data.email}`,
       body: taskBody,
       priority: "HIGH",
     });
