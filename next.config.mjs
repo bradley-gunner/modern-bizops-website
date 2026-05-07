@@ -7,6 +7,15 @@ const nextConfig = {
       { protocol: "https", hostname: "i.ytimg.com" },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/ig',
+        destination: '/?utm_source=instagram&utm_medium=profile&utm_campaign=evergreen_home&utm_content=bio_link_v1',
+        statusCode: 301,
+      },
+    ];
+  },
   async headers() {
     return [
       {
