@@ -29,10 +29,18 @@
  * 9. SOCIAL PROOF. Anchors near the hero CTA so skeptical visitors see evidence before
  *    clicking. "15+ companies" matches the trust signal used across the site.
  *
- * UTM values follow the project's lowercase/underscore taxonomy:
- *   utm_source=website_modernbizops   internal source (this marketing site)
- *   utm_medium=internal_link          cross-property handoff to app subdomain
- *   utm_campaign=lm_scorecard         lead magnet, scorecard
+ * UTM NOTE (resolved May 5, 2026, taxonomy v1.1):
+ *   This is internal cross-subdomain navigation (modernbizops.com to app.modernbizops.com)
+ *   and is intentionally NOT UTM'd. Per UTM Taxonomy Standard v1.1 Section 1.1, "website"
+ *   is not a valid utm_source under any condition (no one travels FROM your own site TO
+ *   your own site), and Section 8 prohibits UTMs on internal navigation.
+ *
+ *   The user's first-touch UTMs are captured by HubSpot's tracking cookie on
+ *   modernbizops.com and persist across the subdomain hop ONLY IF cross-domain tracking
+ *   is configured between modernbizops.com and app.modernbizops.com (see Section 10
+ *   point 4). If cross-domain tracking is not yet live in HubSpot/GA4, configure it
+ *   before relying on this attribution path. Without it, the click registers as a new
+ *   "Referral / modernbizops.com" session on the app subdomain.
  */
 
 import Link from "next/link";
@@ -69,9 +77,9 @@ export const metadata = {
   },
 };
 
-/* Cross-domain CTA target. UTM values follow approved taxonomy (see note above). */
-const SCORECARD_URL =
-  "https://app.modernbizops.com/scorecard?utm_source=website_modernbizops&utm_medium=internal_link&utm_campaign=lm_scorecard";
+/* Cross-subdomain CTA target. No UTMs (see note above). Attribution is preserved
+   via HubSpot/GA4 cross-domain tracking, not via UTM parameters on this internal hop. */
+const SCORECARD_URL = "https://app.modernbizops.com/scorecard";
 
 const DIMENSIONS = [
   { name: "GTM Strategy", description: "Ideal customer, positioning, and market focus" },

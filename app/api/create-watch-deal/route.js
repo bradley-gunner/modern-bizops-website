@@ -6,6 +6,7 @@ import {
   hsHeaders,
   assertHubSpotConfigured,
   findContactByEmail,
+  findExistingRevopsDealForContact,
 } from "@/lib/hubspot";
 
 const NEW_LEAD_STAGE = "3477396169";
@@ -52,6 +53,16 @@ export async function POST(request) {
         success: false,
         reason: "contact_not_found",
         email,
+      });
+    }
+
+    const existingDealId = await findExistingRevopsDealForContact(contactId);
+    if (existingDealId) {
+      console.log(`[create-watch-deal] RevOps deal already exists for contact ${contactId}, skipping create:`, existingDealId);
+      return NextResponse.json({
+        success: true,
+        dealId: existingDealId,
+        contactId,
       });
     }
 

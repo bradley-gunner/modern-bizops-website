@@ -3,6 +3,7 @@ import {
   UTM_CUSTOM_PROPERTIES,
   pickUtmProperties,
   ensureCustomContactProperties,
+  findExistingRevopsDealForContact,
 } from "@/lib/hubspot";
 
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
@@ -238,6 +239,13 @@ async function createDeal(contactId, formData) {
     Authorization: `Bearer ${HUBSPOT_API_KEY}`,
     "Content-Type": "application/json",
   };
+
+  const existingDealId = await findExistingRevopsDealForContact(contactId);
+  if (existingDealId) {
+    console.log(`[submit-form] RevOps deal already exists for contact ${contactId}, skipping create:`, existingDealId);
+    const dealAmount = REVENUE_TO_DEAL_AMOUNT[formData.revenue] || 15000;
+    return { id: existingDealId, amount: dealAmount };
+  }
 
   const dealAmount = REVENUE_TO_DEAL_AMOUNT[formData.revenue] || 15000;
   const contactName = [formData.firstName, formData.lastName]
