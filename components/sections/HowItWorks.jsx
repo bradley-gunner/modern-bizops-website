@@ -5,7 +5,7 @@ import BrowserFrame from "../ui/BrowserFrame";
 const steps = [
   {
     title: "Onboarding & Assessment",
-    description: "Connect your tools, run the diagnostic across 40+ competencies, and complete a discovery call. You get a heat map of where you are.",
+    description: "My custom-built coaching app scores your business across the Revenue Operations Maturity Model: 40+ competencies, organized by stage. Connect your tools, complete the assessment, and get a heat map of exactly where you stand.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <circle cx="11" cy="11" r="8" />
@@ -15,7 +15,7 @@ const steps = [
   },
   {
     title: "Scope",
-    description: "We define the engagement: your highest-leverage gaps, the target maturity stage, and a sequenced roadmap built around your business outcome.",
+    description: "I identify the competencies holding you back from the next maturity stage and provide specific recommendations that form your roadmap. You and your team execute against it, all tracked inside the app.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
@@ -37,7 +37,7 @@ const steps = [
   },
   {
     title: "Measurement & ROI",
-    description: "We track competency advancement and revenue impact in real time. You get a before-and-after scorecard that proves exactly what changed.",
+    description: "The coaching app watches the data in your connected tools, the transcripts from our calls, and self-reported improvement to measure your progress and the ROI of the coaching you are implementing.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <line x1="18" y1="20" x2="18" y2="10" />
