@@ -16,17 +16,17 @@ const faqItems = [
   {
     question: "What if my team resists the changes?",
     answer:
-      "That's exactly why this is done-with-you, not done-to-you. Your team is involved in every phase: mapping their own processes, defining their own metrics, choosing the AI tools they'll actually use. People don't resist change they helped create.",
+      "That is why this is done-with-you, not done-to-you. Your team is involved throughout: mapping their own processes, defining their own metrics, choosing the tools they will actually use. People do not resist change they helped create.",
   },
   {
-    question: "What kind of AI tools will we implement?",
+    question: "How is my maturity stage determined?",
     answer:
-      "Depends on where your biggest time drains are. Common implementations include AI-powered lead scoring, automated follow-up sequences, chatbots for initial customer support, and automated reporting dashboards. We focus on tools that save your team measurable hours per week. Not shiny objects.",
+      "Three ways, in sequence. First, the diagnostic platform connects to your existing tools and analyzes your actual data: CRM completeness, pipeline stage distribution, integration coverage. That takes about 30 minutes of your time and produces data-driven scores on 15-20 competencies without any self-reporting. Second, a structured questionnaire covers what data alone cannot assess. Third, a 60-90 minute discovery call with you personally, where I validate the preliminary scores and surface anything the data cannot capture. You see the scoring rationale for every competency. Nothing is a black box.",
   },
   {
     question: "I've been burned by consultants before.",
     answer:
-      "I hear this a lot. Most consulting engagements fail because the consultant builds something in a silo that the team rejects, or because the engagement ends and nobody knows how to maintain what was built. My model solves both problems: your team builds it with my guidance, so they own it. And every recommendation comes from your actual data, not a generic template.",
+      "I hear this a lot. Most consulting engagements fail because the consultant builds something in a silo that the team rejects, or because the engagement ends and nobody knows how to maintain what was built. My model solves both problems: your team builds it with my coaching, so they own it. And every recommendation comes from your actual maturity assessment, not a generic template applied to every client regardless of where they are.",
   },
 ];
 

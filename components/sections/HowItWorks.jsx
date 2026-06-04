@@ -15,7 +15,7 @@ const steps = [
   },
   {
     title: "Diagnose",
-    description: "My custom-built diagnostic app analyzes your real data across 7 dimensions",
+    description: "My diagnostic app assesses your real data across 40+ operational competencies, organized by maturity stage",
     differentiator: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
@@ -108,9 +108,9 @@ export default function HowItWorks() {
                 <p className="font-body text-sm text-text-mid leading-relaxed">
                   My{" "}
                   <span className="font-semibold text-amber">
-                    custom-built diagnostic app
+                    diagnostic app
                   </span>{" "}
-                  analyzes your real data across 7 dimensions
+                  assesses your real data across 40+ operational competencies, organized by maturity stage
                 </p>
               ) : (
                 <p className="font-body text-sm text-text-mid leading-relaxed">
@@ -149,9 +149,9 @@ export default function HowItWorks() {
                 <p className="font-body text-sm text-text-mid leading-relaxed">
                   My{" "}
                   <span className="font-semibold text-amber">
-                    custom-built diagnostic app
+                    diagnostic app
                   </span>{" "}
-                  analyzes your real data across 7 dimensions
+                  assesses your real data across 40+ operational competencies, organized by maturity stage
                 </p>
               ) : (
                 <p className="font-body text-sm text-text-mid leading-relaxed">
@@ -167,13 +167,13 @@ export default function HowItWorks() {
       <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-12 lg:gap-16 items-center mb-16 md:mb-24">
         <div className="md:col-span-2 space-y-4 font-body text-text-primary text-base md:text-lg leading-relaxed">
           <h3 className="font-display text-[24px] md:text-[28px] font-semibold text-navy leading-tight">
-            A diagnostic built on your real data
+            A maturity assessment built on your actual data
           </h3>
           <p>
-            You get access to a custom platform that connects to the tools your team already uses and analyzes your real data. If that data is messy (and for most businesses at your stage, it is), the diagnostic does not give you bad readings.
+            You get access to a diagnostic platform that connects to the tools your team already uses. It assesses your business across 40+ operational competencies, scores each one 1 to 5, and produces a heat map showing where you are and where the highest-leverage gaps are.
           </p>
           <p>
-            It shows you where your data has gaps and makes fixing that part of the work, not a prerequisite.
+            If your data is messy (and for most businesses at your stage, it is), the diagnostic does not give you bad readings. It shows you where the gaps are and makes fixing them part of the work.
           </p>
         </div>
 
@@ -184,7 +184,7 @@ export default function HowItWorks() {
           >
             <Image
               src="/images/mockups/dashboard-overview.png"
-              alt="ClearPath Solutions client dashboard showing RevOps Audit Progress at 2 of 7 phases complete with engagement status active, the next coaching step, and key revenue metrics: 86 deals, 4280 contacts, 38K average deal size, 42-day average sales cycle, 42800 sessions, with an Overall Data Quality grade of A"
+              alt="Client dashboard in the Modern BizOps diagnostic app showing maturity assessment progress, engagement status, next coaching step, and key revenue metrics including deals, contacts, average deal size, and overall data quality grade"
               fill
               sizes="(max-width: 768px) 100vw, 720px"
               className="object-cover"
@@ -197,13 +197,13 @@ export default function HowItWorks() {
       <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-12 lg:gap-16 items-center">
         <div className="md:col-span-2 md:order-2 space-y-4 font-body text-text-primary text-base md:text-lg leading-relaxed">
           <h3 className="font-display text-[24px] md:text-[28px] font-semibold text-navy leading-tight">
-            Your progress, tracked in real time
+            Your stage, your roadmap, your progress in real time
           </h3>
           <p>
-            The platform guides the entire engagement: your baseline score, your custom roadmap, your KPIs tracked in real time. As we work through each phase on weekly coaching calls, you watch your numbers move in a live dashboard built around your business. Not a spreadsheet I email you.
+            The platform runs the engagement. Your baseline heat map shows exactly which competencies are your highest-leverage gaps. Your custom roadmap sequences the work based on that heat map and your stated business outcome. Your KPIs track in real time as we work through the targeted competencies on weekly coaching calls.
           </p>
           <p className="font-semibold text-navy">
-            By the time we&apos;re done, you have a before-and-after scorecard that proves exactly what changed.
+            By the time we are done, you have a before-and-after scorecard that proves exactly what advanced and what it produced.
           </p>
         </div>
 
@@ -214,7 +214,7 @@ export default function HowItWorks() {
           >
             <Image
               src="/images/mockups/scorecard-radar.png"
-              alt="Revenue Engine Scorecard inside the diagnostic app, showing a 73 out of 100 score with 7 dimensions assessed: Go-to-Market Health, Sales-Marketing Alignment, Sales Process Maturity, Tech Stack Efficiency, Client Lifecycle, Resource Utilization, and Capital Efficiency"
+              alt="Revenue Maturity Scorecard inside the diagnostic app, showing a client's heat map of operational competency scores across the four maturity stages, with strengths and highest-leverage gaps highlighted"
               fill
               sizes="(max-width: 768px) 100vw, 720px"
               className="object-cover"

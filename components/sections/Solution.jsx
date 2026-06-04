@@ -4,32 +4,31 @@ export default function Solution() {
   return (
     <Section bg="white">
       <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-8">
-        There&apos;s a Better Way to Grow
+        There&apos;s a Predictable Path From Where You Are
       </h2>
       <div className="space-y-6 font-body text-text-primary text-base md:text-lg leading-relaxed">
         <p>
-          Revenue Operations is how the best companies in the world grow revenue
-          faster than they grow costs. It&apos;s the system that aligns your
-          sales, marketing, and client delivery teams around one goal: efficient,
-          predictable growth.
+          Most $3M-$15M companies are operating at Stage 1 or Stage 2 of the
+          revenue maturity model without knowing it. Stage 1 means every dollar
+          of growth depends on the founder&apos;s personal involvement. Stage 2
+          means a system exists, but it runs on intuition rather than data.
         </p>
         <p>
-          The problem? This used to be something only companies with $50M+ in
-          revenue and a dedicated RevOps team could build.
-        </p>
-        <p className="font-semibold text-navy">Not anymore.</p>
-        <p>
-          I take everything I&apos;ve learned from building revenue operations
-          inside 15+ high-growth, VC-backed startups. I personally cut sales
-          cycles in half, doubled conversion rates, and saved over $1M in
-          annual recurring revenue. I bring that experience to companies like
-          yours.
+          Stage 3 is where the business changes. Forecast reliable. Pipeline
+          inspectable. Decisions made from dashboards the team actually trusts.
+          Growth no longer requires proportional headcount. This is what the
+          engagement targets.
         </p>
         <p>
-          This isn&apos;t consulting where someone drops in, builds a binder,
-          and leaves. This is done-with-you coaching where we build your revenue
-          engine together, your team learns the skills, and you own the system
-          when we&apos;re done.
+          The maturity model has four stages. Every client gets a diagnostic
+          assessment that scores them across 40+ operational competencies,
+          grouped by stage. The result is a heat map: here are your strengths,
+          here are your highest-leverage gaps, here is the sequence we work in.
+        </p>
+        <p>
+          The engagement is done-with-you. Your team builds it with my coaching.
+          When we are done, you own the system. You do not need me to maintain
+          it. That is the point.
         </p>
       </div>
 
