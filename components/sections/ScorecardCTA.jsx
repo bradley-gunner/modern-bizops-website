@@ -16,7 +16,7 @@ export default function ScorecardCTA() {
             Not Ready for a Call Yet?
           </h2>
           <p className="font-body text-white/90 text-base md:text-lg leading-relaxed">
-            Get your free Revenue Engine Health Score. Answer 17 questions and
+            Get your free Revenue Maturity Score. Answer 17 questions and
             see exactly where your growth is leaking. Instant results. No call
             required.
           </p>
@@ -36,7 +36,7 @@ export default function ScorecardCTA() {
           >
             <Image
               src="/images/mockups/scorecard-results.png"
-              alt="Revenue Engine Health Score results page showing an 80 out of 100 Grade A score for Sarah at ClearPath Solutions, with a 7-dimension breakdown including GTM Strategy and Market Positioning, Sales and Marketing Alignment, Sales Process and Pipeline Health, and Tech Stack and Data Governance"
+              alt="Revenue Maturity Score results page showing an overall score with a competency breakdown across key revenue operations dimensions"
               fill
               sizes="(max-width: 768px) 100vw, 460px"
               className="object-cover"

@@ -8,7 +8,7 @@ export default function CostOfInaction() {
       </h2>
       <div className="space-y-5 font-body text-text-primary text-base md:text-lg leading-relaxed">
         <p>
-          Leads that should convert don&apos;t. Clients that should stay leave.
+          Leads that should convert do not. Clients that should stay leave.
           Your team is buried in manual work when they should be producing
           revenue. AI is reshaping how companies sell and serve customers right
           now, and every month you wait, your competitors who move first get
@@ -23,7 +23,7 @@ export default function CostOfInaction() {
 
       <div className="mt-8 bg-navy rounded-[14px] p-6 md:p-8 text-center">
         <p className="font-display text-xl md:text-2xl font-semibold text-white leading-snug">
-          The cost of inaction isn&apos;t just lost revenue. It compounds.
+          The cost of inaction is not just lost revenue. It compounds.
         </p>
       </div>
     </Section>

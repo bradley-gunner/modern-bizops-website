@@ -42,7 +42,7 @@ export default function AboutCoach() {
               stalling out because their operations could not keep up with their
               ambition. Sales and marketing misaligned. Customer data siloed.
               Leaders making decisions on gut instead of numbers. I built a
-              methodology and a custom diagnostic platform to fix these problems
+              methodology and the Revenue Intelligence Platform to fix these problems
               systematically, so the solutions stick and the results are
               measurable.
             </p>
