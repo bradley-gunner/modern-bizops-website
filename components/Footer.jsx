@@ -16,7 +16,7 @@ export default function Footer() {
               className="h-14 md:h-[88px] w-auto mb-2"
             />
             <p className="font-body text-text-light text-sm max-w-xs">
-              The operating system for capital-efficient growth.
+              The platform for capital-efficient growth.
             </p>
           </div>
 

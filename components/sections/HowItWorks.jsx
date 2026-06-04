@@ -5,7 +5,7 @@ import BrowserFrame from "../ui/BrowserFrame";
 const steps = [
   {
     title: "Onboarding & Assessment",
-    description: "My custom-built Revenue Intelligence Platform uses AI to analyze your connected tools and build a highly accurate picture of your revenue systems. It scores your business across the Revenue Operations Maturity Model: 40+ competencies, organized by stage.",
+    description: "My custom-built Revenue Intelligence Platform uses AI to analyze the real data inside your connected tools and build a complete picture of your revenue systems. It scores your business across the Revenue Operations Maturity Model: 40+ competencies, organized by stage.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <circle cx="11" cy="11" r="8" />
@@ -27,7 +27,7 @@ const steps = [
   },
   {
     title: "Weekly Coaching",
-    description: "Your team builds the system with my coaching on weekly calls. Each session targets specific competencies from the roadmap.",
+    description: "Your team builds the system with my coaching on weekly calls. Each session targets specific competencies from the roadmap, and the platform tracks what moved between sessions so nothing falls through the cracks.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <polygon points="23 7 16 12 23 17 23 7" />
@@ -130,10 +130,10 @@ export default function HowItWorks() {
             A maturity assessment built on your actual data
           </h3>
           <p>
-            You get access to the Revenue Intelligence Platform, which connects to the tools your team already uses. It uses AI to analyze your actual data and build a highly accurate representation of your revenue systems, then scores your business across 40+ operational competencies and produces a heat map showing where you are and where the highest-leverage gaps are.
+            The platform connects to the tools your team already uses. It uses AI to analyze your real data, not surveys or self-assessments, and scores your business across 40+ operational competencies. The result is a heat map showing where you are and where the highest-leverage gaps are.
           </p>
           <p>
-            If your data is messy (and for most businesses at your stage, it is), the diagnostic does not give you bad readings. It shows you where the gaps are and makes fixing them part of the work.
+            If your data is messy (and for most businesses at your stage, it is), the platform does not give you bad readings. It shows you where the gaps are and makes fixing them part of the work.
           </p>
         </div>
 
@@ -174,7 +174,7 @@ export default function HowItWorks() {
           >
             <Image
               src="/images/mockups/scorecard-radar.png"
-              alt="Revenue Maturity Scorecard inside the Revenue Intelligence Platform, showing a client's heat map of operational competency scores across the four maturity stages, with strengths and highest-leverage gaps highlighted"
+              alt="Revenue Maturity Scorecard inside the Revenue Intelligence Platform, showing a heat map of operational competency scores across the four maturity stages, with strengths and highest-leverage gaps highlighted"
               fill
               sizes="(max-width: 768px) 100vw, 720px"
               className="object-cover"

@@ -16,14 +16,11 @@ export default function Solution() {
         <p>
           Stage 3 is where the business changes. Forecast reliable. Pipeline
           inspectable. Decisions made from dashboards the team actually trusts.
-          Growth no longer requires proportional headcount. This is what the
-          engagement targets.
+          Growth no longer requires proportional headcount.
         </p>
         <p>
-          The maturity model has four stages. Every client gets a diagnostic
-          assessment that scores them across 40+ operational competencies,
-          grouped by stage. The result is a heat map: here are your strengths,
-          here are your highest-leverage gaps, here is the sequence we work in.
+          One client reached Stage 3 in 14 weeks. Sales cycle dropped from 58
+          to 34 days. Churn fell from 19% to 9%. The team was the same size.
         </p>
         <p>
           The engagement is done-with-you. Your team builds it with my coaching.
