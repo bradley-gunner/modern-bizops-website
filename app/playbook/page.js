@@ -3,63 +3,59 @@ import Image from "next/image";
 import PlaybookForm from "./PlaybookForm";
 
 export const metadata = {
-  title: "The Revenue Without Headcount Playbook",
+  title: "The Revenue Maturity Playbook — Free Download",
   description:
-    "7 operational frameworks to grow revenue without adding headcount. Used by $3M-$15M founders to fix broken go-to-market systems.",
+    "A stage-by-stage framework to grow revenue without adding headcount. Used by $3M–$15M B2B founders to build predictable, capital-efficient growth systems.",
   alternates: {
     canonical: "https://modernbizops.com/playbook",
   },
   openGraph: {
-    title: "The Revenue Without Headcount Playbook",
+    title: "The Revenue Maturity Playbook",
     description:
-      "7 operational frameworks to grow revenue without adding headcount. Free download.",
+      "A stage-by-stage framework to grow revenue without adding headcount. Free download.",
     url: "https://modernbizops.com/playbook",
     images: [
       {
         url: "https://modernbizops.com/og/og-playbook.png",
         width: 1200,
         height: 630,
-        alt: "Modern BizOps - The Revenue Without Headcount Playbook, 7 Chapters",
+        alt: "Modern BizOps — The Revenue Maturity Playbook",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Revenue Without Headcount Playbook",
+    title: "The Revenue Maturity Playbook",
     description:
-      "7 chapters of operational frameworks for $3M-$15M companies. Free download.",
+      "A stage-by-stage framework for $3M–$15M companies. Free download.",
     images: ["https://modernbizops.com/og/og-playbook.png"],
   },
 };
 
 const WHAT_YOU_GET = [
   {
-    title: "The GTM Flywheel Audit",
-    body: "Map your entire revenue engine and pinpoint the friction slowing growth before you spend another dollar on headcount.",
+    title: "Define Your Ideal Customer",
+    body: "Stop selling to everyone. Encode a precise ICP in your CRM and qualification criteria so every deal you pursue is worth winning.",
   },
   {
-    title: "The Sales-Marketing SLA",
-    body: "Fix the handoff between sales and marketing. Define shared accountability and stop letting qualified leads fall through the cracks.",
+    title: "Make Your Pipeline Inspectable",
+    body: "Replace gut instinct with buyer-verified stage gates. Includes a real example: sales cycle cut from 58 to 34 days, forecast variance from 30% to 12%.",
   },
   {
-    title: "The Inspectable Sales Process",
-    body: "Pipeline stages with clear exit criteria so revenue becomes forecastable. Includes a real example: sales cycle cut from 47 to 26 days.",
+    title: "Build the Operating Rhythm",
+    body: "End the marketing-vs-sales blame game with shared definitions, SLAs, and a weekly cross-functional cadence that produces decisions.",
   },
   {
-    title: "Tech Stack and Data Governance",
-    body: "Audit your tools, eliminate overlap, and ensure your data is clean enough to make good decisions.",
+    title: "Fix the Post-Sale System",
+    body: "Structured handoff, standardized onboarding, and a health scoring model. Includes a case study: annual churn cut from 19% to 9%.",
   },
   {
-    title: "The Client Lifecycle Playbook",
-    body: "Structured onboarding, retention, and expansion frameworks. Includes a case study: churn reduced from 22% to 11%.",
+    title: "Automate Before You Hire",
+    body: "Recover capacity through AI and automation before adding headcount. Revenue per employee as the metric that separates compounding from linear growth.",
   },
   {
-    title: "Resource Utilization and Capacity",
-    body: "Measure AE productivity and understand exactly when your team is at capacity. Know when to hire based on data, not gut feel.",
-  },
-  {
-    title: "The Capital-Efficient Growth Scorecard",
-    body: "A 15-question self-assessment across all 7 dimensions. See where you stand and where to focus. Includes a case study: pipeline value up 22% in 60 days.",
+    title: "Reach Predictable Revenue",
+    body: "Unit economics by channel, a unified revenue dashboard, and a growth scorecard. Measure what makes the business more valuable, not just bigger.",
   },
 ];
 
@@ -92,13 +88,13 @@ export default function PlaybookPage() {
               </p>
 
               <h1 className="font-display text-[36px] md:text-[52px] leading-tight font-semibold text-navy mb-6">
-                The Revenue Without Headcount Playbook
+                The Revenue Maturity Playbook
               </h1>
 
               <p className="font-body text-lg md:text-xl text-text-mid mb-8 leading-relaxed">
-                7 operational frameworks to grow revenue without adding
-                headcount. Used by $3M-$15M founders to fix broken
-                go-to-market systems.
+                A stage-by-stage framework to grow revenue without adding
+                headcount. Used by $3M–$15M B2B founders to build predictable,
+                capital-efficient growth systems.
               </p>
 
               {/* Trust signals */}
@@ -136,18 +132,18 @@ export default function PlaybookPage() {
                 ))}
               </div>
 
-              {/* What the PDF delivers */}
+              {/* Also included */}
               <div className="mt-10 bg-navy/5 border border-navy/10 rounded-[10px] p-6">
                 <h3 className="font-display text-navy text-[18px] font-semibold mb-4">
                   Also included in the PDF
                 </h3>
                 <ul className="space-y-2">
                   {[
-                    "A 15-question self-assessment with scoring across all 7 dimensions",
-                    "7 detailed case studies with real metrics",
-                    "A framework diagram showing how the 7 systems connect",
-                    "Diagnostic checklists for each chapter",
-                    "A curated resources section",
+                    "A 16-question self-assessment that places you in one of the 4 maturity stages",
+                    "6 Riverline Group case studies with real before/after metrics",
+                    "The Four Maturity Stages diagram with stage-exit boundary criteria",
+                    "A one-page maturity cheat sheet showing the work at each stage",
+                    "Scorecard and discovery call CTAs linking to modernbizops.com",
                   ].map((item) => (
                     <li key={item} className="flex gap-3 items-start">
                       <span className="text-amber font-bold mt-0.5">&#10003;</span>
@@ -169,13 +165,13 @@ export default function PlaybookPage() {
         <section className="bg-navy">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-14 md:py-20 text-center">
             <h2 className="font-display text-[26px] md:text-[36px] font-semibold text-cream mb-5">
-              More revenue does not require more people
+              Every dollar of growth should not require another hire
             </h2>
             <p className="font-body text-base md:text-lg text-cream/80 leading-relaxed">
-              Most $3M-$15M founders are sitting on a broken go-to-market
-              system. Leaky pipelines, misaligned teams, tools that do not
-              talk to each other. Fixing those systems compounds faster than
-              adding headcount. This playbook shows you exactly how.
+              Most $3M–$15M founders are operating at Stage 1 or Stage 2 of the
+              revenue maturity model without knowing it. The framework in this
+              playbook maps exactly where you are and what to build next to reach
+              predictable, capital-efficient growth.
             </p>
           </div>
         </section>

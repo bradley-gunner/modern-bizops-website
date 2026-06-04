@@ -44,7 +44,7 @@ export async function POST(request) {
       contactId: result.id,
       subject: `Playbook download — ${data.email}`,
       body: [
-        `${data.name || data.email} downloaded the Headcount Optimizer Playbook.`,
+        `${data.name || data.email} downloaded the Revenue Maturity Playbook.`,
         data.company ? `Company: ${data.company}` : "",
       ]
         .filter(Boolean)

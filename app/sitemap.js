@@ -8,7 +8,7 @@ const LAST_MODIFIED = {
   book: "2026-04-24",
   scorecard: "2026-04-24",
   about: "2026-04-24",
-  playbook: "2026-04-24",
+  playbook: "2026-06-03",
   privacy: "2026-04-06",
   terms: "2026-04-06",
 };

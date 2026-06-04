@@ -9,7 +9,7 @@ import {
 } from "@/lib/analytics";
 import { getUtms } from "@/lib/utm";
 
-const PLAYBOOK_PDF_PATH = "/revenue-without-headcount-playbook.pdf";
+const PLAYBOOK_PDF_PATH = "/revenue-maturity-playbook.pdf";
 
 export default function PlaybookForm() {
   const [form, setForm] = useState({ name: "", email: "", company: "" });
@@ -69,14 +69,14 @@ export default function PlaybookForm() {
           </p>
         </div>
         <p className="font-body text-text-mid mb-6">
-          Click below to download the Revenue Without Headcount Playbook as a PDF.
+          Click below to download the Revenue Maturity Playbook as a PDF.
         </p>
         <a
           href={PLAYBOOK_PDF_PATH}
           download
           onClick={() =>
             trackEvent("file_download", {
-              file_name: "revenue-without-headcount-playbook.pdf",
+              file_name: "revenue-maturity-playbook.pdf",
               file_extension: "pdf",
               link_url: PLAYBOOK_PDF_PATH,
             })
