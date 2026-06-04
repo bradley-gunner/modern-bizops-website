@@ -5,7 +5,7 @@ import BrowserFrame from "../ui/BrowserFrame";
 const steps = [
   {
     title: "Onboarding & Assessment",
-    description: "My custom-built coaching app scores your business across the Revenue Operations Maturity Model: 40+ competencies, organized by stage. Connect your tools, complete the assessment, and get a heat map of exactly where you stand.",
+    description: "My custom-built Revenue Intelligence Platform scores your business across the Revenue Operations Maturity Model: 40+ competencies, organized by stage. Connect your tools, complete the assessment, and get a heat map of exactly where you stand.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <circle cx="11" cy="11" r="8" />
@@ -37,7 +37,7 @@ const steps = [
   },
   {
     title: "Measurement & ROI",
-    description: "The coaching app watches the data in your connected tools, the transcripts from our calls, and self-reported improvement to measure your progress and the ROI of the coaching you are implementing.",
+    description: "The Revenue Intelligence Platform watches the data in your connected tools, the transcripts from our calls, and self-reported improvement to measure your progress and the ROI of the coaching you are implementing.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <line x1="18" y1="20" x2="18" y2="10" />
@@ -130,7 +130,7 @@ export default function HowItWorks() {
             A maturity assessment built on your actual data
           </h3>
           <p>
-            You get access to a diagnostic platform that connects to the tools your team already uses. It assesses your business across 40+ operational competencies, scores each one 1 to 5, and produces a heat map showing where you are and where the highest-leverage gaps are.
+            You get access to the Revenue Intelligence Platform, which connects to the tools your team already uses. It assesses your business across 40+ operational competencies, scores each one 1 to 5, and produces a heat map showing where you are and where the highest-leverage gaps are.
           </p>
           <p>
             If your data is messy (and for most businesses at your stage, it is), the diagnostic does not give you bad readings. It shows you where the gaps are and makes fixing them part of the work.
@@ -144,7 +144,7 @@ export default function HowItWorks() {
           >
             <Image
               src="/images/mockups/dashboard-overview.png"
-              alt="Client dashboard in the Modern BizOps diagnostic app showing maturity assessment progress, engagement status, next coaching step, and key revenue metrics including deals, contacts, average deal size, and overall data quality grade"
+              alt="Client dashboard in the Revenue Intelligence Platform showing maturity assessment progress, engagement status, next coaching step, and key revenue metrics including deals, contacts, average deal size, and overall data quality grade"
               fill
               sizes="(max-width: 768px) 100vw, 720px"
               className="object-cover"
@@ -174,7 +174,7 @@ export default function HowItWorks() {
           >
             <Image
               src="/images/mockups/scorecard-radar.png"
-              alt="Revenue Maturity Scorecard inside the diagnostic app, showing a client's heat map of operational competency scores across the four maturity stages, with strengths and highest-leverage gaps highlighted"
+              alt="Revenue Maturity Scorecard inside the Revenue Intelligence Platform, showing a client's heat map of operational competency scores across the four maturity stages, with strengths and highest-leverage gaps highlighted"
               fill
               sizes="(max-width: 768px) 100vw, 720px"
               className="object-cover"

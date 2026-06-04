@@ -21,7 +21,7 @@ const faqItems = [
   {
     question: "How is my maturity stage determined?",
     answer:
-      "Three ways, in sequence. First, the diagnostic platform connects to your existing tools and analyzes your actual data: CRM completeness, pipeline stage distribution, integration coverage. That takes about 30 minutes of your time and produces data-driven scores on 15-20 competencies without any self-reporting. Second, a structured questionnaire covers what data alone cannot assess. Third, a 60-90 minute discovery call with you personally, where I validate the preliminary scores and surface anything the data cannot capture. You see the scoring rationale for every competency. Nothing is a black box.",
+      "Three ways, in sequence. First, the Revenue Intelligence Platform connects to your existing tools and analyzes your actual data: CRM completeness, pipeline stage distribution, integration coverage. That takes about 30 minutes of your time and produces data-driven scores on 15-20 competencies without any self-reporting. Second, a structured questionnaire covers what data alone cannot assess. Third, a 60-90 minute discovery call with you personally, where I validate the preliminary scores and surface anything the data cannot capture. You see the scoring rationale for every competency. Nothing is a black box.",
   },
   {
     question: "I've been burned by consultants before.",
