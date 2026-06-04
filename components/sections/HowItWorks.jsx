@@ -4,19 +4,8 @@ import BrowserFrame from "../ui/BrowserFrame";
 
 const steps = [
   {
-    title: "Connect",
-    description: "You connect your existing tools (CRM, marketing platform, accounting software)",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-      </svg>
-    ),
-  },
-  {
-    title: "Diagnose",
-    description: "My diagnostic app assesses your real data across 40+ operational competencies, organized by maturity stage",
-    differentiator: true,
+    title: "Onboarding & Assessment",
+    description: "Connect your tools, run the diagnostic across 40+ competencies, and complete a discovery call. You get a heat map of where you are.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <circle cx="11" cy="11" r="8" />
@@ -25,17 +14,8 @@ const steps = [
     ),
   },
   {
-    title: "Discover",
-    description: "We do in-depth interviews with your team to understand the human side",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Plan",
-    description: "I deliver a custom roadmap to fix the specific problems we found",
+    title: "Scope",
+    description: "We define the engagement: your highest-leverage gaps, the target maturity stage, and a sequenced roadmap built around your business outcome.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
@@ -46,8 +26,8 @@ const steps = [
     ),
   },
   {
-    title: "Coach",
-    description: "I coach you and your team to implement the solutions on weekly calls",
+    title: "Weekly Coaching",
+    description: "Your team builds the system with my coaching on weekly calls. Each session targets specific competencies from the roadmap.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <polygon points="23 7 16 12 23 17 23 7" />
@@ -56,8 +36,8 @@ const steps = [
     ),
   },
   {
-    title: "Measure",
-    description: "We track KPIs until you achieve the results you're looking for",
+    title: "Measurement & ROI",
+    description: "We track competency advancement and revenue impact in real time. You get a before-and-after scorecard that proves exactly what changed.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <line x1="18" y1="20" x2="18" y2="10" />
@@ -86,10 +66,10 @@ export default function HowItWorks() {
       <div className="hidden lg:block relative mb-20">
         <div
           className="absolute top-7 h-px bg-border"
-          style={{ left: "calc(100% / 12)", right: "calc(100% / 12)" }}
+          style={{ left: "calc(100% / 8)", right: "calc(100% / 8)" }}
         />
 
-        <div className="grid grid-cols-6 gap-4">
+        <div className="grid grid-cols-4 gap-8">
           {steps.map((step, i) => (
             <div key={step.title} className="flex flex-col items-center text-center gap-3">
               <div className="relative z-10 w-14 h-14 rounded-full bg-amber flex items-center justify-center shrink-0 shadow-sm">
@@ -104,19 +84,9 @@ export default function HowItWorks() {
                 {step.title}
               </h3>
 
-              {step.differentiator ? (
-                <p className="font-body text-sm text-text-mid leading-relaxed">
-                  My{" "}
-                  <span className="font-semibold text-amber">
-                    diagnostic app
-                  </span>{" "}
-                  assesses your real data across 40+ operational competencies, organized by maturity stage
-                </p>
-              ) : (
-                <p className="font-body text-sm text-text-mid leading-relaxed">
-                  {step.description}
-                </p>
-              )}
+              <p className="font-body text-sm text-text-mid leading-relaxed">
+                {step.description}
+              </p>
             </div>
           ))}
         </div>
@@ -145,19 +115,9 @@ export default function HowItWorks() {
                 </h3>
               </div>
 
-              {step.differentiator ? (
-                <p className="font-body text-sm text-text-mid leading-relaxed">
-                  My{" "}
-                  <span className="font-semibold text-amber">
-                    diagnostic app
-                  </span>{" "}
-                  assesses your real data across 40+ operational competencies, organized by maturity stage
-                </p>
-              ) : (
-                <p className="font-body text-sm text-text-mid leading-relaxed">
-                  {step.description}
-                </p>
-              )}
+              <p className="font-body text-sm text-text-mid leading-relaxed">
+                {step.description}
+              </p>
             </div>
           </div>
         ))}
