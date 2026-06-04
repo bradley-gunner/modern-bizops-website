@@ -14,7 +14,7 @@ const steps = [
     ),
   },
   {
-    title: "Scope",
+    title: "Roadmap",
     description: "I identify the competencies holding you back from the next maturity stage and provide specific recommendations that form your roadmap. Most scopes take 12-16 weeks to complete.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
