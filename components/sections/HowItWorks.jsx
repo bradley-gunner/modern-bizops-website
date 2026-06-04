@@ -56,12 +56,12 @@ export default function HowItWorks() {
         How It Works
       </h2>
 
-      {/* Lead hook — sits above the timeline */}
+      {/* Lead hook, sits above the timeline */}
       <p className="font-body text-navy text-lg md:text-xl font-medium text-center max-w-[720px] mx-auto mb-14">
         Most consultants hand you a binder and wish you luck. I built something different.
       </p>
 
-      {/* ── Timeline: 6-step flow (moved up, right under the title) ── */}
+      {/* ── Timeline: 4-step flow ── */}
       {/* Desktop horizontal */}
       <div className="hidden lg:block relative mb-20">
         <div
@@ -153,7 +153,7 @@ export default function HowItWorks() {
         </div>
       </div>
 
-      {/* ── Two-column block 2: dashboard left (60%), text right (40%) — alternated ── */}
+      {/* ── Two-column block 2: dashboard left (60%), text right (40%), alternated ── */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-12 lg:gap-16 items-center">
         <div className="md:col-span-2 md:order-2 space-y-4 font-body text-text-primary text-base md:text-lg leading-relaxed">
           <h3 className="font-display text-[24px] md:text-[28px] font-semibold text-navy leading-tight">
