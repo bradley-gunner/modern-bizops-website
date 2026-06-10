@@ -2,14 +2,13 @@ import { NextResponse } from "next/server";
 import {
   HUBSPOT_BASE,
   REVOPS_PIPELINE_ID,
+  NEW_LEAD_STAGE,
   BRADLEY_OWNER_ID,
   hsHeaders,
   assertHubSpotConfigured,
   findContactByEmail,
   findExistingRevopsDealForContact,
 } from "@/lib/hubspot";
-
-const NEW_LEAD_STAGE = "3477396169";
 
 /**
  * POST /api/create-watch-deal
