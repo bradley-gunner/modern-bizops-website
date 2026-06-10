@@ -39,6 +39,11 @@ describe('stagePlacement', () => {
     expect(stagePlacement(answers({ c: [4, 4, 4] }))).toBe(4);
     expect(stagePlacement(answers({ c: [3, 4, 4] }))).toBe(3);
   });
+
+  it('returns 1 when answers are empty or partial (missing scores treated as 0)', () => {
+    expect(stagePlacement({})).toBe(1);
+    expect(stagePlacement({ q4: { score: 4 }, q5: { score: 4 } })).toBe(1); // q6 missing -> 0 -> stage 1
+  });
 });
 
 describe('brightSpots', () => {
