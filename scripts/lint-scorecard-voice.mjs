@@ -22,9 +22,6 @@
  *     marketer voice and are out of scope for this lint. The marketer-authored
  *     prompts and peer-anchor templates in this file are covered by the voice
  *     sanitizer at runtime.
- *
- * app/scorecard/page.js will be added to the default targets when Task 15
- * lands the rewritten page.
  */
 
 import { readFileSync, existsSync } from 'node:fs';
@@ -33,6 +30,7 @@ import { resolve } from 'node:path';
 const DEFAULT_TARGETS = [
   'lib/scorecard/roi.js',
   'lib/scorecard/resultRender.js',
+  'app/scorecard/page.js',
 ];
 
 const EM_DASH = /—/;
