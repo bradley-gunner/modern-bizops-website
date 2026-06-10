@@ -96,4 +96,9 @@ describe('buildResult', () => {
     const allStrings = JSON.stringify(r);
     expect(allStrings).not.toMatch(/—/);
   });
+
+  it('accepts an injectable generatedAt for determinism', () => {
+    const r = buildResult(ans(), { generatedAt: '2026-06-10T12:00:00.000Z' });
+    expect(r.generatedAt).toBe('2026-06-10T12:00:00.000Z');
+  });
 });
