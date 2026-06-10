@@ -38,6 +38,33 @@ describe('revenuePerEmployee generator', () => {
     expect(line.source).toMatch(/businessModelBenchmarks v1\.1/);
     expect(line.body).not.toMatch(/—/);
   });
+
+  it('partial band (floor=0, median>0) uses "as much as" copy, not "between $0 and"', () => {
+    // PS revenuePerEmployee: median 170K, range [150K, 300K]. Client at 160K/employee = partial.
+    // q1 1m_3m ($2M) / q3 11_25 (18) = ~111K/employee. Actually that's below low (150K), which is fails.
+    // Need: client BETWEEN low and median. q1 3m_7m ($5M) / q3 26_50 (38) = ~132K -> still below 150K (fails).
+    // q1 7m_15m ($11M) / q3 75_plus (90) = ~122K -> still below 150K (fails).
+    // Need a client higher than 150K but below 170K. q1 7m_15m ($11M) / q3 51_75 (63) = ~175K -> above median (meets, null).
+    // Hard to hit partial naturally with the band midpoints. Use a direct lossRangePhrase check instead:
+
+    // Verify the partial-band behavior on salesCycle, where it IS reachable:
+    // PS salesCycleDays: median 103, range [60, 130]. q14 90_180 -> 135. Above high (lagging, fails).
+    // q14 30_90 -> 60 (at low, meets -> null).
+    // No natural partial-band fixture with the canonical PS table because the cycle bands jump past the [60,130] window.
+    //
+    // So test the helper directly via a generator that exposes it. Use B2B_SAAS where revenuePerEmployee range is [100K, 200K], median 130K.
+    // q1 under_1m / q3 just_me = 750K/1 = 750K -> way above median (meets, null).
+    // q1 under_1m / q3 2_10 = 125K/employee -> BETWEEN low 100K and median 130K? Yes. partial band.
+    // Expected: floor = max(0, 100K - 125K) * 6 = 0. median = max(0, 130K - 125K) * 6 = 30K. Line fires with floor=0.
+    const a = { q1: { value: 'under_1m' }, q2: { value: 'B2B_SAAS' }, q3: { value: '2_10' } };
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    const line = generators.revenuePerEmployee(a, benchmark);
+    expect(line).not.toBeNull();
+    expect(line.floorDollars).toBe(0);
+    expect(line.medianDollars).toBeGreaterThan(0);
+    expect(line.body).toMatch(/as much as/);
+    expect(line.body).not.toMatch(/between \$0/);
+  });
 });
 
 describe('salesCycle generator', () => {
