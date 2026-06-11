@@ -19,3 +19,30 @@ describe('StagePlacementCard', () => {
     expect(screen.queryByText(/bottleneck/)).not.toBeInTheDocument();
   });
 });
+
+const nextStage = {
+  name: 'Repeatable',
+  criteria: [
+    'Everyone who touches customers uses the same CRM.',
+    'Each pipeline stage has documented exit criteria.',
+  ],
+};
+
+describe('StagePlacementCard next-stage preview', () => {
+  it('renders the next stage name and criteria when provided', () => {
+    render(<StagePlacementCard placement={placement} binding={binding} nextStage={nextStage} />);
+    expect(screen.getByText(/What crossing into Repeatable looks like/i)).toBeInTheDocument();
+    expect(screen.getByText(/Everyone who touches customers/)).toBeInTheDocument();
+    expect(screen.getByText(/documented exit criteria/)).toBeInTheDocument();
+  });
+
+  it('hides the preview when nextStage is null (Stage 4)', () => {
+    render(<StagePlacementCard placement={{ stage: 4, name: 'Compounding', descriptor: 'desc' }} binding={null} nextStage={null} />);
+    expect(screen.queryByText(/What crossing into/i)).not.toBeInTheDocument();
+  });
+
+  it('hides the preview when nextStage is undefined (no prop passed)', () => {
+    render(<StagePlacementCard placement={placement} binding={binding} />);
+    expect(screen.queryByText(/What crossing into/i)).not.toBeInTheDocument();
+  });
+});
