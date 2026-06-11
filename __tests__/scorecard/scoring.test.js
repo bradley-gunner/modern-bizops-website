@@ -47,28 +47,40 @@ describe('stagePlacement', () => {
 });
 
 describe('brightSpots', () => {
-  it('returns up to 2 answers scoring strictly higher than placement', () => {
-    const a = answers({ a: [2, 4, 4], b: [3, 3, 3], c: [3, 3, 3] });
-    // placement = 1 (block A has a 2). Bright spots = answers scoring > 1: q5(4), q6(4), q7..q12 (3s)
-    const spots = brightSpots(a, 1);
+  it('requires score >= 3 (Functional or Managed)', () => {
+    // placement = 1, but score-2 answers should NOT qualify
+    const a = answers({ a: [2, 2, 2], b: [3, 3, 3], c: [3, 3, 3] });
+    const spots = brightSpots(a, 1, []);
+    for (const s of spots) expect(s.score).toBeGreaterThanOrEqual(3);
+  });
+
+  it('excludes competencies named in the binding boundary', () => {
+    // placement = 1; binding picks q4, q5. q6 scores 4 -> only q6 should qualify from Block A.
+    const a = answers({ a: [2, 2, 4], b: [3, 3, 3], c: [3, 3, 3] });
+    const spots = brightSpots(a, 1, ['q4', 'q5']);
+    const ids = spots.map((s) => s.id);
+    expect(ids).not.toContain('q4');
+    expect(ids).not.toContain('q5');
+    expect(ids).toContain('q6');
+  });
+
+  it('returns up to 2 highest-scoring qualifying answers', () => {
+    const a = answers({ a: [4, 4, 4], b: [3, 3, 3], c: [3, 3, 3] });
+    const spots = brightSpots(a, 1, []);
     expect(spots.length).toBeLessThanOrEqual(2);
-    for (const s of spots) {
-      expect(s.score).toBeGreaterThan(1);
+    for (let i = 1; i < spots.length; i++) {
+      expect(spots[i - 1].score).toBeGreaterThanOrEqual(spots[i].score);
     }
   });
 
-  it('returns empty array when no answer scores above placement', () => {
+  it('returns empty array when no qualifying answer remains', () => {
+    const a = answers({ a: [2, 2, 2], b: [2, 2, 2], c: [2, 2, 2] });
+    expect(brightSpots(a, 1, [])).toEqual([]);
+  });
+
+  it('returns spots for score-4 answers even at Stage 4 placement', () => {
     const a = answers({ a: [4, 4, 4], b: [4, 4, 4], c: [4, 4, 4] });
-    // placement = 4, nothing scores > 4
-    expect(brightSpots(a, 4)).toEqual([]);
-  });
-
-  it('returns highest-scoring answers first', () => {
-    const a = answers({ a: [2, 3, 4], b: [3, 3, 3], c: [3, 3, 3] });
-    const spots = brightSpots(a, 1);
-    if (spots.length >= 2) {
-      expect(spots[0].score).toBeGreaterThanOrEqual(spots[1].score);
-    }
+    expect(brightSpots(a, 4, []).length).toBeGreaterThan(0);
   });
 });
 

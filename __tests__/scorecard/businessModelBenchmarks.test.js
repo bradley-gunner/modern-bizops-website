@@ -17,8 +17,57 @@ const MODELS = [
 ];
 
 describe('businessModelBenchmarks', () => {
-  it('exports version 1.1', () => {
-    expect(BUSINESS_MODEL_BENCHMARK_VERSION).toBe('1.1');
+  it('exports version 1.2', () => {
+    expect(BUSINESS_MODEL_BENCHMARK_VERSION).toBe('1.2');
+  });
+
+  it.each(MODELS)('row %s carries a grr metric with median <= 1.00', (model) => {
+    const grr = getBusinessModelBenchmark(model).metrics.grr;
+    expect(grr).toBeDefined();
+    expect(grr.direction).toBe('higher');
+    expect(grr.unit).toBe('ratio');
+    expect(grr.median).toBeLessThanOrEqual(1.00);
+    expect(grr.range[0]).toBeLessThanOrEqual(grr.median);
+    expect(grr.range[1]).toBeLessThanOrEqual(1.00);
+    expect(grr.source).toBeTypeOf('string');
+    expect(typeof grr.asOf).toBe('number');
+    expect(grr.confidence).toMatch(/^(cited|estimated)$/);
+  });
+
+  it.each(MODELS)('row %s grr median <= nrr median (definitional invariant)', (model) => {
+    const m = getBusinessModelBenchmark(model).metrics;
+    expect(m.grr.median).toBeLessThanOrEqual(m.nrr.median);
+  });
+
+  it.each(MODELS)('row %s grr range[1] >= median', (model) => {
+    const grr = getBusinessModelBenchmark(model).metrics.grr;
+    expect(grr.range[1]).toBeGreaterThanOrEqual(grr.median);
+  });
+
+  it.each([
+    ['ECOMMERCE',        0.30],
+    ['B2C_SERVICES',     0.70],
+    ['B2C_SUBSCRIPTION', 0.60],
+  ])('%s grr median pinned at %f (matches v1.2 nrr; no consumer expansion)', (model, expected) => {
+    expect(getBusinessModelBenchmark(model).metrics.grr.median).toBe(expected);
+  });
+
+  it('v1.2 sync: ECOMMERCE nrr median is 0.30 (annual cohort)', () => {
+    expect(getBusinessModelBenchmark('ECOMMERCE').metrics.nrr.median).toBe(0.30);
+  });
+
+  it('v1.2 sync: B2C_SERVICES nrr median is 0.70', () => {
+    expect(getBusinessModelBenchmark('B2C_SERVICES').metrics.nrr.median).toBe(0.70);
+  });
+
+  it('v1.2 sync: B2C_SUBSCRIPTION nrr median is 0.60 (Recurly annualized)', () => {
+    expect(getBusinessModelBenchmark('B2C_SUBSCRIPTION').metrics.nrr.median).toBe(0.60);
+  });
+
+  it('B2B_SAAS grr is 0.90 [0.82, 0.95]', () => {
+    const grr = getBusinessModelBenchmark('B2B_SAAS').metrics.grr;
+    expect(grr.median).toBe(0.90);
+    expect(grr.range).toEqual([0.82, 0.95]);
   });
 
   it.each(MODELS)('returns a benchmark row for %s', (model) => {

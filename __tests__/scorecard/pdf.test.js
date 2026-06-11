@@ -16,14 +16,14 @@ function ans() {
 
 describe('renderResultPdf', () => {
   it('renders a non-empty Buffer', async () => {
-    const result = buildResult(ans(), { generatedAt: '2026-06-10T12:00:00.000Z' });
+    const result = buildResult(ans(), { generatedAt: '2026-06-11T12:00:00.000Z' });
     const buf = await renderResultPdf(result);
     expect(buf).toBeInstanceOf(Buffer);
-    expect(buf.length).toBeGreaterThan(1000);
+    expect(buf.length).toBeGreaterThan(1500);
   });
 
   it('Buffer starts with the PDF magic bytes (%PDF-)', async () => {
-    const result = buildResult(ans(), { generatedAt: '2026-06-10T12:00:00.000Z' });
+    const result = buildResult(ans(), { generatedAt: '2026-06-11T12:00:00.000Z' });
     const buf = await renderResultPdf(result);
     expect(buf.toString('utf8', 0, 5)).toBe('%PDF-');
   });

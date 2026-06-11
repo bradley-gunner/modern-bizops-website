@@ -1,10 +1,21 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { getQuestionsFor } from '@/lib/scorecard/questions';
 import SectionHeader from './SectionHeader';
 import QuestionCard from './QuestionCard';
 import EmailGateForm from './EmailGateForm';
 import ResultView from './ResultView';
+
+const STORAGE_KEY = 'scorecard:state';
+
+function pruneStaleAnswers(answers) {
+  const visible = new Set(getQuestionsFor(answers).map((q) => q.id));
+  const out = {};
+  for (const id of Object.keys(answers)) {
+    if (visible.has(id)) out[id] = answers[id];
+  }
+  return out;
+}
 
 export default function QuizFlow({ utms = {} }) {
   const [answers, setAnswers] = useState({});
@@ -12,6 +23,36 @@ export default function QuizFlow({ utms = {} }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [restored, setRestored] = useState(false);
+
+  // Restore on mount. sessionStorage is client-only, so this must run after
+  // hydration; a lazy useState initializer would mismatch the server render.
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.answers) setAnswers(parsed.answers);
+        if (parsed.step) setStep(parsed.step);
+        if (typeof parsed.currentIndex === 'number') setCurrentIndex(parsed.currentIndex);
+        if (parsed.result) setResult(parsed.result);
+      }
+    } catch {}
+    setRestored(true);
+  }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  // Persist on change (after restore)
+  useEffect(() => {
+    if (!restored) return;
+    try {
+      sessionStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ answers, step, currentIndex, result }),
+      );
+    } catch {}
+  }, [restored, answers, step, currentIndex, result]);
 
   const visibleQuestions = useMemo(() => getQuestionsFor(answers), [answers]);
   const safeIndex = Math.min(currentIndex, visibleQuestions.length - 1);
@@ -19,13 +60,20 @@ export default function QuizFlow({ utms = {} }) {
   const isLast = safeIndex === visibleQuestions.length - 1;
 
   function recordAnswer(option) {
-    setAnswers((prev) => ({
-      ...prev,
-      [currentQuestion.id]: {
-        value: option.value,
-        ...(typeof option.score === 'number' ? { score: option.score } : {}),
-      },
-    }));
+    setAnswers((prev) => {
+      const next = {
+        ...prev,
+        [currentQuestion.id]: {
+          value: option.value,
+          ...(typeof option.score === 'number' ? { score: option.score } : {}),
+        },
+      };
+      // q2 change can hide q15; prune so stale answers cannot leak to submit.
+      if (currentQuestion.id === 'q2') {
+        return pruneStaleAnswers(next);
+      }
+      return next;
+    });
   }
 
   function next() {
@@ -101,7 +149,7 @@ export default function QuizFlow({ utms = {} }) {
         <button
           onClick={back}
           disabled={safeIndex === 0}
-          className="font-body text-text-mid hover:text-text-primary disabled:opacity-30"
+          className="font-body text-text-mid hover:text-text-primary disabled:opacity-60"
         >
           Back
         </button>

@@ -33,7 +33,12 @@ export default function QuestionCard({ question, answers, selected, onSelect }) 
                 onChange={() => onSelect(opt)}
                 className="mt-1"
               />
-              <span className="font-body text-text-primary">{opt.label}</span>
+              <span className="font-body text-text-primary">
+                {opt.label}
+                {opt.description && (
+                  <span data-description className="block font-body text-sm text-text-mid mt-1">{opt.description}</span>
+                )}
+              </span>
             </label>
           );
         })}

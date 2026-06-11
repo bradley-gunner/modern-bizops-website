@@ -13,7 +13,9 @@ export default function CtaCard({ cta }) {
           </li>
         ))}
       </ul>
-      <p className="font-body text-cream/80 mb-6">Start with a 20-minute fit call to see if it makes sense for your business.</p>
+      {cta.focusLine && (
+        <p className="font-body text-cream/90 mb-6">{cta.focusLine}</p>
+      )}
       <Link
         href={cta.destination}
         className="inline-flex items-center justify-center font-body font-semibold bg-amber text-white hover:bg-amber-light transition-colors duration-200 rounded-full px-8 py-3"

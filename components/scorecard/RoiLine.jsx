@@ -25,7 +25,13 @@ export default function RoiLine({ line, modelLabel }) {
         {line.comparisonCopy}
       </span>
       <p className="font-body text-text-mid leading-relaxed mb-3">{line.body}</p>
-      <p className="font-body text-xs text-text-light">{line.source}</p>
+      {line.fix && (
+        <div className="border-t border-border pt-4 mt-3">
+          <p className="font-body text-xs font-semibold uppercase tracking-wide text-navy mb-2">How to close this</p>
+          <p className="font-body text-text-mid leading-relaxed">{line.fix}</p>
+        </div>
+      )}
+      <p className="font-body text-xs text-text-light mt-4">{line.source}</p>
     </div>
   );
 }

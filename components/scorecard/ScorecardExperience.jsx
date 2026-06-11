@@ -11,10 +11,10 @@ function Landing({ onStart }) {
           Free Diagnostic
         </p>
         <h1 className="font-display text-[32px] md:text-[48px] leading-tight font-semibold text-navy mb-6">
-          In five minutes, find the dollar amount your operating system is leaving on the table this year, and the one gap I would fix first if you were my client.
+          Find the dollar amount your operating system is leaving on the table this year.
         </h1>
-        <p className="font-body text-lg md:text-xl text-text-mid max-w-[620px] mx-auto mb-8">
-          This scorecard is for B2B founders who feel like every dollar of revenue growth requires another hire.
+        <p className="font-body text-lg md:text-xl text-text-mid max-w-[620px] mx-auto mb-6">
+          Built for founders who feel like every dollar of revenue growth requires another hire.
         </p>
         <button
           onClick={onStart}
@@ -22,6 +22,7 @@ function Landing({ onStart }) {
         >
           Find your number
         </button>
+        <p className="font-body text-sm text-text-light mt-3">Fifteen questions. About five minutes.</p>
       </section>
 
       <section className="bg-white">
@@ -54,10 +55,14 @@ export default function ScorecardExperience() {
   const [mode, setMode] = useState('landing');
   const [utms, setUtms] = useState({});
 
+  // UTMs live in the client URL and localStorage, so this must run after
+  // hydration; reading them during render would mismatch the server render.
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     captureUtms();
     setUtms(getUtms());
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   if (mode === 'quiz') {
     return <QuizFlow utms={utms} />;
