@@ -282,6 +282,25 @@ describe('capped body copy consistency', () => {
       expect(line.body).toContain(formatUsd(line.medianDollars));
     }
   });
+
+  it('never reads "between $X and $X" when caps collapse floor onto median', () => {
+    // The forced case scales floor and median to identical display values.
+    const a = {
+      q1: { value: 'under_1m' },
+      q2: { value: 'PROFESSIONAL_SERVICES' },
+      q3: { value: '75_plus' },
+      q13: { value: '25k_100k' },
+      q14: { value: 'over_180' },
+      q15: { value: 'over_30' },
+    };
+    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+    for (const line of lines) {
+      expect(line.body).not.toMatch(/between (\$[\d.]+[KM]?) and \1\b/);
+      if (line.floorDollars > 0 && formatUsd(line.floorDollars) === formatUsd(line.medianDollars)) {
+        expect(line.body).toMatch(/on the order of/);
+      }
+    }
+  });
 });
 
 describe('generateComparisons', () => {
