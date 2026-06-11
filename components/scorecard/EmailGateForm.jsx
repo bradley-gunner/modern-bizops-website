@@ -13,9 +13,9 @@ export default function EmailGateForm({ onSubmit, submitting }) {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-[14px] border border-border p-6 md:p-8 max-w-xl mx-auto">
-      <h2 className="font-display text-2xl md:text-3xl text-navy mb-2 text-center">Where should I send your scorecard?</h2>
+      <h2 className="font-display text-2xl md:text-3xl text-navy mb-2 text-center">One last step before your results.</h2>
       <p className="font-body text-text-mid text-center mb-6">
-        You will see your results on screen now, and I will email you a PDF copy you can share with your team.
+        Tell me who you are and your full scorecard is on screen the moment you submit.
       </p>
       <div className="space-y-4 mb-5">
         <div>
@@ -47,7 +47,7 @@ export default function EmailGateForm({ onSubmit, submitting }) {
         {submitting ? 'Sending...' : 'Show me my number'}
       </button>
       <p className="font-body text-xs text-text-light text-center mt-5">
-        I will send you your scorecard and one follow-up note. No newsletter, no drip sequence. You can ask for your data to be deleted at any time.
+        I will follow up with one personal note. No newsletter, no drip sequence. You can ask for your data to be deleted at any time.
       </p>
     </form>
   );

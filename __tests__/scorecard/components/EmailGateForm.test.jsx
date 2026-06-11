@@ -21,11 +21,23 @@ describe('EmailGateForm', () => {
     expect(onSubmit).toHaveBeenCalledWith({ firstName: 'Jane', email: 'jane@example.com', company: 'Acme' });
   });
 
-  it('renders the trust footer copy with no em-dash', () => {
+  it('heading reads "One last step before your results."', () => {
     render(<EmailGateForm onSubmit={() => {}} />);
-    const footer = screen.getByText(/scorecard and one follow-up note/i);
+    expect(screen.getByText(/One last step before your results/i)).toBeInTheDocument();
+  });
+
+  it('body does not promise an emailed PDF', () => {
+    render(<EmailGateForm onSubmit={() => {}} />);
+    expect(screen.queryByText(/PDF copy/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/full scorecard is on screen the moment you submit/i)).toBeInTheDocument();
+  });
+
+  it('trust footer renders with no em-dash and references data deletion', () => {
+    render(<EmailGateForm onSubmit={() => {}} />);
+    const footer = screen.getByText(/I will follow up with one personal note/i);
     expect(footer).toBeInTheDocument();
     expect(footer.textContent).not.toMatch(/—/);
+    expect(footer.textContent).toMatch(/deleted at any time/i);
   });
 
   it('disables submit while submitting', () => {

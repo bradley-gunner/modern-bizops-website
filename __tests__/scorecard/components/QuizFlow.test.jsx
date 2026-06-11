@@ -58,7 +58,7 @@ describe('QuizFlow', () => {
     for (let i = 0; i < 9; i++) { selectFirstOption(); clickNext(); }
     selectFirstOption(); clickNext();
     fireEvent.click(screen.getAllByRole('radio')[1]); clickNext();
-    await waitFor(() => expect(screen.getByText(/Where should I send your scorecard/i)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(/One last step before your results/i)).toBeInTheDocument());
   });
 
   it('submits the form, calls /api/scorecard/submit, and reveals the result', async () => {
@@ -71,7 +71,7 @@ describe('QuizFlow', () => {
     for (let i = 0; i < 9; i++) { selectFirstOption(); clickNext(); }
     selectFirstOption(); clickNext();
     fireEvent.click(screen.getAllByRole('radio')[1]); clickNext();
-    await waitFor(() => screen.getByText(/Where should I send your scorecard/i));
+    await waitFor(() => screen.getByText(/One last step before your results/i));
 
     fireEvent.change(screen.getByLabelText(/First name/i), { target: { value: 'Jane' } });
     fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'jane@example.com' } });
