@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { generateRoiLines, generateComparisons, generators, MIN_RESOLVABLE_CYCLE_DAYS } from '@/lib/scorecard/roi';
 import { getBusinessModelBenchmark } from '@/lib/scorecard/businessModelBenchmarks';
+import { formatUsd } from '@/lib/scorecard/voice';
 
 function baseAnswers(overrides = {}) {
   return {
@@ -239,6 +240,46 @@ describe('sanity caps', () => {
     // Each line should be < 0.5 * $11M from raw generators; cap is a no-op.
     for (const line of lines) {
       expect(line.medianDollars).toBeLessThanOrEqual(11_000_000 * 0.5);
+    }
+  });
+});
+
+describe('capped body copy consistency', () => {
+  it('body dollar amounts match the capped floor/median on every line', () => {
+    // Forced huge-gap case where caps bind hard (see answersWithForcedHugeGaps).
+    const a = {
+      q1: { value: 'under_1m' },
+      q2: { value: 'PROFESSIONAL_SERVICES' },
+      q3: { value: '75_plus' },
+      q13: { value: '25k_100k' },
+      q14: { value: 'over_180' },
+      q15: { value: 'over_30' },
+    };
+    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+    expect(lines.length).toBeGreaterThan(0);
+    for (const line of lines) {
+      // The body must reference the CAPPED median, not the raw one.
+      expect(line.body).toContain(formatUsd(line.medianDollars));
+      if (line.floorDollars > 0) {
+        expect(line.body).toContain(formatUsd(line.floorDollars));
+      } else {
+        expect(line.body).toMatch(/as much as/);
+      }
+    }
+  });
+
+  it('mild case (caps not binding) body still matches the line numbers', () => {
+    const a = {
+      q1: { value: '7m_15m' },
+      q2: { value: 'PROFESSIONAL_SERVICES' },
+      q3: { value: '51_75' },
+      q13: { value: '25k_100k' },
+      q14: { value: 'over_180' },
+      q15: { value: 'over_30' },
+    };
+    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+    for (const line of lines) {
+      expect(line.body).toContain(formatUsd(line.medianDollars));
     }
   });
 });
