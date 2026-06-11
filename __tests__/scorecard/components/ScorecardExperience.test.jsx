@@ -28,4 +28,21 @@ describe('ScorecardExperience', () => {
     const { container } = render(<ScorecardExperience />);
     expect(container.textContent).not.toMatch(/—/);
   });
+
+  it('renders the shorter landing headline (single sentence)', () => {
+    render(<ScorecardExperience />);
+    expect(screen.getByText(/Find the dollar amount your operating system is leaving on the table this year\./i)).toBeInTheDocument();
+  });
+
+  it('subhead does not restrict ICP to B2B founders', () => {
+    render(<ScorecardExperience />);
+    const subhead = screen.getByText(/every dollar of revenue growth requires another hire/i);
+    expect(subhead).toBeInTheDocument();
+    expect(subhead.textContent).not.toMatch(/B2B founders/);
+  });
+
+  it('renders the time expectation under the CTA', () => {
+    render(<ScorecardExperience />);
+    expect(screen.getByText(/Fifteen questions\. About five minutes\./i)).toBeInTheDocument();
+  });
 });
