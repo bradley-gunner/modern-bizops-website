@@ -142,3 +142,88 @@ describe('no-gap variants', () => {
     expect(r.binding.translation).toMatch(/boundary you need to cross/);
   });
 });
+
+describe('competencyScores', () => {
+  it('returns 9 entries, one per q4..q12', () => {
+    const r = buildResult(ans());
+    expect(r.competencyScores).toHaveLength(9);
+    expect(r.competencyScores.map((c) => c.id)).toEqual([
+      'q4','q5','q6','q7','q8','q9','q10','q11','q12',
+    ]);
+  });
+
+  it('groups by block A (q4..q6), B (q7..q9), C (q10..q12)', () => {
+    const r = buildResult(ans());
+    const blocksById = Object.fromEntries(r.competencyScores.map((c) => [c.id, c.block]));
+    for (const id of ['q4','q5','q6']) expect(blocksById[id]).toBe('A');
+    for (const id of ['q7','q8','q9']) expect(blocksById[id]).toBe('B');
+    for (const id of ['q10','q11','q12']) expect(blocksById[id]).toBe('C');
+  });
+
+  it('carries the competencyLabel and the score for each row', () => {
+    const r = buildResult(ans());
+    const q4 = r.competencyScores.find((c) => c.id === 'q4');
+    expect(q4.competencyLabel).toBe('CRM architecture');
+    expect(q4.score).toBe(1);
+  });
+});
+
+describe('comparisons', () => {
+  it('payload carries comparisons array', () => {
+    const r = buildResult(ans());
+    expect(Array.isArray(r.comparisons)).toBe(true);
+    expect(r.comparisons.length).toBeGreaterThan(0);
+  });
+});
+
+describe('nextStage preview', () => {
+  it('is populated for placements 1..3', () => {
+    const r = buildResult(ans()); // placement 1
+    expect(r.nextStage.name).toBe('Repeatable');
+    expect(r.nextStage.criteria.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('is null at Stage 4', () => {
+    const r = buildResult(ans({
+      q4: { value: 'D', score: 4 }, q5: { value: 'D', score: 4 }, q6: { value: 'D', score: 4 },
+      q7: { value: 'D', score: 4 }, q8: { value: 'D', score: 4 }, q9: { value: 'D', score: 4 },
+      q10: { value: 'D', score: 4 }, q11: { value: 'D', score: 4 }, q12: { value: 'D', score: 4 },
+      q14: { value: 'under_30' }, q15: { value: 'under_5' },
+    }));
+    expect(r.placement.stage).toBe(4);
+    expect(r.nextStage).toBeNull();
+  });
+});
+
+describe('per-gap fixes', () => {
+  it('every roiLine carries a non-empty fix paragraph', () => {
+    const r = buildResult(ans());
+    expect(r.roiLines.length).toBeGreaterThan(0);
+    for (const line of r.roiLines) {
+      expect(line.fix).toBeTypeOf('string');
+      expect(line.fix.length).toBeGreaterThan(40);
+    }
+  });
+});
+
+describe('cta.focus', () => {
+  it('is the binding boundary lowest-scoring competency label', () => {
+    const r = buildResult(ans({
+      q4: { value: 'D', score: 4 }, q5: { value: 'A', score: 1 }, q6: { value: 'D', score: 4 },
+    }));
+    // placement remains 1 because q5 score 1 still binds block A; lowest in block A: q5 (lead qualification).
+    expect(r.cta.focus).toBe('lead qualification');
+    expect(r.cta.focusLine).toMatch(/lead qualification/);
+  });
+
+  it('falls back to a generic line when binding is null (Stage 4)', () => {
+    const r = buildResult(ans({
+      q4: { value: 'D', score: 4 }, q5: { value: 'D', score: 4 }, q6: { value: 'D', score: 4 },
+      q7: { value: 'D', score: 4 }, q8: { value: 'D', score: 4 }, q9: { value: 'D', score: 4 },
+      q10: { value: 'D', score: 4 }, q11: { value: 'D', score: 4 }, q12: { value: 'D', score: 4 },
+      q14: { value: 'under_30' }, q15: { value: 'under_5' },
+    }));
+    expect(r.cta.focus).toBeNull();
+    expect(r.cta.focusLine).toMatch(/Book 30 minutes/);
+  });
+});
