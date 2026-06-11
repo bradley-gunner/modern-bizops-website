@@ -89,8 +89,8 @@ describe('static copy is clean and present', () => {
 });
 
 describe('sourceCitation', () => {
-  it('emits the v1.1 footer with the model label', () => {
-    expect(sourceCitation('B2B SaaS')).toBe('Source: businessModelBenchmarks v1.1, B2B SaaS row.');
+  it('emits the v1.2 footer with the model label', () => {
+    expect(sourceCitation('B2B SaaS')).toBe('Source: businessModelBenchmarks v1.2, B2B SaaS row.');
   });
 });
 
