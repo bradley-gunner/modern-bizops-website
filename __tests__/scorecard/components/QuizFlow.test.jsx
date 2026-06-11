@@ -35,6 +35,10 @@ beforeEach(() => {
 });
 
 describe('QuizFlow', () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
   it('renders the first question on mount and disables Next until selected', () => {
     render(<QuizFlow utms={{}} />);
     expect(screen.getByText(/Section 1 of 3/)).toBeInTheDocument();
@@ -82,5 +86,35 @@ describe('QuizFlow', () => {
     expect(callBody.email).toBe('jane@example.com');
     expect(callBody.utms.utm_source).toBe('linkedin');
     expect(callBody.answers.q1).toBeDefined();
+  });
+});
+
+describe('QuizFlow sessionStorage persistence', () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  it('persists answers and step to sessionStorage on change', () => {
+    render(<QuizFlow utms={{}} />);
+    selectFirstOption(); clickNext();
+    const stored = sessionStorage.getItem('scorecard:state');
+    expect(stored).not.toBeNull();
+    const parsed = JSON.parse(stored);
+    expect(parsed.answers).toBeDefined();
+    expect(Object.keys(parsed.answers).length).toBeGreaterThan(0);
+  });
+
+  it('restores from sessionStorage on mount', () => {
+    sessionStorage.setItem(
+      'scorecard:state',
+      JSON.stringify({
+        answers: { q1: { value: 'under_1m' } },
+        step: 'questions',
+        currentIndex: 1,
+      })
+    );
+    render(<QuizFlow utms={{}} />);
+    // After restore, should be on q2 (index 1)
+    expect(screen.getByText(/Which best describes how your business sells/)).toBeInTheDocument();
   });
 });
