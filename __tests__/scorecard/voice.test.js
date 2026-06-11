@@ -174,6 +174,21 @@ describe('v1.1 statics', () => {
     expect(out).not.toMatch(/dollar gaps above/);
   });
 
+  it('NO_GAP_BINDING returns empty string when binding is null or empty', () => {
+    expect(NO_GAP_BINDING(null)).toBe('');
+    expect(NO_GAP_BINDING({ questions: [] })).toBe('');
+  });
+
+  it('NO_GAP_BINDING returns empty string when first competencyLabel is missing', () => {
+    expect(NO_GAP_BINDING({ questions: [{ id: 'q4', score: 2 }] })).toBe('');
+  });
+
+  it('NO_GAP_BINDING with only one valid question still works', () => {
+    const out = NO_GAP_BINDING({ questions: [{ competencyLabel: 'CRM architecture' }] });
+    expect(out).toMatch(/CRM architecture/);
+    expect(out).not.toMatch(/undefined/);
+  });
+
   it('CTA_FOCUS_TEMPLATE interpolates the focus label', () => {
     expect(CTA_FOCUS_TEMPLATE('lead qualification')).toMatch(/lead qualification/);
     expect(CTA_FOCUS_TEMPLATE('lead qualification')).not.toMatch(/—/);
@@ -198,5 +213,14 @@ describe('metricCitation', () => {
 
   it('handles a metric without asOf', () => {
     expect(metricCitation({ source: 'Foo report' })).toBe('Source: Foo report.');
+  });
+
+  it('returns empty string when metric is null or undefined', () => {
+    expect(metricCitation(null)).toBe('');
+    expect(metricCitation(undefined)).toBe('');
+  });
+
+  it('returns empty string when metric.source is missing', () => {
+    expect(metricCitation({ asOf: 2025 })).toBe('');
   });
 });
