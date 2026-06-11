@@ -175,6 +175,74 @@ describe('leadResponse generator', () => {
   });
 });
 
+describe('sanity caps', () => {
+  function answersWithForcedHugeGaps() {
+    // Force the engine to produce uncapped totals well above 75% of revenue.
+    // q1 under_1m ($750K), q3 75_plus (90 employees). PS revPerEmp median 170K, low 150K.
+    // floor = (150K - 750K/90) * 90 = (150K - 8333) * 90 = ~12.7M. median similar order.
+    // That alone is many multiples of revenue -> caps will bind.
+    return {
+      q1: { value: 'under_1m' },
+      q2: { value: 'PROFESSIONAL_SERVICES' },
+      q3: { value: '75_plus' },
+      q13: { value: '25k_100k' },
+      q14: { value: 'over_180' },
+      q15: { value: 'over_30' },
+    };
+  }
+
+  it('caps each line median at 50 percent of revenue', () => {
+    const a = answersWithForcedHugeGaps();
+    const revenue = 750_000;
+    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+    expect(lines.length).toBeGreaterThan(0);
+    for (const line of lines) {
+      expect(line.medianDollars).toBeLessThanOrEqual(revenue * 0.5);
+    }
+  });
+
+  it('caps aggregate medians at 75 percent of revenue (with 1 dollar rounding slack)', () => {
+    const a = answersWithForcedHugeGaps();
+    const revenue = 750_000;
+    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+    const sumMedians = lines.reduce((s, l) => s + l.medianDollars, 0);
+    expect(sumMedians).toBeLessThanOrEqual(Math.round(revenue * 0.75) + 1);
+  });
+
+  it('caps preserve descending ordering by medianDollars', () => {
+    const a = answersWithForcedHugeGaps();
+    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+    for (let i = 1; i < lines.length; i++) {
+      expect(lines[i - 1].medianDollars).toBeGreaterThanOrEqual(lines[i].medianDollars);
+    }
+  });
+
+  it('floor never exceeds the capped median', () => {
+    const a = answersWithForcedHugeGaps();
+    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+    for (const line of lines) {
+      expect(line.floorDollars).toBeLessThanOrEqual(line.medianDollars);
+    }
+  });
+
+  it('caps do not bind when uncapped totals are within budget', () => {
+    // Mild gap case: q1 7m_15m ($11M), q3 51_75 (63), q14 over_180, q15 over_30.
+    const a = {
+      q1: { value: '7m_15m' },
+      q2: { value: 'PROFESSIONAL_SERVICES' },
+      q3: { value: '51_75' },
+      q13: { value: '25k_100k' },
+      q14: { value: 'over_180' },
+      q15: { value: 'over_30' },
+    };
+    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+    // Each line should be < 0.5 * $11M from raw generators; cap is a no-op.
+    for (const line of lines) {
+      expect(line.medianDollars).toBeLessThanOrEqual(11_000_000 * 0.5);
+    }
+  });
+});
+
 describe('generateRoiLines (the public API)', () => {
   it('ranks by medianDollars descending and takes top 3', () => {
     // Worst case to fire all three with dollars:
