@@ -12,6 +12,14 @@ import {
   sourceCitation,
   formatUsd,
   bandTitle,
+  BLOCK_NAMES,
+  LEVEL_WORDS,
+  NEXT_STAGE_CRITERIA,
+  FIX_PARAGRAPHS,
+  NO_GAP_HEADLINE,
+  NO_GAP_BINDING,
+  CTA_FOCUS_TEMPLATE,
+  metricCitation,
 } from '@/lib/scorecard/voice';
 
 describe('sanitizeVoice', () => {
@@ -69,7 +77,7 @@ describe('static copy is clean and present', () => {
   });
 
   it('COMPARISON_COPY covers all four generators in all three bands', () => {
-    for (const key of ['salesCycle', 'nrr', 'revenuePerEmployee', 'leadResponse']) {
+    for (const key of ['salesCycle', 'retention', 'revenuePerEmployee', 'leadResponse']) {
       for (const band of ['meets', 'partial', 'fails']) {
         expect(COMPARISON_COPY[key][band]).toBeTypeOf('string');
       }
@@ -113,7 +121,82 @@ describe('bandTitle', () => {
   it('returns the human-readable title for each generator key', () => {
     expect(bandTitle('revenuePerEmployee')).toBe('Revenue per employee gap');
     expect(bandTitle('salesCycle')).toBe('Sales cycle compression');
-    expect(bandTitle('nrr')).toBe('Retention gap');
+    expect(bandTitle('retention')).toBe('Retention gap');
     expect(bandTitle('leadResponse')).toBe('Lead response peer gap');
+  });
+});
+
+describe('v1.1 statics', () => {
+  it('BLOCK_NAMES has A, B, C client-facing labels', () => {
+    expect(BLOCK_NAMES.A).toBe('Foundations');
+    expect(BLOCK_NAMES.B).toBe('Operating discipline');
+    expect(BLOCK_NAMES.C).toBe('Compound growth');
+  });
+
+  it('LEVEL_WORDS map score 1..4 to the heat-map dot label', () => {
+    expect(LEVEL_WORDS[1]).toBe('Absent');
+    expect(LEVEL_WORDS[2]).toBe('Informal');
+    expect(LEVEL_WORDS[3]).toBe('Functional');
+    expect(LEVEL_WORDS[4]).toBe('Managed');
+  });
+
+  it('NEXT_STAGE_CRITERIA covers next-stage transitions from 1, 2, 3', () => {
+    for (const stage of [1, 2, 3]) {
+      expect(NEXT_STAGE_CRITERIA[stage].name).toBeTypeOf('string');
+      expect(Array.isArray(NEXT_STAGE_CRITERIA[stage].criteria)).toBe(true);
+      expect(NEXT_STAGE_CRITERIA[stage].criteria.length).toBeGreaterThanOrEqual(2);
+      for (const c of NEXT_STAGE_CRITERIA[stage].criteria) {
+        expect(c).not.toMatch(/—/);
+        expect(c).not.toMatch(/\b(we|our|us)\b/i);
+      }
+    }
+  });
+
+  it('NEXT_STAGE_CRITERIA[4] is undefined (no next stage)', () => {
+    expect(NEXT_STAGE_CRITERIA[4]).toBeUndefined();
+  });
+
+  it('FIX_PARAGRAPHS covers each ROI generator key', () => {
+    for (const key of ['revenuePerEmployee', 'salesCycle', 'retention', 'leadResponse']) {
+      expect(FIX_PARAGRAPHS[key]).toBeTypeOf('string');
+      expect(FIX_PARAGRAPHS[key].length).toBeGreaterThan(40);
+      expect(FIX_PARAGRAPHS[key]).not.toMatch(/—/);
+      expect(FIX_PARAGRAPHS[key]).not.toMatch(/\b(we|our|us)\b/i);
+    }
+  });
+
+  it('NO_GAP_HEADLINE and NO_GAP_BINDING render clean strings', () => {
+    expect(NO_GAP_HEADLINE.lead).toBeTypeOf('string');
+    expect(NO_GAP_HEADLINE.subline).toBeTypeOf('string');
+    expect(NO_GAP_BINDING).toBeTypeOf('function');
+    const out = NO_GAP_BINDING({ questions: [{ competencyLabel: 'CRM architecture' }] });
+    expect(out).toMatch(/CRM architecture/);
+    expect(out).not.toMatch(/dollar gaps above/);
+  });
+
+  it('CTA_FOCUS_TEMPLATE interpolates the focus label', () => {
+    expect(CTA_FOCUS_TEMPLATE('lead qualification')).toMatch(/lead qualification/);
+    expect(CTA_FOCUS_TEMPLATE('lead qualification')).not.toMatch(/—/);
+  });
+
+  it('COMPARISON_COPY now keys on "retention" (renamed from nrr)', () => {
+    expect(COMPARISON_COPY.retention).toBeDefined();
+    expect(COMPARISON_COPY.retention.meets).toBeTypeOf('string');
+    expect(COMPARISON_COPY.nrr).toBeUndefined();
+  });
+
+  it('bandTitle("retention") returns the Retention gap title', () => {
+    expect(bandTitle('retention')).toBe('Retention gap');
+  });
+});
+
+describe('metricCitation', () => {
+  it('emits the named metric source with the asOf year', () => {
+    const metric = { source: 'SaaS Capital 2025 Revenue per Employee Benchmarks (private SaaS, n=1000+)', asOf: 2025 };
+    expect(metricCitation(metric)).toBe('Source: SaaS Capital 2025 Revenue per Employee Benchmarks (private SaaS, n=1000+) (2025).');
+  });
+
+  it('handles a metric without asOf', () => {
+    expect(metricCitation({ source: 'Foo report' })).toBe('Source: Foo report.');
   });
 });
