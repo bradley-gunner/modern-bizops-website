@@ -7,6 +7,6 @@ describe('SectionHeader', () => {
     render(<SectionHeader section={1} />);
     expect(screen.getByText(/Section 1 of 3/)).toBeInTheDocument();
     expect(screen.getByText(/About your business/)).toBeInTheDocument();
-    expect(screen.getByText(/Three taps so I know who I am comparing you to/)).toBeInTheDocument();
+    expect(screen.getByText(/Three questions so I know who I am comparing you to/)).toBeInTheDocument();
   });
 });

@@ -32,7 +32,7 @@ describe('buildResult', () => {
     expect(r.disclosure).toBeTypeOf('string');
     expect(r.cta).toBeDefined();
     expect(r.modelLabel).toBeTypeOf('string');
-    expect(r.benchmarkVersion).toBe('1.1');
+    expect(r.benchmarkVersion).toBe('1.2');
     expect(r.generatedAt).toBeTypeOf('string');
   });
 
