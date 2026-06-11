@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateRoiLines, generators } from '@/lib/scorecard/roi';
+import { generateRoiLines, generators, MIN_RESOLVABLE_CYCLE_DAYS } from '@/lib/scorecard/roi';
 import { getBusinessModelBenchmark } from '@/lib/scorecard/businessModelBenchmarks';
 
 function baseAnswers(overrides = {}) {
@@ -35,7 +35,7 @@ describe('revenuePerEmployee generator', () => {
     expect(line.floorDollars).toBeGreaterThan(0);
     expect(line.comparison).toBe('fails');
     expect(line.comparisonCopy).toBe('below peer');
-    expect(line.source).toMatch(/businessModelBenchmarks v1\.1/);
+    expect(line.source).toMatch(/^Source: .+\.$/);
     expect(line.body).not.toMatch(/—/);
   });
 
@@ -95,32 +95,75 @@ describe('salesCycle generator', () => {
   });
 });
 
-describe('nrr generator', () => {
+describe('retention generator', () => {
   it('returns null when q15 is absent (hidden) on the answer set', () => {
     const a = baseAnswers();
     delete a.q15;
     const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.nrr(a, benchmark)).toBeNull();
+    expect(generators.retention(a, benchmark)).toBeNull();
   });
 
   it('returns null when q15 is not_tracked', () => {
     const a = baseAnswers({ q15: { value: 'not_tracked' } });
     const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.nrr(a, benchmark)).toBeNull();
+    expect(generators.retention(a, benchmark)).toBeNull();
   });
 
-  it('fires with dollar gap when client NRR is below the peer range', () => {
-    // PS nrr median 0.95, range [0.85, 1.05]. q15 over_30 -> nrr 0.60.
-    // floor = (0.85 - 0.60) * 5M = 1.25M. median = (0.95 - 0.60) * 5M = 1.75M.
+  it('SaaS best-churn answer now classifies as meets (grr 0.975 vs grr median 0.90)', () => {
+    // q15 under_5 -> 0.025 churn -> grr proxy 0.975. SaaS grr median 0.90. 0.975 >= 0.90 -> meets -> null.
+    const a = baseAnswers({ q2: { value: 'B2B_SAAS' }, q15: { value: 'under_5' } });
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    expect(generators.retention(a, benchmark)).toBeNull();
+  });
+
+  it('fires with dollar gap when client GRR proxy is below the peer range', () => {
+    // PS grr median 0.82, range [0.75, 0.90]. q15 over_30 -> grr proxy 0.60.
+    // floor = (0.75 - 0.60) * 5M = 750K. median = (0.82 - 0.60) * 5M = 1.1M.
     const a = baseAnswers({ q15: { value: 'over_30' } });
     const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const line = generators.nrr(a, benchmark);
+    const line = generators.retention(a, benchmark);
     expect(line).not.toBeNull();
-    expect(line.key).toBe('nrr');
+    expect(line.key).toBe('retention');
+    expect(line.title).toBe('Retention gap');
+    expect(line.body).toMatch(/gross revenue retention/);
     expect(line.floorDollars).toBeGreaterThan(0);
     expect(line.medianDollars).toBeGreaterThan(line.floorDollars);
     expect(line.comparison).toBe('fails');
-    expect(line.comparisonCopy).toBe('below peer');
+  });
+});
+
+describe('salesCycle cycle guard', () => {
+  it('exports MIN_RESOLVABLE_CYCLE_DAYS as 20', () => {
+    expect(MIN_RESOLVABLE_CYCLE_DAYS).toBe(20);
+  });
+
+  it('returns null for ECOMMERCE (median 2 < 20)', () => {
+    const a = baseAnswers({ q2: { value: 'ECOMMERCE' }, q14: { value: 'over_180' } });
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    expect(generators.salesCycle(a, benchmark)).toBeNull();
+  });
+
+  it('returns null for B2C_SUBSCRIPTION (median 3 < 20)', () => {
+    const a = baseAnswers({ q2: { value: 'B2C_SUBSCRIPTION' }, q14: { value: 'over_180' } });
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    expect(generators.salesCycle(a, benchmark)).toBeNull();
+  });
+
+  it('still fires for PS (median 103 >= 20) when cycle is well above', () => {
+    const a = baseAnswers({ q14: { value: 'over_180' } });
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    expect(generators.salesCycle(a, benchmark)).not.toBeNull();
+  });
+});
+
+describe('source citations cite named sources, not the filename', () => {
+  it('every ROI line carries the metric.source string (named report)', () => {
+    const a = baseAnswers({ q1: { value: 'under_1m' }, q3: { value: 'just_me' }, q14: { value: 'over_180' }, q15: { value: 'over_30' } });
+    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+    for (const line of lines) {
+      expect(line.source).not.toMatch(/businessModelBenchmarks v1\./);
+      expect(line.source).toMatch(/^Source: .+\.$/);
+    }
   });
 });
 
