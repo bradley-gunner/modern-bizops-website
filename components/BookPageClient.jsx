@@ -86,6 +86,9 @@ export default function BookPageClient() {
     phone: "",
   });
 
+  // Query params live in the client URL, so this must run after hydration;
+  // reading them during render would mismatch the server render.
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const prefill = {};
@@ -98,6 +101,7 @@ export default function BookPageClient() {
       setForm((f) => ({ ...f, ...prefill }));
     }
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const [errors, setErrors] = useState({});
 
