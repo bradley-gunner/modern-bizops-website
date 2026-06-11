@@ -55,10 +55,14 @@ export default function ScorecardExperience() {
   const [mode, setMode] = useState('landing');
   const [utms, setUtms] = useState({});
 
+  // UTMs live in the client URL and localStorage, so this must run after
+  // hydration; reading them during render would mismatch the server render.
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     captureUtms();
     setUtms(getUtms());
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   if (mode === 'quiz') {
     return <QuizFlow utms={utms} />;

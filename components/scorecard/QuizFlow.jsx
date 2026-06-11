@@ -25,7 +25,9 @@ export default function QuizFlow({ utms = {} }) {
   const [error, setError] = useState(null);
   const [restored, setRestored] = useState(false);
 
-  // Restore on mount
+  // Restore on mount. sessionStorage is client-only, so this must run after
+  // hydration; a lazy useState initializer would mismatch the server render.
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     try {
       const raw = sessionStorage.getItem(STORAGE_KEY);
@@ -39,6 +41,7 @@ export default function QuizFlow({ utms = {} }) {
     } catch {}
     setRestored(true);
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Persist on change (after restore)
   useEffect(() => {

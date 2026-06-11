@@ -322,7 +322,7 @@ function ResultDocument({ result }) {
     <Document>
       <Page size="LETTER" style={styles.page}>
         <View style={styles.header} fixed>
-          <Image src={LOGO_PATH} style={styles.logo} />
+          <Image src={LOGO_PATH} style={styles.logo} alt="" />
         </View>
 
         <Text style={styles.h1}>{result.headline.lead}</Text>
