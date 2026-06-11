@@ -102,3 +102,43 @@ describe('buildResult', () => {
     expect(r.generatedAt).toBe('2026-06-10T12:00:00.000Z');
   });
 });
+
+describe('answer pruning', () => {
+  it('stale q15 (over_30 churn) does NOT fire retention when q2=B2B_PRODUCT (hides q15)', () => {
+    const a = ans({ q2: { value: 'B2B_PRODUCT' } });
+    // q15 from ans() is over_30 (worst churn). B2B_PRODUCT hides q15 -> should be pruned.
+    const r = buildResult(a);
+    const retention = r.roiLines.find((l) => l.key === 'retention');
+    expect(retention).toBeUndefined();
+  });
+});
+
+describe('no-gap variants', () => {
+  function noGapAnswers() {
+    return ans({
+      q4: { value: 'D', score: 4 }, q5: { value: 'D', score: 4 }, q6: { value: 'D', score: 4 },
+      q7: { value: 'A', score: 1 }, q8: { value: 'B', score: 2 }, q9: { value: 'B', score: 2 },
+      q14: { value: 'under_30' }, // meets
+      q15: { value: 'under_5' },  // meets (grr 0.975)
+    });
+  }
+
+  it('headline switches to no-gap lead when roiLines is empty', () => {
+    const r = buildResult(noGapAnswers());
+    expect(r.roiLines).toEqual([]);
+    expect(r.headline.lead).toMatch(/hold up against/);
+    expect(r.headline.lead).not.toMatch(/leaving between/);
+  });
+
+  it('headline no-gap lead interpolates model_label', () => {
+    const r = buildResult(noGapAnswers());
+    expect(r.headline.lead).toMatch(/professional services/);
+  });
+
+  it('binding translation does not reference "dollar gaps above" on the no-gap path', () => {
+    const r = buildResult(noGapAnswers());
+    expect(r.binding).not.toBeNull();
+    expect(r.binding.translation).not.toMatch(/dollar gaps above/);
+    expect(r.binding.translation).toMatch(/boundary you need to cross/);
+  });
+});
