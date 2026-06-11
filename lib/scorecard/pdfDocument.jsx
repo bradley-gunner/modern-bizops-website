@@ -250,7 +250,7 @@ function badgeStyle(comparison) {
 
 function ComparisonTable({ comparisons }) {
   return (
-    <View style={styles.card}>
+    <View style={styles.card} wrap={false}>
       <View style={styles.tableHeaderRow}>
         <Text style={[styles.tableHeaderCell, styles.colMetric]}>Metric</Text>
         <Text style={[styles.tableHeaderCell, styles.colValue]}>You</Text>
@@ -301,7 +301,7 @@ function HeatMapRows({ scores }) {
     if (byBlock[s.block]) byBlock[s.block].push(s);
   }
   return (
-    <View style={styles.card}>
+    <View style={styles.card} wrap={false}>
       {['A', 'B', 'C'].map((block) => (
         <View key={block}>
           <Text style={styles.heatBlockHeader}>{BLOCK_NAMES[block]}</Text>
@@ -329,73 +329,75 @@ function ResultDocument({ result }) {
         <Text style={styles.p}>{result.headline.subline}</Text>
 
         {result.comparisons && result.comparisons.length > 0 && (
-          <>
+          <View wrap={false}>
             <Text style={styles.h2}>How you stack up</Text>
             <ComparisonTable comparisons={result.comparisons} />
-          </>
+          </View>
         )}
 
-        {result.roiLines.length > 0 && (
-          <>
-            <Text style={styles.h2}>How I got there</Text>
-            {result.roiLines.map((line) => (
-              <View key={line.key} style={styles.card}>
-                <Text style={styles.roiTitle}>{line.title}</Text>
-                <Text style={styles.meta}>Your number: {line.clientValue.display}</Text>
-                <Text style={styles.meta}>
-                  Typical {result.modelLabel} peer: {line.peerMedian.display} (range {line.peerRange.displayLow} to {line.peerRange.displayHigh})
-                </Text>
-                <Text style={badgeStyle(line.comparison)}>{line.comparisonCopy.toUpperCase()}</Text>
-                <Text style={styles.p}>{line.body}</Text>
-                {line.fix && (
-                  <>
-                    <Text style={styles.fixLabel}>HOW TO CLOSE THIS</Text>
-                    <Text style={styles.p}>{line.fix}</Text>
-                  </>
-                )}
-                <Text style={styles.small}>{line.source}</Text>
-              </View>
-            ))}
-          </>
-        )}
+        {result.roiLines.map((line, i) => (
+          <View key={line.key} wrap={false}>
+            {i === 0 && <Text style={styles.h2}>How I got there</Text>}
+            <View style={styles.card}>
+              <Text style={styles.roiTitle}>{line.title}</Text>
+              <Text style={styles.meta}>Your number: {line.clientValue.display}</Text>
+              <Text style={styles.meta}>
+                Typical {result.modelLabel} peer: {line.peerMedian.display} (range {line.peerRange.displayLow} to {line.peerRange.displayHigh})
+              </Text>
+              <Text style={badgeStyle(line.comparison)}>{line.comparisonCopy.toUpperCase()}</Text>
+              <Text style={styles.p}>{line.body}</Text>
+              {line.fix && (
+                <>
+                  <Text style={styles.fixLabel}>HOW TO CLOSE THIS</Text>
+                  <Text style={styles.p}>{line.fix}</Text>
+                </>
+              )}
+              <Text style={styles.small}>{line.source}</Text>
+            </View>
+          </View>
+        ))}
 
-        <Text style={styles.h2}>Why this is happening</Text>
-        <View style={styles.card}>
-          <Text style={styles.p}>
-            You are at Stage {result.placement.stage}: {result.placement.name}.
-          </Text>
-          <Text style={styles.p}>{result.placement.descriptor}</Text>
-          {result.binding && (
-            <Text style={styles.p}>{result.binding.translation}</Text>
-          )}
-          {result.nextStage && (
-            <>
-              <Text style={styles.h3}>What crossing into {result.nextStage.name} looks like</Text>
-              {result.nextStage.criteria.map((c, i) => (
-                <Text key={i} style={styles.p}>- {c}</Text>
-              ))}
-            </>
-          )}
+        <View wrap={false}>
+          <Text style={styles.h2}>Why this is happening</Text>
+          <View style={styles.card}>
+            <Text style={styles.p}>
+              You are at Stage {result.placement.stage}: {result.placement.name}.
+            </Text>
+            <Text style={styles.p}>{result.placement.descriptor}</Text>
+            {result.binding && (
+              <Text style={styles.p}>{result.binding.translation}</Text>
+            )}
+            {result.nextStage && (
+              <>
+                <Text style={styles.h3}>What crossing into {result.nextStage.name} looks like</Text>
+                {result.nextStage.criteria.map((c, i) => (
+                  <Text key={i} style={styles.p}>- {c}</Text>
+                ))}
+              </>
+            )}
+          </View>
         </View>
 
         {result.competencyScores && result.competencyScores.length > 0 && (
-          <>
+          <View wrap={false}>
             <Text style={styles.h2}>Your competency map</Text>
             <HeatMapRows scores={result.competencyScores} />
-          </>
+          </View>
         )}
 
         {result.brightSpots && result.brightSpots.length > 0 && (
-          <>
+          <View wrap={false}>
             <Text style={styles.h2}>What you are doing right</Text>
             <Text style={styles.p}>
               You scored above your placement on {result.brightSpots.map((s) => s.competencyLabel).join(' and ')}. That is foundation for the work ahead.
             </Text>
-          </>
+          </View>
         )}
 
-        <Text style={styles.h2}>What this scorecard can and cannot tell you</Text>
-        <Text style={styles.p}>{result.disclosure}</Text>
+        <View wrap={false}>
+          <Text style={styles.h2}>What this scorecard can and cannot tell you</Text>
+          <Text style={styles.p}>{result.disclosure}</Text>
+        </View>
 
         <View style={styles.ctaBox} wrap={false}>
           <Text style={styles.ctaHeading}>{result.cta.heading}</Text>
