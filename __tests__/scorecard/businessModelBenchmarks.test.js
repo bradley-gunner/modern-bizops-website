@@ -34,6 +34,24 @@ describe('businessModelBenchmarks', () => {
     expect(grr.confidence).toMatch(/^(cited|estimated)$/);
   });
 
+  it.each(MODELS)('row %s grr median <= nrr median (definitional invariant)', (model) => {
+    const m = getBusinessModelBenchmark(model).metrics;
+    expect(m.grr.median).toBeLessThanOrEqual(m.nrr.median);
+  });
+
+  it.each(MODELS)('row %s grr range[1] >= median', (model) => {
+    const grr = getBusinessModelBenchmark(model).metrics.grr;
+    expect(grr.range[1]).toBeGreaterThanOrEqual(grr.median);
+  });
+
+  it.each([
+    ['ECOMMERCE',        0.30],
+    ['B2C_SERVICES',     0.70],
+    ['B2C_SUBSCRIPTION', 0.60],
+  ])('%s grr median pinned at %f (matches v1.2 nrr; no consumer expansion)', (model, expected) => {
+    expect(getBusinessModelBenchmark(model).metrics.grr.median).toBe(expected);
+  });
+
   it('v1.2 sync: ECOMMERCE nrr median is 0.30 (annual cohort)', () => {
     expect(getBusinessModelBenchmark('ECOMMERCE').metrics.nrr.median).toBe(0.30);
   });
