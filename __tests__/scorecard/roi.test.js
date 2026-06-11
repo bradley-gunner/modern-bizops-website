@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateRoiLines, generators, MIN_RESOLVABLE_CYCLE_DAYS } from '@/lib/scorecard/roi';
+import { generateRoiLines, generateComparisons, generators, MIN_RESOLVABLE_CYCLE_DAYS } from '@/lib/scorecard/roi';
 import { getBusinessModelBenchmark } from '@/lib/scorecard/businessModelBenchmarks';
 
 function baseAnswers(overrides = {}) {
@@ -239,6 +239,59 @@ describe('sanity caps', () => {
     // Each line should be < 0.5 * $11M from raw generators; cap is a no-op.
     for (const line of lines) {
       expect(line.medianDollars).toBeLessThanOrEqual(11_000_000 * 0.5);
+    }
+  });
+});
+
+describe('generateComparisons', () => {
+  it('returns a row even when the dollar line meets (no gap)', () => {
+    const a = baseAnswers({ q14: { value: 'under_30' } }); // PS meets at 20 vs median 103
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    const rows = generateComparisons(a, benchmark);
+    const cycleRow = rows.find((r) => r.key === 'salesCycle');
+    expect(cycleRow).toBeDefined();
+    expect(cycleRow.comparison).toBe('meets');
+    expect(cycleRow.clientDisplay).toBe('Under 30 days'); // band label, not "20 days"
+  });
+
+  it('uses the chosen band label (not the midpoint) for sales cycle', () => {
+    const a = baseAnswers({ q14: { value: '30_90' } });
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    const rows = generateComparisons(a, benchmark);
+    const cycleRow = rows.find((r) => r.key === 'salesCycle');
+    expect(cycleRow.clientDisplay).toBe('30 to 90 days');
+  });
+
+  it('omits the salesCycle row when the cycle guard kills it (ECOMMERCE)', () => {
+    const a = baseAnswers({ q2: { value: 'ECOMMERCE' }, q14: { value: 'over_180' } });
+    delete a.q15;
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    const rows = generateComparisons(a, benchmark);
+    expect(rows.find((r) => r.key === 'salesCycle')).toBeUndefined();
+  });
+
+  it('omits retention row when q15 is absent', () => {
+    const a = baseAnswers();
+    delete a.q15;
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    const rows = generateComparisons(a, benchmark);
+    expect(rows.find((r) => r.key === 'retention')).toBeUndefined();
+  });
+
+  it('every row carries peerMedianDisplay, peerRangeDisplay, comparison, comparisonCopy, source', () => {
+    const a = baseAnswers();
+    const benchmark = getBusinessModelBenchmark(a.q2.value);
+    const rows = generateComparisons(a, benchmark);
+    expect(rows.length).toBeGreaterThan(0);
+    for (const row of rows) {
+      expect(row.label).toBeTypeOf('string');
+      expect(row.clientDisplay).toBeTypeOf('string');
+      expect(row.peerMedianDisplay).toBeTypeOf('string');
+      expect(row.peerRangeDisplay).toBeTypeOf('string');
+      expect(['meets', 'partial', 'fails']).toContain(row.comparison);
+      expect(row.comparisonCopy).toBeTypeOf('string');
+      expect(row.source).toMatch(/^Source: .+\.$/);
+      expect(row.source).not.toMatch(/businessModelBenchmarks v1\./);
     }
   });
 });
