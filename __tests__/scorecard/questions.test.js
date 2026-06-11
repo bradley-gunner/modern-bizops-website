@@ -69,6 +69,28 @@ describe('questions data', () => {
     ]);
   });
 
+  it('Q5 preface is a clarifier, not a floating aphorism', () => {
+    const q5 = QUESTIONS.find((q) => q.id === 'q5');
+    expect(q5.peerAnchorTemplate).toMatch(/qualification lives in people or in a system/);
+  });
+
+  it('Q8 preface drops stage vocabulary', () => {
+    const q8 = QUESTIONS.find((q) => q.id === 'q8');
+    expect(q8.peerAnchorTemplate).not.toMatch(/Stage \d/);
+    expect(q8.peerAnchorTemplate).toMatch(/trusted enough to argue from/);
+  });
+
+  it('Q9 preface is a complete sentence starting with "This is"', () => {
+    const q9 = QUESTIONS.find((q) => q.id === 'q9');
+    expect(q9.peerAnchorTemplate).toMatch(/^This is /);
+  });
+
+  it('Q12 preface drops stage vocabulary', () => {
+    const q12 = QUESTIONS.find((q) => q.id === 'q12');
+    expect(q12.peerAnchorTemplate).not.toMatch(/Stage \d/);
+    expect(q12.peerAnchorTemplate).toMatch(/reacting to results and acting on signals/);
+  });
+
   it('no em-dash in any question prompt or option label', () => {
     const emDash = /—/;
     for (const q of QUESTIONS) {

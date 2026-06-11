@@ -61,6 +61,11 @@ describe('static copy is clean and present', () => {
     }
   });
 
+  it('Section 1 subline says "Three questions" not "Three taps"', () => {
+    expect(SECTION_SUBLINES[1]).toMatch(/Three questions/);
+    expect(SECTION_SUBLINES[1]).not.toMatch(/Three taps/);
+  });
+
   it('STAGE_NAMES are Reactive, Repeatable, Predictable, Compounding', () => {
     expect(STAGE_NAMES[1]).toBe('Reactive');
     expect(STAGE_NAMES[2]).toBe('Repeatable');
