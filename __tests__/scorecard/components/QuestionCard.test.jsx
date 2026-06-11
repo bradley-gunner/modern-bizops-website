@@ -24,4 +24,18 @@ describe('QuestionCard', () => {
     fireEvent.click(screen.getAllByRole('radio')[2]); // option C, score 3
     expect(onSelect).toHaveBeenCalledWith(expect.objectContaining({ value: 'C', score: 3 }));
   });
+
+  it('renders option.description under the label when present (q2)', () => {
+    const q = QUESTIONS.find((x) => x.id === 'q2');
+    render(<QuestionCard question={q} answers={{}} onSelect={() => {}} />);
+    expect(screen.getByText(/recurring subscription software sold to other businesses/i)).toBeInTheDocument();
+    expect(screen.getByText(/connecting two sides of a transaction/i)).toBeInTheDocument();
+  });
+
+  it('does not render a description span for maturity options (which lack description)', () => {
+    const q4 = QUESTIONS.find((x) => x.id === 'q4');
+    const { container } = render(<QuestionCard question={q4} answers={{ q2: { value: 'B2B_SAAS' } }} onSelect={() => {}} />);
+    // Maturity options carry no description field; ensure we did not insert empty description nodes
+    expect(container.querySelectorAll('[data-description]').length).toBe(0);
+  });
 });
