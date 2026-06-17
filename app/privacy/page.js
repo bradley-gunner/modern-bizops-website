@@ -18,8 +18,15 @@ export default function PrivacyPage() {
             <h1 className="font-display text-[32px] md:text-[42px] font-semibold text-navy mb-2">
               Privacy Policy
             </h1>
-            <p className="text-text-light text-sm mb-10">
+            <p className="text-text-light text-sm mb-1">
               Last updated February 18, 2026
+            </p>
+            {/* VERSION COUPLING: privacy-2026-02-18 matches the app's clickwrap
+                registry (server/src/lib/legalDocs.js). Do NOT bump this string
+                unless you also change the content and update the app in the same
+                change window. A separate Privacy Policy audit is pending. */}
+            <p className="text-text-light text-xs mb-10">
+              Version: privacy-2026-02-18 (effective February 18, 2026)
             </p>
 
             <p>
