@@ -87,7 +87,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Modern BizOps. All rights
             reserved.
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
             <Link
               href="/privacy"
               className="font-body text-xs text-text-light hover:text-white transition-colors"
@@ -99,6 +99,18 @@ export default function Footer() {
               className="font-body text-xs text-text-light hover:text-white transition-colors"
             >
               Terms of Service
+            </Link>
+            <Link
+              href="/dpa"
+              className="font-body text-xs text-text-light hover:text-white transition-colors"
+            >
+              Data Processing Agreement
+            </Link>
+            <Link
+              href="/security"
+              className="font-body text-xs text-text-light hover:text-white transition-colors"
+            >
+              Security
             </Link>
           </div>
         </div>
