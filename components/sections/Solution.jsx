@@ -8,7 +8,7 @@ export default function Solution() {
       </h2>
       <div className="space-y-6 font-body text-text-primary text-base md:text-lg leading-relaxed">
         <p>
-          Most $3M-$15M companies are operating at Stage 1 or Stage 2 of the
+          Most B2B companies between $3M and $50M are operating at Stage 1 or Stage 2 of the
           revenue maturity model without knowing it. Stage 1 means every dollar
           of growth depends on the founder&apos;s personal involvement. Stage 2
           means a system exists, but it runs on intuition rather than data.

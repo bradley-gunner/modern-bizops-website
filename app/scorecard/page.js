@@ -5,7 +5,7 @@ import ScorecardExperience from '@/components/scorecard/ScorecardExperience';
 export const metadata = {
   title: 'Modern BizOps Maturity Scorecard',
   description:
-    'In five minutes, find the dollar amount your operating system is leaving on the table and the one gap I would fix first. Sixteen questions. Peer-anchored ROI math from named public benchmark reports.',
+    'In five minutes, find the dollar amount your operating system is leaving on the table and the one gap I would fix first. Fifteen questions. Peer-anchored ROI math from named public benchmark reports.',
   alternates: {
     canonical: 'https://modernbizops.com/scorecard',
   },
@@ -26,7 +26,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Modern BizOps Maturity Scorecard',
-    description: 'Sixteen questions. Peer-anchored ROI. The one gap I would fix first.',
+    description: 'Fifteen questions. Peer-anchored ROI. The one gap I would fix first.',
     images: ['https://modernbizops.com/og/og-scorecard.png'],
   },
 };

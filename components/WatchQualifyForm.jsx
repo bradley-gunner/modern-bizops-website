@@ -10,7 +10,8 @@ const revenueOptions = [
   "$1M\u20133M",
   "$3M\u20135M",
   "$5M\u201315M",
-  "$15M+",
+  "$15M\u201350M",
+  "$50M+",
 ];
 
 const teamSizeOptions = ["1\u20135", "6\u201315", "16\u201330", "30+"];

@@ -42,7 +42,7 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What this is not</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              This is a directional read from sixteen questions. It is not the full assessment I run with paying clients, which connects to your CRM and revenue tools and scores all 44 competencies. If the numbers below feel right, that is the signal to take the next step.
+              This is a directional read from fifteen questions. It is not the full assessment I run with paying clients, which connects to your CRM and revenue tools and scores all 44 competencies. If the numbers below feel right, that is the signal to take the next step.
             </p>
           </div>
         </div>

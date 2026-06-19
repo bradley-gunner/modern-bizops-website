@@ -19,7 +19,9 @@ const REVENUE_TO_DEAL_AMOUNT = {
   "$1M–$3M": 8000,
   "$3M–$5M": 8000,
   "$5M–$15M": 15000,
-  "$15M+": 25000,
+  "$15M–$50M": 25000,
+  "$50M+": 40000,
+  "$15M+": 25000, // legacy band, retained for historical/in-flight submissions
 };
 
 // Maps form field values to internal HubSpot enumeration values
@@ -28,7 +30,9 @@ const REVENUE_OPTIONS = {
   "$1M–$3M": "1m_3m",
   "$3M–$5M": "3m_5m",
   "$5M–$15M": "5m_15m",
-  "$15M+": "15m_plus",
+  "$15M–$50M": "15m_50m",
+  "$50M+": "50m_plus",
+  "$15M+": "15m_plus", // legacy band, retained for historical/in-flight submissions
 };
 
 const TEAM_SIZE_OPTIONS = {

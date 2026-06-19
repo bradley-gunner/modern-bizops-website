@@ -14,7 +14,8 @@ const revenueOptions = [
   "$1M–$3M",
   "$3M–$5M",
   "$5M–$15M",
-  "$15M+",
+  "$15M–$50M",
+  "$50M+",
 ];
 
 const teamSizeOptions = ["1–5", "6–15", "16–30", "30+"];
@@ -311,7 +312,7 @@ export default function BookPageClient() {
                     onChange={handleChange}
                     required
                     autoComplete="given-name"
-                    placeholder="Marcus"
+                    placeholder="Jordan"
                     className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent"
                   />
                 </div>
@@ -326,7 +327,7 @@ export default function BookPageClient() {
                     onChange={handleChange}
                     required
                     autoComplete="family-name"
-                    placeholder="Chen"
+                    placeholder="Lee"
                     className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent"
                   />
                 </div>
@@ -343,7 +344,7 @@ export default function BookPageClient() {
                   onChange={handleChange}
                   required
                   autoComplete="email"
-                  placeholder="marcus@company.com"
+                  placeholder="jordan@company.com"
                   className={`w-full border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent ${errors.email ? "border-red-400" : "border-border"}`}
                 />
                 {errors.email && (

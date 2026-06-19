@@ -16,7 +16,7 @@ export default function ScorecardCTA() {
             Not Ready for a Call Yet?
           </h2>
           <p className="font-body text-white/90 text-base md:text-lg leading-relaxed">
-            Get your free Revenue Maturity Score. Answer 17 questions and
+            Get your free Revenue Maturity Score. Answer 15 questions and
             see exactly where your growth is leaking. Instant results. No call
             required.
           </p>

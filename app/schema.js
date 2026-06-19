@@ -5,7 +5,7 @@ export function getOrganizationSchema() {
     name: "Modern BizOps",
     url: "https://modernbizops.com",
     description:
-      "Revenue growth coaching for $3M–$15M companies. Done-with-you coaching that builds sales, marketing, and delivery systems.",
+      "Revenue growth coaching for founder-led B2B companies from $3M to $50M. Done-with-you coaching that builds sales, marketing, and delivery systems.",
     founder: {
       "@type": "Person",
       name: "Bradley de Wet",
@@ -23,7 +23,7 @@ export function getServiceSchema() {
       name: "Modern BizOps",
     },
     description:
-      "Done-with-you coaching that builds the operational systems to grow revenue without proportionally growing headcount. 7-phase methodology with proprietary diagnostic technology.",
+      "Done-with-you coaching that builds the operational systems to grow revenue without proportionally growing headcount. A four-phase engagement built on the Revenue Operations Maturity Model and the Revenue Intelligence Platform.",
     areaServed: "Worldwide",
     serviceType: "Business Coaching",
   };
@@ -40,7 +40,7 @@ export function getPersonSchema() {
       name: "Modern BizOps",
     },
     description:
-      "15+ years building revenue operations inside high-growth, VC-backed startups. Helps $3M–$15M companies build revenue engines that grow without proportional headcount growth.",
+      "15+ years building revenue operations inside high-growth, VC-backed startups. Helps founder-led B2B companies from $3M to $50M build revenue engines that grow without proportional headcount growth.",
   };
 }
 
@@ -54,15 +54,15 @@ export function getFAQSchema() {
         name: "How is this different from a marketing agency or CRM consultant?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Agencies execute tactics. CRM consultants configure software. I build the operational system that connects your marketing, sales, and delivery into one revenue engine, and I coach your team to run it. When we're done, you don't need me anymore.",
+          text: "Agencies execute tactics. CRM consultants configure software. I build the operational system that connects your marketing, sales, and delivery into one revenue engine, and I coach your team to run it. When we are done, you do not need me anymore. That is the point.",
         },
       },
       {
         "@type": "Question",
-        name: "We're only a $3M company. Are we too small for this?",
+        name: "We are only a $3M company. Are we too small for this?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "If you have a sales team, a marketing function, and clients to serve, you have a revenue engine, even if it's held together with duct tape. The earlier you build the right systems, the faster you grow.",
+          text: "If you have a sales team, a marketing function, and clients to serve, you have a revenue engine, even if it is held together with duct tape. The earlier you build the right systems, the faster you grow and the less painful the scaling process is.",
         },
       },
       {
@@ -70,23 +70,23 @@ export function getFAQSchema() {
         name: "What if my team resists the changes?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "That's exactly why this is done-with-you, not done-to-you. Your team is involved in every phase: mapping their own processes, defining their own metrics, choosing the AI tools they'll actually use. People don't resist change they helped create.",
+          text: "That is why this is done-with-you, not done-to-you. Your team is involved throughout: mapping their own processes, defining their own metrics, choosing the tools they will actually use. People do not resist change they helped create.",
         },
       },
       {
         "@type": "Question",
-        name: "What kind of AI tools will we implement?",
+        name: "How is my maturity stage determined?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Depends on where your biggest time drains are. Common implementations include AI-powered lead scoring, automated follow-up sequences, chatbots for initial customer support, and automated reporting dashboards. We focus on tools that save your team measurable hours per week, not shiny objects.",
+          text: "Three ways, in sequence. First, the Revenue Intelligence Platform connects to your existing tools and analyzes your actual data: CRM completeness, pipeline stage distribution, integration coverage. That takes about 30 minutes of your time and produces data-driven scores on 15-20 competencies without any self-reporting. Second, a structured questionnaire covers what data alone cannot assess. Third, a 60-90 minute discovery call with you personally, where I validate the preliminary scores and surface anything the data cannot capture. You see the scoring rationale for every competency. Nothing is a black box.",
         },
       },
       {
         "@type": "Question",
-        name: "I've been burned by consultants before.",
+        name: "I have been burned by consultants before.",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Most consulting engagements fail because the consultant builds something in a silo that the team rejects, or because the engagement ends and nobody knows how to maintain what was built. My model solves both problems: your team builds it with my guidance, so they own it. And every recommendation comes from your actual data, not a generic template.",
+          text: "I hear this a lot. Most consulting engagements fail because the consultant builds something in a silo that the team rejects, or because the engagement ends and nobody knows how to maintain what was built. My model solves both problems: your team builds it with my coaching, so they own it. And every recommendation comes from your actual maturity assessment, not a generic template applied to every client regardless of where they are.",
         },
       },
     ],

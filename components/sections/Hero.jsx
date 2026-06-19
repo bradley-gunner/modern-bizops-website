@@ -11,8 +11,9 @@ export default function Hero() {
               Grow Your Revenue Without Growing Your Headcount
             </h1>
             <p className="font-body text-[15px] md:text-base lg:text-lg text-text-mid leading-relaxed mb-8">
-              I help $3M–$15M companies build the sales, marketing, and delivery
-              systems that turn growth into profit, not just more payroll.
+              I help founder-led B2B companies from $3M to $50M build the sales,
+              marketing, and delivery systems that turn growth into profit, not
+              just more payroll.
             </p>
             <div className="flex flex-col sm:flex-row items-start gap-4 mb-8">
               <Button href="/book" size="large">
