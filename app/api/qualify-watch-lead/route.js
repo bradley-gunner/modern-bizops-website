@@ -16,7 +16,9 @@ const REVENUE_TO_DEAL_AMOUNT = {
   "$1M\u20133M": 8000,
   "$3M\u20135M": 8000,
   "$5M\u201315M": 15000,
-  "$15M+": 25000,
+  "$15M\u201350M": 25000,
+  "$50M+": 40000,
+  "$15M+": 25000, // legacy band, retained for historical/in-flight submissions
 };
 
 // Same enum maps as /api/submit-form
@@ -25,7 +27,9 @@ const REVENUE_OPTIONS = {
   "$1M\u20133M": "1m_3m",
   "$3M\u20135M": "3m_5m",
   "$5M\u201315M": "5m_15m",
-  "$15M+": "15m_plus",
+  "$15M\u201350M": "15m_50m",
+  "$50M+": "50m_plus",
+  "$15M+": "15m_plus", // legacy band, retained for historical/in-flight submissions
 };
 
 const TEAM_SIZE_OPTIONS = {

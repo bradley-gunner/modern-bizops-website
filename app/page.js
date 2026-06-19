@@ -17,7 +17,7 @@ import FinalCTA from "@/components/sections/FinalCTA";
 export const metadata = {
   title: "Grow Your Revenue Without Growing Your Headcount | Modern BizOps",
   description:
-    "I help $3M–$15M companies build the sales, marketing, and delivery systems that turn growth into profit. Done-with-you revenue operations coaching.",
+    "I help founder-led B2B companies from $3M to $50M build the sales, marketing, and delivery systems that turn growth into profit. Done-with-you revenue operations coaching.",
   alternates: {
     canonical: "https://modernbizops.com",
   },
@@ -39,7 +39,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Grow Your Revenue Without Growing Your Headcount",
     description:
-      "Done-with-you coaching for $3M-$15M companies.",
+      "Done-with-you coaching for founder-led B2B companies from $3M to $50M.",
     images: ["https://modernbizops.com/og/og-homepage.png"],
   },
 };

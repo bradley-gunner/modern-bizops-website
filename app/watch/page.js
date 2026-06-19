@@ -7,7 +7,7 @@ import VSSLPlayer from "@/components/VSSLPlayer";
 export const metadata = {
   title: "Watch How It Works",
   description:
-    "See how Modern BizOps helps $3M–$15M companies build revenue engines that grow without proportional headcount growth.",
+    "See how Modern BizOps helps founder-led B2B companies from $3M to $50M build revenue engines that grow without proportional headcount growth.",
   alternates: {
     canonical: "https://modernbizops.com/watch",
   },
@@ -15,7 +15,7 @@ export const metadata = {
   openGraph: {
     title: "Watch How It Works",
     description:
-      "See how Modern BizOps helps $3M-$15M companies build revenue engines that scale.",
+      "See how Modern BizOps helps founder-led B2B companies from $3M to $50M build revenue engines that scale.",
     url: "https://modernbizops.com/watch",
     images: [
       {

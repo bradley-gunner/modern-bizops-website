@@ -6,7 +6,7 @@ const results = [
     stat: "47 → 23 days",
     metric: "Sales Cycle Cut in Half",
     description:
-      "Reduced from 3 to 4 discovery calls down to 1.5. A $12M services company reached this in 8 weeks after rebuilding the sales process.",
+      "Reduced from 3 to 4 discovery calls down to 1.5. A $12M B2B company reached this in 8 weeks after rebuilding the sales process.",
   },
   {
     stat: "18% → 34%",

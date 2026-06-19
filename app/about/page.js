@@ -260,7 +260,7 @@ export default function AboutPage() {
                 ran it for three years, and shut it down. I have sat in every one of these seats.
               </p>
               <p>
-                What I saw over and over: founders between $3M and $15M running on gut feel and
+                What I saw over and over: founders between $3M and $50M running on gut feel and
                 spreadsheets, while larger competitors had entire teams dedicated to the systems that
                 drive predictable growth. The gap was not talent or effort. It was access to operational
                 infrastructure.

@@ -13,7 +13,7 @@ export default function VSSLPlayer() {
       <div className="aspect-video rounded-[14px] overflow-hidden mb-10 shadow-lg">
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1&color=white`}
-          title="How $3M-$15M Founders Grow Revenue Without Growing Headcount"
+          title="How Founder-Led B2B Companies Grow Revenue Without Growing Headcount"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           referrerPolicy="strict-origin-when-cross-origin"
@@ -27,11 +27,11 @@ export default function VSSLPlayer() {
     <button
       onClick={() => setPlaying(true)}
       className="relative w-full aspect-video rounded-[14px] overflow-hidden mb-10 shadow-lg cursor-pointer group block"
-      aria-label="Play: How $3M-$15M Founders Grow Revenue Without Growing Headcount"
+      aria-label="Play: How Founder-Led B2B Companies Grow Revenue Without Growing Headcount"
     >
       <Image
         src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
-        alt="Video thumbnail: How $3M-$15M Founders Grow Revenue Without Growing Headcount"
+        alt="Video thumbnail: How Founder-Led B2B Companies Grow Revenue Without Growing Headcount"
         fill
         sizes="(max-width: 768px) 100vw, 900px"
         priority
