@@ -8,12 +8,13 @@ import { trackEvent } from "@/lib/analytics";
  * Listens for HubSpot Meetings' `meetingBookSucceeded` postMessage event.
  *
  * /book path:  email and firstName are passed as props (from the qualifying
- *              form state). Deal is already created by /api/submit-form before
- *              this component fires, so we just redirect.
+ *              form state). The contact is already handled by /api/submit-form
+ *              before this component fires, so we just redirect.
  *
  * /watch path: No qualifying form, so email/firstName come from the HubSpot
- *              Meetings payload. We fire /api/create-watch-deal to create a
- *              deal at the "New Lead" stage, then redirect.
+ *              Meetings payload. We fire /api/capture-watch-lead to flag the
+ *              Meetings-created contact for the qualification queue (no deal),
+ *              then redirect.
  */
 export default function HubSpotMeetingRedirect({ source, email, firstName }) {
   const router = useRouter();
@@ -51,10 +52,11 @@ export default function HubSpotMeetingRedirect({ source, email, firstName }) {
         has_email: Boolean(bookerEmail),
       });
 
-      // For /watch bookings, create the deal that HubSpot Meetings can't
+      // For /watch bookings, flag the Meetings-created contact for the
+      // qualification queue. No deal is created here.
       if (source === "watch" && bookerEmail) {
         try {
-          await fetch("/api/create-watch-deal", {
+          await fetch("/api/capture-watch-lead", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -63,11 +65,10 @@ export default function HubSpotMeetingRedirect({ source, email, firstName }) {
               lastName: bookerLastName,
             }),
           });
-          // Fire-and-forget: don't block the redirect on deal creation.
-          // If it fails, the contact still exists and Bradley can create
-          // the deal manually from HubSpot.
+          // Fire-and-forget: don't block the redirect. If it fails, the contact
+          // still exists and Bradley can flag it manually from HubSpot.
         } catch (err) {
-          console.error("[HubSpotMeetingRedirect] Deal creation failed:", err);
+          console.error("[HubSpotMeetingRedirect] Lead capture failed:", err);
         }
       }
 
