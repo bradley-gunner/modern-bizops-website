@@ -5,6 +5,7 @@ import {
   createContactTask,
   ensureCustomContactProperties,
   UTM_CUSTOM_PROPERTIES,
+  LEAD_MAGNET_PROPERTY,
   pickUtmProperties,
 } from "@/lib/hubspot";
 
@@ -28,11 +29,14 @@ export async function POST(request) {
     const lastName = nameParts.slice(1).join(" ") || "";
 
     if (!propertiesEnsured) {
-      await ensureCustomContactProperties(UTM_CUSTOM_PROPERTIES);
+      await ensureCustomContactProperties([
+        ...UTM_CUSTOM_PROPERTIES,
+        LEAD_MAGNET_PROPERTY,
+      ]);
       propertiesEnsured = true;
     }
 
-    const props = {};
+    const props = { lead_magnet: "playbook" };
     if (firstName) props.firstname = firstName;
     if (lastName) props.lastname = lastName;
     if (data.company) props.company = data.company;
