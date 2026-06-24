@@ -60,7 +60,7 @@ export async function POST(request) {
 
     if (contactId) {
       await markContactForReview(contactId);
-      createContactTask({
+      await createContactTask({
         contactId,
         subject: `New lead to qualify: ${data.name || data.email} (Playbook)`,
         body: [

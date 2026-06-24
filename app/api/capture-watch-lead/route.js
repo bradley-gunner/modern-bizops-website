@@ -48,7 +48,7 @@ export async function POST(request) {
     await markContactForReview(contactId);
 
     const contactName = [firstName, lastName].filter(Boolean).join(" ") || email;
-    createContactTask({
+    await createContactTask({
       contactId,
       subject: `New lead to qualify: ${contactName} (Booked call)`,
       body: `${contactName} booked a discovery call via /watch. Review and qualify before creating a deal.`,

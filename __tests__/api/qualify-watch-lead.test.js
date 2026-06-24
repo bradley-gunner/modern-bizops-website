@@ -66,6 +66,7 @@ describe('POST /api/qualify-watch-lead', () => {
     expect(json.success).toBe(true);
     expect(json.contactId).toBe('contact-42');
 
+    expect(contactPatchBody).not.toBeNull();
     expect(contactPatchBody.properties).toEqual(
       expect.objectContaining({
         company_annual_revenue: '5m_15m',
