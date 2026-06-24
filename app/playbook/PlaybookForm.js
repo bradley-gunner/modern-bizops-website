@@ -9,6 +9,7 @@ import {
   trackMagnetStart,
 } from "@/lib/analytics";
 import { getUtms } from "@/lib/utm";
+import { getHubspotutk } from "@/lib/hubspot-client";
 
 const PLAYBOOK_PDF_PATH = "/revenue-maturity-playbook.pdf";
 
@@ -41,7 +42,13 @@ export default function PlaybookForm() {
       const res = await fetch("/api/submit-playbook-form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, utms: getUtms() }),
+        body: JSON.stringify({
+          ...form,
+          utms: getUtms(),
+          hutk: getHubspotutk(),
+          pageUri: typeof window !== "undefined" ? window.location.href : "",
+          pageName: typeof document !== "undefined" ? document.title : "",
+        }),
       });
 
       if (!res.ok) {
