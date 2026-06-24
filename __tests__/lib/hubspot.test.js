@@ -71,6 +71,9 @@ describe('markContactForReview', () => {
     vi.resetModules();
     process.env.HUBSPOT_API_KEY = 'test-token';
   });
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
   it('PATCHes lifecyclestage lead and hs_lead_status NEW', async () => {
     let calledUrl = null;
@@ -93,5 +96,12 @@ describe('markContactForReview', () => {
     const ok = await markContactForReview(null);
     expect(ok).toBe(false);
     expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('returns false and logs when the PATCH fails', async () => {
+    global.fetch = vi.fn(async () => ({ ok: false, text: async () => 'boom' }));
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const { markContactForReview } = await import('@/lib/hubspot');
+    expect(await markContactForReview('contact-9')).toBe(false);
   });
 });

@@ -16,4 +16,9 @@ describe('getHubspotutk', () => {
   it('returns empty string when the cookie is absent', () => {
     expect(getHubspotutk()).toBe('');
   });
+
+  it('decodes a percent-encoded cookie value', () => {
+    document.cookie = 'hubspotutk=abc%2B123';
+    expect(getHubspotutk()).toBe('abc+123');
+  });
 });

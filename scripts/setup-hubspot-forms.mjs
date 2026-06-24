@@ -71,6 +71,9 @@ async function getPortalId() {
 }
 
 async function findExistingForm() {
+  // limit=200 is a single page; this portal is very unlikely to hold 200+
+  // forms, so we do not paginate. If it ever does, this could miss the form
+  // and create a duplicate.
   const res = await fetch(`${BASE}/marketing/v3/forms/?limit=200`, { headers: headers() });
   if (!res.ok) return null;
   const data = await res.json();
