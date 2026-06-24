@@ -11,6 +11,7 @@ vi.mock('@/lib/hubspot', () => hubspotMock);
 
 let contactCreateBody = null;
 let dealCalled = false;
+let searchResult = { total: 0 };
 
 beforeEach(() => {
   vi.resetModules();
@@ -20,13 +21,14 @@ beforeEach(() => {
   }
   contactCreateBody = null;
   dealCalled = false;
+  searchResult = { total: 0 };
   global.fetch = vi.fn(async (url, opts) => {
     if (typeof url === 'string' && url.includes('/crm/v3/objects/deals')) {
       dealCalled = true;
       return { ok: true, json: async () => ({ id: 'deal-x' }) };
     }
     if (typeof url === 'string' && url.includes('/crm/v3/objects/contacts/search')) {
-      return { ok: true, json: async () => ({ total: 0 }) };
+      return { ok: true, json: async () => searchResult };
     }
     if (typeof url === 'string' && url.endsWith('/crm/v3/objects/contacts')) {
       contactCreateBody = JSON.parse(opts.body);
@@ -84,6 +86,19 @@ describe('POST /api/submit-form (/book path)', () => {
       })
     );
     expect(hubspotMock.markContactForReview).toHaveBeenCalledWith('contact-1');
+    expect(dealCalled).toBe(false);
+  });
+
+  it('updates an existing contact, marks it for review, creates NO deal', async () => {
+    searchResult = { total: 1, results: [{ id: 'contact-existing' }] };
+    const res = await callRoute(fixtureBody());
+    expect(res.status).toBe(200);
+    const json = await res.json();
+    expect(json.success).toBe(true);
+    expect(json.contactId).toBe('contact-existing');
+    expect(json.action).toBe('updated');
+    expect(json.dealId).toBeUndefined();
+    expect(hubspotMock.markContactForReview).toHaveBeenCalledWith('contact-existing');
     expect(dealCalled).toBe(false);
   });
 
