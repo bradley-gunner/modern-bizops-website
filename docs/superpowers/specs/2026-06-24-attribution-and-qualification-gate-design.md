@@ -99,11 +99,17 @@ Same shape, `lead_magnet: playbook`. Replaces the `upsertContactByEmail` call wi
   `engagements_last_meeting_booked_*`, so they are the hotter segment to
   qualify first). Update `components/HubSpotMeetingRedirect.jsx` to call the
   renamed route.
-- `app/api/qualify-watch-lead/route.js`: keep writing the qualifying contact
-  properties (revenue, team size, bottleneck, previous consultant). Remove the
-  `findContactDeal` helper and the deal find/upgrade/create blocks entirely.
-  It becomes contact-enrichment only. Also `markContactForReview` for safety
-  (it may already be Lead from booking).
+- `app/api/qualify-watch-lead/route.js`: keep writing ALL of the qualifying
+  contact properties the route writes today, so no answer is lost when the deal
+  goes away. That is the full set: `company_annual_revenue`,
+  `sales_marketing_team_size`, `growth_bottleneck`, `previous_consultant`,
+  `previous_consultant_details`, plus `firstname`, `lastname`, and `phone`. The
+  `ensureCustomContactProperties` call that creates those custom properties on
+  demand also stays. Remove ONLY the `findContactDeal` helper and the deal
+  find/upgrade/create blocks. The route becomes contact-enrichment only. Also
+  call `markContactForReview` for safety (the contact may already be Lead from
+  booking). The qualifying answers then live on the contact record, which is
+  where Bradley reads them when working the queue.
 
 ### 7. The manual qualification gate (process this enables)
 
@@ -157,8 +163,10 @@ Bradley reviews the queue -> manually creates a deal for qualified leads.
 2. Add coverage for the playbook route (`submit-playbook-form`): form
    submission with `lead_magnet: playbook` and no deal.
 3. Add coverage for the watch routes: `capture-watch-lead` marks for review and
-   creates a task but creates no deal; `qualify-watch-lead` writes qualifying
-   properties and creates no deal.
+   creates a task but creates no deal; `qualify-watch-lead` still PATCHes the
+   full qualifying property set onto the contact (revenue, team size,
+   bottleneck, previous consultant + details, firstname, lastname, phone) and
+   creates no deal.
 4. Run the full vitest suite to confirm no regressions elsewhere.
 
 ## Acceptance criteria (from the source spec)
