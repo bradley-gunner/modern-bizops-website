@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { captureUtms, getUtms } from '@/lib/utm';
+import { trackMagnetStart } from '@/lib/analytics';
 import QuizFlow from './QuizFlow';
 
 function Landing({ onStart }) {
@@ -64,8 +65,13 @@ export default function ScorecardExperience() {
   }, []);
   /* eslint-enable react-hooks/set-state-in-effect */
 
+  function startQuiz() {
+    trackMagnetStart('scorecard');
+    setMode('quiz');
+  }
+
   if (mode === 'quiz') {
     return <QuizFlow utms={utms} />;
   }
-  return <Landing onStart={() => setMode('quiz')} />;
+  return <Landing onStart={startQuiz} />;
 }

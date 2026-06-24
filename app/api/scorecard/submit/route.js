@@ -12,6 +12,7 @@ import {
   NEW_LEAD_STAGE,
   BRADLEY_OWNER_ID,
   UTM_CUSTOM_PROPERTIES,
+  LEAD_MAGNET_PROPERTY,
 } from '@/lib/hubspot';
 import { buildResult } from '@/lib/scorecard/resultRender';
 
@@ -42,13 +43,17 @@ export async function POST(request) {
     }
 
     if (!utmPropertiesEnsured) {
-      await ensureCustomContactProperties(UTM_CUSTOM_PROPERTIES);
+      await ensureCustomContactProperties([
+        ...UTM_CUSTOM_PROPERTIES,
+        LEAD_MAGNET_PROPERTY,
+      ]);
       utmPropertiesEnsured = true;
     }
 
     const contactProps = {
       firstname: firstName || '',
       company: company || '',
+      lead_magnet: 'scorecard',
       ...pickUtmProperties(utms),
     };
     const { id: contactId } = await upsertContactByEmail(email, contactProps);

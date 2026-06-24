@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "@/components/ui/Button";
 import {
   trackEvent,
   trackFormSubmit,
   trackLeadGenerated,
+  trackMagnetStart,
 } from "@/lib/analytics";
 import { getUtms } from "@/lib/utm";
 
@@ -16,8 +17,17 @@ export default function PlaybookForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const started = useRef(false);
+
+  // Fire `playbook_start` on first interaction, mirroring `scorecard_start`.
+  const handleStart = () => {
+    if (started.current) return;
+    started.current = true;
+    trackMagnetStart("playbook");
+  };
 
   const handleChange = (e) => {
+    handleStart();
     setForm({ ...form, [e.target.name]: e.target.value });
     if (error) setError(null);
   };
@@ -44,6 +54,7 @@ export default function PlaybookForm() {
       // engagement report; `generate_lead` is the GA4-recommended conversion
       // event (includes value/currency for reporting).
       trackFormSubmit("playbook_download", {
+        lead_magnet: "playbook",
         has_name: Boolean(form.name),
         has_company: Boolean(form.company),
       });

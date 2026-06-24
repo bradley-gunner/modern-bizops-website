@@ -13,6 +13,7 @@ const hubspotMock = {
   NEW_LEAD_STAGE: '3477396169',
   BRADLEY_OWNER_ID: '85826069',
   UTM_CUSTOM_PROPERTIES: [],
+  LEAD_MAGNET_PROPERTY: { name: 'lead_magnet', type: 'enumeration' },
 };
 
 vi.mock('@/lib/hubspot', () => hubspotMock);
@@ -79,6 +80,7 @@ describe('POST /api/scorecard/submit', () => {
       expect.objectContaining({
         firstname: 'Jane',
         company: 'Acme',
+        lead_magnet: 'scorecard',
         utm_source: 'linkedin',
         utm_medium: 'social',
         utm_campaign: 'maturity-scorecard',

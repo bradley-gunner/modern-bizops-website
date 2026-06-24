@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo, useEffect } from 'react';
 import { getQuestionsFor } from '@/lib/scorecard/questions';
+import { trackFormSubmit, trackLeadGenerated } from '@/lib/analytics';
 import SectionHeader from './SectionHeader';
 import QuestionCard from './QuestionCard';
 import EmailGateForm from './EmailGateForm';
@@ -102,6 +103,15 @@ export default function QuizFlow({ utms = {} }) {
         setStep('error');
         return;
       }
+      // Fire analytics AFTER the API accepts the submission so we never count
+      // failed attempts as leads. `generate_lead` is the GA4-recommended
+      // conversion event; `lead_magnet` distinguishes it from the playbook flow.
+      trackFormSubmit('scorecard', {
+        lead_magnet: 'scorecard',
+        has_company: Boolean(company),
+      });
+      trackLeadGenerated('scorecard');
+
       setResult(data.result);
       setStep('result');
     } catch (err) {

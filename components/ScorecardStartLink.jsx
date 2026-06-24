@@ -1,6 +1,6 @@
 "use client";
 
-import { trackCTAClick, trackEvent } from "@/lib/analytics";
+import { trackCTAClick, trackMagnetStart } from "@/lib/analytics";
 
 /**
  * Outbound link from the /scorecard marketing page to the scorecard app on
@@ -20,7 +20,7 @@ export default function ScorecardStartLink({
 
   const handleClick = () => {
     trackCTAClick("scorecard_app", ctaLabel);
-    trackEvent("scorecard_start", {
+    trackMagnetStart("scorecard", {
       destination: href,
       cta_label: ctaLabel,
     });
