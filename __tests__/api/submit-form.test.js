@@ -19,6 +19,9 @@ let contactPatchBody = null;
 let dealCalled = false;
 
 beforeEach(() => {
+  // Reset the module registry so the route's `propertiesEnsured` cold-start flag
+  // starts false in every test (the vi.mock for @/lib/hubspot persists the reset).
+  vi.resetModules();
   for (const fn of Object.values(hubspotMock)) {
     if (typeof fn === 'function' && fn.mockClear) fn.mockClear();
   }
@@ -127,5 +130,13 @@ describe('POST /api/submit-form (/book path)', () => {
     const res = await callRoute(body);
     expect(res.status).toBe(400);
     expect(hubspotMock.submitHubSpotForm).not.toHaveBeenCalled();
+  });
+
+  it('returns 500 when HubSpot is not configured', async () => {
+    hubspotMock.assertHubSpotConfigured.mockImplementationOnce(() => {
+      throw new Error('HUBSPOT_API_KEY environment variable is not set');
+    });
+    const res = await callRoute(fixtureBody());
+    expect(res.status).toBe(500);
   });
 });
