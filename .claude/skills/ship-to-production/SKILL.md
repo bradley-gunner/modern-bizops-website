@@ -59,7 +59,7 @@ tool holds 3000):
 Then drive a real browser against it. Navigate the Chrome MCP to
 `http://localhost:3005/<route>`, screenshot, and exercise the change (click,
 scroll, read console for page-origin errors). Ignore console errors whose stack
-frames are `chrome-extension://…` — those are the user's browser extensions, not
+frames are `chrome-extension://…` - those are the user's browser extensions, not
 the page. Stop the server when done: `pkill -f "next dev -p 3005"`.
 
 **Permission gotcha:** `curl` invocations that use a `-w "%{http_code}"`-style
@@ -70,7 +70,7 @@ through the Chrome MCP, or a plain `curl -s -I <url>` without the `-w` format.
 
 Two hard rules for this user, both load-bearing:
 
-- **No em dashes** anywhere — code, copy, comments, and commit messages. Write
+- **No em dashes** anywhere - code, copy, comments, and commit messages. Write
   "$3M to $50M", not "$3M–$50M". Self-check the message body before committing.
 - **End every commit message** with the trailer:
   `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
@@ -92,12 +92,21 @@ End the PR body with the Claude Code attribution line:
 
 ## 5. Squash-merge (this is the deploy)
 
+**Lead-capture / HubSpot changes - gate before merging.** If the change touches a
+lead path (`/scorecard`, `/playbook`, `/book`, `/watch`) or the code behind it
+(`app/api/submit-*`, `lib/hubspot*`), the merge can silently drop real leads:
+HubSpot rejects form submissions from any unregistered site domain as spam with
+no visible error. Before merging, confirm `modernbizops.com` is still registered
+in HubSpot's site domains and verify the change end-to-end against HubSpot (a
+browser success screen does NOT prove a contact was created). **REQUIRED
+SUB-SKILL:** Use verify-lead-capture.
+
 ```bash
 gh pr merge <PR#> --squash
 ```
 
 **Worktree gotcha:** `gh pr merge --delete-branch` fails inside a worktree with
-`fatal: 'main' is already checked out` — because it tries to switch the local
+`fatal: 'main' is already checked out` - because it tries to switch the local
 checkout to `main`, which the main repo already holds. The **merge still
 succeeds**; only the local branch-switch fails. Confirm with
 `gh pr view <PR#> --json state -q .state` (expect `MERGED`), then delete the
@@ -112,10 +121,10 @@ git push origin --delete <branch>
 Merging kicks off a production build. Confirm it reached `READY` rather than
 assuming. Use the Vercel MCP tools (load via ToolSearch if deferred):
 
-- `list_deployments` with the project/team ids above — the newest entry with
+- `list_deployments` with the project/team ids above - the newest entry with
   `target: "production"` should carry your squash-merge commit. It starts
   `BUILDING`.
-- `get_deployment <id>` — poll until `state` / `readyState` is `READY`. Builds
+- `get_deployment <id>` - poll until `state` / `readyState` is `READY`. Builds
   take roughly a minute. When ready, its `alias` array includes
   `www.modernbizops.com`, which means the live site is now serving your commit.
 
@@ -128,10 +137,10 @@ until-loop.
 
 ## 7. Verify the live page
 
-The deploy being `READY` is necessary but not sufficient — confirm the actual
+The deploy being `READY` is necessary but not sufficient - confirm the actual
 change on the canonical host. Navigate the Chrome MCP to
 `https://www.modernbizops.com/<route>`, wait for assets (Next.js `next/image`
-shows a gray placeholder for a beat before the real image paints — give it a
+shows a gray placeholder for a beat before the real image paints - give it a
 few seconds and re-screenshot), and confirm the specific thing you changed is
 present. For an interactive change, exercise it (click play, submit a form).
 This screenshot is the proof you report back, not "the deploy succeeded".
