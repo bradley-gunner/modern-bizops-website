@@ -3,26 +3,11 @@ import {
   UTM_CUSTOM_PROPERTIES,
   pickUtmProperties,
   ensureCustomContactProperties,
-  findExistingRevopsDealForContact,
+  markContactForReview,
 } from "@/lib/hubspot";
 
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 const HUBSPOT_BASE = "https://api.hubapi.com";
-
-// RevOps Coaching pipeline
-const REVOPS_PIPELINE_ID = "2172760768";
-const DISCOVERY_CALL_BOOKED_STAGE = "3477396170";
-
-// Map revenue ranges to deal amounts (pricing tiers)
-const REVENUE_TO_DEAL_AMOUNT = {
-  "Under $1M": 8000,
-  "$1M–$3M": 8000,
-  "$3M–$5M": 8000,
-  "$5M–$15M": 15000,
-  "$15M–$50M": 25000,
-  "$50M+": 40000,
-  "$15M+": 25000, // legacy band, retained for historical/in-flight submissions
-};
 
 // Maps form field values to internal HubSpot enumeration values
 const REVENUE_OPTIONS = {
@@ -234,65 +219,6 @@ async function upsertContact(formData) {
   return { id: created.id, action: "created" };
 }
 
-/**
- * Create a deal in the RevOps Coaching pipeline at "Discovery Call Booked" stage.
- * Associates the deal with the contact.
- */
-async function createDeal(contactId, formData) {
-  const headers = {
-    Authorization: `Bearer ${HUBSPOT_API_KEY}`,
-    "Content-Type": "application/json",
-  };
-
-  const existingDealId = await findExistingRevopsDealForContact(contactId);
-  if (existingDealId) {
-    console.log(`[submit-form] RevOps deal already exists for contact ${contactId}, skipping create:`, existingDealId);
-    const dealAmount = REVENUE_TO_DEAL_AMOUNT[formData.revenue] || 15000;
-    return { id: existingDealId, amount: dealAmount };
-  }
-
-  const dealAmount = REVENUE_TO_DEAL_AMOUNT[formData.revenue] || 15000;
-  const contactName = [formData.firstName, formData.lastName]
-    .filter(Boolean)
-    .join(" ");
-
-  const dealRes = await fetch(`${HUBSPOT_BASE}/crm/v3/objects/deals`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      properties: {
-        dealname: `RevOps Coaching — ${contactName}`,
-        pipeline: REVOPS_PIPELINE_ID,
-        dealstage: DISCOVERY_CALL_BOOKED_STAGE,
-        amount: String(dealAmount),
-        dealtype: "newbusiness",
-        engagement_type: "DWY Coaching",
-        project_type: "RevOps Coaching",
-      },
-      associations: [
-        {
-          to: { id: contactId },
-          types: [
-            {
-              associationCategory: "HUBSPOT_DEFINED",
-              associationTypeId: 3, // deal-to-contact
-            },
-          ],
-        },
-      ],
-    }),
-  });
-
-  if (!dealRes.ok) {
-    const err = await dealRes.text();
-    console.error("Failed to create deal:", err);
-    return null;
-  }
-
-  const deal = await dealRes.json();
-  return { id: deal.id, amount: dealAmount };
-}
-
 export async function POST(request) {
   // Validate API key is configured
   if (!HUBSPOT_API_KEY) {
@@ -310,17 +236,19 @@ export async function POST(request) {
     await ensureCustomProperties();
     await ensureCustomContactProperties(UTM_CUSTOM_PROPERTIES);
 
-    // Create or update the contact
+    // Create or update the contact with the qualifying form data.
     const result = await upsertContact(formData);
 
-    // Create a deal in the RevOps Coaching pipeline
-    const deal = await createDeal(result.id, formData);
+    // Flag the contact for the manual qualification queue (lifecycle Lead,
+    // hs_lead_status NEW). We do NOT auto-create a deal: even a fully completed
+    // booking form is not a qualified opportunity. Bradley creates the deal
+    // manually after qualifying, same as the scorecard/playbook/watch paths.
+    await markContactForReview(result.id);
 
     return NextResponse.json({
       success: true,
       contactId: result.id,
       action: result.action,
-      dealId: deal?.id || null,
     });
   } catch (error) {
     console.error("HubSpot submit error:", error);

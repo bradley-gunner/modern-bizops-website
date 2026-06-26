@@ -2,21 +2,18 @@ import { NextResponse } from 'next/server';
 import {
   assertHubSpotConfigured,
   ensureCustomContactProperties,
-  upsertContactByEmail,
+  submitHubSpotForm,
+  markContactForReview,
+  findContactByEmail,
   pickUtmProperties,
-  findExistingRevopsDealForContact,
   createContactTask,
-  hsHeaders,
-  HUBSPOT_BASE,
-  REVOPS_PIPELINE_ID,
-  NEW_LEAD_STAGE,
   BRADLEY_OWNER_ID,
   UTM_CUSTOM_PROPERTIES,
   LEAD_MAGNET_PROPERTY,
 } from '@/lib/hubspot';
 import { buildResult } from '@/lib/scorecard/resultRender';
 
-let utmPropertiesEnsured = false;
+let propertiesEnsured = false;
 
 const REQUIRED_ANSWER_IDS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14'];
 
@@ -33,7 +30,7 @@ export async function POST(request) {
     assertHubSpotConfigured();
 
     const body = await request.json();
-    const { firstName, email, company, utms, answers } = body || {};
+    const { firstName, email, company, utms, answers, hutk, pageUri, pageName } = body || {};
 
     if (!email || typeof email !== 'string') {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
@@ -42,63 +39,46 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Answers payload is malformed' }, { status: 400 });
     }
 
-    if (!utmPropertiesEnsured) {
+    if (!propertiesEnsured) {
       await ensureCustomContactProperties([
         ...UTM_CUSTOM_PROPERTIES,
         LEAD_MAGNET_PROPERTY,
       ]);
-      utmPropertiesEnsured = true;
+      propertiesEnsured = true;
     }
 
-    const contactProps = {
-      firstname: firstName || '',
-      company: company || '',
-      lead_magnet: 'scorecard',
-      ...pickUtmProperties(utms),
-    };
-    const { id: contactId } = await upsertContactByEmail(email, contactProps);
+    // Submit through the HubSpot form so the hutk cookie attaches the visitor
+    // session and HubSpot sets a real Original Source. This creates/updates the
+    // contact; we do NOT create a deal (deals are made manually after Bradley
+    // qualifies the lead).
+    const submission = await submitHubSpotForm({
+      properties: {
+        email,
+        firstname: firstName || '',
+        company: company || '',
+        lead_magnet: 'scorecard',
+        ...pickUtmProperties(utms),
+      },
+      context: { hutk, pageUri, pageName },
+    });
+
+    if (!submission.ok) {
+      return NextResponse.json({ error: 'Failed to submit lead' }, { status: 502 });
+    }
 
     const result = buildResult(answers);
 
-    const existingDealId = await findExistingRevopsDealForContact(contactId);
-    let dealId = existingDealId;
+    // Look up the contact the form just created/updated so we can flag it for
+    // the manual qualification queue and notify Bradley. If HubSpot has not
+    // finished indexing the contact yet, still return the result so the user
+    // sees their scorecard; Bradley can flag lifecycle from the queue.
+    const contactId = await findContactByEmail(email);
 
-    if (!existingDealId) {
-      const contactName = firstName || email;
-      const dealRes = await fetch(`${HUBSPOT_BASE}/crm/v3/objects/deals`, {
-        method: 'POST',
-        headers: hsHeaders(),
-        body: JSON.stringify({
-          properties: {
-            dealname: `Maturity Scorecard - ${contactName}`,
-            pipeline: REVOPS_PIPELINE_ID,
-            dealstage: NEW_LEAD_STAGE,
-            dealtype: 'newbusiness',
-            engagement_type: 'DWY Coaching',
-            project_type: 'RevOps Coaching',
-            hubspot_owner_id: BRADLEY_OWNER_ID,
-          },
-          associations: [
-            {
-              to: { id: contactId },
-              types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 3 }],
-            },
-          ],
-        }),
-      });
-
-      if (!dealRes.ok) {
-        const err = await dealRes.text();
-        console.error('[submit-scorecard] HubSpot deal creation failed:', err);
-        return NextResponse.json({ error: 'Failed to create deal' }, { status: 502 });
-      }
-
-      const deal = await dealRes.json();
-      dealId = deal.id;
-
+    if (contactId) {
+      await markContactForReview(contactId);
       await createContactTask({
         contactId,
-        subject: `Scorecard lead: ${firstName || email} (Stage ${result.placement.stage})`,
+        subject: `New lead to qualify: ${firstName || email} (Stage ${result.placement.stage})`,
         body: `New scorecard submission. Stage ${result.placement.stage} (${result.placement.name}). Model: ${result.modelLabel}. Headline gap: ${result.headline.lead}`,
         ownerId: BRADLEY_OWNER_ID,
         priority: 'HIGH',
@@ -106,7 +86,7 @@ export async function POST(request) {
       });
     }
 
-    return NextResponse.json({ success: true, contactId, dealId, result });
+    return NextResponse.json({ success: true, contactId, result });
   } catch (err) {
     console.error('[submit-scorecard] Unexpected error:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

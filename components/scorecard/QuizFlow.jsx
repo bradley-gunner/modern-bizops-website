@@ -2,6 +2,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { getQuestionsFor } from '@/lib/scorecard/questions';
 import { trackFormSubmit, trackLeadGenerated } from '@/lib/analytics';
+import { getHubspotutk } from '@/lib/hubspot-client';
 import SectionHeader from './SectionHeader';
 import QuestionCard from './QuestionCard';
 import EmailGateForm from './EmailGateForm';
@@ -95,7 +96,16 @@ export default function QuizFlow({ utms = {} }) {
       const res = await fetch('/api/scorecard/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, email, company, utms, answers }),
+        body: JSON.stringify({
+          firstName,
+          email,
+          company,
+          utms,
+          answers,
+          hutk: getHubspotutk(),
+          pageUri: typeof window !== 'undefined' ? window.location.href : '',
+          pageName: typeof document !== 'undefined' ? document.title : '',
+        }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) {

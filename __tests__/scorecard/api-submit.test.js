@@ -3,14 +3,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 const hubspotMock = {
   assertHubSpotConfigured: vi.fn(),
   ensureCustomContactProperties: vi.fn(async () => {}),
-  upsertContactByEmail: vi.fn(async () => ({ id: 'contact-123', action: 'created' })),
+  submitHubSpotForm: vi.fn(async () => ({ ok: true })),
+  markContactForReview: vi.fn(async () => true),
+  findContactByEmail: vi.fn(async () => 'contact-123'),
   pickUtmProperties: vi.fn((utms) => utms || {}),
-  findExistingRevopsDealForContact: vi.fn(async () => null),
   createContactTask: vi.fn(async () => 'task-1'),
-  hsHeaders: vi.fn(() => ({ 'Content-Type': 'application/json' })),
-  HUBSPOT_BASE: 'https://api.hubapi.test',
-  REVOPS_PIPELINE_ID: '2172760768',
-  NEW_LEAD_STAGE: '3477396169',
   BRADLEY_OWNER_ID: '85826069',
   UTM_CUSTOM_PROPERTIES: [],
   LEAD_MAGNET_PROPERTY: { name: 'lead_magnet', type: 'enumeration' },
@@ -18,19 +15,18 @@ const hubspotMock = {
 
 vi.mock('@/lib/hubspot', () => hubspotMock);
 
-let dealCreateBody = null;
+let dealCreateCalled = false;
 
 beforeEach(() => {
   for (const fn of Object.values(hubspotMock)) {
     if (typeof fn === 'function' && fn.mockClear) fn.mockClear();
   }
-  hubspotMock.findExistingRevopsDealForContact.mockResolvedValue(null);
-  hubspotMock.upsertContactByEmail.mockResolvedValue({ id: 'contact-123', action: 'created' });
-  dealCreateBody = null;
-  global.fetch = vi.fn(async (url, opts) => {
+  hubspotMock.submitHubSpotForm.mockResolvedValue({ ok: true });
+  hubspotMock.findContactByEmail.mockResolvedValue('contact-123');
+  dealCreateCalled = false;
+  global.fetch = vi.fn(async (url) => {
     if (typeof url === 'string' && url.endsWith('/crm/v3/objects/deals')) {
-      dealCreateBody = JSON.parse(opts.body);
-      return { ok: true, json: async () => ({ id: 'deal-456' }) };
+      dealCreateCalled = true;
     }
     return { ok: true, json: async () => ({}) };
   });
@@ -52,6 +48,9 @@ function fixtureBody() {
     email: 'jane@example.com',
     company: 'Acme',
     utms: { utm_source: 'linkedin', utm_medium: 'social', utm_campaign: 'maturity-scorecard' },
+    hutk: 'cookie-xyz',
+    pageUri: 'https://modernbizops.com/scorecard?utm_source=linkedin',
+    pageName: 'Revenue Growth Scorecard',
     answers: {
       q1: { value: '7m_15m' },
       q2: { value: 'PROFESSIONAL_SERVICES' },
@@ -65,40 +64,51 @@ function fixtureBody() {
 }
 
 describe('POST /api/scorecard/submit', () => {
-  it('upserts contact, forwards UTMs, creates deal at NEW_LEAD_STAGE in RevOps pipeline', async () => {
+  it('submits the form with hutk + lead_magnet, marks for review, creates a task, no deal', async () => {
     const res = await callRoute(fixtureBody());
     expect(res.status).toBe(200);
     const json = await res.json();
     expect(json.success).toBe(true);
     expect(json.contactId).toBe('contact-123');
-    expect(json.dealId).toBe('deal-456');
     expect(json.result).toBeDefined();
     expect(json.result.placement.stage).toBe(1);
+    expect(json.dealId).toBeUndefined();
 
-    expect(hubspotMock.upsertContactByEmail).toHaveBeenCalledWith(
-      'jane@example.com',
+    expect(hubspotMock.submitHubSpotForm).toHaveBeenCalledWith(
       expect.objectContaining({
-        firstname: 'Jane',
-        company: 'Acme',
-        lead_magnet: 'scorecard',
-        utm_source: 'linkedin',
-        utm_medium: 'social',
-        utm_campaign: 'maturity-scorecard',
-      }),
+        properties: expect.objectContaining({
+          email: 'jane@example.com',
+          firstname: 'Jane',
+          company: 'Acme',
+          lead_magnet: 'scorecard',
+          utm_source: 'linkedin',
+        }),
+        context: expect.objectContaining({
+          hutk: 'cookie-xyz',
+          pageUri: 'https://modernbizops.com/scorecard?utm_source=linkedin',
+          pageName: 'Revenue Growth Scorecard',
+        }),
+      })
     );
-    expect(dealCreateBody.properties.pipeline).toBe('2172760768');
-    expect(dealCreateBody.properties.dealstage).toBe('3477396169');
-    expect(dealCreateBody.properties.dealname).toMatch(/^Maturity Scorecard - Jane$/);
-    expect(dealCreateBody.properties.dealname).not.toMatch(/—/);
+    expect(hubspotMock.markContactForReview).toHaveBeenCalledWith('contact-123');
+    expect(hubspotMock.createContactTask).toHaveBeenCalled();
+    expect(dealCreateCalled).toBe(false);
   });
 
-  it('is idempotent: returns existing deal id when one is already in the pipeline', async () => {
-    hubspotMock.findExistingRevopsDealForContact.mockResolvedValue('existing-deal-999');
+  it('returns 502 when the form submission fails', async () => {
+    hubspotMock.submitHubSpotForm.mockResolvedValue({ ok: false, error: 'bad' });
     const res = await callRoute(fixtureBody());
+    expect(res.status).toBe(502);
+  });
+
+  it('still returns the result when the contact is not found yet', async () => {
+    hubspotMock.findContactByEmail.mockResolvedValue(null);
+    const res = await callRoute(fixtureBody());
+    expect(res.status).toBe(200);
     const json = await res.json();
     expect(json.success).toBe(true);
-    expect(json.dealId).toBe('existing-deal-999');
-    expect(dealCreateBody).toBeNull();
+    expect(json.contactId).toBeNull();
+    expect(hubspotMock.markContactForReview).not.toHaveBeenCalled();
   });
 
   it('rejects missing email', async () => {

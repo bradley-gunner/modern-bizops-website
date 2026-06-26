@@ -1,41 +1,31 @@
 import { NextResponse } from "next/server";
 import {
   HUBSPOT_BASE,
-  REVOPS_PIPELINE_ID,
   hsHeaders,
   assertHubSpotConfigured,
   findContactByEmail,
+  markContactForReview,
   ensureCustomContactProperties,
 } from "@/lib/hubspot";
 
-const DISCOVERY_CALL_BOOKED_STAGE = "3477396170";
-
-// Same tier map as /api/submit-form
-const REVENUE_TO_DEAL_AMOUNT = {
-  "Under $1M": 8000,
-  "$1M\u20133M": 8000,
-  "$3M\u20135M": 8000,
-  "$5M\u201315M": 15000,
-  "$15M\u201350M": 25000,
-  "$50M+": 40000,
-  "$15M+": 25000, // legacy band, retained for historical/in-flight submissions
-};
-
-// Same enum maps as /api/submit-form
+// Enum maps mirror the /book qualifying form. Kept here (not moved to the deal
+// layer) because they translate the form's display labels into the contact
+// property option values. The revenue-to-amount map was removed with the deal
+// logic; amounts are set when Bradley creates the deal manually.
 const REVENUE_OPTIONS = {
   "Under $1M": "under_1m",
-  "$1M\u20133M": "1m_3m",
-  "$3M\u20135M": "3m_5m",
-  "$5M\u201315M": "5m_15m",
-  "$15M\u201350M": "15m_50m",
+  "$1M–3M": "1m_3m",
+  "$3M–5M": "3m_5m",
+  "$5M–15M": "5m_15m",
+  "$15M–50M": "15m_50m",
   "$50M+": "50m_plus",
   "$15M+": "15m_plus", // legacy band, retained for historical/in-flight submissions
 };
 
 const TEAM_SIZE_OPTIONS = {
-  "1\u20135": "1_5",
-  "6\u201315": "6_15",
-  "16\u201330": "16_30",
+  "1–5": "1_5",
+  "6–15": "6_15",
+  "16–30": "16_30",
   "30+": "30_plus",
 };
 
@@ -100,62 +90,15 @@ async function ensureProperties() {
 }
 
 /**
- * Find deals associated with a contact in the RevOps Coaching pipeline.
- * Returns the most recent deal object, or null.
- */
-async function findContactDeal(contactId) {
-  const res = await fetch(`${HUBSPOT_BASE}/crm/v3/objects/deals/search`, {
-    method: "POST",
-    headers: hsHeaders(),
-    body: JSON.stringify({
-      filterGroups: [
-        {
-          filters: [
-            {
-              propertyName: "pipeline",
-              operator: "EQ",
-              value: REVOPS_PIPELINE_ID,
-            },
-          ],
-        },
-      ],
-      sorts: [{ propertyName: "createdate", direction: "DESCENDING" }],
-      limit: 100,
-      properties: ["dealname", "pipeline", "dealstage", "amount"],
-    }),
-  });
-
-  if (!res.ok) return null;
-  const data = await res.json();
-
-  // Filter to deals associated with this contact
-  // The search API doesn't filter by association directly on Starter,
-  // so we check associations for each candidate deal
-  for (const deal of data.results || []) {
-    const assocRes = await fetch(
-      `${HUBSPOT_BASE}/crm/v3/objects/deals/${deal.id}/associations/contacts`,
-      { headers: hsHeaders() }
-    );
-    if (!assocRes.ok) continue;
-    const assocData = await assocRes.json();
-    const linked = (assocData.results || []).some(
-      (a) => String(a.id) === String(contactId)
-    );
-    if (linked) return deal;
-  }
-
-  return null;
-}
-
-/**
  * POST /api/qualify-watch-lead
  *
- * Called from the thank-you page when a /watch booker fills in the
- * qualifying form post-booking. Updates the contact with qualifying
- * properties and upgrades the deal from "New Lead" to "Discovery Call
- * Booked" with the tier-based amount.
+ * Called from the thank-you page when a /watch booker fills in the qualifying
+ * form post-booking. Writes the qualifying answers onto the contact and keeps
+ * it flagged for the manual qualification queue. It does NOT create or upgrade
+ * a deal: a self-reported qualifying form is not a qualified opportunity.
+ * Bradley creates the deal manually after qualifying.
  *
- * Expects JSON body matching the /book qualifying form fields:
+ * Expects JSON body matching the qualifying form fields:
  * { email, firstName, lastName, revenue, teamSize, bottleneck,
  *   previousConsultant, previousConsultantDetails, phone? }
  */
@@ -168,22 +111,14 @@ export async function POST(request) {
     const { email } = formData;
 
     if (!email) {
-      return NextResponse.json(
-        { error: "Email is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    // 1. Find the contact
     const contactId = await findContactByEmail(email);
     if (!contactId) {
-      return NextResponse.json(
-        { error: "Contact not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Contact not found" }, { status: 404 });
     }
 
-    // 2. Update contact with qualifying properties
     const contactProps = {
       company_annual_revenue:
         REVENUE_OPTIONS[formData.revenue] || formData.revenue,
@@ -216,104 +151,13 @@ export async function POST(request) {
       );
     }
 
-    // 3. Find and upgrade the deal
-    const deal = await findContactDeal(contactId);
-    const dealAmount = REVENUE_TO_DEAL_AMOUNT[formData.revenue] || 15000;
-    const contactName = [formData.firstName, formData.lastName]
-      .filter(Boolean)
-      .join(" ");
+    // Keep the contact in the manual qualification queue. It is likely already
+    // Lead from booking; this is a safety net and sets hs_lead_status NEW.
+    await markContactForReview(contactId);
 
-    if (deal) {
-      // Upgrade existing deal to Discovery Call Booked with amount
-      const dealUpdateRes = await fetch(
-        `${HUBSPOT_BASE}/crm/v3/objects/deals/${deal.id}`,
-        {
-          method: "PATCH",
-          headers: hsHeaders(),
-          body: JSON.stringify({
-            properties: {
-              dealstage: DISCOVERY_CALL_BOOKED_STAGE,
-              amount: String(dealAmount),
-              dealname: `RevOps Coaching \u2014 ${contactName}`,
-            },
-          }),
-        }
-      );
-
-      if (!dealUpdateRes.ok) {
-        const err = await dealUpdateRes.text();
-        console.error("[qualify-watch-lead] Deal upgrade failed:", err);
-      } else {
-        console.log(
-          `[qualify-watch-lead] Deal ${deal.id} upgraded to Discovery Call Booked ($${dealAmount}) for ${email}`
-        );
-      }
-
-      return NextResponse.json({
-        success: true,
-        contactId,
-        dealId: deal.id,
-        dealUpgraded: true,
-        amount: dealAmount,
-      });
-    }
-
-    // No existing deal found (edge case). Create one at Discovery Call Booked.
-    const createRes = await fetch(`${HUBSPOT_BASE}/crm/v3/objects/deals`, {
-      method: "POST",
-      headers: hsHeaders(),
-      body: JSON.stringify({
-        properties: {
-          dealname: `RevOps Coaching \u2014 ${contactName}`,
-          pipeline: REVOPS_PIPELINE_ID,
-          dealstage: DISCOVERY_CALL_BOOKED_STAGE,
-          amount: String(dealAmount),
-          dealtype: "newbusiness",
-          engagement_type: "DWY Coaching",
-          project_type: "RevOps Coaching",
-        },
-        associations: [
-          {
-            to: { id: contactId },
-            types: [
-              {
-                associationCategory: "HUBSPOT_DEFINED",
-                associationTypeId: 3,
-              },
-            ],
-          },
-        ],
-      }),
-    });
-
-    if (!createRes.ok) {
-      const err = await createRes.text();
-      console.error("[qualify-watch-lead] Deal creation failed:", err);
-      return NextResponse.json({
-        success: true,
-        contactId,
-        dealId: null,
-        dealUpgraded: false,
-      });
-    }
-
-    const newDeal = await createRes.json();
-    console.log(
-      `[qualify-watch-lead] New deal ${newDeal.id} created at Discovery Call Booked ($${dealAmount}) for ${email}`
-    );
-
-    return NextResponse.json({
-      success: true,
-      contactId,
-      dealId: newDeal.id,
-      dealUpgraded: true,
-      amount: dealAmount,
-    });
+    return NextResponse.json({ success: true, contactId });
   } catch (err) {
     console.error("[qualify-watch-lead] Unexpected error:", err);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
