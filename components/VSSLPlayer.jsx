@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const VIDEO_ID = "4fVPWZ8MNEg";
+const VIDEO_ID = "MmamkxGpviw";
 
 export default function VSSLPlayer() {
   const [playing, setPlaying] = useState(false);
@@ -30,7 +30,7 @@ export default function VSSLPlayer() {
       aria-label="Play: How Founder-Led B2B Companies Grow Revenue Without Growing Headcount"
     >
       <Image
-        src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
+        src="/og/watch-poster.png"
         alt="Video thumbnail: How Founder-Led B2B Companies Grow Revenue Without Growing Headcount"
         fill
         sizes="(max-width: 768px) 100vw, 900px"
