@@ -2,7 +2,7 @@ import Script from "next/script";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import { getOrganizationSchema, getServiceSchema, getPersonSchema, getFAQSchema } from "./schema";
-import { GA_MEASUREMENT_ID } from "@/lib/analytics";
+import { GA_MEASUREMENT_ID, CLARITY_PROJECT_ID } from "@/lib/analytics";
 import UtmCapture from "@/components/UtmCapture";
 
 // next/font self-hosts both fonts, adds <link rel="preload"> automatically,
@@ -103,6 +103,19 @@ export default function RootLayout({ children }) {
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
+        {/* Microsoft Clarity — session recordings and heatmaps for CRO.
+            Production only so local dev and preview sessions are not recorded. */}
+        {process.env.NODE_ENV === "production" && (
+          <Script id="ms-clarity" strategy="afterInteractive">
+            {`
+              (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
+            `}
+          </Script>
+        )}
         <UtmCapture />
         {children}
       </body>
