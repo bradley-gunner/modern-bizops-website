@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import HubSpotMeetingRedirect from "@/components/HubSpotMeetingRedirect";
 import { trackFormSubmit } from "@/lib/analytics";
 import { getUtms } from "@/lib/utm";
+import { getHubspotutk } from "@/lib/hubspot-client";
 
 const revenueOptions = [
   "Under $1M",
@@ -140,7 +141,13 @@ export default function BookPageClient() {
       const res = await fetch("/api/submit-form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, utms: getUtms() }),
+        body: JSON.stringify({
+          ...form,
+          utms: getUtms(),
+          hutk: getHubspotutk(),
+          pageUri: typeof window !== "undefined" ? window.location.href : "",
+          pageName: typeof document !== "undefined" ? document.title : "",
+        }),
       });
 
       if (!res.ok) {
