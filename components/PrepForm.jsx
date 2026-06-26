@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Button from "@/components/ui/Button";
-import { trackFormSubmit } from "@/lib/analytics";
+import { trackFormSubmit, identifyLead } from "@/lib/analytics";
 import { getUtms } from "@/lib/utm";
 
 // ---------------------------------------------------------------------------
@@ -181,6 +181,7 @@ function PrepFormInner() {
       has_trigger: Boolean(form.bookingTrigger),
       has_outcome: Boolean(form.desiredOutcome),
     });
+    identifyLead(form.email);
 
     try {
       const res = await fetch("/api/submit-prep-form", {
