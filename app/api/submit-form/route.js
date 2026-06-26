@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
 import {
-  UTM_CUSTOM_PROPERTIES,
-  pickUtmProperties,
+  assertHubSpotConfigured,
   ensureCustomContactProperties,
+  submitHubSpotForm,
   markContactForReview,
+  findContactByEmail,
+  pickUtmProperties,
+  hsHeaders,
+  HUBSPOT_BASE,
+  UTM_CUSTOM_PROPERTIES,
 } from "@/lib/hubspot";
 
-const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
-const HUBSPOT_BASE = "https://api.hubapi.com";
-
-// Maps form field values to internal HubSpot enumeration values
+// Maps the /book form's display labels to internal HubSpot enumeration values.
 const REVENUE_OPTIONS = {
   "Under $1M": "under_1m",
   "$1M–$3M": "1m_3m",
@@ -27,7 +29,9 @@ const TEAM_SIZE_OPTIONS = {
   "30+": "30_plus",
 };
 
-const CUSTOM_PROPERTIES = [
+// The qualifying properties the /book form collects. Ensured on cold start so a
+// fresh environment has them before the enrichment PATCH below runs.
+const QUALIFYING_PROPERTIES = [
   {
     name: "company_annual_revenue",
     label: "Company Annual Revenue",
@@ -79,177 +83,117 @@ const CUSTOM_PROPERTIES = [
   },
 ];
 
-/**
- * Ensures all custom properties exist in HubSpot.
- * Creates any that are missing. Runs once per cold start via module-level flag.
- */
 let propertiesEnsured = false;
 
-async function ensureCustomProperties() {
-  if (propertiesEnsured) return;
-
-  const headers = {
-    Authorization: `Bearer ${HUBSPOT_API_KEY}`,
-    "Content-Type": "application/json",
-  };
-
-  for (const prop of CUSTOM_PROPERTIES) {
-    // Check if property exists
-    const checkRes = await fetch(
-      `${HUBSPOT_BASE}/crm/v3/properties/contacts/${prop.name}`,
-      { headers }
-    );
-
-    if (checkRes.status === 404) {
-      // Create the property
-      const createRes = await fetch(
-        `${HUBSPOT_BASE}/crm/v3/properties/contacts`,
-        {
-          method: "POST",
-          headers,
-          body: JSON.stringify(prop),
-        }
-      );
-
-      if (!createRes.ok) {
-        const err = await createRes.text();
-        console.error(`Failed to create property ${prop.name}:`, err);
-      } else {
-        console.log(`Created HubSpot property: ${prop.name}`);
-      }
+// HubSpot's contact search index lags briefly after a form submission creates
+// the contact. Retry so the qualifying-property enrichment reliably lands on
+// the contact the form just created (rather than being skipped).
+async function findContactByEmailWithRetry(email, attempts = 4, delayMs = 700) {
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    const id = await findContactByEmail(email);
+    if (id) return id;
+    if (attempt < attempts - 1) {
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
     }
   }
-
-  propertiesEnsured = true;
+  return null;
 }
 
-/**
- * Search for an existing contact by email, return their ID if found.
- */
-async function findContactByEmail(email) {
-  const res = await fetch(`${HUBSPOT_BASE}/crm/v3/objects/contacts/search`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${HUBSPOT_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      filterGroups: [
-        {
-          filters: [
-            { propertyName: "email", operator: "EQ", value: email },
-          ],
-        },
-      ],
-      limit: 1,
-    }),
-  });
-
-  if (!res.ok) return null;
-  const data = await res.json();
-  return data.total > 0 ? data.results[0].id : null;
-}
-
-/**
- * Create or update a HubSpot contact with the qualifying form data.
- */
-async function upsertContact(formData) {
-  const headers = {
-    Authorization: `Bearer ${HUBSPOT_API_KEY}`,
-    "Content-Type": "application/json",
-  };
-
+// Write the qualifying answers (and phone) onto the contact the form created.
+// These are NOT submitted through the form: phone and the qualifying fields are
+// not on the shared lead form, and keeping the form lean avoids touching its
+// field set. A PATCH does not re-stamp Original Source, so the form's
+// attribution survives.
+async function writeQualifyingProperties(contactId, formData) {
   const properties = {
     company_annual_revenue:
-      REVENUE_OPTIONS[formData.revenue] || formData.revenue,
+      REVENUE_OPTIONS[formData.revenue] || formData.revenue || "",
     sales_marketing_team_size:
-      TEAM_SIZE_OPTIONS[formData.teamSize] || formData.teamSize,
+      TEAM_SIZE_OPTIONS[formData.teamSize] || formData.teamSize || "",
     growth_bottleneck: formData.bottleneck || "",
     previous_consultant: formData.previousConsultant || "",
     previous_consultant_details: formData.previousConsultantDetails || "",
-    ...pickUtmProperties(formData.utms),
   };
+  if (formData.phone) properties.phone = formData.phone;
 
-  // Only set phone if provided
-  if (formData.phone) {
-    properties.phone = formData.phone;
-  }
-
-  // Only set email if provided
-  if (formData.email) {
-    properties.email = formData.email;
-  }
-
-  // If we have an email, try to find and update existing contact
-  if (formData.email) {
-    const existingId = await findContactByEmail(formData.email);
-
-    if (existingId) {
-      const updateRes = await fetch(
-        `${HUBSPOT_BASE}/crm/v3/objects/contacts/${existingId}`,
-        {
-          method: "PATCH",
-          headers,
-          body: JSON.stringify({ properties }),
-        }
-      );
-
-      if (!updateRes.ok) {
-        const err = await updateRes.text();
-        throw new Error(`Failed to update contact: ${err}`);
-      }
-
-      return { id: existingId, action: "updated" };
+  const res = await fetch(
+    `${HUBSPOT_BASE}/crm/v3/objects/contacts/${contactId}`,
+    {
+      method: "PATCH",
+      headers: hsHeaders(),
+      body: JSON.stringify({ properties }),
     }
+  );
+  if (!res.ok) {
+    console.error(
+      "[submit-form] qualifying property write failed:",
+      await res.text()
+    );
+    return false;
   }
-
-  // Create new contact
-  const createRes = await fetch(`${HUBSPOT_BASE}/crm/v3/objects/contacts`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({ properties }),
-  });
-
-  if (!createRes.ok) {
-    const err = await createRes.text();
-    throw new Error(`Failed to create contact: ${err}`);
-  }
-
-  const created = await createRes.json();
-  return { id: created.id, action: "created" };
+  return true;
 }
 
 export async function POST(request) {
-  // Validate API key is configured
-  if (!HUBSPOT_API_KEY) {
-    console.error("HUBSPOT_API_KEY environment variable is not set");
-    return NextResponse.json(
-      { error: "Server configuration error" },
-      { status: 500 }
-    );
-  }
-
   try {
+    assertHubSpotConfigured();
+
     const formData = await request.json();
 
-    // Ensure custom properties exist in HubSpot (idempotent, cached after first run)
-    await ensureCustomProperties();
-    await ensureCustomContactProperties(UTM_CUSTOM_PROPERTIES);
+    if (!formData.email) {
+      return NextResponse.json({ error: "Email is required." }, { status: 400 });
+    }
 
-    // Create or update the contact with the qualifying form data.
-    const result = await upsertContact(formData);
+    if (!propertiesEnsured) {
+      await ensureCustomContactProperties([
+        ...QUALIFYING_PROPERTIES,
+        ...UTM_CUSTOM_PROPERTIES,
+      ]);
+      propertiesEnsured = true;
+    }
 
-    // Flag the contact for the manual qualification queue (lifecycle Lead,
-    // hs_lead_status NEW). We do NOT auto-create a deal: even a fully completed
-    // booking form is not a qualified opportunity. Bradley creates the deal
-    // manually after qualifying, same as the scorecard/playbook/watch paths.
-    await markContactForReview(result.id);
-
-    return NextResponse.json({
-      success: true,
-      contactId: result.id,
-      action: result.action,
+    // 1. Submit identity + UTMs through the shared HubSpot form so the hutk
+    //    cookie attributes Original Source (FORM instead of INTEGRATION),
+    //    consistent with scorecard/playbook. The /book Meetings booking adds
+    //    its own engagements_last_meeting_booked_* on top. No deal is created.
+    const submission = await submitHubSpotForm({
+      properties: {
+        email: formData.email,
+        firstname: formData.firstName || "",
+        lastname: formData.lastName || "",
+        ...pickUtmProperties(formData.utms),
+      },
+      context: {
+        hutk: formData.hutk,
+        pageUri: formData.pageUri,
+        pageName: formData.pageName,
+      },
     });
+
+    if (!submission.ok) {
+      return NextResponse.json(
+        { error: "Failed to save contact data" },
+        { status: 502 }
+      );
+    }
+
+    // 2. Enrich the contact the form created with the qualifying answers and
+    //    flag it for the manual qualification queue. If HubSpot has not finished
+    //    indexing the contact even after retries, the contact and its
+    //    attribution still exist; Bradley can flag it from the queue.
+    const contactId = await findContactByEmailWithRetry(formData.email);
+
+    if (contactId) {
+      await writeQualifyingProperties(contactId, formData);
+      await markContactForReview(contactId);
+    } else {
+      console.warn(
+        `[submit-form] Contact for ${formData.email} not indexed after retries; ` +
+          `qualifying data not written.`
+      );
+    }
+
+    return NextResponse.json({ success: true, contactId });
   } catch (error) {
     console.error("HubSpot submit error:", error);
     return NextResponse.json(
