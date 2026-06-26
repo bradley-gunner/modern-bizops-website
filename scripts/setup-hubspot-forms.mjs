@@ -1,45 +1,40 @@
 /**
- * One-time setup: create the shared non-marketing HubSpot form used by the
- * scorecard and playbook lead-capture routes, and print the values to paste
- * into .env.local.
+ * One-time setup helper for the shared HubSpot lead-capture form.
  *
- * Why: routing lead capture through a HubSpot form (with the visitor's
- * hubspotutk cookie) is what makes HubSpot set a real Original Source instead
- * of stamping leads INTEGRATION. The form must contain every field we submit,
- * or HubSpot rejects the submission.
+ * Routing scorecard/playbook lead capture through a HubSpot form (with the
+ * visitor's hubspotutk cookie) is what makes HubSpot set a real Original Source
+ * instead of stamping leads INTEGRATION. The form must contain EVERY field we
+ * submit, because HubSpot's submission endpoint rejects fields that are not on
+ * the form (validation change, March 2022). For that reason the form is built
+ * once by hand in the HubSpot UI (the v3 create-form API schema is fiddly and
+ * its reference is auth-gated), and this script only READS it back.
  *
- * Run:  HUBSPOT_API_KEY=... node scripts/setup-hubspot-forms.mjs
+ * Build the form once in the HubSpot UI (Marketing > Forms > Create form),
+ * name it exactly:
+ *   "Lead Capture (Scorecard + Playbook)"
+ * and add these fields (all are existing contact properties; mark only email
+ * required):
+ *   email (required), firstname, lastname, company,
+ *   utm_source, utm_medium, utm_campaign, utm_content, utm_term, lead_magnet
  *
- * Output: the form GUID and portal ID. Add to .env.local (and Vercel env):
+ * Then run this script. It looks the form up by name and prints the values to
+ * paste into .env.local (and your Vercel project env):
  *   HUBSPOT_PORTAL_ID=...
  *   HUBSPOT_LEAD_FORM_GUID=...
  *
- * Idempotent: if a form named FORM_NAME already exists, its GUID is printed
- * instead of creating a duplicate.
+ * Run:  HUBSPOT_API_KEY=... node scripts/setup-hubspot-forms.mjs
+ *
+ * The private app needs the `forms` and `crm.objects.contacts` scopes.
  */
 
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 const BASE = "https://api.hubapi.com";
 const FORM_NAME = "Lead Capture (Scorecard + Playbook)";
 
-if (!HUBSPOT_API_KEY) {
-  console.error("HUBSPOT_API_KEY is not set. Run with HUBSPOT_API_KEY=... node scripts/setup-hubspot-forms.mjs");
-  process.exit(1);
-}
-
-function headers() {
-  return {
-    Authorization: `Bearer ${HUBSPOT_API_KEY}`,
-    "Content-Type": "application/json",
-  };
-}
-
-// Fields the lead-capture routes submit. Names map to existing contact
-// properties (utm_* and lead_magnet are created by the app's
-// ensureCustomContactProperties; email/firstname/lastname/company are
-// HubSpot defaults).
-const FIELD_NAMES = [
-  "email",
+// The fields the form must contain (mirrors what the lead-capture routes
+// submit). Printed in the "not found" guidance so the form is built correctly.
+const REQUIRED_FIELDS = [
+  "email (required)",
   "firstname",
   "lastname",
   "company",
@@ -51,17 +46,24 @@ const FIELD_NAMES = [
   "lead_magnet",
 ];
 
-function fieldObject(name) {
+if (!HUBSPOT_API_KEY) {
+  console.error(
+    "HUBSPOT_API_KEY is not set. Run with HUBSPOT_API_KEY=... node scripts/setup-hubspot-forms.mjs"
+  );
+  process.exit(1);
+}
+
+function headers() {
   return {
-    objectTypeId: "0-1", // contact
-    name,
-    required: name === "email",
-    hidden: !["email", "firstname", "company"].includes(name),
+    Authorization: `Bearer ${HUBSPOT_API_KEY}`,
+    "Content-Type": "application/json",
   };
 }
 
 async function getPortalId() {
-  const res = await fetch(`${BASE}/account-info/v3/details`, { headers: headers() });
+  const res = await fetch(`${BASE}/account-info/v3/details`, {
+    headers: headers(),
+  });
   if (!res.ok) {
     console.error("Failed to read account info:", await res.text());
     process.exit(1);
@@ -70,59 +72,39 @@ async function getPortalId() {
   return data.portalId;
 }
 
-async function findExistingForm() {
+async function findFormByName() {
   // limit=200 is a single page; this portal is very unlikely to hold 200+
-  // forms, so we do not paginate. If it ever does, this could miss the form
-  // and create a duplicate.
-  const res = await fetch(`${BASE}/marketing/v3/forms/?limit=200`, { headers: headers() });
-  if (!res.ok) return null;
+  // forms, so we do not paginate.
+  const res = await fetch(`${BASE}/marketing/v3/forms/?limit=200`, {
+    headers: headers(),
+  });
+  if (!res.ok) {
+    console.error("Failed to list forms:", await res.text());
+    process.exit(1);
+  }
   const data = await res.json();
   return (data.results || []).find((f) => f.name === FORM_NAME) || null;
 }
 
-async function createForm() {
-  const body = {
-    name: FORM_NAME,
-    formType: "non_marketable",
-    fieldGroups: [
-      {
-        groupType: "default_group",
-        richTextType: "text",
-        fields: FIELD_NAMES.map(fieldObject),
-      },
-    ],
-    configuration: {
-      language: "en",
-      createNewContactForNewEmail: true,
-      postSubmitAction: { type: "thank_you", value: "Thanks!" },
-    },
-    displayOptions: { renderRawHtml: false },
-    legalConsentOptions: { type: "none" },
-  };
-
-  const res = await fetch(`${BASE}/marketing/v3/forms/`, {
-    method: "POST",
-    headers: headers(),
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    console.error("Failed to create form:", await res.text());
-    process.exit(1);
-  }
-  return res.json();
-}
-
 async function main() {
   const portalId = await getPortalId();
+  const form = await findFormByName();
 
-  let form = await findExistingForm();
-  if (form) {
-    console.log(`Form "${FORM_NAME}" already exists.`);
-  } else {
-    form = await createForm();
-    console.log(`Created form "${FORM_NAME}".`);
+  if (!form) {
+    console.log(`No form named "${FORM_NAME}" found in portal ${portalId}.`);
+    console.log(
+      "\nCreate it once in the HubSpot UI (Marketing > Forms > Create form),"
+    );
+    console.log(
+      "name it exactly as above, and add these fields (all existing contact"
+    );
+    console.log("properties; mark only email required):\n");
+    for (const f of REQUIRED_FIELDS) console.log(`  - ${f}`);
+    console.log("\nThen re-run this script to print the env values.");
+    process.exit(1);
   }
 
+  console.log(`Found form "${FORM_NAME}".`);
   console.log("\nAdd these to .env.local (and your Vercel project env):\n");
   console.log(`HUBSPOT_PORTAL_ID=${portalId}`);
   console.log(`HUBSPOT_LEAD_FORM_GUID=${form.id || form.guid}`);
