@@ -37,7 +37,7 @@ export const metadata = {
 
 export default function WatchPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-cream">
       {/* Minimal header — logo only */}
       <div className="px-6 md:px-8 py-5">
         <Link href="/">
@@ -86,7 +86,7 @@ export default function WatchPage() {
       </main>
 
       {/* Minimal footer */}
-      <footer className="border-t border-border px-6 py-4 text-center">
+      <footer className="border-t border-border px-6 py-4 text-center bg-cream">
         <div className="flex justify-center gap-6">
           <Link
             href="/privacy"
