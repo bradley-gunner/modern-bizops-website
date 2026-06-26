@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Button from "@/components/ui/Button";
 import PrepCTACard from "@/components/PrepCTACard";
-import { trackFormSubmit } from "@/lib/analytics";
+import { trackFormSubmit, identifyLead } from "@/lib/analytics";
 
 const revenueOptions = [
   "Under $1M",
@@ -89,6 +89,7 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
       team_size: form.teamSize,
       previous_consultant: form.previousConsultant,
     });
+    identifyLead(form.email || initialEmail);
 
     try {
       const res = await fetch("/api/qualify-watch-lead", {

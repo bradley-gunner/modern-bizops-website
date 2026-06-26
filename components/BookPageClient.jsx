@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Button from "@/components/ui/Button";
 import HubSpotMeetingRedirect from "@/components/HubSpotMeetingRedirect";
-import { trackFormSubmit } from "@/lib/analytics";
+import { trackFormSubmit, identifyLead } from "@/lib/analytics";
 import { getUtms } from "@/lib/utm";
 import { getHubspotutk } from "@/lib/hubspot-client";
 
@@ -134,6 +134,7 @@ export default function BookPageClient() {
       revenue: form.revenue,
       team_size: form.teamSize,
     });
+    identifyLead(form.email);
 
     setSubmitting(true);
 

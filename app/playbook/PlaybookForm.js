@@ -7,6 +7,7 @@ import {
   trackFormSubmit,
   trackLeadGenerated,
   trackMagnetStart,
+  identifyLead,
 } from "@/lib/analytics";
 import { getUtms } from "@/lib/utm";
 import { getHubspotutk } from "@/lib/hubspot-client";
@@ -66,6 +67,7 @@ export default function PlaybookForm() {
         has_company: Boolean(form.company),
       });
       trackLeadGenerated("playbook");
+      identifyLead(form.email);
 
       setSubmitted(true);
     } catch (err) {

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useMemo, useEffect } from 'react';
 import { getQuestionsFor } from '@/lib/scorecard/questions';
-import { trackFormSubmit, trackLeadGenerated } from '@/lib/analytics';
+import { trackFormSubmit, trackLeadGenerated, identifyLead } from '@/lib/analytics';
 import { getHubspotutk } from '@/lib/hubspot-client';
 import SectionHeader from './SectionHeader';
 import QuestionCard from './QuestionCard';
@@ -121,6 +121,7 @@ export default function QuizFlow({ utms = {} }) {
         has_company: Boolean(company),
       });
       trackLeadGenerated('scorecard');
+      identifyLead(email);
 
       setResult(data.result);
       setStep('result');
