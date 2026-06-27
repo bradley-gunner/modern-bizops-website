@@ -24,7 +24,11 @@ export default function PrivacyPage() {
             {/* VERSION COUPLING: privacy-2026-02-18 matches the app's clickwrap
                 registry (server/src/lib/legalDocs.js). Do NOT bump this string
                 unless you also change the content and update the app in the same
-                change window. A separate Privacy Policy audit is pending. */}
+                change window. A separate Privacy Policy audit is pending.
+                Note: the Microsoft Clarity disclosure in section 4 was added on
+                2026-06-27 as a minor clarifying update; the version string and
+                date are intentionally left unchanged, with the full bump
+                deferred to that pending audit. */}
             <p className="text-text-light text-xs mb-10">
               Version: privacy-2026-02-18 (effective February 18, 2026)
             </p>
@@ -251,6 +255,27 @@ export default function PrivacyPage() {
                 className="text-amber hover:underline"
               >
                 https://tools.google.com/dlpage/gaoptout
+              </a>
+              .
+            </p>
+            <p>
+              <strong>Microsoft Clarity.</strong> We use Microsoft Clarity to
+              understand how visitors use our website through session replay and
+              heatmaps, which help us improve usability. Clarity captures
+              behavioral data such as mouse movements, clicks, scrolls, and pages
+              viewed; the contents of form fields are masked. When you submit a
+              form, we may also tie your session to a one-way hashed version of
+              your email address so we can connect your activity to your inquiry;
+              we never send your raw email address to Clarity. This data is
+              processed by Microsoft as our service provider. For more
+              information, see the Microsoft Privacy Statement at{" "}
+              <a
+                href="https://privacy.microsoft.com/privacystatement"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber hover:underline"
+              >
+                https://privacy.microsoft.com/privacystatement
               </a>
               .
             </p>
