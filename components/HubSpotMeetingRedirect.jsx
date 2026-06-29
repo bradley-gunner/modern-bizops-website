@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
+import { getUtms } from "@/lib/utm";
 
 /**
  * Listens for HubSpot Meetings' `meetingBookSucceeded` postMessage event.
@@ -59,7 +60,9 @@ export default function HubSpotMeetingRedirect({ source, email, firstName }) {
       });
 
       // For /watch bookings, flag the Meetings-created contact for the
-      // qualification queue. No deal is created here.
+      // qualification queue. No deal is created here. Forward utm_content from
+      // the landing URL so the booked call carries content-level attribution
+      // (HubSpot Meetings records source/medium/campaign but not utm_content).
       if (source === "watch" && bookerEmail) {
         try {
           await fetch("/api/capture-watch-lead", {
@@ -69,6 +72,7 @@ export default function HubSpotMeetingRedirect({ source, email, firstName }) {
               email: bookerEmail,
               firstName: bookerFirstName,
               lastName: bookerLastName,
+              utm_content: getUtms().utm_content,
             }),
           });
           // Fire-and-forget: don't block the redirect. If it fails, the contact
