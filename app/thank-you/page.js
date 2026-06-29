@@ -14,12 +14,20 @@ export const metadata = {
 
 export default async function ThankYouPage({ searchParams }) {
   const params = (await searchParams) || {};
-  const source = typeof params.source === "string" ? params.source : "";
+  // `from` is the internal page-context param (set by HubSpotMeetingRedirect).
+  // It is deliberately NOT named `source`, which GA4 could read as a traffic
+  // source. Fall back to the legacy `source` param for any in-flight redirects.
+  const from =
+    typeof params.from === "string"
+      ? params.from
+      : typeof params.source === "string"
+        ? params.source
+        : "";
   const email = typeof params.email === "string" ? params.email : "";
   const firstName =
     typeof params.firstName === "string" ? params.firstName : "";
 
-  const isWatch = source === "watch";
+  const isWatch = from === "watch";
 
   return (
     <>

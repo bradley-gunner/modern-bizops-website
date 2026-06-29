@@ -47,8 +47,14 @@ export default function HubSpotMeetingRedirect({ source, email, firstName }) {
       // This sits upstream of the thank-you page `generate_lead` event so we
       // can measure drop-off between meeting-booked and thank-you-loaded if
       // there's ever a redirect issue.
+      //
+      // The page name ("watch" / "book") is reported as `booking_page`, NOT
+      // `source`. GA4 reserves `source`/`medium`/`campaign` as traffic-source
+      // parameters, so sending `source: "watch"` would relabel the session to a
+      // phantom `watch` acquisition source and corrupt the conversion's real
+      // channel attribution.
       trackEvent("book_call_succeeded", {
-        source,
+        booking_page: source,
         has_email: Boolean(bookerEmail),
       });
 
@@ -72,8 +78,10 @@ export default function HubSpotMeetingRedirect({ source, email, firstName }) {
         }
       }
 
-      // Redirect to thank-you page with available params
-      const params = new URLSearchParams({ source });
+      // Redirect to thank-you page with available params. The page context is
+      // passed as `from` (internal-only), never `source`: a `source` query param
+      // can be read as a campaign/utm source, which is the bug this avoids.
+      const params = new URLSearchParams({ from: source });
       if (bookerEmail) params.set("email", bookerEmail);
       if (bookerFirstName) params.set("firstName", bookerFirstName);
       router.push(`/thank-you?${params.toString()}`);
