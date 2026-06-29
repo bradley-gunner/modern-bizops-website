@@ -4,6 +4,7 @@ import {
   findContactByEmail,
   markContactForReview,
   createContactTask,
+  writeUtmContentIfEmpty,
 } from "@/lib/hubspot";
 
 /**
@@ -17,13 +18,14 @@ import {
  * manually after qualifying. Booked-call leads carry
  * engagements_last_meeting_booked_* so they are the hotter segment to triage.
  *
- * Expects JSON body: { email: string, firstName?: string, lastName?: string }
+ * Expects JSON body:
+ *   { email: string, firstName?: string, lastName?: string, utm_content?: string }
  */
 export async function POST(request) {
   try {
     assertHubSpotConfigured();
 
-    const { email, firstName, lastName } = await request.json();
+    const { email, firstName, lastName, utm_content } = await request.json();
 
     if (!email) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
@@ -46,6 +48,10 @@ export async function POST(request) {
     }
 
     await markContactForReview(contactId);
+
+    // Back-fill content-level attribution that HubSpot Meetings does not record.
+    // Write-if-empty preserves any first-touch utm_content from an earlier touch.
+    await writeUtmContentIfEmpty(contactId, utm_content);
 
     const contactName = [firstName, lastName].filter(Boolean).join(" ") || email;
     await createContactTask({
