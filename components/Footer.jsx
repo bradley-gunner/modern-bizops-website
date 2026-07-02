@@ -37,6 +37,12 @@ export default function Footer() {
                   About
                 </Link>
                 <Link
+                  href="/predictable-revenue-engine"
+                  className="font-body text-sm text-text-light hover:text-white transition-colors"
+                >
+                  The Model
+                </Link>
+                <Link
                   href="/watch"
                   className="font-body text-sm text-text-light hover:text-white transition-colors"
                 >

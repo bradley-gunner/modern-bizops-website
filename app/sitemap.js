@@ -9,6 +9,7 @@ const LAST_MODIFIED = {
   scorecard: "2026-04-24",
   about: "2026-04-24",
   playbook: "2026-06-03",
+  maturityModel: "2026-07-02",
   privacy: "2026-04-06",
   terms: "2026-04-06",
 };
@@ -44,6 +45,12 @@ export default function sitemap() {
     {
       url: `${baseUrl}/about`,
       lastModified: new Date(LAST_MODIFIED.about),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/predictable-revenue-engine`,
+      lastModified: new Date(LAST_MODIFIED.maturityModel),
       changeFrequency: "monthly",
       priority: 0.8,
     },
