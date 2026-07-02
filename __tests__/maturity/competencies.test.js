@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { COMPETENCIES, competencyBySlug } from "@/lib/maturity/competencies";
+import {
+  COMPETENCIES,
+  competencyBySlug,
+  MODEL_SPECIFIC_SLUGS,
+  isModelSpecific,
+} from "@/lib/maturity/competencies";
+import { STAGES } from "@/lib/maturity/stages";
 
 const EM_DASH = /—/;
 
@@ -42,5 +48,22 @@ describe("maturity competency data", () => {
     expect(competencyBySlug("pipeline-stage-design")?.name).toBe(
       "Pipeline Stage Design"
     );
+  });
+
+  it("has all 44 competencies", () => {
+    expect(COMPETENCIES.length).toBe(44);
+  });
+
+  it("every stage has at least one competency and matches STAGES", () => {
+    const stageNums = new Set(COMPETENCIES.map((c) => c.stage));
+    for (const s of STAGES) expect(stageNums.has(s.n)).toBe(true);
+  });
+
+  it("flags the four model-specific competencies", () => {
+    const flagged = COMPETENCIES.filter(isModelSpecific);
+    expect(flagged.length).toBe(MODEL_SPECIFIC_SLUGS.length);
+    for (const slug of MODEL_SPECIFIC_SLUGS) {
+      expect(competencyBySlug(slug)).toBeTruthy();
+    }
   });
 });
