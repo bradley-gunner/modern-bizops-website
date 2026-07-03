@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Section from "@/components/ui/Section";
 import Button from "@/components/ui/Button";
 import MaturityHero from "@/components/maturity/MaturityHero";
-import StageOverview from "@/components/maturity/StageOverview";
+import SelfLocate from "@/components/maturity/SelfLocate";
 import MaturityExperience from "@/components/maturity/MaturityExperience";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
 import { getHeroVariant } from "@/lib/maturity/heroVariants";
@@ -79,33 +79,69 @@ export default function MaturityModelPage() {
         <MaturityHero variant={variant} />
 
         <Section bg="cream" narrow={false}>
-          <div className="max-w-[720px] mx-auto text-center">
-            <p className="text-lg text-text-mid">
-              This is the methodology behind the engagement. Maturity is not
-              about your revenue band. It is about how much of your revenue runs
-              on a system instead of on you.
+          <div className="max-w-[760px] mx-auto text-center">
+            <h2 className="font-display font-semibold text-navy text-3xl md:text-[34px] leading-tight">
+              Maturity is not about your revenue band. It is about how much of
+              your revenue runs on a system instead of on you.
+            </h2>
+            <p className="text-lg text-text-mid mt-5">
+              The question is not &ldquo;how much am I missing?&rdquo; It is
+              &ldquo;where am I, and what is the next right thing to build?&rdquo;
+            </p>
+            <p className="text-lg text-text-mid mt-6">
+              The Revenue Operations Maturity Model has a total of forty-four
+              competencies, broken into four maturity stages. You do not need all
+              forty-four. You need to improve in the{" "}
+              <span className="text-amber font-semibold italic">three or four</span>{" "}
+              that matter for where you are right now.
             </p>
           </div>
-          <div className="mt-12">
-            <StageOverview />
+          <div className="mt-14">
+            <SelfLocate />
           </div>
-        </Section>
-
-        <Section bg="white" narrow={false}>
-          <MaturityExperience />
         </Section>
 
         <Section bg="navy" narrow>
           <div className="text-center">
             <h2 className="font-display font-semibold text-3xl mb-2">
-              Want your own score?
+              Want to know exactly where you are?
             </h2>
-            <p className="text-white/80 mb-6 max-w-[56ch] mx-auto">
-              The scorecard runs this exact model against your business in about
-              five minutes and shows you the one gap I would fix first.
+            <p className="text-white/80 mb-6 max-w-[58ch] mx-auto">
+              The scorecard runs the full model against your business in about
+              five minutes and names the one gap I would fix first. It does the
+              precise version of what you just did by feel.
             </p>
             <Button href="/scorecard">Get your Revenue Maturity Score</Button>
           </div>
+        </Section>
+
+        <Section bg="white" narrow={false}>
+          <details className="group">
+            <summary className="list-none cursor-pointer text-center [&::-webkit-details-marker]:hidden">
+              <div className="text-xs tracking-widest uppercase text-amber font-semibold">
+                For the operators who want to look under the hood
+              </div>
+              <div className="font-display font-semibold text-navy text-2xl md:text-3xl mt-1">
+                The full map{" "}
+                <span className="text-amber font-normal">
+                  · four stages, 44 competencies
+                </span>
+              </div>
+              <div className="text-sm text-text-light mt-2 max-w-[62ch] mx-auto">
+                This is the whole framework and how I measure each part. You would
+                never work on all of it at once.
+              </div>
+              <div className="mt-3 text-amber text-sm font-semibold group-open:hidden">
+                Show the full map ↓
+              </div>
+              <div className="mt-3 text-amber text-sm font-semibold hidden group-open:block">
+                Hide the full map ↑
+              </div>
+            </summary>
+            <div className="mt-12">
+              <MaturityExperience />
+            </div>
+          </details>
         </Section>
 
         <Section bg="cream" narrow>
