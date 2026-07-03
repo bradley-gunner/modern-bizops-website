@@ -8,10 +8,10 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-8">
           <div>
             <Image
-              src="/logos/horizontal-one-color-white.png"
-              alt="Modern BizOps"
-              width={300}
-              height={82}
+              src="/logos/bdw-horizontal-one-color-white.png"
+              alt="Bradley de Wet, Modern BizOps"
+              width={480}
+              height={145}
               sizes="(max-width: 768px) 150px, 200px"
               className="h-14 md:h-[88px] w-auto mb-2"
             />
