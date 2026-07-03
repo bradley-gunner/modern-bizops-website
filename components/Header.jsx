@@ -13,10 +13,10 @@ export default function Header() {
       <div className="mx-auto max-w-[1200px] px-6 md:px-8 flex items-center justify-between py-0">
         <Link href="/" className="-ml-3">
           <Image
-            src="/logos/horizontal-full-color-light.png"
-            alt="Modern BizOps"
-            width={360}
-            height={98}
+            src="/logos/bdw-horizontal-full-color-light.png"
+            alt="Bradley de Wet, Modern BizOps"
+            width={480}
+            height={145}
             sizes="(max-width: 768px) 180px, 300px"
             className="h-18 md:h-24 w-auto"
             priority

@@ -5,11 +5,14 @@
  * brand template so they stay pixel-consistent. Uses next/og (Satori) plus
  * the real brand fonts and headshot already in the repo. No external calls.
  *
- * Run:  node scripts/generate-og.mjs            (regenerates the off-positioning set)
+ * Run:  node scripts/generate-og.mjs            (regenerates the changed set)
  *       node scripts/generate-og.mjs --all      (regenerates every card)
  *
  * Edit the CARDS array below to change copy, then re-run. Output is written
  * to public/og/<slug>.png.
+ *
+ * The top-left logo is the personal "Bradley de Wet · Modern BizOps" lockup, so
+ * the footer carries the role and URL (not the name again).
  *
  * Brand tokens (from app/globals.css, with the OG-specific orange sampled
  * from the original cards):
@@ -37,7 +40,7 @@ const ORANGE = '#D87222';
 const dataUri = (path, mime) =>
   `data:${mime};base64,${readFileSync(join(PUBLIC, path)).toString('base64')}`;
 
-const LOGO = dataUri('logos/logo-og.png', 'image/png'); // 702x255 white wordmark
+const LOGO = dataUri('logos/bdw-horizontal-one-color-white.png', 'image/png'); // 2400x725 personal white lockup
 const HEADSHOT = dataUri('images/bradley-headshot-og.jpg', 'image/jpeg'); // 300x300
 
 const font = (file) => readFileSync(join(PUBLIC, 'fonts', file));
@@ -52,8 +55,9 @@ const FONTS = [
 const TopBar = () =>
   h('div', { style: { position: 'absolute', top: 0, left: 0, width: '100%', height: 8, background: ORANGE } });
 
+// Personal lockup, sized to preserve its 2400x725 (3.31:1) aspect ratio.
 const Logo = () =>
-  h('img', { src: LOGO, width: 127, height: 46, style: { position: 'absolute', top: 48, left: 64 } });
+  h('img', { src: LOGO, width: 254, height: 77, style: { position: 'absolute', top: 40, left: 64 } });
 
 const Headshot = ({ size = 256, top = 187, right = 80 }) =>
   h(
@@ -67,13 +71,14 @@ const Headshot = ({ size = 256, top = 187, right = 80 }) =>
     h('img', { src: HEADSHOT, width: size, height: size, style: { borderRadius: 9999 } }),
   );
 
+// The logo now carries the name, so the footer is role + URL.
 const Footer = () =>
   h(
     'div',
     { style: { position: 'absolute', left: 64, bottom: 44, display: 'flex', alignItems: 'center', fontSize: 24 } },
-    h('span', { style: { fontFamily: 'Jost', color: CREAM } }, 'Bradley de Wet'),
+    h('span', { style: { fontFamily: 'Jost', color: CREAM } }, 'Revenue Growth Coach'),
     h('span', { style: { color: 'rgba(246,242,235,0.35)', margin: '0 16px' } }, '|'),
-    h('span', { style: { fontFamily: 'Jost', color: ORANGE } }, 'Revenue Growth Coach'),
+    h('span', { style: { fontFamily: 'Jost', color: ORANGE } }, 'modernbizops.com'),
   );
 
 const Frame = (...children) =>
@@ -164,7 +169,7 @@ function scorecardCard({ headline, chips, footnote }) {
   return Frame(
     h(
       'div',
-      { style: { position: 'absolute', left: 64, top: 110, display: 'flex', gap: 12 } },
+      { style: { position: 'absolute', left: 64, top: 140, display: 'flex', gap: 12 } },
       pill('FREE', true),
       pill('5 MINUTES', false),
     ),
@@ -195,6 +200,97 @@ function scorecardCard({ headline, chips, footnote }) {
       footnote,
     ),
     h(Headshot, { size: 224, top: 203, right: 80 }),
+  );
+}
+
+function watchCard({ headline, subline }) {
+  return Frame(
+    h(
+      'div',
+      { style: { position: 'absolute', left: 64, top: 188, width: 640, display: 'flex', flexDirection: 'column' } },
+      h('div', { style: { fontFamily: 'Cormorant', fontWeight: 600, fontSize: 66, lineHeight: 1.06, color: CREAM, display: 'flex' } }, headline),
+      h('div', { style: { marginTop: 14, fontFamily: 'Jost', fontWeight: 600, fontSize: 24, color: ORANGE, display: 'flex' } }, subline),
+    ),
+    // play button
+    h(
+      'div',
+      {
+        style: {
+          position: 'absolute', top: 243, right: 190, width: 140, height: 140, borderRadius: 9999,
+          background: ORANGE, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        },
+      },
+      h('svg', { width: 50, height: 56, viewBox: '0 0 50 56', style: { marginLeft: 8 } },
+        h('polygon', { points: '0,0 50,28 0,56', fill: '#FFFFFF' })),
+    ),
+    h(Headshot, { size: 120, top: 415, right: 55 }),
+  );
+}
+
+function playbookCard() {
+  const chapters = [
+    'Define Your Ideal Customer',
+    'Make Your Pipeline Inspectable',
+    'Build the Operating Rhythm',
+    'Fix the Post-Sale System',
+    'Automate Before You Hire',
+    'Reach Predictable Revenue',
+  ];
+  const outlinePill = (label) =>
+    h('div', {
+      style: {
+        display: 'flex', alignItems: 'center', height: 38, padding: '0 20px', borderRadius: 9999,
+        border: `1px solid ${ORANGE}`, color: ORANGE, fontFamily: 'Jost', fontWeight: 600, fontSize: 18, letterSpacing: 1,
+      },
+    }, label);
+  return h(
+    'div',
+    { style: { width: 1200, height: 630, display: 'flex', position: 'relative', background: NAVY, fontFamily: 'Jost' } },
+    h(TopBar),
+    // right panel
+    h('div', { style: { position: 'absolute', top: 8, left: 640, width: 560, height: 622, background: NAVY_MID } }),
+    h('div', { style: { position: 'absolute', top: 8, left: 636, width: 4, height: 622, background: ORANGE } }),
+    h(Logo),
+    // FREE PLAYBOOK pill
+    h('div', {
+      style: {
+        position: 'absolute', left: 64, top: 134, display: 'flex', alignItems: 'center', height: 30,
+        padding: '0 14px', borderRadius: 6, background: ORANGE, color: '#FFFFFF',
+        fontFamily: 'Jost', fontWeight: 600, fontSize: 16, letterSpacing: 1,
+      },
+    }, 'FREE PLAYBOOK'),
+    // headline
+    h('div', {
+      style: {
+        position: 'absolute', left: 64, top: 184, width: 540, display: 'flex',
+        fontFamily: 'Cormorant', fontWeight: 600, fontSize: 66, lineHeight: 1.04, color: CREAM,
+      },
+    }, 'The Revenue Maturity Playbook'),
+    // subline
+    h('div', {
+      style: {
+        position: 'absolute', left: 64, top: 326, width: 510, display: 'flex',
+        fontFamily: 'Jost', fontWeight: 400, fontSize: 24, lineHeight: 1.35, color: CREAM_DIM,
+      },
+    }, 'A Stage-by-Stage Framework for Growing Revenue Without Adding Headcount'),
+    // bottom pills
+    h('div', { style: { position: 'absolute', left: 64, bottom: 44, display: 'flex', gap: 12 } },
+      outlinePill('FREE'), outlinePill('6 CHAPTERS')),
+    // right panel chapters
+    h('div', { style: { position: 'absolute', left: 680, top: 72, width: 480, display: 'flex', flexDirection: 'column', gap: 22 } },
+      ...chapters.map((c, i) =>
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: 16 } },
+          h('div', {
+            style: {
+              width: 38, height: 38, borderRadius: 9999, background: ORANGE, color: '#FFFFFF',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'Jost', fontWeight: 600, fontSize: 17,
+            },
+          }, String(i + 1).padStart(2, '0')),
+          h('div', { style: { display: 'flex', fontFamily: 'Jost', fontWeight: 500, fontSize: 24, color: CREAM } }, c),
+        ),
+      ),
+    ),
   );
 }
 
@@ -235,6 +331,26 @@ const CARDS = {
         subline: 'Four stages. 44 competencies. From revenue that runs on you to revenue you can predict.',
         headlineSize: 58,
       }),
+  },
+  book: {
+    changed: true,
+    element: () =>
+      heroCard({
+        headline: 'Book a Free Discovery Call',
+        subline: "45 minutes. No obligation. Let's find your biggest revenue growth lever.",
+      }),
+  },
+  watch: {
+    changed: true,
+    element: () =>
+      watchCard({
+        headline: 'Watch How It Works',
+        subline: 'See the revenue engine framework in action',
+      }),
+  },
+  playbook: {
+    changed: true,
+    element: () => playbookCard(),
   },
 };
 

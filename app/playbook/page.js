@@ -66,10 +66,10 @@ export default function PlaybookPage() {
       <div className="px-6 md:px-8 py-5">
         <Link href="/">
           <Image
-            src="/logos/horizontal-full-color-light.png"
-            alt="Modern BizOps"
-            width={330}
-            height={90}
+            src="/logos/bdw-horizontal-full-color-light.png"
+            alt="Bradley de Wet, Modern BizOps"
+            width={480}
+            height={145}
             sizes="(max-width: 768px) 180px, 300px"
             className="h-14 md:h-[88px] w-auto"
             priority
