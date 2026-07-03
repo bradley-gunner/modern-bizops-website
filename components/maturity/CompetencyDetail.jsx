@@ -1,12 +1,11 @@
 export default function CompetencyDetail({ competency: c }) {
   return (
-    <div className="mt-4 border-t border-border pt-6">
+    <div className="mt-5">
       <p className="text-navy/90 text-lg leading-relaxed max-w-[70ch]">
         {c.definition}
       </p>
       <p className="mt-4 text-sm text-text-mid">
-        I score every competency 1 to 5. The scoring detail stays private, but
-        here is exactly what I look at.
+        I score every competency 1 to 5, and here is exactly what I look at.
       </p>
       <div className="mt-6 grid md:grid-cols-2 gap-5">
         <div className="bg-cream border border-border rounded-2xl p-6">
@@ -16,7 +15,7 @@ export default function CompetencyDetail({ competency: c }) {
           <p className="text-sm text-text-mid mb-3">
             The tools I connect to, and what I read inside them:
           </p>
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap items-center gap-2 mb-4">
             {c.data.tools.map((t) => (
               <span
                 key={t}
@@ -25,6 +24,7 @@ export default function CompetencyDetail({ competency: c }) {
                 {t}
               </span>
             ))}
+            <span className="text-xs italic text-text-light">and others</span>
           </div>
           <ul className="space-y-2">
             {c.data.points.map((p, i) => (
