@@ -38,6 +38,12 @@ export default function Header() {
             Results
           </Link>
           <Link
+            href="/predictable-revenue-engine"
+            className="font-body text-sm text-text-mid hover:text-navy transition-colors"
+          >
+            The Model
+          </Link>
+          <Link
             href="/about"
             className="font-body text-sm text-text-mid hover:text-navy transition-colors"
           >
@@ -107,6 +113,13 @@ export default function Header() {
             onClick={() => setMobileOpen(false)}
           >
             Results
+          </Link>
+          <Link
+            href="/predictable-revenue-engine"
+            className="block font-body text-text-mid hover:text-navy"
+            onClick={() => setMobileOpen(false)}
+          >
+            The Model
           </Link>
           <Link
             href="/about"

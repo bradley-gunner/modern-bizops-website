@@ -227,6 +227,15 @@ const CARDS = {
         footnote: 'Peer-anchored to your business model · 15 questions · about 5 minutes',
       }),
   },
+  'maturity-model': {
+    changed: true,
+    element: () =>
+      heroCard({
+        headline: 'The Revenue Operations Maturity Model',
+        subline: 'Four stages. 44 competencies. From revenue that runs on you to revenue you can predict.',
+        headlineSize: 58,
+      }),
+  },
 };
 
 // ---- render ---------------------------------------------------------------
