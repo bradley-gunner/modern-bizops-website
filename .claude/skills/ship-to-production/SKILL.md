@@ -135,6 +135,25 @@ Don't busy-wait with chained `sleep`s (the harness blocks them). Re-query
 `get_deployment` after a short pause, or use the Monitor tool with an
 until-loop.
 
+**If no production deployment ever appears (the merge did not trigger a build).**
+Sometimes the squash-merge to `main` produces NO production deployment at all,
+so "poll until READY" would wait forever. Symptoms: `list_deployments` shows
+only the branch `Preview` (`target: null`) for your commit and no
+`target: "production"` entry, and `get_project`'s `latestDeployment` is that
+preview. In the dashboard, the Deployments list has a Preview row for your PR
+but no Production row (every healthy PR has both). This is not a slow build; the
+push-to-`main` webhook silently no-op'd, or Vercel skipped a build identical to
+the already-built preview. Do not wait it out.
+
+Recover by promoting the branch's Ready build. Open that Preview deployment in
+the Vercel dashboard (Chrome MCP), open the `⋯` **Deployment Actions** menu, and
+click **Promote to Production**. Its dialog confirms it builds a NEW deployment
+using the production environment and aliases it to `www.modernbizops.com` (so
+env vars are correct, not carried over from preview). It is reversible via
+Instant Rollback. Then confirm the new production deployment reaches `READY` and
+carries the `www` alias, and verify the live page as in step 7. (Root cause was
+a one-off dropped webhook; the next normal merge should deploy on its own.)
+
 ## 7. Verify the live page
 
 The deploy being `READY` is necessary but not sufficient - confirm the actual
@@ -144,6 +163,12 @@ shows a gray placeholder for a beat before the real image paints - give it a
 few seconds and re-screenshot), and confirm the specific thing you changed is
 present. For an interactive change, exercise it (click play, submit a form).
 This screenshot is the proof you report back, not "the deploy succeeded".
+
+**Head-level checks need the browser, not WebFetch.** WebFetch converts the page
+to markdown and strips the `<head>`, so it cannot see the `<title>`, meta tags,
+canonical, or JSON-LD. To verify those on the live page, use the Chrome MCP (read
+the page or screenshot the tab title). WebFetch is fine for body content, but a
+cache-buster query (`?v=check`) avoids its 15-minute per-URL cache when you re-check.
 
 ## Reporting back
 
