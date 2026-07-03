@@ -78,7 +78,7 @@ export default function MaturityModelPage() {
       <main>
         <MaturityHero variant={variant} />
 
-        <Section bg="cream" narrow={false}>
+        <Section bg="white" narrow={false}>
           <div className="max-w-[760px] mx-auto text-center">
             <h2 className="font-display font-semibold text-navy text-3xl md:text-[34px] leading-tight">
               Maturity is not about your revenue band. It is about how much of
@@ -96,9 +96,10 @@ export default function MaturityModelPage() {
               that matter for where you are right now.
             </p>
           </div>
-          <div className="mt-14">
-            <SelfLocate />
-          </div>
+        </Section>
+
+        <Section bg="cream" narrow={false}>
+          <SelfLocate />
         </Section>
 
         <Section bg="navy" narrow>
