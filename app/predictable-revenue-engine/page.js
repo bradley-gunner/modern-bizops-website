@@ -12,7 +12,9 @@ import { MATURITY_FAQ } from "@/lib/maturity/faq";
 const URL = "https://modernbizops.com/predictable-revenue-engine";
 
 export const metadata = {
-  title: "The Revenue Operations Maturity Model | Modern BizOps",
+  // The root layout applies a "%s | Modern BizOps" title template, so this must
+  // not repeat the brand or the tab reads "... | Modern BizOps | Modern BizOps".
+  title: "The Revenue Operations Maturity Model",
   description:
     "The four stages and 44 competencies that move a founder-led business from revenue that depends on you to revenue you can predict. See exactly how each one is measured.",
   alternates: { canonical: URL },
