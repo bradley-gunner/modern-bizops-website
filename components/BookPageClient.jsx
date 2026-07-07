@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Script from "next/script";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Link from "next/link";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import HubSpotMeetingRedirect from "@/components/HubSpotMeetingRedirect";
 import { trackFormSubmit, identifyLead } from "@/lib/analytics";
@@ -188,8 +188,20 @@ export default function BookPageClient() {
   );
 
   return (
-    <>
-      <Header />
+    <div className="min-h-screen bg-cream">
+      <div className="px-6 md:px-8 py-5">
+        <Link href="/">
+          <Image
+            src="/logos/bdw-horizontal-full-color-light.png"
+            alt="Bradley de Wet, Modern BizOps"
+            width={480}
+            height={145}
+            sizes="(max-width: 768px) 180px, 300px"
+            className="h-14 md:h-[88px] w-auto"
+            priority
+          />
+        </Link>
+      </div>
       <main id="main-content" className="bg-white py-16 md:py-20">
         <div className="mx-auto max-w-[600px] px-6 md:px-8">
           <h1 className="font-display text-[32px] md:text-[42px] font-semibold text-navy mb-4">
@@ -247,13 +259,13 @@ export default function BookPageClient() {
 
               <div>
                 <label className="block font-body font-medium text-text-primary mb-2">
-                  What&apos;s your #1 growth bottleneck right now?
+                  What&apos;s your #1 growth bottleneck right now?{" "}
+                  <span className="font-normal text-text-light">(optional)</span>
                 </label>
                 <textarea
                   name="bottleneck"
                   value={form.bottleneck}
                   onChange={handleChange}
-                  required
                   rows={3}
                   placeholder="In 2–3 sentences, tell me what's holding your growth back..."
                   className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent resize-none"
@@ -426,7 +438,16 @@ export default function BookPageClient() {
           )}
         </div>
       </main>
-      <Footer />
-    </>
+      <footer className="border-t border-border px-6 py-4 text-center bg-cream">
+        <div className="flex justify-center gap-6">
+          <Link href="/privacy" className="font-body text-xs text-text-light hover:text-text-mid transition-colors">
+            Privacy Policy
+          </Link>
+          <Link href="/terms" className="font-body text-xs text-text-light hover:text-text-mid transition-colors">
+            Terms
+          </Link>
+        </div>
+      </footer>
+    </div>
   );
 }
