@@ -66,4 +66,17 @@ describe("maturity competency data", () => {
       expect(competencyBySlug(slug)).toBeTruthy();
     }
   });
+
+  it("CRM Architecture and Pipeline Stage Design point at their live /learn pages, nothing else does", () => {
+    const withLearnMoreUrl = COMPETENCIES.filter((c) => c.learnMoreUrl);
+    expect(withLearnMoreUrl.map((c) => c.slug).sort()).toEqual(
+      ["crm-architecture-governance", "pipeline-stage-design"].sort()
+    );
+    expect(competencyBySlug("crm-architecture-governance").learnMoreUrl).toBe(
+      "/learn/crm-architecture-and-governance"
+    );
+    expect(competencyBySlug("pipeline-stage-design").learnMoreUrl).toBe(
+      "/learn/pipeline-stage-design"
+    );
+  });
 });

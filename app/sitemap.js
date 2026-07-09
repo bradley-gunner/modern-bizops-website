@@ -12,6 +12,9 @@ const LAST_MODIFIED = {
   maturityModel: "2026-07-02",
   privacy: "2026-04-06",
   terms: "2026-04-06",
+  learnStage1Reactive: "2026-07-09",
+  learnCrmArchitecture: "2026-07-09",
+  learnPipelineStageDesign: "2026-07-09",
 };
 
 export default function sitemap() {
@@ -53,6 +56,24 @@ export default function sitemap() {
       lastModified: new Date(LAST_MODIFIED.maturityModel),
       changeFrequency: "monthly",
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/learn/revenue-operations-maturity-stage-1-reactive`,
+      lastModified: new Date(LAST_MODIFIED.learnStage1Reactive),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/crm-architecture-and-governance`,
+      lastModified: new Date(LAST_MODIFIED.learnCrmArchitecture),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/pipeline-stage-design`,
+      lastModified: new Date(LAST_MODIFIED.learnPipelineStageDesign),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/playbook`,
