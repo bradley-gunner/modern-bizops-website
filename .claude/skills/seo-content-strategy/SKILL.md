@@ -35,8 +35,11 @@ conversion surfaces, not SEO content.
    candidate term (who ranks, how beatable). Paid tools (Ahrefs/SEMrush) need an
    interactive OAuth login; GSC plus SERP analysis is usually enough to decide.
 2. **Classify each term** by persona fit and competition (see Rules).
-3. **Pillar first.** Build ONE cornerstone and let spokes grow beneath it. Do not
-   stand up a thin blog on a low-authority domain.
+3. **Pillar first, spokes under /learn.** The cornerstone exists
+   (`/predictable-revenue-engine`) and the spoke home exists (`/learn/[slug]`,
+   live since July 2026). New spoke content goes into /learn via the
+   publish-learn-page recipe; do not invent a new structure or stand up a
+   separate blog.
 4. **Then build and ship** (variant-ready hero, on-brand visuals). REQUIRED to
    ship: use ship-to-production.
 
@@ -52,7 +55,14 @@ conversion surfaces, not SEO content.
   persona, unwinnable for a new domain.
 - **Pillar vs spoke jobs.** A pillar earns credibility, branded search, internal
   linking, and conversion to the scorecard; its cold-traffic SEO is modest. The
-  winnable long-tail lives on spokes.
+  winnable long-tail lives on spokes. Both live now: the pillar-cluster
+  structure is `/predictable-revenue-engine` (model overview, conversion
+  intent) over `/learn` stage hubs and competency pages (informational
+  intent), connected by breadcrumbs, DefinedTermSet/DefinedTerm schema, and
+  the pillar's "See how I score it" cards linking to live competency pages.
+  Batch 1 targets validated founder problem-language ("CRM not working for my
+  team", "why is my sales cycle so long"), which is the model for future
+  spoke keyword picks.
 - **Hero built variant-ready.** Hooks live in a config array with variant-tagged
   GA4/Clarity events. Test the message upstream (LinkedIn organic, optional small
   paid) before any on-site A/B, which cannot reach significance at current
@@ -62,11 +72,15 @@ conversion surfaces, not SEO content.
   diagrams, category icons) over stock photos: on-brand, CSP-safe, no licensing.
   Never a busy background behind text.
 
-## Reference implementation
+## Reference implementations
 
-`/predictable-revenue-engine` (the Revenue Operations Maturity Model pillar). Data
-in `lib/maturity/`, components in `components/maturity/`, spec and plan in
-`docs/superpowers/`. Mirror its shape for the next content page.
+- **Pillar:** `/predictable-revenue-engine` (the Revenue Operations Maturity
+  Model). Data in `lib/maturity/`, components in `components/maturity/`, spec
+  and plan in `docs/superpowers/`.
+- **Spokes:** the `/learn/[slug]` hub (batch 1: Stage 1 Reactive hub + CRM
+  Architecture and Governance + Pipeline Stage Design, PR #33). Registry in
+  `lib/learn/registry.js`, shell in `components/learn/`, schema builders in
+  `lib/learn/schema.js`. REQUIRED to publish a new spoke: publish-learn-page.
 
 ## Related
 
