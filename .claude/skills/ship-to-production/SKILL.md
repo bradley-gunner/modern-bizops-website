@@ -72,8 +72,10 @@ Two hard rules for this user, both load-bearing:
 
 - **No em dashes** anywhere - code, copy, comments, and commit messages. Write
   "$3M to $50M", not "$3M–$50M". Self-check the message body before committing.
-- **End every commit message** with the trailer:
-  `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
+- **End every commit message** with the trailer
+  `Co-Authored-By: Claude <model name> <noreply@anthropic.com>`, using the
+  model actually running (e.g. `Claude Sonnet 5`, `Claude Opus 4.8`). The
+  harness system prompt states the current model.
 
 Stage only what the change touches and write a conventional-commit subject
 (`feat(scope):`, `fix(scope):`, `chore(scope):`). Explain the *why* in the body,
@@ -169,6 +171,34 @@ to markdown and strips the `<head>`, so it cannot see the `<title>`, meta tags,
 canonical, or JSON-LD. To verify those on the live page, use the Chrome MCP (read
 the page or screenshot the tab title). WebFetch is fine for body content, but a
 cache-buster query (`?v=check`) avoids its 15-minute per-URL cache when you re-check.
+
+## 8. Google Search Console (only for new or meaningfully changed indexable pages)
+
+Skip this for fixes, styling, or funnel pages. For a NEW public page (or a big
+content change worth recrawling), get it into Google's queue:
+
+**The GSC MCP `submit_url` tool is a no-op.** It returns
+`"submission_status": "SUBMITTED_FOR_INDEXING"` plus a fine-print note that the
+response is SIMULATED, because the Search Console API has no request-indexing
+endpoint for regular pages (the real Indexing API only covers job postings and
+livestreams). Do not report success from that tool. The property is
+`sc-domain:modernbizops.com`.
+
+What actually works, via the Chrome MCP driving the GSC UI
+(`https://search.google.com/search-console`):
+
+1. **Sitemap**: Indexing > Sitemaps. `https://modernbizops.com/sitemap.xml`
+   should already be registered (first registered July 2026); if the new URL is
+   in `app/sitemap.js` it gets discovered from there. If the sitemaps list is
+   ever empty, submit the full sitemap URL in the "Add a new sitemap" field.
+2. **Request Indexing per URL**: paste the full URL into the top "Inspect any
+   URL" search box, wait for inspection (a few seconds), then click REQUEST
+   INDEXING. A "Submitting request" spinner runs 30-60 seconds, then "Indexing
+   requested" confirms the priority crawl queue. Repeat per URL; there is a
+   daily quota (roughly 10-12), so batch accordingly.
+
+A fresh page typically shows "Discovered - currently not indexed" right after
+sitemap pickup; that is normal, not an error.
 
 ## Reporting back
 
