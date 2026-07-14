@@ -76,7 +76,7 @@ export default function Footer() {
                   LinkedIn
                 </a>
                 <a
-                  href="https://youtube.com/@modernbizops"
+                  href="https://youtube.com/@BradleydeWetModernBizOps"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-body text-sm text-text-light hover:text-white transition-colors"

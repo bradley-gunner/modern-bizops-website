@@ -5,7 +5,7 @@ import BrowserFrame from "../ui/BrowserFrame";
 const steps = [
   {
     title: "Onboarding & Assessment",
-    description: "My custom-built Revenue Intelligence Platform uses AI to analyze the real data inside your connected tools and build a complete picture of your revenue systems. It scores your business across the Revenue Operations Maturity Model: 40+ competencies, organized by stage.",
+    description: "My custom-built Revenue Intelligence Platform uses AI to analyze the real data inside your connected tools and build a complete picture of your revenue systems. It scores your business across the Revenue Operations Maturity Model: more than forty competencies, organized by stage.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
         <circle cx="11" cy="11" r="8" />
@@ -130,7 +130,7 @@ export default function HowItWorks() {
             A maturity assessment built on your actual data
           </h3>
           <p>
-            The platform connects to the tools your team already uses. It uses AI to analyze your real data, not surveys or self-assessments, and scores your business across 40+ operational competencies. The result is a heat map showing where you are and where the highest-leverage gaps are.
+            The platform connects to the tools your team already uses. It uses AI to analyze your real data, not surveys or self-assessments, and scores your business across more than forty operational competencies. The result is a heat map showing where you are and where the highest-leverage gaps are.
           </p>
           <p>
             If your data is messy (and for most businesses at your stage, it is), the platform does not give you bad readings. It shows you where the gaps are and makes fixing them part of the work.

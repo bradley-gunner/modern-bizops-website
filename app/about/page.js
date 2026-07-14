@@ -37,7 +37,7 @@ export const metadata = {
 
 const credentials = [
   { label: "15", sublabel: "Years in RevOps" },
-  { label: "25+", sublabel: "Businesses Served" },
+  { label: "25+", sublabel: "Companies" },
   { label: "3", sublabel: "In-Seat Operator Roles" },
 ];
 

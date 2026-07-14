@@ -3,14 +3,15 @@ import Image from 'next/image';
 import ScorecardExperience from '@/components/scorecard/ScorecardExperience';
 
 export const metadata = {
-  title: 'Modern BizOps Maturity Scorecard',
+  // The root layout appends "| Modern BizOps" via its title template.
+  title: 'Free Revenue Maturity Score: Benchmark Your Revenue Per Employee',
   description:
-    'In five minutes, find the dollar amount your operating system is leaving on the table and the one gap I would fix first. Fifteen questions. Peer-anchored ROI math from named public benchmark reports.',
+    'In five minutes, see the dollar gap between you and peers in your business model on revenue per employee, sales cycle velocity, and retention. Fifteen questions, benchmarked against published industry data.',
   alternates: {
     canonical: 'https://modernbizops.com/scorecard',
   },
   openGraph: {
-    title: 'Modern BizOps Maturity Scorecard',
+    title: 'Free Revenue Maturity Score: Benchmark Your Revenue Per Employee',
     description:
       'Find the dollar amount your operating system is leaving on the table this year. Peer-anchored against your business model.',
     url: 'https://modernbizops.com/scorecard',
@@ -25,7 +26,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Modern BizOps Maturity Scorecard',
+    title: 'Free Revenue Maturity Score: Benchmark Your Revenue Per Employee',
     description: 'Fifteen questions. Peer-anchored ROI. The one gap I would fix first.',
     images: ['https://modernbizops.com/og/og-scorecard.png'],
   },

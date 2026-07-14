@@ -5,7 +5,7 @@ export function getOrganizationSchema() {
     name: "Modern BizOps",
     url: "https://modernbizops.com",
     description:
-      "Revenue growth coaching for founder-led B2B companies from $3M to $50M. Done-with-you coaching that builds sales, marketing, and delivery systems.",
+      "Revenue operations consulting and coaching for founder-led B2B companies from $3M to $50M. Done-with-you coaching that builds sales, marketing, and delivery systems.",
     founder: {
       "@type": "Person",
       name: "Bradley de Wet",
@@ -17,7 +17,7 @@ export function getServiceSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Revenue Growth Coaching",
+    name: "Revenue Operations Consulting and Coaching",
     provider: {
       "@type": "Organization",
       name: "Modern BizOps",
@@ -25,7 +25,7 @@ export function getServiceSchema() {
     description:
       "Done-with-you coaching that builds the operational systems to grow revenue without proportionally growing headcount. A four-phase engagement built on the Revenue Operations Maturity Model and the Revenue Intelligence Platform.",
     areaServed: "Worldwide",
-    serviceType: "Business Coaching",
+    serviceType: "Revenue Operations Consulting",
   };
 }
 
@@ -34,7 +34,7 @@ export function getPersonSchema() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Bradley de Wet",
-    jobTitle: "Founder & Revenue Operations Coach",
+    jobTitle: "Revenue Operations Consultant and Coach",
     worksFor: {
       "@type": "Organization",
       name: "Modern BizOps",
@@ -78,7 +78,7 @@ export function getFAQSchema() {
         name: "How is my maturity stage determined?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Three ways, in sequence. First, the Revenue Intelligence Platform connects to your existing tools and analyzes your actual data: CRM completeness, pipeline stage distribution, integration coverage. That takes about 30 minutes of your time and produces data-driven scores on 15-20 competencies without any self-reporting. Second, a structured questionnaire covers what data alone cannot assess. Third, a 60-90 minute discovery call with you personally, where I validate the preliminary scores and surface anything the data cannot capture. You see the scoring rationale for every competency. Nothing is a black box.",
+          text: "Three ways, in sequence. First, the Revenue Intelligence Platform connects to your existing tools and analyzes your actual data: CRM completeness, pipeline stage distribution, integration coverage. That takes about 30 minutes of your time and produces data-driven scores on 15-20 competencies without any self-reporting. Second, a structured questionnaire covers what data alone cannot assess. Third, a 60-90 minute assessment call with me personally, where I validate the preliminary scores and surface anything the data cannot capture. This is part of the engagement, not the free discovery call. You see the scoring rationale for every competency. Nothing is a black box.",
         },
       },
       {

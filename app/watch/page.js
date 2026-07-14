@@ -81,7 +81,7 @@ export default function WatchPage() {
 
         {/* Trust indicators */}
         <p className="text-center font-body text-sm text-text-mid">
-          15+ companies transformed · 45-minute call · No obligation
+          25+ companies · 45-minute call · No obligation
         </p>
       </main>
 

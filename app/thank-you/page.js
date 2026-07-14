@@ -124,7 +124,7 @@ export default async function ThankYouPage({ searchParams }) {
                 LinkedIn
               </a>
               <a
-                href="https://youtube.com/@modernbizops"
+                href="https://youtube.com/@BradleydeWetModernBizOps"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-primary rounded-full font-body text-sm hover:border-navy-mid transition-colors"
