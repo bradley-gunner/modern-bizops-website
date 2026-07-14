@@ -105,20 +105,22 @@ export default function Stage1ReactiveHubBody() {
       </p>
       <ul className="list-disc pl-6 space-y-3">
         <li>
-          <strong>Ideal Customer Profile</strong>{" "}
-          <em className="text-text-light not-italic">(page forthcoming)</em>: a precise,
-          written definition of who you are for and who you are not for, used to
-          actually filter and prioritize, not a slide nobody references. Increasingly
-          built by mining your own closed-won and closed-lost deals with an AI tool, not
-          a once-a-year workshop.
+          <Link href="/learn/ideal-customer-profile" className="text-navy underline">
+            Ideal Customer Profile
+          </Link>
+          : a precise, written definition of who you are for and who you are not for,
+          used to actually filter and prioritize, not a slide nobody references.
+          Increasingly built by mining your own closed-won and closed-lost deals with an
+          AI tool, not a once-a-year workshop.
         </li>
         <li>
-          <strong>Revenue Lifecycle Design</strong>{" "}
-          <em className="text-text-light not-italic">(page forthcoming)</em>: mapping
-          the full customer journey, pre-sale and post-sale, as one connected system
-          instead of two disconnected conversations. Today that map can update itself
-          from real customer behavior instead of sitting as a diagram someone redraws
-          twice a year.
+          <Link href="/learn/revenue-lifecycle-design" className="text-navy underline">
+            Revenue Lifecycle Design
+          </Link>
+          : mapping the full customer journey, pre-sale and post-sale, as one connected
+          system instead of two disconnected conversations. Today that map can update
+          itself from real customer behavior instead of sitting as a diagram someone
+          redraws twice a year.
         </li>
         <li>
           <Link href="/learn/crm-architecture-and-governance" className="text-navy underline">
@@ -130,9 +132,10 @@ export default function Stage1ReactiveHubBody() {
           would have.
         </li>
         <li>
-          <strong>Data Quality Management</strong>{" "}
-          <em className="text-text-light not-italic">(page forthcoming)</em>: the
-          discipline of keeping your revenue data clean enough that leaders stop
+          <Link href="/learn/data-quality-management" className="text-navy underline">
+            Data Quality Management
+          </Link>
+          : the discipline of keeping your revenue data clean enough that leaders stop
           debating whether the numbers are even right. Often a standing AI enrichment
           workflow now, not a quarterly cleanup weekend.
         </li>
@@ -145,11 +148,12 @@ export default function Stage1ReactiveHubBody() {
           actual call instead of trusting the rep&rsquo;s note that it happened.
         </li>
         <li>
-          <strong>Lead Qualification Framework</strong>{" "}
-          <em className="text-text-light not-italic">(page forthcoming)</em>: a shared,
-          written definition of a real lead that marketing and sales both actually use,
-          applied automatically within seconds of a new lead arriving, for the teams
-          that have built it right.
+          <Link href="/learn/lead-qualification-framework" className="text-navy underline">
+            Lead Qualification Framework
+          </Link>
+          : a shared, written definition of a real lead that marketing and sales both
+          actually use, applied automatically within seconds of a new lead arriving, for
+          the teams that have built it right.
         </li>
       </ul>
       <p>

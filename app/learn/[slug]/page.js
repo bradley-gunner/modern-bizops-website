@@ -4,6 +4,10 @@ import LearnPageShell from "@/components/learn/LearnPageShell";
 import Stage1ReactiveHubBody from "@/components/learn/content/Stage1ReactiveHubBody";
 import CrmArchitectureGovernanceBody from "@/components/learn/content/CrmArchitectureGovernanceBody";
 import PipelineStageDesignBody from "@/components/learn/content/PipelineStageDesignBody";
+import IdealCustomerProfileBody from "@/components/learn/content/IdealCustomerProfileBody";
+import RevenueLifecycleDesignBody from "@/components/learn/content/RevenueLifecycleDesignBody";
+import DataQualityManagementBody from "@/components/learn/content/DataQualityManagementBody";
+import LeadQualificationFrameworkBody from "@/components/learn/content/LeadQualificationFrameworkBody";
 import {
   getBreadcrumbSchema,
   getFaqSchema,
@@ -16,6 +20,10 @@ const BODIES = {
   "revenue-operations-maturity-stage-1-reactive": Stage1ReactiveHubBody,
   "crm-architecture-and-governance": CrmArchitectureGovernanceBody,
   "pipeline-stage-design": PipelineStageDesignBody,
+  "ideal-customer-profile": IdealCustomerProfileBody,
+  "revenue-lifecycle-design": RevenueLifecycleDesignBody,
+  "data-quality-management": DataQualityManagementBody,
+  "lead-qualification-framework": LeadQualificationFrameworkBody,
 };
 
 export function generateStaticParams() {

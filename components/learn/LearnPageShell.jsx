@@ -44,6 +44,12 @@ export default function LearnPageShell({ entry, children }) {
           <h1 className="font-display font-semibold text-navy text-4xl md:text-5xl leading-tight">
             {entry.h1}
           </h1>
+          {/* On-page subhead (dek): the page's title tag verbatim, styled as a
+              visual element rather than a semantic heading so it never shows up
+              in an auto-generated table of contents. */}
+          <p className="font-display text-navy-mid text-2xl md:text-3xl leading-snug mt-4">
+            {entry.title}
+          </p>
           <p className="text-text-mid italic mt-4">{entry.byline}</p>
           <p className="text-xs text-text-light mt-2">
             Last updated {formatLastUpdated(entry.lastUpdated)}

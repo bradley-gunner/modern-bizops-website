@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
 
 export default function PipelineStageDesignBody() {
@@ -143,7 +145,11 @@ export default function PipelineStageDesignBody() {
 
       <h2 className={h2}>Where to start</h2>
       <p>
-        This competency depends on Revenue Lifecycle Design, the full map of how a
+        This competency depends on{" "}
+        <Link href="/learn/revenue-lifecycle-design" className="text-navy underline">
+          Revenue Lifecycle Design
+        </Link>
+        , the full map of how a
         customer moves from first contact through onboarding and expansion. If you have
         not mapped that yet, pipeline stage design will always feel like you are
         organizing symptoms instead of fixing the cause. Map the lifecycle first, then

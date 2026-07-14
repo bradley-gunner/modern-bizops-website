@@ -67,16 +67,30 @@ describe("maturity competency data", () => {
     }
   });
 
-  it("CRM Architecture and Pipeline Stage Design point at their live /learn pages, nothing else does", () => {
+  it("all six Stage 1 competencies point at their live /learn pages, nothing else does", () => {
     const withLearnMoreUrl = COMPETENCIES.filter((c) => c.learnMoreUrl);
     expect(withLearnMoreUrl.map((c) => c.slug).sort()).toEqual(
-      ["crm-architecture-governance", "pipeline-stage-design"].sort()
+      [
+        "crm-architecture-governance",
+        "pipeline-stage-design",
+        "ideal-customer-profile",
+        "revenue-lifecycle-design",
+        "data-quality-management",
+        "lead-qualification-framework",
+      ].sort()
     );
-    expect(competencyBySlug("crm-architecture-governance").learnMoreUrl).toBe(
-      "/learn/crm-architecture-and-governance"
-    );
-    expect(competencyBySlug("pipeline-stage-design").learnMoreUrl).toBe(
-      "/learn/pipeline-stage-design"
-    );
+    // Data slugs do not always match URL slugs (crm-architecture-governance
+    // vs /learn/crm-architecture-and-governance), so assert each explicitly.
+    const EXPECTED = {
+      "crm-architecture-governance": "/learn/crm-architecture-and-governance",
+      "pipeline-stage-design": "/learn/pipeline-stage-design",
+      "ideal-customer-profile": "/learn/ideal-customer-profile",
+      "revenue-lifecycle-design": "/learn/revenue-lifecycle-design",
+      "data-quality-management": "/learn/data-quality-management",
+      "lead-qualification-framework": "/learn/lead-qualification-framework",
+    };
+    for (const [slug, url] of Object.entries(EXPECTED)) {
+      expect(competencyBySlug(slug).learnMoreUrl).toBe(url);
+    }
   });
 });
