@@ -38,7 +38,7 @@ export const metadata = {
 export default function WatchPage() {
   return (
     <div className="min-h-screen bg-cream">
-      {/* Minimal header — logo only */}
+      {/* Minimal header - logo only */}
       <div className="px-6 md:px-8 py-5">
         <Link href="/">
           <Image
