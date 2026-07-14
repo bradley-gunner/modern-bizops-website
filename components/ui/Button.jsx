@@ -10,6 +10,7 @@ export default function Button({
   size = "default",
   className = "",
   onClick,
+  ctaLocation,
   ...props
 }) {
   const base =
@@ -44,7 +45,7 @@ export default function Button({
     const destination = CTA_DESTINATIONS[href];
     if (destination) {
       const label = typeof children === "string" ? children : destination;
-      trackCTAClick(destination, label);
+      trackCTAClick(destination, label, ctaLocation ? { cta_location: ctaLocation } : {});
     }
     if (onClick) onClick(e);
   };

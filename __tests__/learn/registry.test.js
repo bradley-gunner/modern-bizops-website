@@ -32,12 +32,19 @@ describe("learn page registry", () => {
         expect(f.a.length).toBeGreaterThan(0);
       }
       expect(e.ctaButtonLabel.length).toBeGreaterThan(0);
-      expect(e.ctaUrl).toMatch(/^https:\/\/modernbizops\.com\/(scorecard|playbook)\?utm_/);
+      // Internal CTAs are plain root-relative links. A UTM on an internal hop
+      // resets the GA4 session and misattributes the conversion, so no
+      // registry entry may ever carry one.
+      expect(e.ctaUrl).toMatch(/^\/(scorecard|playbook)$/);
     }
   });
 
   it("contains no em dashes anywhere in the registry", () => {
     expect(EM_DASH.test(JSON.stringify(LEARN_PAGES))).toBe(false);
+  });
+
+  it("contains no UTM parameters anywhere in the registry", () => {
+    expect(JSON.stringify(LEARN_PAGES)).not.toContain("utm_");
   });
 
   it("hub page's DefinedTermSet only references the two live competency pages", () => {

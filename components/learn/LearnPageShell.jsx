@@ -64,7 +64,9 @@ export default function LearnPageShell({ entry, children }) {
         <Section bg="navy" narrow>
           <div className="text-center">
             <p className="text-white/80 mb-6 max-w-[58ch] mx-auto">{entry.ctaText}</p>
-            <Button href={entry.ctaUrl}>{entry.ctaButtonLabel}</Button>
+            <Button href={entry.ctaUrl} ctaLocation="learn_mid_page">
+              {entry.ctaButtonLabel}
+            </Button>
           </div>
         </Section>
       </main>
