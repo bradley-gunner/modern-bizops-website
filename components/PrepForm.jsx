@@ -111,7 +111,7 @@ function PrepFormInner() {
   const [form, setForm] = useState({
     email: "",
     firstName: "",
-    // Section 1 — Business Today
+    // Section 1 - Business Today
     businessDescription: "",
     acquisitionChannels: [],
     bestFitChannel: "",
@@ -119,7 +119,7 @@ function PrepFormInner() {
     salesCycleDays: "",
     winRatePct: "",
     newCustomersPerMonth: "",
-    // Section 2 — Team & Systems
+    // Section 2 - Team & Systems
     techStackCrm: "",
     techStackMarketing: "",
     techStackSupport: "",
@@ -127,11 +127,11 @@ function PrepFormInner() {
     techStackBi: "",
     revenueTeamStructure: "",
     externalHelpEngaged: "",
-    // Section 3 — What You're Trying to Solve
+    // Section 3 - What You're Trying to Solve
     bookingTrigger: "",
     priorConsultantDetail: "",
     desiredOutcome: "",
-    // Section 4 — About the Call
+    // Section 4 - About the Call
     decisionMakers: "",
     prepOther: "",
   });
@@ -320,7 +320,7 @@ function PrepFormInner() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* =============================================================== */}
-            {/* SECTION 1 — Your Business Today                                 */}
+            {/* SECTION 1 - Your Business Today                                 */}
             {/* =============================================================== */}
             <SectionHeader
               num="01"
@@ -448,7 +448,7 @@ function PrepFormInner() {
             </div>
 
             {/* =============================================================== */}
-            {/* SECTION 2 — Your Team and Systems                               */}
+            {/* SECTION 2 - Your Team and Systems                               */}
             {/* =============================================================== */}
             <SectionHeader
               num="02"
@@ -517,7 +517,7 @@ function PrepFormInner() {
             </div>
 
             {/* =============================================================== */}
-            {/* SECTION 3 — What You're Trying to Solve                         */}
+            {/* SECTION 3 - What You're Trying to Solve                         */}
             {/* =============================================================== */}
             <SectionHeader
               num="03"
@@ -578,7 +578,7 @@ function PrepFormInner() {
             </div>
 
             {/* =============================================================== */}
-            {/* SECTION 4 — About Our Call                                      */}
+            {/* SECTION 4 - About Our Call                                      */}
             {/* =============================================================== */}
             <SectionHeader
               num="04"

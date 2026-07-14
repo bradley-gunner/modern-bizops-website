@@ -3,13 +3,7 @@ import Card from "../ui/Card";
 
 const results = [
   {
-    stat: "47 → 23 days",
-    metric: "Sales Cycle Cut in Half",
-    description:
-      "Reduced from 3 to 4 discovery calls down to 1.5. A $12M B2B company reached this in 8 weeks after rebuilding the sales process.",
-  },
-  {
-    stat: "18% → 34%",
+    stat: "2x",
     metric: "Conversion Rate Doubled",
     description:
       "Close rates jumped after rebuilding the sales process around buyer actions, not gut feelings.",
@@ -19,12 +13,6 @@ const results = [
     metric: "Saved in Churned Revenue",
     description:
       "90-day churn reduced by 50% over 6 quarters. Structured onboarding and client lifecycle playbooks protected over $1M in recurring revenue.",
-  },
-  {
-    stat: "+31% revenue",
-    metric: "Zero New Hires",
-    description:
-      "Revenue grew 31% in one quarter with the same team. The difference was not people. It was systems.",
   },
 ];
 

@@ -4,7 +4,7 @@ export default function Solution() {
   return (
     <Section bg="white">
       <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-8">
-        There&apos;s a Predictable Path From Where You Are
+        There is a Predictable Path From Where You Are
       </h2>
       <div className="space-y-6 font-body text-text-primary text-base md:text-lg leading-relaxed">
         <p>
@@ -19,8 +19,10 @@ export default function Solution() {
           Growth no longer requires proportional headcount.
         </p>
         <p>
-          One client reached Stage 3 in 14 weeks. Sales cycle dropped from 58
-          to 34 days. Churn fell from 19% to 9%. The team was the same size.
+          That is the path. Stage 1 is where every dollar of growth depends on
+          you. Stage 3 is where the forecast holds, the pipeline is
+          inspectable, and growth stops requiring proportional headcount. The
+          playbook walks a worked example company through every stage of it.
         </p>
         <p>
           The engagement is done-with-you. Your team builds it with my coaching.

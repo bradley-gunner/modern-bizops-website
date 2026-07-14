@@ -7,8 +7,8 @@ import PrepCTACard from "@/components/PrepCTACard";
 import WatchQualifyForm from "@/components/WatchQualifyForm";
 
 export const metadata = {
-  title: "You're Booked!",
-  description: "Your discovery call is confirmed. Here's what to expect.",
+  title: "You Are Booked!",
+  description: "Your discovery call is confirmed. Here is what to expect.",
   robots: { index: false, follow: false },
 };
 
@@ -124,7 +124,7 @@ export default async function ThankYouPage({ searchParams }) {
                 LinkedIn
               </a>
               <a
-                href="https://youtube.com/@modernbizops"
+                href="https://youtube.com/@BradleydeWetModernBizOps"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-primary rounded-full font-body text-sm hover:border-navy-mid transition-colors"

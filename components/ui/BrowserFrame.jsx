@@ -6,13 +6,13 @@
  * that holds whatever you pass as children (typically a Next Image).
  *
  * Props:
- *   children     — the screenshot or other content
- *   url          — URL text to display in the address bar (default: app.modernbizops.com)
- *   showUrl      — show the address bar on desktop (default: true). Always hidden on mobile.
- *   aspectRatio  — CSS aspect-ratio for the content area (default: "16/10"). Pass the
+ *   children     - the screenshot or other content
+ *   url          - URL text to display in the address bar (default: app.modernbizops.com)
+ *   showUrl      - show the address bar on desktop (default: true). Always hidden on mobile.
+ *   aspectRatio  - CSS aspect-ratio for the content area (default: "16/10"). Pass the
  *                  source image's exact ratio (e.g. "991/650") to avoid letterboxing.
- *   variant      — "light" (default) for cream/white sections, "dark" for navy sections
- *   className    — extra classes for the outermost wrapper (margins, max-width, etc.)
+ *   variant      - "light" (default) for cream/white sections, "dark" for navy sections
+ *   className    - extra classes for the outermost wrapper (margins, max-width, etc.)
  */
 export default function BrowserFrame({
   children,

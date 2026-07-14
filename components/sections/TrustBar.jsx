@@ -1,7 +1,7 @@
 export default function TrustBar() {
   const items = [
     {
-      label: "25 Businesses Served",
+      label: "25+ Companies",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4" aria-hidden="true">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />

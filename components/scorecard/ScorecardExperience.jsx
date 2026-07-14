@@ -31,19 +31,19 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What you will get back</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              A maturity stage placement against the 44-competency framework I use with paying clients, the dollar gap between you and peers in your business model on three specific metrics (revenue per employee, sales cycle velocity, retention), and the one operational gap I would attack first.
+              A maturity stage placement against the framework of more than forty competencies I use with paying clients, the dollar gap between you and peers in your business model on three specific metrics (revenue per employee, sales cycle velocity, retention), and the one operational gap I would attack first.
             </p>
           </div>
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What I am comparing you against</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              Real benchmark numbers sourced from named public reports (The Bridge Group, SaaS Capital, Optifai, Deltek, Recurly, others), keyed to your business model so the comparison is to peers like you, not to a generic SMB blend. Sources cited next to every number.
+              Benchmark numbers drawn from published industry data (SaaS Capital, HRBench, The Bridge Group, Deltek, Recurly, Statista and others), keyed to your business model so the comparison is to peers like you, not a generic SMB blend. Sources are cited next to every number, and where a segment has no representative published data, the page says so.
             </p>
           </div>
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What this is not</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              This is a directional read from fifteen questions. It is not the full assessment I run with paying clients, which connects to your CRM and revenue tools and scores all 44 competencies. If the numbers below feel right, that is the signal to take the next step.
+              This is a directional read from fifteen questions. It is not the full assessment I run with paying clients, which connects to your CRM and revenue tools and scores more than forty competencies. If the numbers below feel right, that is the signal to take the next step.
             </p>
           </div>
         </div>

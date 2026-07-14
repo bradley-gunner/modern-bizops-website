@@ -329,7 +329,7 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
             </div>
           </div>
 
-          {/* Email — only show if we didn't get it from the booking */}
+          {/* Email - only show if we didn't get it from the booking */}
           {!initialEmail && (
             <div>
               <label className="block font-body font-medium text-text-primary mb-2">

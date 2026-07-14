@@ -8,12 +8,12 @@ export default function Hero() {
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1 max-w-[620px]">
             <h1 className="font-display text-[36px] md:text-[40px] lg:text-[62px] font-semibold leading-[1.1] text-navy mb-6">
-              Grow Your Revenue Without Growing Your Headcount
+              Make Marketing, Sales, and Service One Machine
             </h1>
             <p className="font-body text-[15px] md:text-base lg:text-lg text-text-mid leading-relaxed mb-8">
-              I help founder-led B2B companies from $3M to $50M build the sales,
-              marketing, and delivery systems that turn growth into profit, not
-              just more payroll.
+              I coach founder-led B2B companies from $3M to $50M to build the
+              systems that turn growth into profit, not just more payroll.
+              More money, less chaos.
             </p>
             <div className="flex flex-col sm:flex-row items-start gap-4 mb-8">
               <Button href="/book" size="large">
@@ -24,7 +24,7 @@ export default function Hero() {
               </Button>
             </div>
             <p className="font-body text-sm text-text-mid">
-              <span className="text-green font-medium">15+ high-growth companies transformed</span>
+              <span className="text-green font-medium">RevOps systems built across 25+ companies</span>
               {" · "}Sales cycles cut in half{" · "}$1M+ in churn saved
             </p>
           </div>

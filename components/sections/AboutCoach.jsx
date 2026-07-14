@@ -3,7 +3,7 @@ import Section from "../ui/Section";
 
 const credentialStats = [
   "15 Years in RevOps",
-  "25 Businesses Served",
+  "25+ Companies",
   "HubSpot Certified Partner",
 ];
 
@@ -31,7 +31,7 @@ export default function AboutCoach() {
 
           <div className="space-y-5 font-body text-text-primary text-base leading-relaxed">
             <p>
-              15 years in revenue operations, across 25 companies ranging from
+              15 years in revenue operations, across more than 25 companies ranging from
               seed-stage startups to established mid-market businesses. I have
               built and scaled sales, marketing, and customer success teams from
               scratch, and worked in the seat in all three functions, not just as

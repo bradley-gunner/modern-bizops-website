@@ -15,14 +15,21 @@ import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata = {
-  title: "Grow Your Revenue Without Growing Your Headcount | Modern BizOps",
+  // The approved title carries the validated "revenue per employee" term, so
+  // it must ship exactly as written: absolute keeps the root layout's
+  // "%s | Modern BizOps" template from appending a second suffix.
+  title: {
+    absolute:
+      "Grow Revenue Without Growing Headcount | Revenue Per Employee Coaching for $3M-$50M B2B",
+  },
   description:
-    "I help founder-led B2B companies from $3M to $50M build the sales, marketing, and delivery systems that turn growth into profit. Done-with-you revenue operations coaching.",
+    "Software-assisted RevOps coaching for founder-led B2B companies from $3M to $50M. I benchmark your revenue per employee, find the operational gap costing you the most, and coach your team to close it.",
   alternates: {
     canonical: "https://modernbizops.com",
   },
   openGraph: {
-    title: "Grow Your Revenue Without Growing Your Headcount",
+    title:
+      "Grow Revenue Without Growing Headcount | Revenue Per Employee Coaching for $3M-$50M B2B",
     description:
       "Done-with-you coaching that builds the sales, marketing, and delivery systems that turn growth into profit.",
     url: "https://modernbizops.com",
@@ -37,7 +44,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Grow Your Revenue Without Growing Your Headcount",
+    title:
+      "Grow Revenue Without Growing Headcount | Revenue Per Employee Coaching for $3M-$50M B2B",
     description:
       "Done-with-you coaching for founder-led B2B companies from $3M to $50M.",
     images: ["https://modernbizops.com/og/og-homepage.png"],

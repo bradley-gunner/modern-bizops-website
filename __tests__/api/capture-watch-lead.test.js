@@ -5,6 +5,7 @@ const hubspotMock = {
   findContactByEmail: vi.fn(async () => 'contact-5'),
   markContactForReview: vi.fn(async () => true),
   createContactTask: vi.fn(async () => 'task-1'),
+  writeUtmContentIfEmpty: vi.fn(async () => false),
 };
 
 vi.mock('@/lib/hubspot', () => hubspotMock);

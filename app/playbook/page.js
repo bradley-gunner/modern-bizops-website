@@ -140,7 +140,7 @@ export default function PlaybookPage() {
                 <ul className="space-y-2">
                   {[
                     "A 16-question self-assessment that places you in one of the 4 maturity stages",
-                    "6 Riverline Group case studies with real before/after metrics",
+                    "6 worked case studies following one company (Riverline Group) through every stage, with before and after metrics at each one",
                     "The Four Maturity Stages diagram with stage-exit boundary criteria",
                     "A one-page maturity cheat sheet showing the work at each stage",
                     "Scorecard and discovery call CTAs linking to modernbizops.com",

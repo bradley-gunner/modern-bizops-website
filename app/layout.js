@@ -6,7 +6,7 @@ import { GA_MEASUREMENT_ID, CLARITY_PROJECT_ID } from "@/lib/analytics";
 import UtmCapture from "@/components/UtmCapture";
 
 // next/font self-hosts both fonts, adds <link rel="preload"> automatically,
-// and applies font-display: swap — no manual preload tags needed.
+// and applies font-display: swap - no manual preload tags needed.
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
@@ -25,20 +25,20 @@ const jost = Jost({
 
 export const metadata = {
   title: {
-    default: "Modern BizOps | Revenue Growth Coaching for Founder-Led B2B Companies",
+    default: "Modern BizOps | Revenue Operations Consulting and Coaching for Founder-Led B2B",
     template: "%s | Modern BizOps",
   },
   description:
-    "Grow your revenue without growing your headcount. Done-with-you coaching that builds the sales, marketing, and delivery systems that turn growth into profit.",
+    "Making marketing, sales, and service one machine. Software-assisted RevOps coaching for founder-led B2B companies from $3M to $50M. More money, less chaos.",
   metadataBase: new URL("https://modernbizops.com"),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://modernbizops.com",
     siteName: "Modern BizOps",
-    title: "Modern BizOps | Revenue Growth Coaching for Founder-Led B2B Companies",
+    title: "Modern BizOps | Revenue Operations Consulting and Coaching for Founder-Led B2B",
     description:
-      "Grow your revenue without growing your headcount. Done-with-you coaching that builds the sales, marketing, and delivery systems that turn growth into profit.",
+      "Making marketing, sales, and service one machine. Software-assisted RevOps coaching for founder-led B2B companies from $3M to $50M. More money, less chaos.",
     images: [
       {
         url: "https://modernbizops.com/og/og-homepage.png",
@@ -50,9 +50,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Modern BizOps | Revenue Growth Coaching for Founder-Led B2B Companies",
+    title: "Modern BizOps | Revenue Operations Consulting and Coaching for Founder-Led B2B",
     description:
-      "Grow your revenue without growing your headcount. Done-with-you coaching for founder-led B2B companies from $3M to $50M.",
+      "Making marketing, sales, and service one machine. Software-assisted RevOps coaching for founder-led B2B companies from $3M to $50M.",
     images: ["https://modernbizops.com/og/og-homepage.png"],
   },
   robots: {
@@ -81,8 +81,8 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQSchema()) }}
         />
-        {/* Meta Pixel — dormant until paid ads */}
-        {/* LinkedIn Insight Tag — dormant until paid ads */}
+        {/* Meta Pixel - dormant until paid ads */}
+        {/* LinkedIn Insight Tag - dormant until paid ads */}
       </head>
       <body className="min-h-screen antialiased">
         <a
@@ -103,7 +103,7 @@ export default function RootLayout({ children }) {
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
-        {/* Microsoft Clarity — session recordings and heatmaps for CRO.
+        {/* Microsoft Clarity - session recordings and heatmaps for CRO.
             Production only so local dev and preview sessions are not recorded. */}
         {process.env.NODE_ENV === "production" && (
           <Script id="ms-clarity" strategy="afterInteractive">

@@ -38,7 +38,7 @@ export const metadata = {
 export default function WatchPage() {
   return (
     <div className="min-h-screen bg-cream">
-      {/* Minimal header — logo only */}
+      {/* Minimal header - logo only */}
       <div className="px-6 md:px-8 py-5">
         <Link href="/">
           <Image
@@ -81,7 +81,7 @@ export default function WatchPage() {
 
         {/* Trust indicators */}
         <p className="text-center font-body text-sm text-text-mid">
-          15+ companies transformed · 45-minute call · No obligation
+          25+ companies · 45-minute call · No obligation
         </p>
       </main>
 
