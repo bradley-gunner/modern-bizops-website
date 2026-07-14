@@ -41,8 +41,15 @@ Approved specs live at
    proposed slug but no live page render as plain text (usually `<strong>` +
    an italic "(page forthcoming)" note per the source). This applies to
    SCHEMA too: `DefinedTermSet.hasDefinedTerm` lists only live URLs.
-3. **CTA URLs are used exactly as written** in the spec, full UTM string
-   included. Do not rebuild or "clean" them.
+3. **Never UTM-tag an internal link.** CTA destinations ship as plain
+   root-relative links (`/scorecard`, `/playbook`), no query string, even if
+   the spec writes them with UTM params (strip them and flag it back). A UTM
+   answers "which outside effort sent this person here"; on an internal hop it
+   instead resets the GA4 session and steals conversion credit from the
+   channel that actually acquired the visitor (this burned batch 1, fixed in
+   PR #36). Per-page CTA attribution comes from the `cta_click` event: the
+   shell passes `ctaLocation="learn_mid_page"` to Button, and root-relative
+   hrefs hit Button's CTA_DESTINATIONS lookup automatically.
 4. **Outbound citations** (already markdown links in the body) become
    `<a target="_blank" rel="noopener noreferrer">`.
 5. **Slug mismatch gotcha:** competency-data slugs in
@@ -106,9 +113,11 @@ live verify). Then:
 1. **GSC** (see ship-to-production's GSC section for the MCP no-op warning):
    sitemap should already be registered; Request Indexing each new URL via
    the GSC UI in Chrome.
-2. **UTM registry**: flip the new rows from `proposed` to `active` in
-   `~/Documents/Claude/Projects/Modern BizOps/UTM/UTM Campaign Registry - Content.csv`,
-   note the live date and PR.
+2. **UTM registry**: no action for /learn CTAs. Internal links carry no UTMs
+   and get no registry row (rule 3 above; the old website_modernbizops rows
+   were retired July 2026). Only touch
+   `~/Documents/Claude/Projects/Modern BizOps/UTM/UTM Campaign Registry - Content.csv`
+   if the batch also ships a genuinely external placement.
 3. **OG spot-check**: one URL through opengraph.xyz (decline cookies).
 4. **Notify Cowork** via `~/Documents/Claude/TASKS.md`: batch live, design
    doc phase status needs updating, source files can be archived.
