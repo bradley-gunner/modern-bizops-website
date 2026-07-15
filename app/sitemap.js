@@ -19,6 +19,9 @@ const LAST_MODIFIED = {
   learnRevenueLifecycleDesign: "2026-07-14",
   learnDataQualityManagement: "2026-07-14",
   learnLeadQualificationFramework: "2026-07-14",
+  learnFractionalCoo: "2026-07-14",
+  learnNetRevenueRetention: "2026-07-14",
+  learnMarketingAndSalesAlignment: "2026-07-14",
 };
 
 export default function sitemap() {
@@ -100,6 +103,24 @@ export default function sitemap() {
     {
       url: `${baseUrl}/learn/lead-qualification-framework`,
       lastModified: new Date(LAST_MODIFIED.learnLeadQualificationFramework),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/fractional-coo`,
+      lastModified: new Date(LAST_MODIFIED.learnFractionalCoo),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/net-revenue-retention`,
+      lastModified: new Date(LAST_MODIFIED.learnNetRevenueRetention),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/marketing-and-sales-alignment`,
+      lastModified: new Date(LAST_MODIFIED.learnMarketingAndSalesAlignment),
       changeFrequency: "monthly",
       priority: 0.7,
     },

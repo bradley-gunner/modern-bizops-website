@@ -6,10 +6,13 @@ import {
   getLearnPersonSchema,
   getDefinedTermSetSchema,
   getDefinedTermSchema,
+  getArticleSchema,
 } from "@/lib/learn/schema";
 
 const hub = LEARN_PAGES["revenue-operations-maturity-stage-1-reactive"];
 const crm = LEARN_PAGES["crm-architecture-and-governance"];
+const nrr = LEARN_PAGES["net-revenue-retention"];
+const coo = LEARN_PAGES["fractional-coo"];
 
 describe("learn schema helpers", () => {
   it("builds a BreadcrumbList matching the registry breadcrumb", () => {
@@ -50,5 +53,22 @@ describe("learn schema helpers", () => {
     expect(ld.inDefinedTermSet["@id"]).toBe(
       "https://modernbizops.com/learn/revenue-operations-maturity-stage-1-reactive"
     );
+  });
+
+  it("standalone DefinedTerm (no Stage 3 hub yet) omits inDefinedTermSet entirely", () => {
+    const ld = getDefinedTermSchema(nrr);
+    expect(ld["@type"]).toBe("DefinedTerm");
+    expect(ld.name).toBe("Net Revenue Retention");
+    expect("inDefinedTermSet" in ld).toBe(false);
+  });
+
+  it("Article schema carries headline, author, and the page's own URL", () => {
+    const ld = getArticleSchema(coo);
+    expect(ld["@type"]).toBe("Article");
+    expect(ld.headline).toBe(coo.title);
+    expect(ld.url).toBe("https://modernbizops.com/learn/fractional-coo");
+    expect(ld.dateModified).toBe(coo.lastUpdated);
+    expect(ld.author["@type"]).toBe("Person");
+    expect(ld.author.sameAs).toContain("https://linkedin.com/in/bradleydewet");
   });
 });

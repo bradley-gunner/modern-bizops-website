@@ -403,7 +403,7 @@ const CARDS = {
     element: () => playbookCard(),
   },
   'learn-ideal-customer-profile': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'IDEAL CUSTOMER PROFILE',
@@ -411,7 +411,7 @@ const CARDS = {
       }),
   },
   'learn-revenue-lifecycle-design': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'REVENUE LIFECYCLE DESIGN',
@@ -419,7 +419,7 @@ const CARDS = {
       }),
   },
   'learn-data-quality-management': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'DATA QUALITY MANAGEMENT',
@@ -428,11 +428,41 @@ const CARDS = {
       }),
   },
   'learn-lead-qualification-framework': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'LEAD QUALIFICATION FRAMEWORK',
         headline: 'How to Tell a Real Lead From a Waste of Time',
+        headlineSize: 60,
+      }),
+  },
+  // Wave 1 pillar-map calibration batch. Headlines follow the batch 2
+  // precedent: the title tag's hook, shortened where the full tag overflows
+  // the card.
+  'learn-fractional-coo': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'FRACTIONAL COO',
+        headline: 'What a Fractional COO Actually Does',
+        headlineSize: 60,
+      }),
+  },
+  'learn-net-revenue-retention': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'NET REVENUE RETENTION',
+        headline: 'The One Number That Shows Whether Growth Is Real',
+        headlineSize: 56,
+      }),
+  },
+  'learn-marketing-and-sales-alignment': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'MARKETING AND SALES ALIGNMENT',
+        headline: 'One Definition of a Real Opportunity',
         headlineSize: 60,
       }),
   },
