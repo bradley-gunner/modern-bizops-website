@@ -157,7 +157,7 @@ export default function Stage1ReactiveHubBody() {
         </li>
       </ul>
       <p>
-        Two of those six already have full breakdowns live: start with{" "}
+        All six now have full breakdowns live: start with{" "}
         <Link href="/learn/crm-architecture-and-governance" className="text-navy underline">
           CRM Architecture and Governance
         </Link>{" "}
