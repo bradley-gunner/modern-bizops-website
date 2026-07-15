@@ -294,10 +294,60 @@ function playbookCard() {
   );
 }
 
+// /learn article cards. Batch 1's three cards were produced outside this
+// script (Cowork session, July 2026); this template reproduces that design so
+// later batches stay pixel-consistent: navy vignette, orange kicker, bold
+// cream headline with orange underline, ringed headshot, lockup bottom-left.
+function learnCard({ kicker, headline, headlineSize = 64 }) {
+  return h(
+    'div',
+    {
+      style: {
+        width: 1200, height: 630, display: 'flex', position: 'relative',
+        backgroundColor: NAVY, fontFamily: 'Jost',
+        backgroundImage: 'radial-gradient(circle at 30% 35%, #14284A 0%, #0E1F38 65%, #0A1729 100%)',
+      },
+    },
+    // kicker
+    h(
+      'div',
+      { style: { position: 'absolute', left: 80, top: 100, display: 'flex', alignItems: 'center' } },
+      h('div', { style: { width: 10, height: 30, borderRadius: 5, background: ORANGE, marginRight: 18 } }),
+      h(
+        'div',
+        { style: { fontFamily: 'Jost', fontWeight: 600, fontSize: 23, letterSpacing: 3, color: ORANGE, display: 'flex' } },
+        kicker,
+      ),
+    ),
+    // headline + underline
+    h(
+      'div',
+      { style: { position: 'absolute', left: 80, top: 160, width: 650, display: 'flex', flexDirection: 'column' } },
+      h(
+        'div',
+        {
+          style: {
+            fontFamily: 'Jost', fontWeight: 600, fontSize: headlineSize,
+            lineHeight: 1.16, color: '#F2EFE9', display: 'flex',
+          },
+        },
+        headline,
+      ),
+      h('div', { style: { width: 260, height: 8, borderRadius: 4, background: ORANGE, marginTop: 26 } }),
+    ),
+    h(Headshot, { size: 318, top: 137, right: 72 }),
+    // lockup bottom-left
+    h('img', {
+      src: LOGO, width: 231, height: 70,
+      style: { position: 'absolute', left: 72, bottom: 36 },
+    }),
+  );
+}
+
 // ---- card definitions -----------------------------------------------------
 const CARDS = {
   homepage: {
-    changed: true,
+    changed: false,
     element: () =>
       heroCard({
         headline: 'Grow Your Revenue Without Growing Your Headcount',
@@ -305,14 +355,14 @@ const CARDS = {
       }),
   },
   about: {
-    changed: true,
+    changed: false,
     element: () =>
       aboutCard({
         subline: 'Helping founder-led B2B companies build revenue engines that grow without headcount',
       }),
   },
   scorecard: {
-    changed: true,
+    changed: false,
     element: () =>
       scorecardCard({
         headline: 'Get Your Free Revenue Maturity Score',
@@ -324,7 +374,7 @@ const CARDS = {
       }),
   },
   'maturity-model': {
-    changed: true,
+    changed: false,
     element: () =>
       heroCard({
         headline: 'The Revenue Operations Maturity Model',
@@ -333,7 +383,7 @@ const CARDS = {
       }),
   },
   book: {
-    changed: true,
+    changed: false,
     element: () =>
       heroCard({
         headline: 'Book a Free Discovery Call',
@@ -341,7 +391,7 @@ const CARDS = {
       }),
   },
   watch: {
-    changed: true,
+    changed: false,
     element: () =>
       watchCard({
         headline: 'Watch How It Works',
@@ -349,8 +399,42 @@ const CARDS = {
       }),
   },
   playbook: {
-    changed: true,
+    changed: false,
     element: () => playbookCard(),
+  },
+  'learn-ideal-customer-profile': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'IDEAL CUSTOMER PROFILE',
+        headline: 'Why You Keep Winning the Wrong Clients',
+      }),
+  },
+  'learn-revenue-lifecycle-design': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'REVENUE LIFECYCLE DESIGN',
+        headline: 'Why Deals Stall After the Demo',
+      }),
+  },
+  'learn-data-quality-management': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'DATA QUALITY MANAGEMENT',
+        headline: 'Why Every Revenue Meeting Starts With an Argument About the Numbers',
+        headlineSize: 50,
+      }),
+  },
+  'learn-lead-qualification-framework': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'LEAD QUALIFICATION FRAMEWORK',
+        headline: 'How to Tell a Real Lead From a Waste of Time',
+        headlineSize: 60,
+      }),
   },
 };
 

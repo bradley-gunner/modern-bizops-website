@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CompetencyDetail({ competency: c }) {
   return (
     <div className="mt-5">
@@ -54,6 +56,16 @@ export default function CompetencyDetail({ competency: c }) {
           </p>
         </div>
       </div>
+      {c.learnMoreUrl && (
+        <p className="mt-6">
+          <Link
+            href={c.learnMoreUrl}
+            className="text-amber font-semibold hover:underline"
+          >
+            Read the full breakdown of {c.name} &rarr;
+          </Link>
+        </p>
+      )}
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
 
 export default function CrmArchitectureGovernanceBody() {
@@ -155,8 +157,15 @@ export default function CrmArchitectureGovernanceBody() {
       </p>
       <p>
         If those answers are shaky, you are not alone, and it is a fixable, specific
-        problem. It starts with Ideal Customer Profile and Revenue Lifecycle Design,
-        both of which this competency depends on. If your CRM does not reflect a clear
+        problem. It starts with{" "}
+        <Link href="/learn/ideal-customer-profile" className="text-navy underline">
+          Ideal Customer Profile
+        </Link>{" "}
+        and{" "}
+        <Link href="/learn/revenue-lifecycle-design" className="text-navy underline">
+          Revenue Lifecycle Design
+        </Link>
+        , both of which this competency depends on. If your CRM does not reflect a clear
         picture of who you are selling to and what the actual journey looks like, no
         amount of field cleanup, AI-assisted or not, will hold.
       </p>

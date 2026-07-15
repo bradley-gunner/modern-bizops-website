@@ -38,10 +38,10 @@ describe("learn schema helpers", () => {
     expect(ld.sameAs).toContain("https://linkedin.com/in/bradleydewet");
   });
 
-  it("DefinedTermSet only lists live hasDefinedTerm URLs", () => {
+  it("DefinedTermSet lists all six live hasDefinedTerm URLs", () => {
     const ld = getDefinedTermSetSchema(hub);
     expect(ld["@type"]).toBe("DefinedTermSet");
-    expect(ld.hasDefinedTerm.length).toBe(2);
+    expect(ld.hasDefinedTerm.length).toBe(6);
   });
 
   it("DefinedTerm points inDefinedTermSet at the hub", () => {

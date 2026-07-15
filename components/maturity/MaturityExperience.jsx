@@ -20,18 +20,19 @@ export default function MaturityExperience() {
   }, []);
 
   const onToggle = (slug) => {
-    setOpenSlug((cur) => {
-      const next = cur === slug ? null : slug;
-      if (next) {
-        const c = competencyBySlug(next);
-        trackEvent("pillar_competency_expand", {
-          competency: next,
-          stage: c?.stage,
-        });
-        history.replaceState(null, "", `#${next}`);
-      }
-      return next;
-    });
+    // Side effects live outside the state updater: React may run updater
+    // functions during render, where history.replaceState re-enters the
+    // router mid-render and trackEvent can double-fire under StrictMode.
+    const next = openSlug === slug ? null : slug;
+    if (next) {
+      const c = competencyBySlug(next);
+      trackEvent("pillar_competency_expand", {
+        competency: next,
+        stage: c?.stage,
+      });
+      history.replaceState(null, "", `#${next}`);
+    }
+    setOpenSlug(next);
   };
 
   return (

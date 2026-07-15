@@ -12,9 +12,13 @@ const LAST_MODIFIED = {
   maturityModel: "2026-07-02",
   privacy: "2026-04-06",
   terms: "2026-04-06",
-  learnStage1Reactive: "2026-07-09",
-  learnCrmArchitecture: "2026-07-09",
-  learnPipelineStageDesign: "2026-07-09",
+  learnStage1Reactive: "2026-07-14",
+  learnCrmArchitecture: "2026-07-14",
+  learnPipelineStageDesign: "2026-07-14",
+  learnIdealCustomerProfile: "2026-07-14",
+  learnRevenueLifecycleDesign: "2026-07-14",
+  learnDataQualityManagement: "2026-07-14",
+  learnLeadQualificationFramework: "2026-07-14",
 };
 
 export default function sitemap() {
@@ -72,6 +76,30 @@ export default function sitemap() {
     {
       url: `${baseUrl}/learn/pipeline-stage-design`,
       lastModified: new Date(LAST_MODIFIED.learnPipelineStageDesign),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/ideal-customer-profile`,
+      lastModified: new Date(LAST_MODIFIED.learnIdealCustomerProfile),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/revenue-lifecycle-design`,
+      lastModified: new Date(LAST_MODIFIED.learnRevenueLifecycleDesign),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/data-quality-management`,
+      lastModified: new Date(LAST_MODIFIED.learnDataQualityManagement),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/lead-qualification-framework`,
+      lastModified: new Date(LAST_MODIFIED.learnLeadQualificationFramework),
       changeFrequency: "monthly",
       priority: 0.7,
     },
