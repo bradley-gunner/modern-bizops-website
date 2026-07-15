@@ -23,11 +23,15 @@ export default function LearnPageShell({ entry, children }) {
           <nav aria-label="Breadcrumb" className="text-sm text-text-light mb-6">
             {entry.breadcrumb.map((b, i) => {
               const isLast = i === entry.breadcrumb.length - 1;
+              // noLink crumbs (e.g. "Learn", which has no index route yet)
+              // render as plain text so the trail never links to a 404.
               return (
                 <span key={b.url}>
                   {i > 0 && <span className="mx-2">/</span>}
                   {isLast ? (
                     <span className="text-text-mid">{b.name}</span>
+                  ) : b.noLink ? (
+                    <span>{b.name}</span>
                   ) : (
                     <Link
                       href={b.url.replace("https://modernbizops.com", "") || "/"}

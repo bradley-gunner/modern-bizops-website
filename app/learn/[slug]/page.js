@@ -8,12 +8,16 @@ import IdealCustomerProfileBody from "@/components/learn/content/IdealCustomerPr
 import RevenueLifecycleDesignBody from "@/components/learn/content/RevenueLifecycleDesignBody";
 import DataQualityManagementBody from "@/components/learn/content/DataQualityManagementBody";
 import LeadQualificationFrameworkBody from "@/components/learn/content/LeadQualificationFrameworkBody";
+import FractionalCooBody from "@/components/learn/content/FractionalCooBody";
+import NetRevenueRetentionBody from "@/components/learn/content/NetRevenueRetentionBody";
+import MarketingAndSalesAlignmentBody from "@/components/learn/content/MarketingAndSalesAlignmentBody";
 import {
   getBreadcrumbSchema,
   getFaqSchema,
   getLearnPersonSchema,
   getDefinedTermSetSchema,
   getDefinedTermSchema,
+  getArticleSchema,
 } from "@/lib/learn/schema";
 
 const BODIES = {
@@ -24,7 +28,18 @@ const BODIES = {
   "revenue-lifecycle-design": RevenueLifecycleDesignBody,
   "data-quality-management": DataQualityManagementBody,
   "lead-qualification-framework": LeadQualificationFrameworkBody,
+  "fractional-coo": FractionalCooBody,
+  "net-revenue-retention": NetRevenueRetentionBody,
+  "marketing-and-sales-alignment": MarketingAndSalesAlignmentBody,
 };
+
+// hub -> DefinedTermSet; competency -> DefinedTerm (standalone when the entry
+// has no inDefinedTermSetUrl); article (pillar-map pages) -> Article.
+function getTypeSchema(entry) {
+  if (entry.pageType === "hub") return getDefinedTermSetSchema(entry);
+  if (entry.pageType === "article") return getArticleSchema(entry);
+  return getDefinedTermSchema(entry);
+}
 
 export function generateStaticParams() {
   return Object.keys(LEARN_PAGES).map((slug) => ({ slug }));
@@ -60,7 +75,7 @@ export default async function LearnPage({ params }) {
 
   const Body = BODIES[slug];
   const schemas = [
-    entry.pageType === "hub" ? getDefinedTermSetSchema(entry) : getDefinedTermSchema(entry),
+    getTypeSchema(entry),
     getBreadcrumbSchema(entry),
     getFaqSchema(entry),
     getLearnPersonSchema(),
