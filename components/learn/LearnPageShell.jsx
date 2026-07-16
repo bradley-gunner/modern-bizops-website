@@ -4,6 +4,9 @@ import Footer from "@/components/Footer";
 import Section from "@/components/ui/Section";
 import Button from "@/components/ui/Button";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
+import LearnHero from "@/components/learn/LearnHero";
+import AuthorCard from "@/components/learn/AuthorCard";
+import { AUTHOR_CREDENTIAL } from "@/lib/learn/registry";
 
 function formatLastUpdated(dateStr) {
   return new Date(`${dateStr}T00:00:00Z`).toLocaleDateString("en-US", {
@@ -19,23 +22,36 @@ export default function LearnPageShell({ entry, children }) {
     <>
       <Header />
       <main>
-        <Section bg="cream" narrow>
-          <nav aria-label="Breadcrumb" className="text-sm text-text-light mb-6">
+        {/* The hero band is full-bleed to the top of main, so the breadcrumb and
+            the last-updated line live inside it rather than above it. The dek is
+            the page's title tag verbatim (or the registry's subhead override
+            where the title would repeat the H1), and stays a plain paragraph
+            rather than a heading so it never lands in a generated contents list. */}
+        <LearnHero
+          kicker={entry.visual.kicker}
+          h1={entry.h1}
+          accentWord={entry.visual.accentWord}
+          dek={entry.subhead ?? entry.title}
+          byline={`${entry.byline} Last updated ${formatLastUpdated(entry.lastUpdated)}.`}
+          motif={entry.visual.motif}
+          theme={entry.visual.theme}
+        >
+          <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-white/50">
             {entry.breadcrumb.map((b, i) => {
               const isLast = i === entry.breadcrumb.length - 1;
               // noLink crumbs (e.g. "Learn", which has no index route yet)
               // render as plain text so the trail never links to a 404.
               return (
                 <span key={b.url}>
-                  {i > 0 && <span className="mx-2">/</span>}
+                  {i > 0 && <span className="mx-1.5">/</span>}
                   {isLast ? (
-                    <span className="text-text-mid">{b.name}</span>
+                    <span className="text-white/75">{b.name}</span>
                   ) : b.noLink ? (
                     <span>{b.name}</span>
                   ) : (
                     <Link
                       href={b.url.replace("https://modernbizops.com", "") || "/"}
-                      className="hover:text-navy"
+                      className="underline-offset-2 hover:text-amber-light hover:underline"
                     >
                       {b.name}
                     </Link>
@@ -44,25 +60,13 @@ export default function LearnPageShell({ entry, children }) {
               );
             })}
           </nav>
+        </LearnHero>
 
-          <h1 className="font-display font-semibold text-navy text-4xl md:text-5xl leading-tight">
-            {entry.h1}
-          </h1>
-          {/* On-page subhead (dek): the page's title tag verbatim (or the
-              registry's subhead override where the title would repeat the H1),
-              styled as a visual element rather than a semantic heading so it
-              never shows up in an auto-generated table of contents. */}
-          <p className="font-display text-navy-mid text-2xl md:text-3xl leading-snug mt-4">
-            {entry.subhead ?? entry.title}
-          </p>
-          <p className="text-text-mid italic mt-4">{entry.byline}</p>
-          <p className="text-xs text-text-light mt-2">
-            Last updated {formatLastUpdated(entry.lastUpdated)}
-          </p>
-
-          <article className="mt-10 space-y-6 text-lg text-text-mid leading-relaxed">
+        <Section bg="cream" narrow className="pt-10 md:pt-12">
+          <article className="space-y-6 text-lg text-text-mid leading-relaxed">
             {children}
           </article>
+          <AuthorCard credential={AUTHOR_CREDENTIAL} />
         </Section>
 
         <Section bg="white" narrow>

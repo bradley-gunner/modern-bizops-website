@@ -1,6 +1,24 @@
 import Link from "next/link";
 
+import StatCards from "@/components/learn/StatCards";
+
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// Stat cards only. No ladder: this is not a competency page and has no Level 1
+// to 5 rubric. No comparison graphic either: the page's three pieces are
+// sequential parts of one build, not an either/or worth setting side by side.
+const STATS = [
+  {
+    big: "7x",
+    desc: "Firms that attempted contact within an hour of a live web lead were nearly seven times as likely to have a meaningful conversation with a decision maker as firms that waited even an hour longer.",
+    source: "HBR, The Short Life of Online Sales Leads",
+  },
+  {
+    big: "42 hours",
+    desc: "The average response time among the companies that responded at all, across an audit of 2,241 US companies. The study is from 2011; buyer patience has not grown since.",
+    source: "HBR, The Short Life of Online Sales Leads",
+  },
+];
 
 export default function MarketingAndSalesAlignmentBody() {
   return (
@@ -107,7 +125,17 @@ export default function MarketingAndSalesAlignmentBody() {
         >
           HBR, The Short Life of Online Sales Leads
         </a>
-        ). The study is from 2011; buyer patience has not grown since. If your
+        ).
+      </p>
+
+      <StatCards
+        label="What the research says"
+        title="Response time is where the money is"
+        stats={STATS}
+      />
+
+      <p>
+        The study is from 2011; buyer patience has not grown since. If your
         marketing spend produces leads that sit for two days, your problem is not lead
         quality and no targeting change will fix it.
       </p>

@@ -1,6 +1,82 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
+import MaturityLadder from "@/components/learn/MaturityLadder";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// Both blocks below re-present copy that is already on the page; neither
+// introduces a claim. The stat cards pull the two cited benchmarks out of the
+// prose that surrounds them, and the ladder carries the Level 1-5 rubric that
+// used to run as five paragraphs here.
+const STATS = [
+  {
+    big: "$12.9M",
+    desc: "The average cost of poor data quality, per organization, per year. Pipeline stage data, the thing your forecast is actually built on, is one of the most common places that cost originates.",
+    source: "Gartner",
+  },
+  {
+    big: "40 to 60%",
+    desc: "Of B2B deals that fail to close are lost to customer indecision, not to a competitor. The buyer never said no. They just never said yes, and the deal quietly stalled while nobody was forcing the question.",
+    source: "Dixon and McKenna, The JOLT Effect",
+  },
+];
+
+const RUNGS = [
+  {
+    level: 1,
+    desc: (
+      <>
+        Your CRM still has the default stages it shipped with: Lead, Qualified,
+        Proposal, Closed. Nobody can articulate what actually moves a deal from
+        one to the next. <b>Stage changes when the rep feels ready to change it.</b>
+      </>
+    ),
+  },
+  {
+    level: 2,
+    desc: (
+      <>
+        You have renamed the stages to match your business, but there is still no
+        documented exit criteria. Advancement is subjective. Different reps
+        interpret the same stage differently, which means your pipeline data
+        cannot be used for reliable forecasting even though it looks organized.
+      </>
+    ),
+  },
+  {
+    level: 3,
+    desc: (
+      <>
+        Every stage has a written exit criterion phrased as a{" "}
+        <b>buyer action or a verified fact, not a sales activity</b>. Your team
+        actually knows the criteria and applies them.
+      </>
+    ),
+  },
+  {
+    level: 4,
+    desc: (
+      <>
+        Exit criteria become required CRM fields, so a deal literally cannot
+        advance until the criterion is met. Stage conversion rates get tracked and
+        benchmarked. Deals that try to skip a criterion get caught and corrected
+        before they distort the picture.
+      </>
+    ),
+  },
+  {
+    level: 5,
+    desc: (
+      <>
+        Stage design keeps improving based on real conversion and win/loss data.
+        Exit criteria are validated by what buyers actually did, not asserted by
+        what a rep believes. Stage duration benchmarks flag stalled deals
+        automatically, and the pipeline becomes something you can actually{" "}
+        <b>forecast from</b>, not just a to-do list.
+      </>
+    ),
+  },
+];
 
 export default function PipelineStageDesignBody() {
   return (
@@ -61,7 +137,17 @@ export default function PipelineStageDesignBody() {
         >
           source
         </a>
-        ). Activity-based pipeline stages make this invisible. A rep genuinely believes
+        ).
+      </p>
+
+      <StatCards
+        label="What the research says"
+        title="The price of stages nobody can trust"
+        stats={STATS}
+      />
+
+      <p>
+        Activity-based pipeline stages make this invisible. A rep genuinely believes
         a deal is progressing because they did something, a call, an email, a proposal,
         while the buyer has already gone quiet. The deal sits in your forecast as
         &ldquo;still working&rdquo; for weeks or months, consuming pipeline coverage and
@@ -86,38 +172,20 @@ export default function PipelineStageDesignBody() {
       </p>
 
       <h2 className={h2}>What good stage design looks like</h2>
+
+      <MaturityLadder
+        label="The 1 to 5 scale"
+        title="Pipeline stage design, Level 1 to Level 5"
+        rungs={RUNGS}
+      />
+
       <p>
-        <strong>Level 1:</strong> Your CRM still has the default stages it shipped with:
-        Lead, Qualified, Proposal, Closed. Nobody can articulate what actually moves a
-        deal from one to the next. Stage changes when the rep feels ready to change it.
-      </p>
-      <p>
-        <strong>Level 2:</strong> You have renamed the stages to match your business,
-        but there is still no documented exit criteria. Advancement is subjective.
-        Different reps interpret the same stage differently, which means your pipeline
-        data cannot be used for reliable forecasting even though it looks organized.
-      </p>
-      <p>
-        <strong>Level 3 (Functional):</strong> Every stage has a written exit criterion
-        phrased as a buyer action or a verified fact, not a sales activity. Your team
-        actually knows the criteria and applies them.
-      </p>
-      <p>
-        <strong>Level 4:</strong> Exit criteria become required CRM fields, so a deal
-        literally cannot advance until the criterion is met. Stage conversion rates get
-        tracked and benchmarked. Deals that try to skip a criterion get caught and
-        corrected before they distort the picture.
-      </p>
-      <p>
-        <strong>Level 5 (top):</strong> Stage design keeps improving based on real
-        conversion and win/loss data. Exit criteria are validated by what buyers
-        actually did, not asserted by what a rep believes, and increasingly that
-        validation is not a manager double-checking a rep&rsquo;s note, it is
-        conversation-intelligence AI listening to the actual sales call or reading the
-        actual email thread and confirming whether the buyer really said what the rep
-        logged. Tools built for exactly this, Gong and Clari among them, flag the gap
-        automatically when a deal&rsquo;s stage does not match what happened on the call
-        (
+        Increasingly that Level 5 validation is not a manager double-checking a
+        rep&rsquo;s note, it is conversation-intelligence AI listening to the actual
+        sales call or reading the actual email thread and confirming whether the buyer
+        really said what the rep logged. Tools built for exactly this, Gong and Clari
+        among them, flag the gap automatically when a deal&rsquo;s stage does not match
+        what happened on the call (
         <a
           href="https://www.theskillshift.com/blog/clari-ai-pipeline-health"
           target="_blank"
@@ -125,8 +193,7 @@ export default function PipelineStageDesignBody() {
         >
           source
         </a>
-        ). Stage duration benchmarks flag stalled deals automatically, and the pipeline
-        becomes something you can actually forecast from, not just a to-do list.
+        ).
       </p>
       <p>
         You do not need a dedicated tool to test whether this would help you. Pull the

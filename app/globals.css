@@ -29,6 +29,15 @@
   --color-red-mid: #D45040;
   --color-red-pale: #FDF0EE;
 
+  /* Maturity ladder heat ramp, level 1 (bad) to level 5 (good). Distinct from
+     the red/green secondaries above: these five have to read as one ordered
+     scale, so they are tuned against each other rather than reused. */
+  --color-l1: #B83A2B;
+  --color-l2: #CE6A2C;
+  --color-l3: #C99A2E;
+  --color-l4: #4E9A5A;
+  --color-l5: #1A7A44;
+
   /* Fonts */
   --font-display: var(--font-cormorant);
   --font-body: var(--font-jost);

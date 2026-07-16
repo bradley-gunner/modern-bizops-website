@@ -1,6 +1,72 @@
 import Link from "next/link";
 
+import MaturityLadder from "@/components/learn/MaturityLadder";
+
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// Ladder only: the page cites one benchmark (scoring accuracy, House of
+// Martech), and the spec's bar for stat cards is two. The Level 5 AI-agent
+// passage stays as prose below the ladder.
+const RUNGS = [
+  {
+    level: 1,
+    desc: (
+      <>
+        Qualification is intuitive. &ldquo;I can usually tell if someone is
+        serious&rdquo; is <b>the entire framework</b>. There is no shared definition
+        anywhere. Marketing measures lead volume. Sales works whoever they feel like. The
+        two functions mean different things when they say &ldquo;qualified,&rdquo; and
+        neither one notices until it becomes a fight.
+      </>
+    ),
+  },
+  {
+    level: 2,
+    desc: (
+      <>
+        A framework exists in some form, BANT is common, but it is not consistently
+        applied. Different salespeople use different criteria. Marketing and sales have
+        not actually agreed on what qualified means, and the criteria live nowhere the
+        CRM can enforce.
+      </>
+    ),
+  },
+  {
+    level: 3,
+    desc: (
+      <>
+        A shared qualification framework is documented and agreed to by both marketing
+        and sales. The criteria are <b>specific and observable</b>: company size, job
+        title, a specific pain, a budget signal, timing, not vibes. The framework is used
+        to filter inbound leads and evaluate outbound prospects, and disqualification
+        reasons actually get captured instead of silently discarded.
+      </>
+    ),
+  },
+  {
+    level: 4,
+    desc: (
+      <>
+        Qualification criteria are encoded as CRM fields, not just written down in a
+        shared doc. Disqualification data gets reviewed regularly and used to sharpen the
+        criteria over time. Qualification scores are tracked against actual close rates,
+        so the framework is validated against real outcomes instead of assumed to be
+        correct.
+      </>
+    ),
+  },
+  {
+    level: 5,
+    desc: (
+      <>
+        The framework keeps refining itself based on win/loss and cohort data. It
+        distinguishes <b>fit qualification</b>, does this company match our ideal
+        customer profile, from <b>intent qualification</b>, is this company actually in
+        an active buying cycle right now, which most businesses never separate.
+      </>
+    ),
+  },
+];
 
 export default function LeadQualificationFrameworkBody() {
   return (
@@ -83,40 +149,15 @@ export default function LeadQualificationFrameworkBody() {
       </p>
 
       <h2 className={h2}>What good looks like, one step at a time</h2>
+
+      <MaturityLadder
+        label="The 1 to 5 scale"
+        title="Lead qualification framework, Level 1 to Level 5"
+        rungs={RUNGS}
+      />
+
       <p>
-        <strong>Level 1:</strong> Qualification is intuitive. &ldquo;I can usually tell
-        if someone is serious&rdquo; is the entire framework. There is no shared
-        definition anywhere. Marketing measures lead volume. Sales works whoever they
-        feel like. The two functions mean different things when they say
-        &ldquo;qualified,&rdquo; and neither one notices until it becomes a fight.
-      </p>
-      <p>
-        <strong>Level 2:</strong> A framework exists in some form, BANT is common, but
-        it is not consistently applied. Different salespeople use different criteria.
-        Marketing and sales have not actually agreed on what qualified means, and the
-        criteria live nowhere the CRM can enforce.
-      </p>
-      <p>
-        <strong>Level 3 (Functional):</strong> A shared qualification framework is
-        documented and agreed to by both marketing and sales. The criteria are specific
-        and observable: company size, job title, a specific pain, a budget signal,
-        timing, not vibes. The framework is used to filter inbound leads and evaluate
-        outbound prospects, and disqualification reasons actually get captured instead
-        of silently discarded.
-      </p>
-      <p>
-        <strong>Level 4:</strong> Qualification criteria are encoded as CRM fields, not
-        just written down in a shared doc. Disqualification data gets reviewed
-        regularly and used to sharpen the criteria over time. Qualification scores are
-        tracked against actual close rates, so the framework is validated against real
-        outcomes instead of assumed to be correct.
-      </p>
-      <p>
-        <strong>Level 5 (top):</strong> The framework keeps refining itself based on
-        win/loss and cohort data. It distinguishes fit qualification, does this company
-        match our ideal customer profile, from intent qualification, is this company
-        actually in an active buying cycle right now, which most businesses never
-        separate. Increasingly, this scoring runs continuously and automatically, and
+        At Level 5, increasingly, this scoring runs continuously and automatically, and
         for the highest-volume inbound motions, an AI agent applies the qualifying
         conversation itself within seconds of a new lead arriving, instead of a rep
         getting to it two days later.

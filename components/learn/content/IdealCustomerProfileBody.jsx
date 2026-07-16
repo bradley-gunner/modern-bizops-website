@@ -1,6 +1,81 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
+import MaturityLadder from "@/components/learn/MaturityLadder";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// The page hedges this figure in its own prose directly above the block (vendor
+// blog synthesizing broader research, not the primary report), so the cards sit
+// under that hedge rather than restating it. The source line names both hops.
+const STATS = [
+  {
+    big: "34%",
+    desc: "Higher win rates from AI-driven ICP work than from static, manually built ICPs.",
+    source: "Gartner, via Sybill",
+  },
+  {
+    big: "68%",
+    desc: "Higher account win rates associated with clearly defined ICPs overall, alongside 36 percent higher retention.",
+    source: "Gartner, via Sybill",
+  },
+];
+
+const RUNGS = [
+  {
+    level: 1,
+    desc: (
+      <>
+        The company sells to <b>anyone willing to pay</b>. &ldquo;Our customers are
+        businesses&rdquo; is the effective ICP. Different people on the team would give
+        different answers about who the ideal customer actually is.
+      </>
+    ),
+  },
+  {
+    level: 2,
+    desc: (
+      <>
+        An ICP exists as a slide or a document, but it is not operationalized. It is not
+        encoded anywhere leads actually get scored or routed. New leads are evaluated ad
+        hoc, and the document is rarely the thing anyone actually consults.
+      </>
+    ),
+  },
+  {
+    level: 3,
+    desc: (
+      <>
+        A written ICP exists with specific criteria: size or revenue range, and{" "}
+        <b>explicit disqualification criteria</b>, not just who to target but who to turn
+        away. Sales uses it to evaluate inbound leads. Marketing references it in content
+        and targeting decisions. Most of the team could describe it accurately without
+        looking it up.
+      </>
+    ),
+  },
+  {
+    level: 4,
+    desc: (
+      <>
+        The ICP is encoded in CRM scoring and used to prioritize leads and accounts. It
+        gets reviewed against closed-won and closed-lost data on a real cadence, not just
+        when someone remembers to. Win rates and lifetime value are tracked by ICP fit
+        tier, and resource allocation decisions reference that tier explicitly.
+      </>
+    ),
+  },
+  {
+    level: 5,
+    desc: (
+      <>
+        The ICP is a <b>tiered model validated against real cohort data</b>, not
+        intuition. Disqualifying non-ICP leads is systematic and the data backs it up.
+        The company can say, specifically, what a Tier 1 client is worth compared to a
+        Tier 2 one.
+      </>
+    ),
+  },
+];
 
 export default function IdealCustomerProfileBody() {
   return (
@@ -88,40 +163,24 @@ export default function IdealCustomerProfileBody() {
         client conversation.
       </p>
 
+      <StatCards
+        label="What the research says"
+        title="What a defined ICP is worth"
+        stats={STATS}
+      />
+
       <h2 className={h2}>What good looks like, one step at a time</h2>
+
+      <MaturityLadder
+        label="The 1 to 5 scale"
+        title="Ideal customer profile, Level 1 to Level 5"
+        rungs={RUNGS}
+      />
+
       <p>
-        <strong>Level 1:</strong> The company sells to anyone willing to pay. &ldquo;Our
-        customers are businesses&rdquo; is the effective ICP. Different people on the
-        team would give different answers about who the ideal customer actually is.
-      </p>
-      <p>
-        <strong>Level 2:</strong> An ICP exists as a slide or a document, but it is not
-        operationalized. It is not encoded anywhere leads actually get scored or routed.
-        New leads are evaluated ad hoc, and the document is rarely the thing anyone
-        actually consults.
-      </p>
-      <p>
-        <strong>Level 3 (Functional):</strong> A written ICP exists with specific
-        criteria: size or revenue range, and explicit disqualification criteria, not
-        just who to target but who to turn away. Sales uses it to evaluate inbound
-        leads. Marketing references it in content and targeting decisions. Most of the
-        team could describe it accurately without looking it up.
-      </p>
-      <p>
-        <strong>Level 4:</strong> The ICP is encoded in CRM scoring and used to
-        prioritize leads and accounts. It gets reviewed against closed-won and
-        closed-lost data on a real cadence, not just when someone remembers to. Win
-        rates and lifetime value are tracked by ICP fit tier, and resource allocation
-        decisions reference that tier explicitly.
-      </p>
-      <p>
-        <strong>Level 5 (top):</strong> The ICP is a tiered model validated against real
-        cohort data, not intuition. Disqualifying non-ICP leads is systematic and the
-        data backs it up. Increasingly, the review that used to happen once a year in a
+        At Level 5, increasingly, the review that used to happen once a year in a
         workshop now happens continuously, because an AI tool is mining the closed-deal
         pattern every quarter instead of waiting for someone to schedule the meeting.
-        The company can say, specifically, what a Tier 1 client is worth compared to a
-        Tier 2 one.
       </p>
       <p>
         You do not need a dedicated ICP platform to move from Level 3 toward Level 4
