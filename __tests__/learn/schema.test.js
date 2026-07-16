@@ -13,6 +13,8 @@ const hub = LEARN_PAGES["revenue-operations-maturity-stage-1-reactive"];
 const crm = LEARN_PAGES["crm-architecture-and-governance"];
 const nrr = LEARN_PAGES["net-revenue-retention"];
 const coo = LEARN_PAGES["fractional-coo"];
+const whatIsRevops = LEARN_PAGES["what-is-revops"];
+const winLoss = LEARN_PAGES["win-loss-analysis"];
 
 describe("learn schema helpers", () => {
   it("builds a BreadcrumbList matching the registry breadcrumb", () => {
@@ -70,5 +72,20 @@ describe("learn schema helpers", () => {
     expect(ld.dateModified).toBe(coo.lastUpdated);
     expect(ld.author["@type"]).toBe("Person");
     expect(ld.author.sameAs).toContain("https://linkedin.com/in/bradleydewet");
+  });
+
+  it("a new pillar-map article (what-is-revops) carries Article schema", () => {
+    const ld = getArticleSchema(whatIsRevops);
+    expect(ld["@type"]).toBe("Article");
+    expect(ld.headline).toBe(whatIsRevops.title);
+    expect(ld.url).toBe("https://modernbizops.com/learn/what-is-revops");
+    expect(ld.dateModified).toBe("2026-07-15");
+  });
+
+  it("a new standalone term (win-loss-analysis) omits inDefinedTermSet", () => {
+    const ld = getDefinedTermSchema(winLoss);
+    expect(ld["@type"]).toBe("DefinedTerm");
+    expect(ld.name).toBe("Win/Loss Analysis");
+    expect("inDefinedTermSet" in ld).toBe(false);
   });
 });

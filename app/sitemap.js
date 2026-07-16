@@ -22,6 +22,12 @@ const LAST_MODIFIED = {
   learnFractionalCoo: "2026-07-14",
   learnNetRevenueRetention: "2026-07-14",
   learnMarketingAndSalesAlignment: "2026-07-14",
+  learnWhatIsRevops: "2026-07-15",
+  learnRevenuePerEmployee: "2026-07-15",
+  learnSmarketing: "2026-07-15",
+  learnMqlToSqlConversionRate: "2026-07-15",
+  learnInvoluntaryChurn: "2026-07-15",
+  learnWinLossAnalysis: "2026-07-15",
 };
 
 export default function sitemap() {
@@ -121,6 +127,42 @@ export default function sitemap() {
     {
       url: `${baseUrl}/learn/marketing-and-sales-alignment`,
       lastModified: new Date(LAST_MODIFIED.learnMarketingAndSalesAlignment),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/what-is-revops`,
+      lastModified: new Date(LAST_MODIFIED.learnWhatIsRevops),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/revenue-per-employee`,
+      lastModified: new Date(LAST_MODIFIED.learnRevenuePerEmployee),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/smarketing`,
+      lastModified: new Date(LAST_MODIFIED.learnSmarketing),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/mql-to-sql-conversion-rate`,
+      lastModified: new Date(LAST_MODIFIED.learnMqlToSqlConversionRate),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/involuntary-churn`,
+      lastModified: new Date(LAST_MODIFIED.learnInvoluntaryChurn),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/win-loss-analysis`,
+      lastModified: new Date(LAST_MODIFIED.learnWinLossAnalysis),
       changeFrequency: "monthly",
       priority: 0.7,
     },

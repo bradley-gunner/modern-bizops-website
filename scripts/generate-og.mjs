@@ -440,7 +440,7 @@ const CARDS = {
   // precedent: the title tag's hook, shortened where the full tag overflows
   // the card.
   'learn-fractional-coo': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'FRACTIONAL COO',
@@ -449,7 +449,7 @@ const CARDS = {
       }),
   },
   'learn-net-revenue-retention': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'NET REVENUE RETENTION',
@@ -458,11 +458,67 @@ const CARDS = {
       }),
   },
   'learn-marketing-and-sales-alignment': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'MARKETING AND SALES ALIGNMENT',
         headline: 'One Definition of a Real Opportunity',
+        headlineSize: 60,
+      }),
+  },
+  // Wave 1 remaining-six batch. Headline = the title tag's hook clause,
+  // shortened where the full clause overflows the 650px text column.
+  'learn-what-is-revops': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'WHAT IS REVOPS?',
+        headline: 'Revenue Operations, Explained for Founders',
+        headlineSize: 56,
+      }),
+  },
+  'learn-revenue-per-employee': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'REVENUE PER EMPLOYEE',
+        headline: 'The Number That Says Whether You Can Grow Without Hiring',
+        headlineSize: 48,
+      }),
+  },
+  'learn-smarketing': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'SMARKETING',
+        headline: 'When Marketing and Sales Stop Grading Their Own Homework',
+        headlineSize: 50,
+      }),
+  },
+  'learn-mql-to-sql-conversion-rate': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'MQL TO SQL CONVERSION RATE',
+        headline: 'Exactly Where the Marketing-to-Sales Handoff Breaks',
+        headlineSize: 50,
+      }),
+  },
+  'learn-involuntary-churn': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'INVOLUNTARY CHURN',
+        headline: 'The Customers You Lose Without Anyone Deciding to Leave',
+        headlineSize: 50,
+      }),
+  },
+  'learn-win-loss-analysis': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'WIN/LOSS ANALYSIS',
+        headline: 'Find Out Why You Actually Win Deals',
         headlineSize: 60,
       }),
   },

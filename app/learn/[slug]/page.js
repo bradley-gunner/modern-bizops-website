@@ -11,6 +11,12 @@ import LeadQualificationFrameworkBody from "@/components/learn/content/LeadQuali
 import FractionalCooBody from "@/components/learn/content/FractionalCooBody";
 import NetRevenueRetentionBody from "@/components/learn/content/NetRevenueRetentionBody";
 import MarketingAndSalesAlignmentBody from "@/components/learn/content/MarketingAndSalesAlignmentBody";
+import WhatIsRevOpsBody from "@/components/learn/content/WhatIsRevOpsBody";
+import RevenuePerEmployeeBody from "@/components/learn/content/RevenuePerEmployeeBody";
+import SmarketingBody from "@/components/learn/content/SmarketingBody";
+import MqlToSqlConversionRateBody from "@/components/learn/content/MqlToSqlConversionRateBody";
+import InvoluntaryChurnBody from "@/components/learn/content/InvoluntaryChurnBody";
+import WinLossAnalysisBody from "@/components/learn/content/WinLossAnalysisBody";
 import {
   getBreadcrumbSchema,
   getFaqSchema,
@@ -31,6 +37,12 @@ const BODIES = {
   "fractional-coo": FractionalCooBody,
   "net-revenue-retention": NetRevenueRetentionBody,
   "marketing-and-sales-alignment": MarketingAndSalesAlignmentBody,
+  "what-is-revops": WhatIsRevOpsBody,
+  "revenue-per-employee": RevenuePerEmployeeBody,
+  "smarketing": SmarketingBody,
+  "mql-to-sql-conversion-rate": MqlToSqlConversionRateBody,
+  "involuntary-churn": InvoluntaryChurnBody,
+  "win-loss-analysis": WinLossAnalysisBody,
 };
 
 // hub -> DefinedTermSet; competency -> DefinedTerm (standalone when the entry
