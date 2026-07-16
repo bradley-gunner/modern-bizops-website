@@ -30,9 +30,9 @@ export const LADDER_TAGS = {
 // The level column is fixed at 76px and the tag sits at 9.5px/nowrap so the
 // longest tags ("Functional", "Optimized") never clip. Descriptions reflow; the
 // rung always stays full width.
-export default function MaturityLadder({ label, title, rungs, caption }) {
+export default function MaturityLadder({ label, title, rungs }) {
   return (
-    <VizBlock label={label} title={title} caption={caption}>
+    <VizBlock label={label} title={title}>
       <div className="flex flex-col gap-2">
         {rungs.map((rung) => {
           const color = RAMP[rung.level] ?? "#888";

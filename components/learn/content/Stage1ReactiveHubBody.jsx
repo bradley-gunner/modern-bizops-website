@@ -118,7 +118,6 @@ export default function Stage1ReactiveHubBody() {
         label="What the research says"
         title="Most of the market has not caught up yet"
         stats={STATS}
-        caption="The two ends of the Deloitte finding cited above."
       />
 
       <h2 className={h2}>The six competencies that get you out</h2>

@@ -144,7 +144,6 @@ export default function PipelineStageDesignBody() {
         label="What the research says"
         title="The price of stages nobody can trust"
         stats={STATS}
-        caption="Built from the two cited benchmarks already in this section."
       />
 
       <p>
@@ -178,7 +177,6 @@ export default function PipelineStageDesignBody() {
         label="The 1 to 5 scale"
         title="Pipeline stage design, Level 1 to Level 5"
         rungs={RUNGS}
-        caption="Rendered directly from this page's Level 1 to 5 rubric. Same words, better scanning and AI extraction."
       />
 
       <p>

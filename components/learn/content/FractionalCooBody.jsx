@@ -180,7 +180,6 @@ export default function FractionalCooBody() {
         label="What the market says"
         title="Full time against fractional"
         stats={STATS}
-        caption="Built from the two benchmarks cited on this page."
       />
       {/* The "deeper cost breakdown" companion piece is future piece 1.3
           (/learn/fractional-coo-cost, not yet built): plain text, no href,

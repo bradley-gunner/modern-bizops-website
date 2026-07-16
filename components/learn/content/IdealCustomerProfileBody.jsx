@@ -4,9 +4,9 @@ import MaturityLadder from "@/components/learn/MaturityLadder";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
 
-// The page hedges this figure in its own prose (vendor blog synthesizing
-// broader research, not the primary report). The caption carries that hedge so
-// the number is never read without it, and the source line names both hops.
+// The page hedges this figure in its own prose directly above the block (vendor
+// blog synthesizing broader research, not the primary report), so the cards sit
+// under that hedge rather than restating it. The source line names both hops.
 const STATS = [
   {
     big: "34%",
@@ -167,7 +167,6 @@ export default function IdealCustomerProfileBody() {
         label="What the research says"
         title="What a defined ICP is worth"
         stats={STATS}
-        caption="Directionally strong rather than exact: these come from a vendor blog synthesizing broader research, not the original primary report."
       />
 
       <h2 className={h2}>What good looks like, one step at a time</h2>
@@ -176,7 +175,6 @@ export default function IdealCustomerProfileBody() {
         label="The 1 to 5 scale"
         title="Ideal customer profile, Level 1 to Level 5"
         rungs={RUNGS}
-        caption="Rendered directly from this page's Level 1 to 5 rubric. Same words, better scanning and AI extraction."
       />
 
       <p>

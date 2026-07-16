@@ -3,9 +3,9 @@ import VizBlock from "@/components/learn/VizBlock";
 // Benchmark stat cards. Every number, description, and source here is a real
 // DOM text node, never an image, so the page's cited benchmarks stay crawlable
 // and extractable. Text comes from the page's own prose, verbatim.
-export default function StatCards({ label, title, stats, caption }) {
+export default function StatCards({ label, title, stats }) {
   return (
-    <VizBlock label={label} title={title} caption={caption}>
+    <VizBlock label={label} title={title}>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {stats.map((stat) => (
           <div

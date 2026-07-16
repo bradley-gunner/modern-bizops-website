@@ -132,7 +132,6 @@ export default function MarketingAndSalesAlignmentBody() {
         label="What the research says"
         title="Response time is where the money is"
         stats={STATS}
-        caption="Built from the HBR audit cited in this section."
       />
 
       <p>

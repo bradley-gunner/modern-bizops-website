@@ -147,7 +147,6 @@ export default function RevenueLifecycleDesignBody() {
         label="The 1 to 5 scale"
         title="Revenue lifecycle design, Level 1 to Level 5"
         rungs={RUNGS}
-        caption="Rendered directly from this page's Level 1 to 5 rubric. Same words, better scanning and AI extraction."
       />
 
       <p>

@@ -122,7 +122,6 @@ export default function NetRevenueRetentionBody() {
         label="What the benchmarks say"
         title="Private B2B retention, by the numbers"
         stats={STATS}
-        caption="Built from the SaaS Capital benchmarks cited in this section."
       />
 
       <p>

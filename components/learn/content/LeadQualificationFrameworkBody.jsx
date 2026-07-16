@@ -154,7 +154,6 @@ export default function LeadQualificationFrameworkBody() {
         label="The 1 to 5 scale"
         title="Lead qualification framework, Level 1 to Level 5"
         rungs={RUNGS}
-        caption="Rendered directly from this page's Level 1 to 5 rubric. Same words, better scanning and AI extraction."
       />
 
       <p>
