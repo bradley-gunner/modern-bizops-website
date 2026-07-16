@@ -1,6 +1,23 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// Stat cards only. No ladder: this page is not a competency page and has no
+// Level 1 to 5 rubric. No comparison graphic either: the page's four-path cost
+// comparison does not exist yet, it is explicitly a forthcoming companion piece.
+const STATS = [
+  {
+    big: "$467,000",
+    desc: "Roughly what a full-time COO in the United States averages per year in salary alone. If your revenue is in the single-digit millions, that package is usually a premature bet.",
+    source: "Salary.com, July 2026",
+  },
+  {
+    big: "$205",
+    desc: "Per hour for the average fractional COO, with the middle half of the market between $166 and $250, and estimated starting retainers around $11,200 a month.",
+    source: "Go Fractional, July 2026",
+  },
+];
 
 export default function FractionalCooBody() {
   return (
@@ -158,6 +175,13 @@ export default function FractionalCooBody() {
         executive&rsquo;s week for roughly a quarter to a third of the fully loaded
         cost.
       </p>
+
+      <StatCards
+        label="What the market says"
+        title="Full time against fractional"
+        stats={STATS}
+        caption="Built from the two benchmarks cited on this page."
+      />
       {/* The "deeper cost breakdown" companion piece is future piece 1.3
           (/learn/fractional-coo-cost, not yet built): plain text, no href,
           per the internal-links summary. Becomes a live link when 1.3 ships. */}

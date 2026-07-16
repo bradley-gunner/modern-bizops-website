@@ -1,6 +1,24 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// Stat cards only. No ladder: despite NRR being a Stage 3 competency, this page
+// has no Level 1 to 5 rubric to render. Its maturity section is a single prose
+// paragraph describing four states, and turning that into five rungs would mean
+// writing a rubric that the approved copy does not contain.
+const STATS = [
+  {
+    big: "102%",
+    desc: "Median net revenue retention for private B2B companies with annual contract values between $25,000 and $50,000, with the top quartile at 111% and the bottom quartile at 97%.",
+    source: "SaaS Capital, 2025 retention benchmarks",
+  },
+  {
+    big: "110%",
+    desc: "Companies at or above this grew faster than the 24% median growth rate. Companies below 100% grew slower. Read as directional if you run an agency or MSP on retainers.",
+    source: "SaaS Capital, 2025 retention benchmarks",
+  },
+];
 
 export default function NetRevenueRetentionBody() {
   return (
@@ -99,6 +117,14 @@ export default function NetRevenueRetentionBody() {
         </a>
         ).
       </p>
+
+      <StatCards
+        label="What the benchmarks say"
+        title="Private B2B retention, by the numbers"
+        stats={STATS}
+        caption="Built from the SaaS Capital benchmarks cited in this section."
+      />
+
       <p>
         Those benchmarks are drawn from SaaS companies, so read them as directional if
         you run an agency or MSP on retainers. The working thresholds I use: below 95%,

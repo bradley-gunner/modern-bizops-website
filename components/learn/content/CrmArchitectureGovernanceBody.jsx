@@ -1,6 +1,62 @@
 import Link from "next/link";
+import MaturityLadder from "@/components/learn/MaturityLadder";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// The page's own Level 1 to 5 rubric, moved out of prose. No stat cards here:
+// this page cites two sources but no hard numbers, and the spec's bar for stat
+// cards is two cited benchmarks.
+const RUNGS = [
+  {
+    level: 1,
+    desc: (
+      <>
+        There is no real system of record. Revenue data lives in someone&rsquo;s inbox,
+        a spreadsheet, or <b>your head</b>.
+      </>
+    ),
+  },
+  {
+    level: 2,
+    desc: (
+      <>
+        A CRM exists, but gets used inconsistently. Fields are empty half the time, and
+        the setup has not been touched since the day it was installed.
+      </>
+    ),
+  },
+  {
+    level: 3,
+    desc: (
+      <>
+        Everyone who touches a customer actually uses the CRM. The data model reflects
+        your <b>real sales and service process</b>, not a generic template. Required
+        fields force the data to get entered at the moments that matter. One person owns
+        governance and approves changes, so the system does not quietly rot.
+      </>
+    ),
+  },
+  {
+    level: 4,
+    desc: (
+      <>
+        You have a governance charter, a change-request process, and an annual review of
+        the data model against how the business actually works now, not how it worked
+        when you set it up.
+      </>
+    ),
+  },
+  {
+    level: 5,
+    desc: (
+      <>
+        The CRM is genuinely the <b>single source of truth</b>. Integrations keep data
+        consistent across your stack, and governance reviews happen on a schedule, data
+        integrity measured, not assumed.
+      </>
+    ),
+  },
+];
 
 export default function CrmArchitectureGovernanceBody() {
   return (
@@ -85,32 +141,17 @@ export default function CrmArchitectureGovernanceBody() {
       </p>
 
       <h2 className={h2}>What good looks like, one step at a time</h2>
+
+      <MaturityLadder
+        label="The 1 to 5 scale"
+        title="CRM architecture and governance, Level 1 to Level 5"
+        rungs={RUNGS}
+        caption="Rendered directly from this page's Level 1 to 5 rubric. Same words, better scanning and AI extraction."
+      />
+
       <p>
-        <strong>Level 1:</strong> There is no real system of record. Revenue data lives
-        in someone&rsquo;s inbox, a spreadsheet, or your head.
-      </p>
-      <p>
-        <strong>Level 2:</strong> A CRM exists, but gets used inconsistently. Fields are
-        empty half the time, and the setup has not been touched since the day it was
-        installed.
-      </p>
-      <p>
-        <strong>Level 3 (Functional):</strong> Everyone who touches a customer actually
-        uses the CRM. The data model reflects your real sales and service process, not a
-        generic template. Required fields force the data to get entered at the moments
-        that matter. One person owns governance and approves changes, so the system does
-        not quietly rot.
-      </p>
-      <p>
-        <strong>Level 4:</strong> You have a governance charter, a change-request
-        process, and an annual review of the data model against how the business
-        actually works now, not how it worked when you set it up.
-      </p>
-      <p>
-        <strong>Level 5 (top end):</strong> The CRM is genuinely the single source of
-        truth. Integrations keep data consistent across your stack, and governance
-        reviews happen on a schedule, data integrity measured, not assumed. This is also
-        where the CRM stops being something only people maintain. As of April 2026,
+        Level 5 is also where the CRM stops being something only people maintain. As of
+        April 2026,
         HubSpot&rsquo;s own MCP Server lets an AI tool like Claude connect directly to a
         company&rsquo;s HubSpot account and read or update records under the same
         permission scopes a person would have, so an AI agent can log a call, correct a

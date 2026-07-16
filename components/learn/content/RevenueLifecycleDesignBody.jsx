@@ -1,6 +1,66 @@
 import Link from "next/link";
 
+import MaturityLadder from "@/components/learn/MaturityLadder";
+
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// Ladder only: the page cites one benchmark (HBR retention economics), and the
+// spec's bar for stat cards is two cited numbers. The Level 5 journey-mapping
+// passage and its source stay in prose below the ladder.
+const RUNGS = [
+  {
+    level: 1,
+    desc: (
+      <>
+        There is a vague sense of &ldquo;how a deal happens,&rdquo; but it exists{" "}
+        <b>nowhere except your own head</b>. Post-sale is a completely separate
+        conversation from pre-sale, with no shared owner and no shared map.
+      </>
+    ),
+  },
+  {
+    level: 2,
+    desc: (
+      <>
+        An acquisition funnel exists, awareness, consideration, decision, but it stops
+        at closed-won. The post-sale journey is not designed at all. Marketing and sales
+        are working from one mental model, and delivery or customer success is working
+        from an entirely different one.
+      </>
+    ),
+  },
+  {
+    level: 3,
+    desc: (
+      <>
+        The full lifecycle is mapped from first contact through onboarding, adoption,
+        and expansion, <b>as one document, not two</b>. Stage transitions have documented
+        criteria. Someone owns each stage. The map gets used to actually design how work
+        happens, not filed away after the workshop that produced it.
+      </>
+    ),
+  },
+  {
+    level: 4,
+    desc: (
+      <>
+        The lifecycle map lives inside the CRM itself, not a slide deck. Stage
+        transitions are timestamped. Conversion rates between stages are measured, so
+        bottlenecks show up in the data instead of in someone&rsquo;s gut feeling months
+        later.
+      </>
+    ),
+  },
+  {
+    level: 5,
+    desc: (
+      <>
+        The lifecycle model is the <b>organizing principle</b> behind every revenue
+        metric, every piece of content, every process design decision the business makes.
+      </>
+    ),
+  },
+];
 
 export default function RevenueLifecycleDesignBody() {
   return (
@@ -82,37 +142,18 @@ export default function RevenueLifecycleDesignBody() {
       </p>
 
       <h2 className={h2}>What good lifecycle design looks like, one step at a time</h2>
+
+      <MaturityLadder
+        label="The 1 to 5 scale"
+        title="Revenue lifecycle design, Level 1 to Level 5"
+        rungs={RUNGS}
+        caption="Rendered directly from this page's Level 1 to 5 rubric. Same words, better scanning and AI extraction."
+      />
+
       <p>
-        <strong>Level 1:</strong> There is a vague sense of &ldquo;how a deal
-        happens,&rdquo; but it exists nowhere except your own head. Post-sale is a
-        completely separate conversation from pre-sale, with no shared owner and no
-        shared map.
-      </p>
-      <p>
-        <strong>Level 2:</strong> An acquisition funnel exists, awareness,
-        consideration, decision, but it stops at closed-won. The post-sale journey is
-        not designed at all. Marketing and sales are working from one mental model, and
-        delivery or customer success is working from an entirely different one.
-      </p>
-      <p>
-        <strong>Level 3 (Functional):</strong> The full lifecycle is mapped from first
-        contact through onboarding, adoption, and expansion, as one document, not two.
-        Stage transitions have documented criteria. Someone owns each stage. The map
-        gets used to actually design how work happens, not filed away after the
-        workshop that produced it.
-      </p>
-      <p>
-        <strong>Level 4:</strong> The lifecycle map lives inside the CRM itself, not a
-        slide deck. Stage transitions are timestamped. Conversion rates between stages
-        are measured, so bottlenecks show up in the data instead of in someone&rsquo;s
-        gut feeling months later.
-      </p>
-      <p>
-        <strong>Level 5 (top):</strong> The lifecycle model is the organizing principle
-        behind every revenue metric, every piece of content, every process design
-        decision the business makes. Increasingly, the map itself stops being something
-        a person redraws twice a year and starts updating from real customer behavior
-        instead. Modern journey-mapping tools ingest actual call transcripts, support
+        At Level 5, increasingly, the map itself stops being something a person redraws
+        twice a year and starts updating from real customer behavior instead. Modern
+        journey-mapping tools ingest actual call transcripts, support
         tickets, and usage data and surface where the real friction sits, not where
         someone assumed it would be two years ago, &ldquo;unlike traditional journey
         mapping that relies on static documentation and periodic updates, AI creates

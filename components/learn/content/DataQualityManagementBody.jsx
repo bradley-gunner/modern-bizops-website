@@ -1,6 +1,70 @@
 import Link from "next/link";
 
+import MaturityLadder from "@/components/learn/MaturityLadder";
+
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// Ladder only: $12.9M (Gartner) is the page's single cited benchmark, and the
+// spec's bar for stat cards is two.
+const RUNGS = [
+  {
+    level: 1,
+    desc: (
+      <>
+        Data quality is not tracked or managed anywhere. Everyone knows the data is
+        messy. <b>No one is specifically accountable for fixing it.</b> Reports get
+        distrusted on sight, and every review meeting starts the same way, arguing about
+        the numbers.
+      </>
+    ),
+  },
+  {
+    level: 2,
+    desc: (
+      <>
+        Data quality problems are known and occasionally addressed. Someone manually
+        cleans the CRM when it gets bad enough to notice. There is no systematic
+        monitoring, so the same problems keep recurring on their own schedule.
+      </>
+    ),
+  },
+  {
+    level: 3,
+    desc: (
+      <>
+        Required fields at each pipeline stage are <b>enforced, not just suggested</b>. A
+        data quality audit runs on a real schedule, monthly or quarterly. Someone
+        specific is accountable for the outcome, and the most common recurring errors
+        have already been identified and addressed at the source.
+      </>
+    ),
+  },
+  {
+    level: 4,
+    desc: (
+      <>
+        Data quality gets measured weekly with specific metrics, completeness rate,
+        duplicate rate, field accuracy. Automated processes flag and fix common errors
+        before a human ever has to. Enrichment tools fill key fields automatically. Data
+        quality is a tracked team metric, not an afterthought someone mentions when it is
+        bad.
+      </>
+    ),
+  },
+  {
+    level: 5,
+    desc: (
+      <>
+        Data quality is treated as <b>infrastructure, not a project</b>. It is
+        continuously monitored, automatically remediated wherever possible, and reported
+        on the same way any other business metric is. Leaders trust the dashboards
+        without the qualification they used to add out of habit. New data quality issues
+        get caught and resolved within days, not the months it used to take before anyone
+        noticed.
+      </>
+    ),
+  },
+];
 
 export default function DataQualityManagementBody() {
   return (
@@ -104,40 +168,13 @@ export default function DataQualityManagementBody() {
       </p>
 
       <h2 className={h2}>What good looks like, one step at a time</h2>
-      <p>
-        <strong>Level 1:</strong> Data quality is not tracked or managed anywhere.
-        Everyone knows the data is messy. No one is specifically accountable for fixing
-        it. Reports get distrusted on sight, and every review meeting starts the same
-        way, arguing about the numbers.
-      </p>
-      <p>
-        <strong>Level 2:</strong> Data quality problems are known and occasionally
-        addressed. Someone manually cleans the CRM when it gets bad enough to notice.
-        There is no systematic monitoring, so the same problems keep recurring on their
-        own schedule.
-      </p>
-      <p>
-        <strong>Level 3 (Functional):</strong> Required fields at each pipeline stage
-        are enforced, not just suggested. A data quality audit runs on a real schedule,
-        monthly or quarterly. Someone specific is accountable for the outcome, and the
-        most common recurring errors have already been identified and addressed at the
-        source.
-      </p>
-      <p>
-        <strong>Level 4:</strong> Data quality gets measured weekly with specific
-        metrics, completeness rate, duplicate rate, field accuracy. Automated processes
-        flag and fix common errors before a human ever has to. Enrichment tools fill
-        key fields automatically. Data quality is a tracked team metric, not an
-        afterthought someone mentions when it is bad.
-      </p>
-      <p>
-        <strong>Level 5 (top):</strong> Data quality is treated as infrastructure, not
-        a project. It is continuously monitored, automatically remediated wherever
-        possible, and reported on the same way any other business metric is. Leaders
-        trust the dashboards without the qualification they used to add out of habit.
-        New data quality issues get caught and resolved within days, not the months it
-        used to take before anyone noticed.
-      </p>
+
+      <MaturityLadder
+        label="The 1 to 5 scale"
+        title="Data quality management, Level 1 to Level 5"
+        rungs={RUNGS}
+        caption="Rendered directly from this page's Level 1 to 5 rubric. Same words, better scanning and AI extraction."
+      />
 
       <h2 className={h2}>The dependency worth naming directly</h2>
       <p>

@@ -1,6 +1,23 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// The two ends of the Deloitte finding already cited in the prose below. No
+// ladder on this page: the hub covers six competencies and has no single 1 to 5
+// rubric of its own.
+const STATS = [
+  {
+    big: "54%",
+    desc: "Of B2B sales organizations are still piloting AI, running isolated experiments and measuring time saved. Skip the fundamentals and this is where you stay.",
+    source: "Deloitte Digital, 2026",
+  },
+  {
+    big: "15%",
+    desc: "Are actually realizing measurable gains, connecting AI investment to real revenue outcomes. That gap between piloting and realizing gains is where the fundamentals live.",
+    source: "Deloitte Digital, 2026",
+  },
+];
 
 export default function Stage1ReactiveHubBody() {
   return (
@@ -96,6 +113,13 @@ export default function Stage1ReactiveHubBody() {
         </a>
         )
       </p>
+
+      <StatCards
+        label="What the research says"
+        title="Most of the market has not caught up yet"
+        stats={STATS}
+        caption="The two ends of the Deloitte finding cited above."
+      />
 
       <h2 className={h2}>The six competencies that get you out</h2>
       <p>
