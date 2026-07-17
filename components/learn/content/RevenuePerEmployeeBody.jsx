@@ -1,6 +1,22 @@
 import Link from "next/link";
+import BenchmarkTable from "@/components/learn/BenchmarkTable";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// The page's own HRBench figures, moved out of the plain table into the dark
+// block. Same numbers, verbatim; the SaaS row keeps its inline sub-source.
+const BENCHMARKS = [
+  {
+    type: "Private B2B SaaS",
+    value: "median $129,724",
+    note: "SaaS Capital 2025 survey, 1,000+ companies",
+  },
+  { type: "Professional services", value: "$150,000 to $300,000" },
+  { type: "Manufacturing / product", value: "$150,000 to $250,000" },
+  { type: "Healthcare", value: "$150,000 to $250,000" },
+  { type: "Retail", value: "$80,000 to $150,000" },
+  { type: "Hospitality", value: "$50,000 to $100,000" },
+];
 
 export default function RevenuePerEmployeeBody() {
   return (
@@ -64,48 +80,13 @@ export default function RevenuePerEmployeeBody() {
         </a>
         ):
       </p>
-      <div className="overflow-x-auto my-6">
-        <table className="w-full text-left border-collapse text-base">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="py-2 pr-4 font-display font-semibold text-navy align-top">
-                Business type
-              </th>
-              <th className="py-2 font-display font-semibold text-navy align-top">
-                Published revenue per employee
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-b border-border">
-              <td className="py-2 pr-4 align-top">Private B2B SaaS</td>
-              <td className="py-2 align-top">
-                median $129,724 (SaaS Capital 2025 survey, 1,000+ companies)
-              </td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="py-2 pr-4 align-top">Professional services</td>
-              <td className="py-2 align-top">$150,000 to $300,000</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="py-2 pr-4 align-top">Manufacturing / product</td>
-              <td className="py-2 align-top">$150,000 to $250,000</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="py-2 pr-4 align-top">Healthcare</td>
-              <td className="py-2 align-top">$150,000 to $250,000</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="py-2 pr-4 align-top">Retail</td>
-              <td className="py-2 align-top">$80,000 to $150,000</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="py-2 pr-4 align-top">Hospitality</td>
-              <td className="py-2 align-top">$50,000 to $100,000</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+      <BenchmarkTable
+        label="The benchmarks"
+        title="Revenue per employee by business model"
+        rows={BENCHMARKS}
+      />
+
       <p>
         Read these as ranges, not report cards. Company stage matters: revenue typically
         grows faster than headcount at scale, so a $30M company should naturally run a
