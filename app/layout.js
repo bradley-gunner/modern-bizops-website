@@ -1,7 +1,7 @@
 import Script from "next/script";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
-import { getOrganizationSchema, getServiceSchema, getPersonSchema, getFAQSchema } from "./schema";
+import { getOrganizationSchema, getServiceSchema, getPersonSchema } from "./schema";
 import { GA_MEASUREMENT_ID, CLARITY_PROJECT_ID } from "@/lib/analytics";
 import UtmCapture from "@/components/UtmCapture";
 
@@ -65,6 +65,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
       <head>
+        {/* Organization, Service, and Person are site-wide identity schema, so
+            they belong in the shared head. The homepage FAQPage schema does not:
+            FAQPage structured data must match FAQs visible on the page, so
+            emitting the homepage Q&As on every page put a mismatched FAQPage on
+            pages that never show them (and a second, competing FAQPage on pages
+            with their own FAQ). It now lives on the homepage only, next to the
+            <FAQ /> that renders those exact Q&As. */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(getOrganizationSchema()) }}
@@ -76,10 +83,6 @@ export default function RootLayout({ children }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(getPersonSchema()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQSchema()) }}
         />
         {/* Meta Pixel - dormant until paid ads */}
         {/* LinkedIn Insight Tag - dormant until paid ads */}
