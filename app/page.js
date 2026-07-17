@@ -13,6 +13,7 @@ import ScorecardCTA from "@/components/sections/ScorecardCTA";
 import AboutCoach from "@/components/sections/AboutCoach";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
+import { getFAQSchema } from "./schema";
 
 export const metadata = {
   // The approved title carries the validated "revenue per employee" term, so
@@ -70,6 +71,13 @@ export default function Home() {
         <FAQ />
         <FinalCTA />
       </main>
+      {/* FAQPage schema lives with the page that shows these Q&As, matching the
+          <FAQ /> above. It used to be emitted site-wide from the root layout,
+          which put it on pages that never render this FAQ. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQSchema()) }}
+      />
       <Footer />
       <MobileCtaBar />
     </>
