@@ -1,6 +1,24 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+
+// The two Recurly benchmarks this page already cites, pulled together to frame
+// the thesis: involuntary churn is a large slice of churn, and most of it is
+// recoverable fast. Both numbers stay in the prose too; the cards are an
+// additive pull-out.
+const STATS = [
+  {
+    big: "20 to 40%",
+    desc: "Of total churn for subscription businesses is involuntary: satisfied customers you already won, lost to administrative failure rather than a decision to leave.",
+    source: "Recurly network data, 2026",
+  },
+  {
+    big: "90%",
+    desc: "Of recovered payments are recovered within the first 10 days of the failure. The money is recoverable because the customer never meant to leave, but the window is short.",
+    source: "Recurly network data, 2026",
+  },
+];
 
 export default function InvoluntaryChurnBody() {
   return (
@@ -34,6 +52,12 @@ export default function InvoluntaryChurnBody() {
         memberships, and retainer businesses all have involuntary churn; a pure project
         business does not, because there is no recurring payment to fail.
       </p>
+
+      <StatCards
+        label="What the payment data says"
+        title="A big slice of churn, and most of it recoverable"
+        stats={STATS}
+      />
 
       <h2 className={h2}>Where the money actually leaks</h2>
       <p>
