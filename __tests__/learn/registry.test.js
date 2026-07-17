@@ -55,6 +55,8 @@ const STAGE_1_COMPETENCY_SLUGS = [
 ];
 // Wave 1 pillar-map pages: outside the maturity-stage DefinedTermSet
 // hierarchy, flatter Home > Learn > <page> breadcrumb, Article schema.
+// revenue-per-employee and win-loss-analysis are AEO/keyword pillar pages, so
+// they carry Article schema like the rest of this group, not DefinedTerm.
 const PILLAR_ARTICLE_SLUGS = [
   "fractional-coo",
   "marketing-and-sales-alignment",
@@ -62,14 +64,12 @@ const PILLAR_ARTICLE_SLUGS = [
   "smarketing",
   "mql-to-sql-conversion-rate",
   "involuntary-churn",
-];
-// Standalone DefinedTerm pages: cover a Stage 2/3 competency with no hub yet,
-// so no inDefinedTermSet reference. Flatter Home > Learn > <page> breadcrumb.
-const STANDALONE_TERM_SLUGS = [
-  "net-revenue-retention",
   "revenue-per-employee",
   "win-loss-analysis",
 ];
+// Standalone DefinedTerm pages: cover a Stage 2/3 competency with no hub yet,
+// so no inDefinedTermSet reference. Flatter Home > Learn > <page> breadcrumb.
+const STANDALONE_TERM_SLUGS = ["net-revenue-retention"];
 
 describe("learn page registry", () => {
   it("has exactly the sixteen approved slugs as keys", () => {

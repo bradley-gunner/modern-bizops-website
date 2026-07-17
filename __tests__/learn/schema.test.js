@@ -82,10 +82,15 @@ describe("learn schema helpers", () => {
     expect(ld.dateModified).toBe("2026-07-15");
   });
 
-  it("a new standalone term (win-loss-analysis) omits inDefinedTermSet", () => {
-    const ld = getDefinedTermSchema(winLoss);
-    expect(ld["@type"]).toBe("DefinedTerm");
-    expect(ld.name).toBe("Win/Loss Analysis");
-    expect("inDefinedTermSet" in ld).toBe(false);
+  it("an AEO pillar page (win-loss-analysis) carries Article schema, not DefinedTerm", () => {
+    // Reclassified from competency to article: it is a keyword pillar page, not
+    // a glossary term in the maturity model, so it must not declare itself a
+    // DefinedTerm to crawlers.
+    expect(winLoss.pageType).toBe("article");
+    expect(winLoss.definedTerm).toBeUndefined();
+    const ld = getArticleSchema(winLoss);
+    expect(ld["@type"]).toBe("Article");
+    expect(ld.headline).toBe(winLoss.title);
+    expect(ld.url).toBe("https://modernbizops.com/learn/win-loss-analysis");
   });
 });
