@@ -66,24 +66,13 @@ export default function LearnPageShell({ entry, children }) {
           <article className="space-y-6 text-lg text-text-mid leading-relaxed">
             {children}
           </article>
-          <AuthorCard credential={AUTHOR_CREDENTIAL} />
-        </Section>
 
-        <Section bg="white" narrow>
-          <h2 className="font-display font-semibold text-navy text-3xl mb-6 text-center">
-            FAQ
-          </h2>
-          <MaturityFaq items={entry.faq} />
-        </Section>
-
-        {/* The closing CTA sits on a cream band, not navy, and is lifted into a
-            rounded navy card. The footer is also navy, so a navy CTA section ran
-            straight into it as one dark block and stopped reading as clickable.
-            Floating the card on cream gives it its own edge and shadow, so the
-            separation is structural rather than a color coincidence that a later
-            footer tweak could erase (Bradley, 2026-07-20). */}
-        <Section bg="cream" narrow>
-          <div className="rounded-2xl bg-navy px-8 py-12 text-center text-white shadow-[0_22px_50px_-20px_rgba(14,31,56,0.6)] md:px-12 md:py-14">
+          {/* The closing CTA sits at the end of the article, just above the
+              author byline, so it reaches the reader while they are still with
+              the piece rather than after the FAQ. It floats in a rounded navy
+              card on the cream article so it reads as its own moment, and it
+              shares the byline card's width and top margin so the two align. */}
+          <div className="mx-auto mt-11 max-w-[760px] rounded-2xl bg-navy px-8 py-12 text-center text-white shadow-[0_22px_50px_-20px_rgba(14,31,56,0.6)] md:px-12 md:py-14">
             <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.26em] text-amber-light">
               Your next step
             </p>
@@ -92,6 +81,15 @@ export default function LearnPageShell({ entry, children }) {
               {entry.ctaButtonLabel}
             </Button>
           </div>
+
+          <AuthorCard credential={AUTHOR_CREDENTIAL} />
+        </Section>
+
+        <Section bg="white" narrow>
+          <h2 className="font-display font-semibold text-navy text-3xl mb-6 text-center">
+            FAQ
+          </h2>
+          <MaturityFaq items={entry.faq} />
         </Section>
       </main>
       <Footer />
