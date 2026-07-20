@@ -5,7 +5,6 @@
 const LAST_MODIFIED = {
   home: "2026-04-21",
   watch: "2026-04-24",
-  book: "2026-04-24",
   scorecard: "2026-04-24",
   about: "2026-04-24",
   playbook: "2026-06-03",
@@ -45,12 +44,6 @@ export default function sitemap() {
       lastModified: new Date(LAST_MODIFIED.watch),
       changeFrequency: "monthly",
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/book`,
-      lastModified: new Date(LAST_MODIFIED.book),
-      changeFrequency: "monthly",
-      priority: 0.8,
     },
     {
       url: `${baseUrl}/scorecard`,
