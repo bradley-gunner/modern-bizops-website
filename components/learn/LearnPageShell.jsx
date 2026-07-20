@@ -76,9 +76,18 @@ export default function LearnPageShell({ entry, children }) {
           <MaturityFaq items={entry.faq} />
         </Section>
 
-        <Section bg="navy" narrow>
-          <div className="text-center">
-            <p className="text-white/80 mb-6 max-w-[58ch] mx-auto">{entry.ctaText}</p>
+        {/* The closing CTA sits on a cream band, not navy, and is lifted into a
+            rounded navy card. The footer is also navy, so a navy CTA section ran
+            straight into it as one dark block and stopped reading as clickable.
+            Floating the card on cream gives it its own edge and shadow, so the
+            separation is structural rather than a color coincidence that a later
+            footer tweak could erase (Bradley, 2026-07-20). */}
+        <Section bg="cream" narrow>
+          <div className="rounded-2xl bg-navy px-8 py-12 text-center text-white shadow-[0_22px_50px_-20px_rgba(14,31,56,0.6)] md:px-12 md:py-14">
+            <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.26em] text-amber-light">
+              Your next step
+            </p>
+            <p className="mx-auto mb-6 max-w-[52ch] text-white/80">{entry.ctaText}</p>
             <Button href={entry.ctaUrl} ctaLocation="learn_mid_page">
               {entry.ctaButtonLabel}
             </Button>
