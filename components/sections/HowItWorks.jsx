@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Section from "../ui/Section";
 import BrowserFrame from "../ui/BrowserFrame";
 
@@ -181,6 +182,17 @@ export default function HowItWorks() {
             />
           </BrowserFrame>
         </div>
+      </div>
+
+      {/* Teaser link out to the full How It Works page (the coaching model, the
+          platform, and the four-step engagement in depth). */}
+      <div className="mt-14 text-center md:mt-20">
+        <Link
+          href="/revenue-operations-consulting"
+          className="font-body text-base font-semibold text-amber underline-offset-4 hover:underline"
+        >
+          See how it works &rarr;
+        </Link>
       </div>
     </Section>
   );
