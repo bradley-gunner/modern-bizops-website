@@ -74,8 +74,11 @@ export default function WhatIsRevOpsBody() {
         you need the discipline before you need the headcount. The definitions, the
         lifecycle, the data hygiene, and the operating cadence are buildable with the
         team you already have. Many companies in this band get there by promoting someone
-        internal who already knows the business and giving that person the structure and
-        guidance to build it, rather than adding a $150K+ specialist to interpret a
+        internal who already knows the business and giving that person the{" "}
+        <Link href="/revenue-operations-consulting" className="text-navy underline">
+          structure and guidance to build it
+        </Link>
+        , rather than adding a $150K+ specialist to interpret a
         system that does not exist yet. I have spent 15 years doing this work from the
         inside, carrying a number while architecting the systems that made the number
         easier to hit, at VC-backed startups and as the COO of an agency. The pattern I

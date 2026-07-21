@@ -346,6 +346,18 @@ function learnCard({ kicker, headline, headlineSize = 64 }) {
 
 // ---- card definitions -----------------------------------------------------
 const CARDS = {
+  // Primary BOFU / How It Works offer page. Uses the hero template (headline +
+  // dek subline + headshot), matching the other primary pages rather than the
+  // /learn kicker cards.
+  'revenue-operations-consulting': {
+    changed: true,
+    element: () =>
+      heroCard({
+        headline: 'Revenue Operations Consulting',
+        subline: 'From someone who has run the function, not just advised on it',
+        headlineSize: 60,
+      }),
+  },
   homepage: {
     changed: false,
     element: () =>
@@ -469,7 +481,7 @@ const CARDS = {
   // Wave 1 remaining-six batch. Headline = the title tag's hook clause,
   // shortened where the full clause overflows the 650px text column.
   'learn-what-is-revops': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'WHAT IS REVOPS?',
@@ -478,7 +490,7 @@ const CARDS = {
       }),
   },
   'learn-revenue-per-employee': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'REVENUE PER EMPLOYEE',
@@ -487,7 +499,7 @@ const CARDS = {
       }),
   },
   'learn-smarketing': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'SMARKETING',
@@ -496,7 +508,7 @@ const CARDS = {
       }),
   },
   'learn-mql-to-sql-conversion-rate': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'MQL TO SQL CONVERSION RATE',
@@ -505,7 +517,7 @@ const CARDS = {
       }),
   },
   'learn-involuntary-churn': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'INVOLUNTARY CHURN',
@@ -514,7 +526,7 @@ const CARDS = {
       }),
   },
   'learn-win-loss-analysis': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'WIN/LOSS ANALYSIS',

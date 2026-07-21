@@ -26,7 +26,7 @@ export default function Header() {
         {/* Desktop nav */}
         <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
           <Link
-            href="/#how-it-works"
+            href="/revenue-operations-consulting"
             className="font-body text-sm text-text-mid hover:text-navy transition-colors"
           >
             How It Works
@@ -101,7 +101,7 @@ export default function Header() {
       {mobileOpen && (
         <nav aria-label="Mobile navigation" className="md:hidden border-t border-border bg-cream px-6 py-4 space-y-4">
           <Link
-            href="/#how-it-works"
+            href="/revenue-operations-consulting"
             className="block font-body text-text-mid hover:text-navy"
             onClick={() => setMobileOpen(false)}
           >

@@ -9,6 +9,7 @@ const LAST_MODIFIED = {
   about: "2026-04-24",
   playbook: "2026-06-03",
   maturityModel: "2026-07-02",
+  revenueOperationsConsulting: "2026-07-21",
   privacy: "2026-04-06",
   terms: "2026-04-06",
   learnStage1Reactive: "2026-07-14",
@@ -62,6 +63,12 @@ export default function sitemap() {
       lastModified: new Date(LAST_MODIFIED.maturityModel),
       changeFrequency: "monthly",
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/revenue-operations-consulting`,
+      lastModified: new Date(LAST_MODIFIED.revenueOperationsConsulting),
+      changeFrequency: "monthly",
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/learn/revenue-operations-maturity-stage-1-reactive`,
