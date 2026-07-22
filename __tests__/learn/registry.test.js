@@ -6,8 +6,10 @@ const EM_DASH = /—/;
 // pillar-map calibration batch (fractional-coo, net-revenue-retention,
 // marketing-and-sales-alignment), the Wave 1 remaining-six batch
 // (what-is-revops, revenue-per-employee, smarketing, mql-to-sql-conversion-rate,
-// involuntary-churn, win-loss-analysis), and Wave 2's fractional-COO cost page
-// (fractional-coo-cost).
+// involuntary-churn, win-loss-analysis), Wave 2's fractional-COO cost page
+// (fractional-coo-cost), and the Wave 2 AI cluster's two /learn pages
+// (ai-for-small-business, ai-tools-for-small-business). The cluster's third page
+// (/ai-consulting-for-small-business) is a root-level route, not in this registry.
 const SLUGS = [
   "revenue-operations-maturity-stage-1-reactive",
   "crm-architecture-and-governance",
@@ -26,6 +28,8 @@ const SLUGS = [
   "involuntary-churn",
   "win-loss-analysis",
   "fractional-coo-cost",
+  "ai-for-small-business",
+  "ai-tools-for-small-business",
 ];
 const BATCH_1_SLUGS = [
   "revenue-operations-maturity-stage-1-reactive",
@@ -41,10 +45,17 @@ const WAVE_1_REMAINING_SLUGS = [
   "involuntary-churn",
   "win-loss-analysis",
 ];
+// Wave 2 batch: last updated 2026-07-22 (fractional-COO cost page and the two
+// AI-cluster /learn pages).
+const WAVE_2_SLUGS = [
+  "fractional-coo-cost",
+  "ai-for-small-business",
+  "ai-tools-for-small-business",
+];
 function expectedLastUpdated(slug) {
   if (BATCH_1_SLUGS.includes(slug)) return "2026-07-09";
   if (WAVE_1_REMAINING_SLUGS.includes(slug)) return "2026-07-15";
-  if (slug === "fractional-coo-cost") return "2026-07-22";
+  if (WAVE_2_SLUGS.includes(slug)) return "2026-07-22";
   return "2026-07-14";
 }
 // Stage 1 competency pages that carry a DefinedTerm joined to the hub's set.
@@ -70,13 +81,15 @@ const PILLAR_ARTICLE_SLUGS = [
   "revenue-per-employee",
   "win-loss-analysis",
   "fractional-coo-cost",
+  "ai-for-small-business",
+  "ai-tools-for-small-business",
 ];
 // Standalone DefinedTerm pages: cover a Stage 2/3 competency with no hub yet,
 // so no inDefinedTermSet reference. Flatter Home > Learn > <page> breadcrumb.
 const STANDALONE_TERM_SLUGS = ["net-revenue-retention"];
 
 describe("learn page registry", () => {
-  it("has exactly the seventeen approved slugs as keys", () => {
+  it("has exactly the nineteen approved slugs as keys", () => {
     expect(Object.keys(LEARN_PAGES).sort()).toEqual([...SLUGS].sort());
   });
 

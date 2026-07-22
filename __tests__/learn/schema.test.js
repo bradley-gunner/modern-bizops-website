@@ -16,6 +16,8 @@ const coo = LEARN_PAGES["fractional-coo"];
 const whatIsRevops = LEARN_PAGES["what-is-revops"];
 const winLoss = LEARN_PAGES["win-loss-analysis"];
 const cooCost = LEARN_PAGES["fractional-coo-cost"];
+const aiForSmb = LEARN_PAGES["ai-for-small-business"];
+const aiTools = LEARN_PAGES["ai-tools-for-small-business"];
 
 describe("learn schema helpers", () => {
   it("builds a BreadcrumbList matching the registry breadcrumb", () => {
@@ -95,6 +97,22 @@ describe("learn schema helpers", () => {
     expect(ld.url).toBe("https://modernbizops.com/learn/fractional-coo-cost");
     expect(ld.dateModified).toBe("2026-07-22");
     expect(ld.author.sameAs).toContain("https://linkedin.com/in/bradleydewet");
+  });
+
+  it("the AI-cluster /learn pages carry Article schema and join no DefinedTermSet", () => {
+    // Editorial how-to pages, not maturity competencies: Article schema, no
+    // DefinedTerm, never in the Stage 1 hub's set.
+    for (const e of [aiForSmb, aiTools]) {
+      expect(e.pageType).toBe("article");
+      expect(e.definedTerm).toBeUndefined();
+      expect(hub.definedTermSet.hasDefinedTerm).not.toContain(e.url);
+      const ld = getArticleSchema(e);
+      expect(ld["@type"]).toBe("Article");
+      expect(ld.headline).toBe(e.title);
+      expect(ld.url).toBe(e.url);
+      expect(ld.dateModified).toBe("2026-07-22");
+      expect(ld.author.sameAs).toContain("https://linkedin.com/in/bradleydewet");
+    }
   });
 
   it("an AEO pillar page (win-loss-analysis) carries Article schema, not DefinedTerm", () => {

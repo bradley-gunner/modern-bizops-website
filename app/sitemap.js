@@ -29,6 +29,9 @@ const LAST_MODIFIED = {
   learnInvoluntaryChurn: "2026-07-15",
   learnWinLossAnalysis: "2026-07-15",
   learnFractionalCooCost: "2026-07-22",
+  learnAiForSmallBusiness: "2026-07-22",
+  learnAiToolsForSmallBusiness: "2026-07-22",
+  aiConsultingForSmallBusiness: "2026-07-22",
 };
 
 export default function sitemap() {
@@ -70,6 +73,15 @@ export default function sitemap() {
       lastModified: new Date(LAST_MODIFIED.revenueOperationsConsulting),
       changeFrequency: "monthly",
       priority: 0.9,
+    },
+    {
+      // Root-level, off-nav BOFU service page. Off-nav means no header/footer
+      // link, but it is still a canonical, indexable URL, so it belongs in the
+      // sitemap. A notch below the primary consulting page.
+      url: `${baseUrl}/ai-consulting-for-small-business`,
+      lastModified: new Date(LAST_MODIFIED.aiConsultingForSmallBusiness),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/learn/revenue-operations-maturity-stage-1-reactive`,
@@ -170,6 +182,18 @@ export default function sitemap() {
     {
       url: `${baseUrl}/learn/fractional-coo-cost`,
       lastModified: new Date(LAST_MODIFIED.learnFractionalCooCost),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/ai-for-small-business`,
+      lastModified: new Date(LAST_MODIFIED.learnAiForSmallBusiness),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/ai-tools-for-small-business`,
+      lastModified: new Date(LAST_MODIFIED.learnAiToolsForSmallBusiness),
       changeFrequency: "monthly",
       priority: 0.7,
     },

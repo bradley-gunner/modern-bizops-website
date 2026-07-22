@@ -4,6 +4,10 @@ import Link from "next/link";
 // source of truth for the FAQPage JSON-LD). When an item carries an optional
 // `aLinks` array of { text, href }, we linkify those exact phrases in the
 // rendered accordion only, leaving the schema string untouched.
+//
+// An href starting with http is an outbound citation, so it renders as a plain
+// anchor that opens in a new tab with rel="noopener noreferrer"; internal hrefs
+// stay next/link.
 function renderAnswer(it) {
   if (!it.aLinks || it.aLinks.length === 0) return it.a;
   let remaining = it.a;
@@ -14,9 +18,21 @@ function renderAnswer(it) {
     if (idx === -1) continue;
     if (idx > 0) nodes.push(remaining.slice(0, idx));
     nodes.push(
-      <Link key={key++} href={href} className="text-navy underline">
-        {text}
-      </Link>
+      href.startsWith("http") ? (
+        <a
+          key={key++}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-navy underline"
+        >
+          {text}
+        </a>
+      ) : (
+        <Link key={key++} href={href} className="text-navy underline">
+          {text}
+        </Link>
+      )
     );
     remaining = remaining.slice(idx + text.length);
   }

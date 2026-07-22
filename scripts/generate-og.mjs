@@ -350,12 +350,42 @@ const CARDS = {
   // dek subline + headshot), matching the other primary pages rather than the
   // /learn kicker cards.
   'revenue-operations-consulting': {
-    changed: true,
+    changed: false,
     element: () =>
       heroCard({
         headline: 'Revenue Operations Consulting',
         subline: 'From someone who has run the function, not just advised on it',
         headlineSize: 60,
+      }),
+  },
+  // Wave 2 AI cluster. The two /learn pages use the kicker learn-card template;
+  // the root-level BOFU service page uses the hero template, matching the other
+  // primary offer pages (revenue-operations-consulting).
+  'learn-ai-for-small-business': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'AI FOR SMALL BUSINESS',
+        headline: 'What Actually Works When You Have Real Customers',
+        headlineSize: 52,
+      }),
+  },
+  'learn-ai-tools-for-small-business': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'AI TOOLS FOR SMALL BUSINESS',
+        headline: 'The Stack a Real Business Can Run',
+        headlineSize: 58,
+      }),
+  },
+  'service-ai-consulting': {
+    changed: true,
+    element: () =>
+      heroCard({
+        headline: 'AI Consulting for Small Business',
+        subline: 'Foundations first, then the acceleration',
+        headlineSize: 58,
       }),
   },
   homepage: {
