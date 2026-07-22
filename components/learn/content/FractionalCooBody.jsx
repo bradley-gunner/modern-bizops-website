@@ -181,14 +181,20 @@ export default function FractionalCooBody() {
         title="Full time against fractional"
         stats={STATS}
       />
-      {/* The "deeper cost breakdown" companion piece is future piece 1.3
-          (/learn/fractional-coo-cost, not yet built): plain text, no href,
-          per the internal-links summary. Becomes a live link when 1.3 ships. */}
+      {/* The four-path cost breakdown companion piece (piece 1.3,
+          /learn/fractional-coo-cost) is now live, so this mention links out
+          as the deliberate TOFU-to-MOFU step in the cluster. */}
       <p>
         A deeper cost breakdown comparing all four paths (fractional COO, full-time
         COO, project consultant, and promoting someone internally with coaching),
-        including when each one genuinely wins, is coming in a companion piece on this
-        site.
+        including when each one genuinely wins, is in a companion piece:{" "}
+        <Link
+          href="/learn/fractional-coo-cost"
+          className="text-navy underline"
+        >
+          what a fractional COO costs, and when you do not need one
+        </Link>
+        .
       </p>
     </>
   );
