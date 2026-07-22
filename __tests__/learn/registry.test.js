@@ -4,9 +4,10 @@ import { LEARN_PAGES } from "@/lib/learn/registry";
 const EM_DASH = /—/;
 // Batch 1 (PR #33), batch 2 (all six Stage 1 competencies live), the Wave 1
 // pillar-map calibration batch (fractional-coo, net-revenue-retention,
-// marketing-and-sales-alignment), and the Wave 1 remaining-six batch
+// marketing-and-sales-alignment), the Wave 1 remaining-six batch
 // (what-is-revops, revenue-per-employee, smarketing, mql-to-sql-conversion-rate,
-// involuntary-churn, win-loss-analysis).
+// involuntary-churn, win-loss-analysis), and Wave 2's fractional-COO cost page
+// (fractional-coo-cost).
 const SLUGS = [
   "revenue-operations-maturity-stage-1-reactive",
   "crm-architecture-and-governance",
@@ -24,6 +25,7 @@ const SLUGS = [
   "mql-to-sql-conversion-rate",
   "involuntary-churn",
   "win-loss-analysis",
+  "fractional-coo-cost",
 ];
 const BATCH_1_SLUGS = [
   "revenue-operations-maturity-stage-1-reactive",
@@ -42,6 +44,7 @@ const WAVE_1_REMAINING_SLUGS = [
 function expectedLastUpdated(slug) {
   if (BATCH_1_SLUGS.includes(slug)) return "2026-07-09";
   if (WAVE_1_REMAINING_SLUGS.includes(slug)) return "2026-07-15";
+  if (slug === "fractional-coo-cost") return "2026-07-22";
   return "2026-07-14";
 }
 // Stage 1 competency pages that carry a DefinedTerm joined to the hub's set.
@@ -66,13 +69,14 @@ const PILLAR_ARTICLE_SLUGS = [
   "involuntary-churn",
   "revenue-per-employee",
   "win-loss-analysis",
+  "fractional-coo-cost",
 ];
 // Standalone DefinedTerm pages: cover a Stage 2/3 competency with no hub yet,
 // so no inDefinedTermSet reference. Flatter Home > Learn > <page> breadcrumb.
 const STANDALONE_TERM_SLUGS = ["net-revenue-retention"];
 
 describe("learn page registry", () => {
-  it("has exactly the sixteen approved slugs as keys", () => {
+  it("has exactly the seventeen approved slugs as keys", () => {
     expect(Object.keys(LEARN_PAGES).sort()).toEqual([...SLUGS].sort());
   });
 
@@ -159,6 +163,20 @@ describe("learn page registry", () => {
       // No /learn index route exists yet, so the crumb renders as plain text.
       expect(e.breadcrumb[1].noLink).toBe(true);
     }
+  });
+
+  it("fractional-coo-cost owns two inline CTAs; shell skips its default card", () => {
+    const e = LEARN_PAGES["fractional-coo-cost"];
+    // inlineCtas tells LearnPageShell to skip its single default card so the
+    // body can render both CTAs (scorecard mid-page, book at the foot).
+    expect(e.inlineCtas).toBe(true);
+    // The primary CTA fields still record the scorecard destination, plain and
+    // UTM-free like every other entry.
+    expect(e.ctaUrl).toBe("/scorecard");
+    expect(e.ctaButtonLabel.length).toBeGreaterThan(0);
+    // The dek is the title tag's hook, never repeating the H1.
+    expect(e.subhead).toBe("What you pay, what you get, and when you do not need one");
+    expect(e.subhead).not.toContain(e.h1);
   });
 
   it("Rider B: NRR and alignment deks carry the hook clause only, titles unchanged", () => {

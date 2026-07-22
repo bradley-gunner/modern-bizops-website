@@ -21,6 +21,7 @@ const PUBLISH_ORDER = [
   "mql-to-sql-conversion-rate",
   "involuntary-churn",
   "win-loss-analysis",
+  "fractional-coo-cost",
 ];
 
 describe("learn visual system", () => {

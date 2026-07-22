@@ -28,6 +28,7 @@ const LAST_MODIFIED = {
   learnMqlToSqlConversionRate: "2026-07-15",
   learnInvoluntaryChurn: "2026-07-15",
   learnWinLossAnalysis: "2026-07-15",
+  learnFractionalCooCost: "2026-07-22",
 };
 
 export default function sitemap() {
@@ -163,6 +164,12 @@ export default function sitemap() {
     {
       url: `${baseUrl}/learn/win-loss-analysis`,
       lastModified: new Date(LAST_MODIFIED.learnWinLossAnalysis),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/fractional-coo-cost`,
+      lastModified: new Date(LAST_MODIFIED.learnFractionalCooCost),
       changeFrequency: "monthly",
       priority: 0.7,
     },

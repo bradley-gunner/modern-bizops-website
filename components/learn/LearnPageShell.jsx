@@ -71,16 +71,22 @@ export default function LearnPageShell({ entry, children }) {
               author byline, so it reaches the reader while they are still with
               the piece rather than after the FAQ. It floats in a rounded navy
               card on the cream article so it reads as its own moment, and it
-              shares the byline card's width and top margin so the two align. */}
-          <div className="mx-auto mt-11 max-w-[760px] rounded-2xl bg-navy px-8 py-12 text-center text-white shadow-[0_22px_50px_-20px_rgba(14,31,56,0.6)] md:px-12 md:py-14">
-            <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.26em] text-amber-light">
-              Your next step
-            </p>
-            <p className="mx-auto mb-6 max-w-[52ch] text-white/80">{entry.ctaText}</p>
-            <Button href={entry.ctaUrl} ctaLocation="learn_mid_page">
-              {entry.ctaButtonLabel}
-            </Button>
-          </div>
+              shares the byline card's width and top margin so the two align.
+
+              Pages that set entry.inlineCtas own their CTAs in the body (e.g.
+              fractional-coo-cost renders a scorecard CTA mid-page and a book CTA
+              at the foot), so the shell skips this single default card for them. */}
+          {!entry.inlineCtas && (
+            <div className="mx-auto mt-11 max-w-[760px] rounded-2xl bg-navy px-8 py-12 text-center text-white shadow-[0_22px_50px_-20px_rgba(14,31,56,0.6)] md:px-12 md:py-14">
+              <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.26em] text-amber-light">
+                Your next step
+              </p>
+              <p className="mx-auto mb-6 max-w-[52ch] text-white/80">{entry.ctaText}</p>
+              <Button href={entry.ctaUrl} ctaLocation="learn_mid_page">
+                {entry.ctaButtonLabel}
+              </Button>
+            </div>
+          )}
 
           <AuthorCard credential={AUTHOR_CREDENTIAL} />
         </Section>

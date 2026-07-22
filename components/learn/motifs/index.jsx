@@ -547,6 +547,77 @@ export function TwoIntoOne() {
   );
 }
 
+// 17 fractional-coo-cost: four ways to fix operations. Three columns lift away
+// when the money stops (fractional, full-time, project); the fourth stays
+// rooted in amber (promote and coach). The page's whole argument in one image.
+export function FourPaths() {
+  const leaving = [30, 126, 222];
+  return (
+    <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img">
+      <title>
+        Four ways to fix operations as columns: three lift away when the spend
+        stops, and one stays rooted in the business
+      </title>
+      <Defs id="motif-paths" from="#244E88" to="#2468A8" />
+      <line
+        x1="22"
+        y1="206"
+        x2="398"
+        y2="206"
+        stroke={NAVY_MID}
+        strokeWidth="1.5"
+      />
+      {leaving.map((x) => (
+        <g key={x}>
+          {/* the standing column */}
+          <rect x={x} y="122" width="62" height="84" rx="7" fill="url(#motif-paths)" opacity="0.5" />
+          {/* the piece that has lifted off, fading as it leaves */}
+          <rect
+            x={x}
+            y="86"
+            width="62"
+            height="24"
+            rx="7"
+            fill="none"
+            stroke={TEXT_LIGHT}
+            strokeWidth="1.5"
+            strokeDasharray="5 4"
+            opacity="0.7"
+          />
+          <path
+            d={`M${x + 31} 78 l-7 9 h14 z`}
+            fill={TEXT_LIGHT}
+            opacity="0.7"
+          />
+        </g>
+      ))}
+      {/* the column that stays: taller, solid amber, anchored below the line */}
+      <rect x="318" y="98" width="62" height="108" rx="7" fill={AMBER_LIGHT} />
+      <rect x="308" y="206" width="82" height="10" rx="4" fill={AMBER_LIGHT} opacity="0.55" />
+      <text
+        x="22"
+        y="248"
+        fontFamily="Jost, sans-serif"
+        fontSize="12.5"
+        letterSpacing="0.1em"
+        fill={TEXT_LIGHT}
+      >
+        THREE PATHS LEAVE WHEN THE MONEY STOPS.
+      </text>
+      <text
+        x="22"
+        y="268"
+        fontFamily="Jost, sans-serif"
+        fontSize="12.5"
+        letterSpacing="0.1em"
+        fill={AMBER_LIGHT}
+      >
+        ONE STAYS IN THE BUILDING.
+      </text>
+    </svg>
+  );
+}
+
 export const MOTIFS = {
   stageChevrons: StageChevrons,
   stage1Chevrons: Stage1Chevrons,
@@ -559,6 +630,7 @@ export const MOTIFS = {
   leadershipMotif: LeadershipMotif,
   retentionExpansion: RetentionExpansion,
   twoIntoOne: TwoIntoOne,
+  fourPaths: FourPaths,
 };
 
 export const DEFAULT_MOTIF = "stageChevrons";

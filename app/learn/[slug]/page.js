@@ -17,6 +17,7 @@ import SmarketingBody from "@/components/learn/content/SmarketingBody";
 import MqlToSqlConversionRateBody from "@/components/learn/content/MqlToSqlConversionRateBody";
 import InvoluntaryChurnBody from "@/components/learn/content/InvoluntaryChurnBody";
 import WinLossAnalysisBody from "@/components/learn/content/WinLossAnalysisBody";
+import FractionalCooCostBody from "@/components/learn/content/FractionalCooCostBody";
 import {
   getBreadcrumbSchema,
   getFaqSchema,
@@ -43,6 +44,7 @@ const BODIES = {
   "mql-to-sql-conversion-rate": MqlToSqlConversionRateBody,
   "involuntary-churn": InvoluntaryChurnBody,
   "win-loss-analysis": WinLossAnalysisBody,
+  "fractional-coo-cost": FractionalCooCostBody,
 };
 
 // hub -> DefinedTermSet; competency -> DefinedTerm (standalone when the entry

@@ -534,6 +534,17 @@ const CARDS = {
         headlineSize: 60,
       }),
   },
+  // Wave 2 fractional-COO cluster: the MOFU cost-comparison page. Headline is
+  // the title tag's hook clause verbatim, at the smaller size it needs to fit.
+  'learn-fractional-coo-cost': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'FRACTIONAL COO COST',
+        headline: 'What You Pay, What You Get, and When You Do Not Need One',
+        headlineSize: 46,
+      }),
+  },
 };
 
 // ---- render ---------------------------------------------------------------
