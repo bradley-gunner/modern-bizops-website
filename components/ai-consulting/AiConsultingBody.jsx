@@ -268,14 +268,20 @@ export default function AiConsultingBody() {
           </Link>
           .
         </li>
-        <li>
-          Ready to talk?{" "}
-          <Link href="/book" className={link}>
-            Book a call
-          </Link>{" "}
-          and we will start with where your fundamentals actually stand.
-        </li>
       </ul>
+
+      {/* Closing CTA, moved up into the body so it lands between the final text
+          and the author byline (rendered by the page after this body) rather
+          than after the FAQ. It replaces the "Ready to talk? Book a call" bullet
+          that used to close the list. */}
+      <CtaCallout
+        eyebrow="Your next step"
+        heading="Start with where your fundamentals actually stand"
+        body="Book a call and we will start with an honest read on which parts of your revenue operation are ready for AI, and which are not yet."
+        buttonLabel="Book a call"
+        href="/book"
+        ctaLocation="ai_consulting_foot"
+      />
     </>
   );
 }

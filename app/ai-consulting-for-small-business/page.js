@@ -3,7 +3,6 @@ import Footer from "@/components/Footer";
 import Section from "@/components/ui/Section";
 import Button from "@/components/ui/Button";
 import LearnHero from "@/components/learn/LearnHero";
-import CtaCallout from "@/components/learn/CtaCallout";
 import AuthorCard from "@/components/learn/AuthorCard";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
 import AiConsultingBody from "@/components/ai-consulting/AiConsultingBody";
@@ -201,22 +200,6 @@ export default function AiConsultingForSmallBusinessPage() {
             Frequently asked questions
           </h2>
           <MaturityFaq items={FAQ} />
-        </Section>
-
-        {/* Closing CTA. A rounded navy card on a light band, not a full-bleed
-            navy section, so it reads as its own block instead of blending into
-            the navy footer directly below it (the same fix the /learn shell uses,
-            PR #44/#46). Same /book destination as the hero and mid CTAs; a
-            distinct cta_location so the three can be compared in GA4. */}
-        <Section bg="cream" narrow>
-          <CtaCallout
-            eyebrow="Your next step"
-            heading="Start with where your fundamentals actually stand"
-            body="Book a call and we will start with an honest read on which parts of your revenue operation are ready for AI, and which are not yet."
-            buttonLabel="Book a call"
-            href="/book"
-            ctaLocation="ai_consulting_foot"
-          />
         </Section>
       </main>
       <Footer />
