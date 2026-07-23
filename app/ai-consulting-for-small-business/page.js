@@ -172,6 +172,17 @@ export default function AiConsultingForSmallBusinessPage() {
           byline={`${BYLINE} Last updated ${formatLastUpdated(LAST_UPDATED)}.`}
           motif="amplifier"
           theme="navy"
+          cta={
+            <div className="flex flex-col items-start gap-2.5">
+              <Button href="/book" ctaLocation="ai_consulting_hero">
+                Book a call
+              </Button>
+              <span className="max-w-[42ch] text-[13px] leading-snug text-text-light">
+                A free call. I will tell you honestly whether this is a fit,
+                including if the answer is not yet.
+              </span>
+            </div>
+          }
         />
 
         <Section bg="cream" narrow={false} className="pt-10 md:pt-12">

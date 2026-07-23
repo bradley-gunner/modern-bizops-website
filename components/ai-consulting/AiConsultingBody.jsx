@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Button from "@/components/ui/Button";
+import CtaCallout from "@/components/learn/CtaCallout";
 import PullQuote from "@/components/learn/PullQuote";
 import StatCards from "@/components/learn/StatCards";
 import MaturityStrip from "@/components/learn/MaturityStrip";
@@ -18,12 +18,6 @@ const link = "text-navy underline";
 export default function AiConsultingBody() {
   return (
     <>
-      <div className="mb-2">
-        <Button href="/book" ctaLocation="ai_consulting_hero">
-          Book a call
-        </Button>
-      </div>
-
       <h2 className={h2}>What AI consulting for a small business actually is</h2>
       <p>Let me answer the question you came here with, plainly.</p>
       <p>
@@ -163,11 +157,14 @@ export default function AiConsultingBody() {
         for AI. The engine is identical: fundamentals first, then acceleration.
       </p>
 
-      <div className="my-8">
-        <Button href="/book" ctaLocation="ai_consulting_mid_page">
-          Book a call
-        </Button>
-      </div>
+      <CtaCallout
+        eyebrow="See if it fits"
+        heading="Not sure whether this is you?"
+        body="Book a call and I will give you my honest read on whether coaching the fundamentals first is the right move for your business, including when the answer is an implementation shop and not me."
+        buttonLabel="Book a call"
+        href="/book"
+        ctaLocation="ai_consulting_mid_page"
+      />
 
       <h2 className={h2}>Where you actually are, measured</h2>
       <p>

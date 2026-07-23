@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Button from "@/components/ui/Button";
+import CtaCallout from "@/components/learn/CtaCallout";
 import PullQuote from "@/components/learn/PullQuote";
 import MaturityStrip from "@/components/learn/MaturityStrip";
 import FiveJobsTable from "@/components/learn/FiveJobsTable";
@@ -91,12 +91,6 @@ export default function AiToolsForSmallBusinessBody() {
       </p>
 
       <FiveJobsTable />
-
-      <div className="mt-8">
-        <Button href="/scorecard" ctaLocation="learn_ai_tools_scorecard">
-          See which stage each competency is at
-        </Button>
-      </div>
 
       <h2 className={h2}>Job one: know your best-fit customer</h2>
       <p>
@@ -323,6 +317,15 @@ export default function AiToolsForSmallBusinessBody() {
         with the most to gain from pretending otherwise.
       </p>
 
+      <CtaCallout
+        eyebrow="Before you buy a tool"
+        heading="Which of your competencies are actually ready?"
+        body="Every job above rests on a competency in the Revenue Operations Maturity Model. The free Revenue Maturity Score measures where each of yours stands today, so you know which fundamentals are solid enough for a tool to accelerate and which would just scale the mess. A few minutes, fifteen questions."
+        buttonLabel="Get your Revenue Maturity Score"
+        href="/scorecard"
+        ctaLocation="learn_ai_tools_scorecard"
+      />
+
       <h2 className={h2}>
         The honest part: where the tools stop and the coaching starts
       </h2>
@@ -391,11 +394,14 @@ export default function AiToolsForSmallBusinessBody() {
         actually compounds.
       </p>
 
-      <div className="mt-8">
-        <Button href="/playbook" ctaLocation="learn_ai_tools_closing">
-          Get the Revenue Growth Playbook
-        </Button>
-      </div>
+      <CtaCallout
+        eyebrow="Your next step"
+        heading="Build the stack in the order that compounds"
+        body="A free, stage-by-stage guide that sequences the work, so every tool you add lands on a fundamental strong enough to hold it."
+        buttonLabel="Get the Revenue Growth Playbook"
+        href="/playbook"
+        ctaLocation="learn_ai_tools_closing"
+      />
     </>
   );
 }

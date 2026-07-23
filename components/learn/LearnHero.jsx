@@ -31,6 +31,7 @@ export default function LearnHero({
   accentWord,
   dek,
   byline,
+  cta,
   motif = DEFAULT_MOTIF,
   theme = "navy",
   children,
@@ -68,6 +69,10 @@ export default function LearnHero({
               {byline}
             </p>
           )}
+          {/* Optional above-the-fold CTA, rendered as part of the hero band so
+              it reads as a designed element rather than a bare button dropped on
+              the article below. Only pages that pass `cta` get one. */}
+          {cta && <div className="mt-6">{cta}</div>}
         </div>
         {/* w-full is load-bearing on the stacked layout: the row's items-center
             makes this column shrink-to-fit on the cross axis, which would
