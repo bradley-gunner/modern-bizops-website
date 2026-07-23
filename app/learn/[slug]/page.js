@@ -18,6 +18,8 @@ import MqlToSqlConversionRateBody from "@/components/learn/content/MqlToSqlConve
 import InvoluntaryChurnBody from "@/components/learn/content/InvoluntaryChurnBody";
 import WinLossAnalysisBody from "@/components/learn/content/WinLossAnalysisBody";
 import FractionalCooCostBody from "@/components/learn/content/FractionalCooCostBody";
+import AiForSmallBusinessBody from "@/components/learn/content/AiForSmallBusinessBody";
+import AiToolsForSmallBusinessBody from "@/components/learn/content/AiToolsForSmallBusinessBody";
 import {
   getBreadcrumbSchema,
   getFaqSchema,
@@ -45,6 +47,8 @@ const BODIES = {
   "involuntary-churn": InvoluntaryChurnBody,
   "win-loss-analysis": WinLossAnalysisBody,
   "fractional-coo-cost": FractionalCooCostBody,
+  "ai-for-small-business": AiForSmallBusinessBody,
+  "ai-tools-for-small-business": AiToolsForSmallBusinessBody,
 };
 
 // hub -> DefinedTermSet; competency -> DefinedTerm (standalone when the entry

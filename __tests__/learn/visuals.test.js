@@ -22,6 +22,8 @@ const PUBLISH_ORDER = [
   "involuntary-churn",
   "win-loss-analysis",
   "fractional-coo-cost",
+  "ai-for-small-business",
+  "ai-tools-for-small-business",
 ];
 
 describe("learn visual system", () => {

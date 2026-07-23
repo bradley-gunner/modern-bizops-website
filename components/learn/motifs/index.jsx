@@ -618,6 +618,82 @@ export function FourPaths() {
   );
 }
 
+// Wave 2 AI cluster (4.1/4.2/4.3): a small operational signal amplified into a
+// much larger one. It is the single governing metaphor the three AI pages share,
+// "AI amplifies the operational state it is applied to," rendered as an op-amp
+// that takes three short input bars and returns three tall output ones. The
+// theme rotation (teal/navy) keeps adjacent pages distinct while reusing it.
+export function Amplifier() {
+  return (
+    <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img">
+      <title>
+        A small operational signal amplified into a much larger one, the idea
+        that AI amplifies the state it is applied to
+      </title>
+      <Defs id="motif-amp" from="#244E88" to="#2468A8" />
+      <line x1="24" y1="180" x2="396" y2="180" stroke={NAVY_MID} strokeWidth="1.5" />
+      {/* Input: three short bars, the operational state going in. */}
+      {[
+        [48, 22],
+        [72, 34],
+        [96, 26],
+      ].map(([x, h]) => (
+        <rect
+          key={x}
+          x={x}
+          y={180 - h}
+          width="18"
+          height={h}
+          rx="4"
+          fill="url(#motif-amp)"
+          opacity="0.7"
+        />
+      ))}
+      {/* The amplifier itself, an op-amp triangle pointing to the output. */}
+      <path d="M150 132 V228 L238 180 Z" fill={AMBER_LIGHT} />
+      <path d="M244 180 h30" stroke={AMBER_LIGHT} strokeWidth="2.5" />
+      <path d="M274 180 l-9 6 v-12 z" fill={AMBER_LIGHT} />
+      {/* Output: the same shape scaled up, middle bar picked out in amber. */}
+      {[
+        [286, 58, "url(#motif-amp)", 0.7],
+        [320, 92, AMBER_LIGHT, 1],
+        [354, 70, "url(#motif-amp)", 0.7],
+      ].map(([x, h, fill, op]) => (
+        <rect
+          key={x}
+          x={x}
+          y={180 - h}
+          width="22"
+          height={h}
+          rx="5"
+          fill={fill}
+          opacity={op}
+        />
+      ))}
+      <text
+        x="24"
+        y="252"
+        fontFamily="Jost, sans-serif"
+        fontSize="12.5"
+        letterSpacing="0.1em"
+        fill={TEXT_LIGHT}
+      >
+        SMALL STATE IN. AMPLIFIED OUT.
+      </text>
+      <text
+        x="24"
+        y="272"
+        fontFamily="Jost, sans-serif"
+        fontSize="12.5"
+        letterSpacing="0.1em"
+        fill={AMBER_LIGHT}
+      >
+        AI SCALES WHAT IT FINDS.
+      </text>
+    </svg>
+  );
+}
+
 export const MOTIFS = {
   stageChevrons: StageChevrons,
   stage1Chevrons: Stage1Chevrons,
@@ -631,6 +707,7 @@ export const MOTIFS = {
   retentionExpansion: RetentionExpansion,
   twoIntoOne: TwoIntoOne,
   fourPaths: FourPaths,
+  amplifier: Amplifier,
 };
 
 export const DEFAULT_MOTIF = "stageChevrons";
