@@ -5,6 +5,10 @@ const hubspotMock = {
   ensureCustomContactProperties: vi.fn(async () => {}),
   submitHubSpotForm: vi.fn(async () => ({ ok: true })),
   markContactForReview: vi.fn(async () => true),
+  ensureScorecardResultProperties: vi.fn(async () => {}),
+  writeScorecardResultProperties: vi.fn(async () => true),
+  uploadPrivateFileToHubSpot: vi.fn(async () => ({ id: 'file-1', url: 'https://files.example/private' })),
+  createContactNote: vi.fn(async () => 'note-1'),
   findContactByEmail: vi.fn(async () => 'contact-123'),
   pickUtmProperties: vi.fn((utms) => utms || {}),
   createContactTask: vi.fn(async () => 'task-1'),
@@ -14,6 +18,12 @@ const hubspotMock = {
 };
 
 vi.mock('@/lib/hubspot', () => hubspotMock);
+
+// Keep the route test fast + hermetic: the real PDF renderer reads fonts/logo
+// off disk and pulls in @react-pdf. The PDF itself is covered by pdf.test.js.
+vi.mock('@/lib/scorecard/pdfDocument', () => ({
+  renderResultPdf: vi.fn(async () => Buffer.from('%PDF-1.4 mock')),
+}));
 
 let dealCreateCalled = false;
 
@@ -93,6 +103,33 @@ describe('POST /api/scorecard/submit', () => {
     expect(hubspotMock.markContactForReview).toHaveBeenCalledWith('contact-123');
     expect(hubspotMock.createContactTask).toHaveBeenCalled();
     expect(dealCreateCalled).toBe(false);
+
+    // Additively persists the computed result onto the contact, including the
+    // dollar-gap range.
+    expect(hubspotMock.writeScorecardResultProperties).toHaveBeenCalledWith(
+      'contact-123',
+      expect.objectContaining({
+        scorecard_maturity_stage: 'Reactive',
+        scorecard_business_model: 'PROFESSIONAL_SERVICES',
+        scorecard_dollar_gap_total: expect.any(Number),
+        scorecard_gap_low: expect.any(Number),
+        scorecard_gap_high: expect.any(Number),
+        scorecard_result_json: expect.any(String),
+      })
+    );
+
+    // Renders + uploads the private PDF, stores its file id, and drops a Note
+    // with the attachment (backgrounded work runs inline in tests).
+    expect(hubspotMock.uploadPrivateFileToHubSpot).toHaveBeenCalledWith(
+      expect.objectContaining({ folderPath: '/scorecard-results' })
+    );
+    expect(hubspotMock.writeScorecardResultProperties).toHaveBeenCalledWith(
+      'contact-123',
+      { scorecard_pdf_url: 'file-1' }
+    );
+    expect(hubspotMock.createContactNote).toHaveBeenCalledWith(
+      expect.objectContaining({ contactId: 'contact-123', attachmentIds: 'file-1' })
+    );
   });
 
   it('returns 502 when the form submission fails', async () => {
@@ -109,6 +146,7 @@ describe('POST /api/scorecard/submit', () => {
     expect(json.success).toBe(true);
     expect(json.contactId).toBeNull();
     expect(hubspotMock.markContactForReview).not.toHaveBeenCalled();
+    expect(hubspotMock.writeScorecardResultProperties).not.toHaveBeenCalled();
   });
 
   it('rejects missing email', async () => {
