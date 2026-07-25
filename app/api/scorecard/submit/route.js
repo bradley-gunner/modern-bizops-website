@@ -22,6 +22,23 @@ import { renderResultPdf } from '@/lib/scorecard/pdfDocument';
 
 let propertiesEnsured = false;
 
+// HubSpot's contact search index lags briefly after the form submission creates
+// the contact, so a single lookup often returns null for a first-time submitter
+// and the whole enrichment block (review flag, scorecard properties, task, PDF)
+// gets skipped. Retry past the lag so enrichment reliably lands. Mirrors
+// app/api/submit-form/route.js. The result is returned to the user regardless,
+// so this only bounds how long we wait for the contact to appear.
+async function findContactByEmailWithRetry(email, attempts = 5, delayMs = 400) {
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    const id = await findContactByEmail(email);
+    if (id) return id;
+    if (attempt < attempts - 1) {
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+    }
+  }
+  return null;
+}
+
 // Run heavy, non-blocking follow-up work after the response is sent so the
 // prospect's on-screen result is not delayed by PDF rendering + file upload.
 // On Vercel `after` keeps the function alive (waitUntil); outside a request
@@ -99,10 +116,11 @@ export async function POST(request) {
     const result = buildResult(answers);
 
     // Look up the contact the form just created/updated so we can flag it for
-    // the manual qualification queue and notify Bradley. If HubSpot has not
-    // finished indexing the contact yet, still return the result so the user
-    // sees their scorecard; Bradley can flag lifecycle from the queue.
-    const contactId = await findContactByEmail(email);
+    // the manual qualification queue and notify Bradley. Retry past HubSpot's
+    // search-index lag so a first-time submitter's contact is still enriched. If
+    // it never appears, still return the result so the user sees their scorecard;
+    // Bradley can flag lifecycle from the queue.
+    const contactId = await findContactByEmailWithRetry(email);
 
     if (contactId) {
       // markContactForReview is the single writer of lifecyclestage=lead +
