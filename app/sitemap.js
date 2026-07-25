@@ -32,6 +32,11 @@ const LAST_MODIFIED = {
   learnAiForSmallBusiness: "2026-07-22",
   learnAiToolsForSmallBusiness: "2026-07-22",
   aiConsultingForSmallBusiness: "2026-07-22",
+  learnCustomerRetentionStrategy: "2026-07-23",
+  learnReduceCustomerChurn: "2026-07-23",
+  learnPaymentRecovery: "2026-07-23",
+  learnCustomerLifecycleMarketing: "2026-07-23",
+  learnConversionRateOptimization: "2026-07-23",
 };
 
 export default function sitemap() {
@@ -194,6 +199,36 @@ export default function sitemap() {
     {
       url: `${baseUrl}/learn/ai-tools-for-small-business`,
       lastModified: new Date(LAST_MODIFIED.learnAiToolsForSmallBusiness),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/customer-retention-strategy`,
+      lastModified: new Date(LAST_MODIFIED.learnCustomerRetentionStrategy),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/reduce-customer-churn`,
+      lastModified: new Date(LAST_MODIFIED.learnReduceCustomerChurn),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/payment-recovery`,
+      lastModified: new Date(LAST_MODIFIED.learnPaymentRecovery),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/customer-lifecycle-marketing`,
+      lastModified: new Date(LAST_MODIFIED.learnCustomerLifecycleMarketing),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/conversion-rate-optimization`,
+      lastModified: new Date(LAST_MODIFIED.learnConversionRateOptimization),
       changeFrequency: "monthly",
       priority: 0.7,
     },

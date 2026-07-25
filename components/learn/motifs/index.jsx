@@ -694,6 +694,152 @@ export function Amplifier() {
   );
 }
 
+// 2.4 reduce-customer-churn: an account's health declining over time toward a
+// cancellation, with the amber intervention marker placed well before the end,
+// where a course-correction can still change the outcome. The whole page in one
+// image: leading (intervene early) versus lagging (the cancellation).
+export function InterveneTimeline() {
+  return (
+    <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img">
+      <title>
+        An account&rsquo;s health declining over time toward a cancellation, with
+        an intervention marked well before the end
+      </title>
+      <line x1="22" y1="212" x2="398" y2="212" stroke={NAVY_MID} strokeWidth="1.5" />
+      {/* The declining health line. */}
+      <path
+        d="M30 74 C120 96 150 150 208 160 C280 172 322 198 386 206"
+        fill="none"
+        stroke="#244E88"
+        strokeWidth="3"
+      />
+      {/* The early intervention marker and the corrected, recovering path. */}
+      <path
+        d="M176 150 C224 138 256 118 300 104"
+        fill="none"
+        stroke={AMBER_LIGHT}
+        strokeWidth="2"
+        strokeDasharray="5 4"
+      />
+      <path d="M300 104 l-3 12 11 -5 z" fill={AMBER_LIGHT} />
+      <circle cx="176" cy="150" r="9" fill={AMBER_LIGHT} />
+      <text
+        x="112"
+        y="138"
+        fontFamily="Jost, sans-serif"
+        fontSize="10.5"
+        letterSpacing="0.1em"
+        fill={AMBER_LIGHT}
+      >
+        INTERVENE HERE
+      </text>
+      {/* The cancellation endpoint, if nobody intervened. */}
+      <circle cx="386" cy="206" r="7" fill={RED} />
+      <text
+        x="322"
+        y="198"
+        fontFamily="Jost, sans-serif"
+        fontSize="10.5"
+        letterSpacing="0.1em"
+        fill={TEXT_LIGHT}
+      >
+        CANCELLED
+      </text>
+      <text
+        x="22"
+        y="252"
+        fontFamily="Jost, sans-serif"
+        fontSize="12.5"
+        letterSpacing="0.1em"
+        fill={TEXT_LIGHT}
+      >
+        MOST CHURN IS DECIDED
+      </text>
+      <text
+        x="22"
+        y="272"
+        fontFamily="Jost, sans-serif"
+        fontSize="12.5"
+        letterSpacing="0.1em"
+        fill={AMBER_LIGHT}
+      >
+        LONG BEFORE THE CANCELLATION.
+      </text>
+    </svg>
+  );
+}
+
+// 5.2 payment-recovery: a payment caught mid-fall and returned to the revenue
+// stack by a retry loop. The money was already earned; the loop is speed.
+export function RecoveryLoop() {
+  return (
+    <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img">
+      <title>
+        A failed payment caught mid-fall and returned to the revenue stack by a
+        retry loop
+      </title>
+      <Defs id="motif-recover" from="#244E88" to="#2468A8" />
+      {/* The revenue stack: three coins, bottom-left. */}
+      {[196, 176, 156].map((y, i) => (
+        <g key={y}>
+          <ellipse cx="108" cy={y} rx="46" ry="14" fill="url(#motif-recover)" />
+          <ellipse
+            cx="108"
+            cy={y - 3}
+            rx="46"
+            ry="14"
+            fill="none"
+            stroke={i === 2 ? AMBER_LIGHT : "#2A5488"}
+            strokeWidth="1.5"
+          />
+        </g>
+      ))}
+      {/* The failed payment, caught mid-fall. */}
+      <ellipse cx="312" cy="96" rx="30" ry="30" fill="none" stroke={AMBER_LIGHT} strokeWidth="2.5" />
+      <text
+        x="312"
+        y="103"
+        textAnchor="middle"
+        fontFamily="Jost, sans-serif"
+        fontSize="22"
+        fontWeight="700"
+        fill={AMBER_LIGHT}
+      >
+        $
+      </text>
+      {/* The retry loop returning it to the stack. */}
+      <path
+        d="M286 118 C232 168 176 150 132 138"
+        fill="none"
+        stroke={AMBER_LIGHT}
+        strokeWidth="2"
+        strokeDasharray="5 4"
+      />
+      <path d="M132 138 l13 -1 -8 -9 z" fill={AMBER_LIGHT} />
+      <text
+        x="22"
+        y="252"
+        fontFamily="Jost, sans-serif"
+        fontSize="12.5"
+        letterSpacing="0.1em"
+        fill={TEXT_LIGHT}
+      >
+        REVENUE YOU ALREADY EARNED,
+      </text>
+      <text
+        x="22"
+        y="272"
+        fontFamily="Jost, sans-serif"
+        fontSize="12.5"
+        letterSpacing="0.1em"
+        fill={AMBER_LIGHT}
+      >
+        RECOVERED BEFORE IT IS GONE.
+      </text>
+    </svg>
+  );
+}
+
 export const MOTIFS = {
   stageChevrons: StageChevrons,
   stage1Chevrons: Stage1Chevrons,
@@ -708,6 +854,8 @@ export const MOTIFS = {
   twoIntoOne: TwoIntoOne,
   fourPaths: FourPaths,
   amplifier: Amplifier,
+  interveneTimeline: InterveneTimeline,
+  recoveryLoop: RecoveryLoop,
 };
 
 export const DEFAULT_MOTIF = "stageChevrons";

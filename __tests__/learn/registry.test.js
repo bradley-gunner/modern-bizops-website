@@ -30,6 +30,11 @@ const SLUGS = [
   "fractional-coo-cost",
   "ai-for-small-business",
   "ai-tools-for-small-business",
+  "customer-retention-strategy",
+  "reduce-customer-churn",
+  "payment-recovery",
+  "customer-lifecycle-marketing",
+  "conversion-rate-optimization",
 ];
 const BATCH_1_SLUGS = [
   "revenue-operations-maturity-stage-1-reactive",
@@ -52,10 +57,20 @@ const WAVE_2_SLUGS = [
   "ai-for-small-business",
   "ai-tools-for-small-business",
 ];
+// Wave 4 batch: last updated 2026-07-23 (retention, subscription-recovery,
+// lifecycle, and conversion cluster).
+const WAVE_4_SLUGS = [
+  "customer-retention-strategy",
+  "reduce-customer-churn",
+  "payment-recovery",
+  "customer-lifecycle-marketing",
+  "conversion-rate-optimization",
+];
 function expectedLastUpdated(slug) {
   if (BATCH_1_SLUGS.includes(slug)) return "2026-07-09";
   if (WAVE_1_REMAINING_SLUGS.includes(slug)) return "2026-07-15";
   if (WAVE_2_SLUGS.includes(slug)) return "2026-07-22";
+  if (WAVE_4_SLUGS.includes(slug)) return "2026-07-23";
   return "2026-07-14";
 }
 // Stage 1 competency pages that carry a DefinedTerm joined to the hub's set.
@@ -83,13 +98,14 @@ const PILLAR_ARTICLE_SLUGS = [
   "fractional-coo-cost",
   "ai-for-small-business",
   "ai-tools-for-small-business",
+  ...WAVE_4_SLUGS,
 ];
 // Standalone DefinedTerm pages: cover a Stage 2/3 competency with no hub yet,
 // so no inDefinedTermSet reference. Flatter Home > Learn > <page> breadcrumb.
 const STANDALONE_TERM_SLUGS = ["net-revenue-retention"];
 
 describe("learn page registry", () => {
-  it("has exactly the nineteen approved slugs as keys", () => {
+  it("has exactly the twenty-four approved slugs as keys", () => {
     expect(Object.keys(LEARN_PAGES).sort()).toEqual([...SLUGS].sort());
   });
 
@@ -114,8 +130,10 @@ describe("learn page registry", () => {
       expect(e.ctaButtonLabel.length).toBeGreaterThan(0);
       // Internal CTAs are plain root-relative links. A UTM on an internal hop
       // resets the GA4 session and misattributes the conversion, so no
-      // registry entry may ever carry one.
-      expect(e.ctaUrl).toMatch(/^\/(scorecard|playbook)$/);
+      // registry entry may ever carry one. The Wave 4 bridge-to-service pages
+      // (reduce-customer-churn, payment-recovery, conversion-rate-optimization)
+      // point at /book, still plain and UTM-free.
+      expect(e.ctaUrl).toMatch(/^\/(scorecard|playbook|book)$/);
     }
   });
 
