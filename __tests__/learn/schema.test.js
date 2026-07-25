@@ -18,6 +18,13 @@ const winLoss = LEARN_PAGES["win-loss-analysis"];
 const cooCost = LEARN_PAGES["fractional-coo-cost"];
 const aiForSmb = LEARN_PAGES["ai-for-small-business"];
 const aiTools = LEARN_PAGES["ai-tools-for-small-business"];
+const WAVE_4 = [
+  "customer-retention-strategy",
+  "reduce-customer-churn",
+  "payment-recovery",
+  "customer-lifecycle-marketing",
+  "conversion-rate-optimization",
+].map((s) => LEARN_PAGES[s]);
 
 describe("learn schema helpers", () => {
   it("builds a BreadcrumbList matching the registry breadcrumb", () => {
@@ -111,6 +118,24 @@ describe("learn schema helpers", () => {
       expect(ld.headline).toBe(e.title);
       expect(ld.url).toBe(e.url);
       expect(ld.dateModified).toBe("2026-07-22");
+      expect(ld.author.sameAs).toContain("https://linkedin.com/in/bradleydewet");
+    }
+  });
+
+  it("the Wave 4 pages carry Article schema and join no DefinedTermSet", () => {
+    // Retention, subscription-recovery, lifecycle, and conversion pages are
+    // editorial /learn articles, not maturity competencies. In particular
+    // conversion-rate-optimization is Article, never Service, and none appears
+    // in the Stage 1 hub's DefinedTermSet.
+    for (const e of WAVE_4) {
+      expect(e.pageType).toBe("article");
+      expect(e.definedTerm).toBeUndefined();
+      expect(hub.definedTermSet.hasDefinedTerm).not.toContain(e.url);
+      const ld = getArticleSchema(e);
+      expect(ld["@type"]).toBe("Article");
+      expect(ld.headline).toBe(e.title);
+      expect(ld.url).toBe(e.url);
+      expect(ld.dateModified).toBe("2026-07-23");
       expect(ld.author.sameAs).toContain("https://linkedin.com/in/bradleydewet");
     }
   });

@@ -575,6 +575,54 @@ const CARDS = {
         headlineSize: 46,
       }),
   },
+  // Wave 4: retention, subscription-recovery, lifecycle, conversion cluster.
+  // Headline = each page's on-page dek (title-tag hook), sized to fit the 650px
+  // column the way the earlier learn cards are.
+  'learn-customer-retention-strategy': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'CUSTOMER RETENTION STRATEGY',
+        headline: 'Keep the Revenue You Already Won',
+        headlineSize: 60,
+      }),
+  },
+  'learn-reduce-customer-churn': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'REDUCE CUSTOMER CHURN',
+        headline: 'Catch It While You Can Still Change the Outcome',
+        headlineSize: 52,
+      }),
+  },
+  'learn-payment-recovery': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'PAYMENT RECOVERY',
+        headline: 'What to Fix in Your Billing Before You Buy Software for It',
+        headlineSize: 44,
+      }),
+  },
+  'learn-customer-lifecycle-marketing': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'CUSTOMER LIFECYCLE MARKETING',
+        headline: 'Revenue From the Customers You Already Paid to Acquire',
+        headlineSize: 48,
+      }),
+  },
+  'learn-conversion-rate-optimization': {
+    changed: true,
+    element: () =>
+      learnCard({
+        kicker: 'CONVERSION RATE OPTIMIZATION',
+        headline: 'Fix the Funnel, Not the Button',
+        headlineSize: 60,
+      }),
+  },
 };
 
 // ---- render ---------------------------------------------------------------

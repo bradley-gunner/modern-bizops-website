@@ -20,6 +20,11 @@ import WinLossAnalysisBody from "@/components/learn/content/WinLossAnalysisBody"
 import FractionalCooCostBody from "@/components/learn/content/FractionalCooCostBody";
 import AiForSmallBusinessBody from "@/components/learn/content/AiForSmallBusinessBody";
 import AiToolsForSmallBusinessBody from "@/components/learn/content/AiToolsForSmallBusinessBody";
+import CustomerRetentionStrategyBody from "@/components/learn/content/CustomerRetentionStrategyBody";
+import ReduceCustomerChurnBody from "@/components/learn/content/ReduceCustomerChurnBody";
+import PaymentRecoveryBody from "@/components/learn/content/PaymentRecoveryBody";
+import CustomerLifecycleMarketingBody from "@/components/learn/content/CustomerLifecycleMarketingBody";
+import ConversionRateOptimizationBody from "@/components/learn/content/ConversionRateOptimizationBody";
 import {
   getBreadcrumbSchema,
   getFaqSchema,
@@ -49,6 +54,11 @@ const BODIES = {
   "fractional-coo-cost": FractionalCooCostBody,
   "ai-for-small-business": AiForSmallBusinessBody,
   "ai-tools-for-small-business": AiToolsForSmallBusinessBody,
+  "customer-retention-strategy": CustomerRetentionStrategyBody,
+  "reduce-customer-churn": ReduceCustomerChurnBody,
+  "payment-recovery": PaymentRecoveryBody,
+  "customer-lifecycle-marketing": CustomerLifecycleMarketingBody,
+  "conversion-rate-optimization": ConversionRateOptimizationBody,
 };
 
 // hub -> DefinedTermSet; competency -> DefinedTerm (standalone when the entry

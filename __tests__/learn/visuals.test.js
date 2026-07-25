@@ -24,6 +24,11 @@ const PUBLISH_ORDER = [
   "fractional-coo-cost",
   "ai-for-small-business",
   "ai-tools-for-small-business",
+  "customer-retention-strategy",
+  "reduce-customer-churn",
+  "payment-recovery",
+  "customer-lifecycle-marketing",
+  "conversion-rate-optimization",
 ];
 
 describe("learn visual system", () => {
