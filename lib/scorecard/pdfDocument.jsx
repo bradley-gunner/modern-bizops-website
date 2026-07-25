@@ -240,7 +240,57 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   footerText: { fontSize: 7, color: BRAND.textLight },
+  metaRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    marginTop: 10,
+  },
+  metaName: {
+    fontFamily: 'Cormorant Garamond',
+    fontWeight: 700,
+    fontSize: 14,
+    color: BRAND.navy,
+  },
+  metaSub: { fontSize: 9, color: BRAND.textMid, marginTop: 2 },
+  metaDate: { fontSize: 8, color: BRAND.textLight },
+  qaBlockLabel: {
+    fontFamily: 'Jost',
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    fontSize: 9,
+    color: BRAND.navy,
+    marginTop: 8,
+    marginBottom: 4,
+  },
+  qaRow: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: BRAND.border,
+    paddingVertical: 5,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  qaBody: { flex: 1, paddingRight: 8 },
+  qaPrompt: { fontSize: 9, color: BRAND.textPrimary, fontFamily: 'Jost', fontWeight: 600, marginBottom: 2 },
+  qaAnswer: { fontSize: 9, color: BRAND.textMid, lineHeight: 1.4 },
+  qaScorePill: {
+    fontFamily: 'Jost',
+    fontWeight: 600,
+    fontSize: 7,
+    color: BRAND.white,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
 });
+
+const SECTION_LABELS = {
+  1: 'Your business',
+  2: 'How you operate',
+  3: 'Your numbers',
+};
 
 function badgeStyle(comparison) {
   if (comparison === 'meets') return [styles.badge, styles.badgeMeets];
@@ -317,13 +367,65 @@ function HeatMapRows({ scores }) {
   );
 }
 
-function ResultDocument({ result }) {
+function MetaBlock({ meta }) {
+  if (!meta || (!meta.firstName && !meta.company)) return null;
+  const dateStr = (meta.generatedAt || '').slice(0, 10);
+  return (
+    <View style={styles.metaRow}>
+      <View>
+        {meta.firstName ? <Text style={styles.metaName}>{meta.firstName}</Text> : null}
+        {meta.company ? <Text style={styles.metaSub}>{meta.company}</Text> : null}
+      </View>
+      {dateStr ? <Text style={styles.metaDate}>Prepared {dateStr}</Text> : null}
+    </View>
+  );
+}
+
+function QASection({ questions }) {
+  if (!questions || questions.length === 0) return null;
+  const bySection = { 1: [], 2: [], 3: [] };
+  for (const q of questions) {
+    (bySection[q.section] || (bySection[q.section] = [])).push(q);
+  }
+  return (
+    <View break>
+      <Text style={styles.h2}>Your answers</Text>
+      <Text style={styles.p}>The full set of responses this result was built from.</Text>
+      <View style={styles.card}>
+        {[1, 2, 3].map((section) =>
+          bySection[section] && bySection[section].length > 0 ? (
+            <View key={section}>
+              <Text style={styles.qaBlockLabel}>{SECTION_LABELS[section]}</Text>
+              {bySection[section].map((q) => (
+                <View key={q.id} style={styles.qaRow} wrap={false}>
+                  <View style={styles.qaBody}>
+                    <Text style={styles.qaPrompt}>{q.prompt}</Text>
+                    <Text style={styles.qaAnswer}>{q.answer || 'No answer'}</Text>
+                  </View>
+                  {typeof q.score === 'number' ? (
+                    <Text style={[styles.qaScorePill, { backgroundColor: DOT_FILL_BY_SCORE[q.score] || BRAND.textLight }]}>
+                      {q.score}/4 {LEVEL_WORDS[q.score]}
+                    </Text>
+                  ) : null}
+                </View>
+              ))}
+            </View>
+          ) : null
+        )}
+      </View>
+    </View>
+  );
+}
+
+function ResultDocument({ result, meta, questions }) {
   return (
     <Document>
       <Page size="LETTER" style={styles.page}>
         <View style={styles.header} fixed>
           <Image src={LOGO_PATH} style={styles.logo} alt="" />
         </View>
+
+        <MetaBlock meta={meta} />
 
         <Text style={styles.h1}>{result.headline.lead}</Text>
         <Text style={styles.p}>{result.headline.subline}</Text>
@@ -414,6 +516,8 @@ function ResultDocument({ result }) {
           </View>
         </View>
 
+        <QASection questions={questions} />
+
         <View style={styles.footer} fixed>
           <Text style={styles.footerText}>Modern BizOps Revenue Maturity Scorecard</Text>
           <Text style={styles.footerText}>{result.generatedAt.slice(0, 10)}</Text>
@@ -423,8 +527,13 @@ function ResultDocument({ result }) {
   );
 }
 
-export async function renderResultPdf(result) {
-  return renderToBuffer(<ResultDocument result={result} />);
+/**
+ * Render the branded result PDF. `options.meta` adds the prospect name/company/
+ * date header; `options.questions` (from answeredQuestions()) adds the "Your
+ * answers" appendix. Both are optional, so the 1-arg form stays valid.
+ */
+export async function renderResultPdf(result, { meta, questions } = {}) {
+  return renderToBuffer(<ResultDocument result={result} meta={meta} questions={questions} />);
 }
 
 export default ResultDocument;
