@@ -138,15 +138,45 @@ describe('POST /api/scorecard/submit', () => {
     expect(res.status).toBe(502);
   });
 
-  it('still returns the result when the contact is not found yet', async () => {
+  it('still returns the result when the contact never indexes, after bounded retries', async () => {
+    vi.useFakeTimers();
     hubspotMock.findContactByEmail.mockResolvedValue(null);
-    const res = await callRoute(fixtureBody());
+    const p = callRoute(fixtureBody());
+    await vi.runAllTimersAsync();
+    const res = await p;
+    vi.useRealTimers();
+
     expect(res.status).toBe(200);
     const json = await res.json();
     expect(json.success).toBe(true);
     expect(json.contactId).toBeNull();
+    // Bounded: retried up to 5 times, then gave up.
+    expect(hubspotMock.findContactByEmail).toHaveBeenCalledTimes(5);
     expect(hubspotMock.markContactForReview).not.toHaveBeenCalled();
     expect(hubspotMock.writeScorecardResultProperties).not.toHaveBeenCalled();
+  });
+
+  it('retries past the search-index lag and enriches once the contact appears', async () => {
+    vi.useFakeTimers();
+    // Not indexed on the first lookup, then resolves on the retry.
+    hubspotMock.findContactByEmail
+      .mockResolvedValueOnce(null)
+      .mockResolvedValue('contact-123');
+    const p = callRoute(fixtureBody());
+    await vi.runAllTimersAsync();
+    const res = await p;
+    vi.useRealTimers();
+
+    expect(res.status).toBe(200);
+    const json = await res.json();
+    expect(json.contactId).toBe('contact-123');
+    expect(hubspotMock.findContactByEmail).toHaveBeenCalledTimes(2);
+    // Enrichment still lands on the retried contact.
+    expect(hubspotMock.markContactForReview).toHaveBeenCalledWith('contact-123');
+    expect(hubspotMock.writeScorecardResultProperties).toHaveBeenCalledWith(
+      'contact-123',
+      expect.objectContaining({ scorecard_maturity_stage: 'Reactive' })
+    );
   });
 
   it('rejects missing email', async () => {
