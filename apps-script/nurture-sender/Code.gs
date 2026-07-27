@@ -30,16 +30,36 @@ var CADENCE = { 2: 3, 3: 7, 4: 12, 5: 18, 6: 25 };
 var HUBSPOT_API = 'https://api.hubapi.com';
 var HS_PORTAL_ID = '244508932'; // na2 (informational; api.hubapi.com routes by token)
 
-/** Plain-text Gmail default signature. GmailApp does NOT auto-append it, so it
- *  is included in every templated body. Single source of truth: Sequence Plan section 6. */
-var SIGNATURE = [
+/** Gmail default signature (Sequence Plan section 6). GmailApp does NOT auto-append
+ *  it, so it is built into every send. Emails go out as minimal HTML (htmlBody) with
+ *  a plain-text fallback: HTML gives real LinkedIn/YouTube links and correct rendering
+ *  of the "·"/"→" glyphs, which mangle in a plain-text part on some clients. */
+var LINKEDIN_URL = 'https://linkedin.com/in/bradleydewet';
+var YOUTUBE_URL = 'https://youtube.com/@BradleydeWetModernBizOps';
+var SITE_URL = 'https://modernbizops.com';
+var SCORECARD_URL = 'https://modernbizops.com/scorecard';
+
+// Plain-text fallback signature. ASCII only, so no client mis-decodes it.
+var SIGNATURE_TEXT = [
   '--',
   'Bradley de Wet',
-  'RevOps Coach · Modern BizOps',
+  'RevOps Coach | Modern BizOps',
   'Making marketing, sales, and service one machine. More money, less chaos.',
-  'Get my free Revenue Growth Scorecard →',
-  'modernbizops.com | LinkedIn | YouTube'
+  'Get my free Revenue Growth Scorecard: ' + SCORECARD_URL,
+  SITE_URL + ' | ' + LINKEDIN_URL + ' | ' + YOUTUBE_URL
 ].join('\n');
+
+// HTML signature (primary). Real hyperlinks + HTML entities render correctly everywhere.
+var SIGNATURE_HTML = [
+  '--',
+  'Bradley de Wet',
+  'RevOps Coach &middot; Modern BizOps',
+  'Making marketing, sales, and service one machine. More money, less chaos.',
+  '<a href="' + SCORECARD_URL + '">Get my free Revenue Growth Scorecard &rarr;</a>',
+  '<a href="' + SITE_URL + '">modernbizops.com</a> | ' +
+    '<a href="' + LINKEDIN_URL + '">LinkedIn</a> | ' +
+    '<a href="' + YOUTUBE_URL + '">YouTube</a>'
+].join('<br>');
 
 /** Build the /book link for E5/E6, carrying the nurture-email UTM (Sequence Plan section 7).
  *  Apex host (canonical) to avoid the www 308 redirect hop. */
@@ -296,7 +316,8 @@ function processContact_(contact, live) {
     return 'sent';
   }
 
-  GmailApp.sendEmail(email, msg.subject, msg.body, {
+  GmailApp.sendEmail(email, msg.subject, msg.text, {
+    htmlBody: msg.html,
     bcc: props_().getProperty('HUBSPOT_BCC'),
     name: 'Bradley de Wet'
   });
@@ -325,14 +346,28 @@ function renderTemplate_(track, step, p) {
   var topGap = (p.scorecard_top_gap || '').trim() || 'the gap it flagged';
   var link = bookLink(track, step);
 
-  var body = t.body
-    .replace(/\{\{firstName\}\}/g, firstName)
-    .replace(/\{\{topGap\}\}/g, topGap)
-    .replace(/\{\{book_link\}\}/g, link);
-
   var subject = t.subject.replace(/\{\{firstName\}\}/g, firstName);
 
-  return { subject: subject, body: body + '\n\n' + SIGNATURE };
+  // Plain-text part (fallback): raw tokens + ASCII signature.
+  var text = t.body
+    .replace(/\{\{firstName\}\}/g, firstName)
+    .replace(/\{\{topGap\}\}/g, topGap)
+    .replace(/\{\{book_link\}\}/g, link) + '\n\n' + SIGNATURE_TEXT;
+
+  // HTML part (primary): escaped merge values, linked book URL, <br> line breaks.
+  var htmlBody = t.body
+    .replace(/\{\{firstName\}\}/g, escapeHtml_(firstName))
+    .replace(/\{\{topGap\}\}/g, escapeHtml_(topGap))
+    .replace(/\{\{book_link\}\}/g, '<a href="' + link + '">' + link + '</a>')
+    .replace(/\n/g, '<br>');
+  var html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;' +
+    'line-height:1.5;color:#222222">' + htmlBody + '<br><br>' + SIGNATURE_HTML + '</div>';
+
+  return { subject: subject, text: text, html: html };
+}
+
+function escapeHtml_(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function deriveTrack_(leadMagnet) {
