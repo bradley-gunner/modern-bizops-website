@@ -506,4 +506,4 @@ function installTrigger() {
 // ---------------------------------------------------------------------------
 
 function props_() { return PropertiesService.getScriptProperties(); }
-function log_(msg) { Logger.log(msg); console.log(msg); }
+function log_(msg) { console.log(msg); }
