@@ -44,7 +44,7 @@ Approved copy: `Marketing Systems/Email Loop - Sequence Plan and Drafts.md` (Rev
 
 Emails send as **minimal HTML** (`GmailApp.sendEmail` with `htmlBody`), styled to still read like a personal typed email, with the plain-text version kept as the automatic fallback part. HTML gives working links and correct rendering of glyphs like `·`/`→` that mojibake in a plain-text-only send.
 
-The signature is **read live from your Gmail settings** (`users.settings.sendAs`, primary send-as) on each run, so it always matches whatever is set in Gmail — no hand-maintained copy. `getSignatureHtml_()` fetches it (cached per run) using the already-granted `mail.google.com` scope; if that call ever fails it falls back to `SIGNATURE_HTML_FALLBACK` in the script so sends never break. Run `logSignature()` to see exactly what it will use.
+The signature is **read live from your Gmail settings** (`Gmail.Users.Settings.SendAs.list`, primary send-as) on each run, so it always matches whatever is set in Gmail — no hand-maintained copy. This uses the Gmail **advanced service**, which must be enabled once in the editor: **Services (+) -> Gmail API -> Add** (this also enables the Gmail API on the script's system Cloud project, which the Cloud console cannot do for system projects). `getSignatureHtml_()` is cached per run; if the call ever fails it falls back to `SIGNATURE_HTML_FALLBACK` so sends never break. Run `logSignature()` to see exactly what it will use.
 
 ## Verification (before going live)
 

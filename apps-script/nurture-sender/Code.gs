@@ -64,8 +64,12 @@ var SIGNATURE_HTML_FALLBACK = [
 /**
  * The real HTML signature from Bradley's Gmail settings (the primary send-as
  * address), fetched live so it always matches what's set in Gmail. Cached for
- * the run. Falls back to SIGNATURE_HTML_FALLBACK if the Gmail settings call
- * fails. Uses the already-granted mail.google.com scope; no re-auth needed.
+ * the run. Falls back to SIGNATURE_HTML_FALLBACK if the fetch fails.
+ *
+ * Uses the Gmail ADVANCED SERVICE (the `Gmail` symbol), which must be enabled in
+ * the editor: Services (+) -> Gmail API -> Add. The advanced service enables the
+ * Gmail API on the script's system Cloud project automatically, so this works
+ * without touching the Cloud console (a raw REST call does not).
  */
 var SIGNATURE_HTML_CACHE = null;
 
@@ -73,19 +77,13 @@ function getSignatureHtml_() {
   if (SIGNATURE_HTML_CACHE !== null) return SIGNATURE_HTML_CACHE;
   var html = '';
   try {
-    var res = UrlFetchApp.fetch(
-      'https://gmail.googleapis.com/gmail/v1/users/me/settings/sendAs',
-      { headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true });
-    if (res.getResponseCode() === 200) {
-      var list = JSON.parse(res.getContentText()).sendAs || [];
-      var chosen = null;
-      for (var i = 0; i < list.length; i++) { if (list[i].isPrimary) { chosen = list[i]; break; } }
-      if (!chosen && list.length) chosen = list[0];
-      if (chosen && chosen.signature) html = chosen.signature;
-      if (!html) log_('Gmail signature is empty; using fallback.');
-    } else {
-      log_('Gmail signature fetch failed (' + res.getResponseCode() + '); using fallback. ' + res.getContentText());
-    }
+    var resp = Gmail.Users.Settings.SendAs.list('me');
+    var list = (resp && resp.sendAs) || [];
+    var chosen = null;
+    for (var i = 0; i < list.length; i++) { if (list[i].isPrimary) { chosen = list[i]; break; } }
+    if (!chosen && list.length) chosen = list[0];
+    if (chosen && chosen.signature) html = chosen.signature;
+    if (!html) log_('Gmail signature is empty; using fallback.');
   } catch (e) {
     log_('Gmail signature fetch error; using fallback: ' + e);
   }
