@@ -536,7 +536,10 @@ function bootstrapProperties() {
       options: ['active', 'replied', 'booked', 'unsubscribed', 'completed'].map(function (v) {
         return { label: v.charAt(0).toUpperCase() + v.slice(1), value: v };
       }) },
-    { name: 'nurture_started_at', label: 'Nurture Started At', type: 'datetime', fieldType: 'date' }
+    { name: 'nurture_started_at', label: 'Nurture Started At', type: 'datetime', fieldType: 'date' },
+    // E1 gate fields (string, so any writer can set 'sent'; the sender only reads === 'sent').
+    { name: 'scorecard_email1_status', label: 'Scorecard Email 1 Status', type: 'string', fieldType: 'text' },
+    { name: 'playbook_email1_status', label: 'Playbook Email 1 Status', type: 'string', fieldType: 'text' }
   ];
 
   defs.forEach(function (def) {
