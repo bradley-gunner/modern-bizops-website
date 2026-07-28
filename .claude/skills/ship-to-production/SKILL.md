@@ -200,6 +200,44 @@ What actually works, via the Chrome MCP driving the GSC UI
 A fresh page typically shows "Discovered - currently not indexed" right after
 sitemap pickup; that is normal, not an error.
 
+## 9. Write the board receipt (added 2026-07-28)
+
+**Last step, and not optional.** Everything above ends inside this repo, Vercel, or GSC. None of
+it is visible to the Modern BizOps operating board, which is where Bradley actually decides what
+to work on. This step is the only thing that crosses that boundary.
+
+Why it exists: on 2026-07-28 the board was reconciled against live sources and nine claims were
+wrong. Every one of them described work that had finished somewhere else and never came back. The
+board carried "26 /learn pages" when the sitemap had 24, and did not know about a ten-page pSEO
+batch that had shipped from this repo days earlier.
+
+Write one file, using the template and contract in
+`/Users/bradleydewet/Documents/Claude/Projects/Modern BizOps/state/inbox/`:
+
+```bash
+INBOX="/Users/bradleydewet/Documents/Claude/Projects/Modern BizOps/state/inbox"
+cp "$INBOX/_TEMPLATE.md" "$INBOX/$(date +%F)-site-<PR#>.md"
+# then fill it in
+```
+
+Fill every field. Three matter most for this repo:
+
+- **`board:`** the item ids from `state/board.yaml` this closes, advances or unblocks. Read the
+  board first, do not guess ids. If nothing matches, say so under `new:`.
+- **`verify:`** the URL, command or connector query a later session runs to confirm this
+  independently. **A receipt is a lead, not a proof.** The dreaming pass re-checks before it
+  proposes anything, and if the probe disagrees the probe wins.
+- **Page inventory.** If this PR added, removed or renamed any indexable page, say so explicitly
+  and give the new total. Page counts on the board have gone stale twice, and a live sitemap
+  fetch is the cheapest verify line there is:
+  `curl -s https://www.modernbizops.com/sitemap.xml | grep -c '<loc>'`
+
+**Do NOT edit `board.yaml` or the board artifact from this repo.** One writer owns the board, and
+that is the dreaming pass with Bradley approving.
+
+If the Modern BizOps folder is unreachable, say so in your report-back rather than skipping
+silently.
+
 ## Reporting back
 
 Tell the user, with links: the PR (`https://github.com/<owner>/<repo>/pull/<n>`),
