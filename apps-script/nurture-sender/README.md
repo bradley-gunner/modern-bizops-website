@@ -80,6 +80,22 @@ Reused existing fields: `lead_magnet` (track source), `engagement_status` (skip
 
 `booked` is set by the calendar/booking side; this sender only honors it.
 
+## The E1 gate (how E2 is released)
+
+E2 does not send until the lead's **personalized Email 1** (composed and hand-sent
+by Bradley via the Cowork skills) has gone out. The sender clears the gate two ways:
+
+1. **Explicit** — if `{track}_email1_status` is `sent`, the gate is cleared (fast path).
+2. **Auto-detected** — otherwise the sender looks in Bradley's Sent mail for the
+   first message he sent to that lead **on/after the lead's `createdate`** (its funnel
+   entry). Finding one means Email 1 went out: the sender sets `{track}_email1_status
+   = 'sent'`, sets `nurture_status = active`, and anchors `nurture_started_at` to that
+   email's actual date, so the E2 d3 / E3 d7 / … cadence counts from when E1 was sent.
+
+So no manual bookkeeping is required: send Email 1 by hand, and the next daily run
+picks it up. The `createdate` floor keeps a pre-existing unrelated thread from
+falsely clearing the gate for a lead who was already a contact.
+
 ## Not handled here
 
 - **E1 of either spine** (owned by the Cowork skills).

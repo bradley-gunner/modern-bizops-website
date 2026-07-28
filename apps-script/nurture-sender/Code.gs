@@ -214,7 +214,7 @@ var UNSUBSCRIBE_PATTERNS = [/\bunsubscribe\b/i, /\bremove me\b/i, /\bstop\b/i];
 
 /** HubSpot contact properties the run needs. */
 var FETCH_PROPS = [
-  'email', 'firstname', 'lead_magnet', 'engagement_status',
+  'email', 'firstname', 'createdate', 'lead_magnet', 'engagement_status',
   'nurture_track', 'nurture_step', 'nurture_status',
   'nurture_last_sent_at', 'nurture_started_at',
   'scorecard_top_gap', 'scorecard_email1_status', 'playbook_email1_status'
@@ -293,23 +293,35 @@ function processContact_(contact, live) {
 
   var targetStep = step + 1;
 
-  // E1 gate: never send E2 until this lead's Email 1 is marked sent.
+  // E1 gate: never send E2 until this lead's personalized Email 1 has been sent.
+  // The Email 1 skills stage a Gmail draft that Bradley sends by hand, so the
+  // reliable "E1 was sent" signal is a real message from Bradley to this lead in
+  // his Sent mail. An explicit {track}_email1_status = 'sent' is honored as a
+  // fast path; otherwise we auto-detect that first sent email (dated on/after the
+  // lead's funnel entry = its createdate) and anchor the cadence to its date.
   var startedAt = toMillis_(p.nurture_started_at);
   if (targetStep === 2) {
     var e1Field = track + '_email1_status';
     var e1Status = (p[e1Field] || '').trim();
-    if (e1Status !== 'sent') {
-      log_('SKIP ' + label + ': E1 gate not cleared (' + e1Field + '=' + (e1Status || 'unset') + ').');
-      return 'skipped';
-    }
-    // E1 is sent; anchor the cadence when we first observe it.
-    if (!startedAt) {
-      startedAt = Date.now();
-      if (live) patchContact_(contact.id, {
-        nurture_started_at: startedAt,
-        nurture_status: 'active'
-      });
-      log_('ANCHOR ' + label + ': set nurture_started_at (E1 sent).');
+    var funnelEntry = toMillis_(p.createdate);
+
+    if (e1Status === 'sent') {
+      if (!startedAt) {
+        startedAt = detectEmail1Sent_(email, funnelEntry) || Date.now();
+        if (live) patchContact_(contact.id, { nurture_started_at: startedAt, nurture_status: 'active' });
+        log_('ANCHOR ' + label + ': set nurture_started_at (E1 marked sent).');
+      }
+    } else {
+      // Not marked sent; look for the personalized Email 1 in Bradley's Sent mail.
+      startedAt = detectEmail1Sent_(email, funnelEntry);
+      if (!startedAt) {
+        log_('SKIP ' + label + ': E1 gate not cleared (no personalized Email 1 sent yet).');
+        return 'skipped';
+      }
+      var gatePatch = { nurture_started_at: startedAt, nurture_status: 'active' };
+      gatePatch[e1Field] = 'sent';
+      if (live) patchContact_(contact.id, gatePatch);
+      log_('E1 DETECTED ' + label + ': personalized Email 1 found in Sent mail; gate cleared, anchored to its date.');
     }
   }
 
@@ -455,6 +467,36 @@ function detectReply_(email, sinceMillis) {
 function isFrom_(message, email) {
   var from = (message.getFrom() || '').toLowerCase();
   return from.indexOf(email.toLowerCase()) !== -1;
+}
+
+/**
+ * Detect the lead's personalized Email 1: the earliest message Bradley sent TO
+ * this address on/after the funnel-entry time (createdate). Returns its epoch-
+ * millis date, or 0 if none. At the E1 gate the sender has not sent anything to
+ * the lead yet, so the first Bradley -> lead email is Email 1, not one of E2-6.
+ * The createdate floor keeps a pre-existing unrelated thread from clearing the gate.
+ */
+function detectEmail1Sent_(email, sinceMillis) {
+  var me = getMyEmail_();
+  var threads = GmailApp.search('to:' + email + ' from:me', 0, 20);
+  var earliest = 0;
+  for (var i = 0; i < threads.length; i++) {
+    var msgs = threads[i].getMessages();
+    for (var j = 0; j < msgs.length; j++) {
+      var m = msgs[j];
+      var when = m.getDate().getTime();
+      if (sinceMillis && when < sinceMillis) continue;
+      if (me && (m.getFrom() || '').toLowerCase().indexOf(me) === -1) continue;
+      var to = ((m.getTo() || '') + ',' + (m.getCc() || '')).toLowerCase();
+      if (to.indexOf(email.toLowerCase()) === -1) continue;
+      if (earliest === 0 || when < earliest) earliest = when;
+    }
+  }
+  return earliest;
+}
+
+function getMyEmail_() {
+  try { return (Session.getActiveUser().getEmail() || '').toLowerCase(); } catch (e) { return ''; }
 }
 
 // ---------------------------------------------------------------------------
