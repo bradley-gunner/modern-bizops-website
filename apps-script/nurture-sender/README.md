@@ -37,7 +37,14 @@ Approved copy: `Marketing Systems/Email Loop - Sequence Plan and Drafts.md` (Rev
    | `HUBSPOT_BCC` | The portal's free BCC logging address (HubSpot -> Settings -> Objects -> Activities -> Email -> "Log emails you send"; looks like `...@bcc.hubspot.com`). |
    | `SEND_MODE` | `dry_run` |
 5. Run `bootstrapProperties()` once. Approve the OAuth consent when prompted. It creates the five `nurture_*` contact properties if missing (idempotent, skips any that already exist).
-6. Run `run()` once (still `dry_run`) and read the execution log. See verification below.
+6. Run `logSignature()` once and read the log to confirm the sender sees your real Gmail signature (see Email format below).
+7. Run `run()` once (still `dry_run`) and read the execution log. See verification below.
+
+## Email format & signature
+
+Emails send as **minimal HTML** (`GmailApp.sendEmail` with `htmlBody`), styled to still read like a personal typed email, with the plain-text version kept as the automatic fallback part. HTML gives working links and correct rendering of glyphs like `·`/`→` that mojibake in a plain-text-only send.
+
+The signature is **read live from your Gmail settings** (`users.settings.sendAs`, primary send-as) on each run, so it always matches whatever is set in Gmail — no hand-maintained copy. `getSignatureHtml_()` fetches it (cached per run) using the already-granted `mail.google.com` scope; if that call ever fails it falls back to `SIGNATURE_HTML_FALLBACK` in the script so sends never break. Run `logSignature()` to see exactly what it will use.
 
 ## Verification (before going live)
 

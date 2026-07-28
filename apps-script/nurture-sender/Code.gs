@@ -49,8 +49,8 @@ var SIGNATURE_TEXT = [
   SITE_URL + ' | ' + LINKEDIN_URL + ' | ' + YOUTUBE_URL
 ].join('\n');
 
-// HTML signature (primary). Real hyperlinks + HTML entities render correctly everywhere.
-var SIGNATURE_HTML = [
+// HTML signature FALLBACK. Used only if the live Gmail-signature fetch fails.
+var SIGNATURE_HTML_FALLBACK = [
   '--',
   'Bradley de Wet',
   'RevOps Coach &middot; Modern BizOps',
@@ -60,6 +60,51 @@ var SIGNATURE_HTML = [
     '<a href="' + LINKEDIN_URL + '">LinkedIn</a> | ' +
     '<a href="' + YOUTUBE_URL + '">YouTube</a>'
 ].join('<br>');
+
+/**
+ * The real HTML signature from Bradley's Gmail settings (the primary send-as
+ * address), fetched live so it always matches what's set in Gmail. Cached for
+ * the run. Falls back to SIGNATURE_HTML_FALLBACK if the Gmail settings call
+ * fails. Uses the already-granted mail.google.com scope; no re-auth needed.
+ */
+var SIGNATURE_HTML_CACHE = null;
+
+function getSignatureHtml_() {
+  if (SIGNATURE_HTML_CACHE !== null) return SIGNATURE_HTML_CACHE;
+  var html = '';
+  try {
+    var res = UrlFetchApp.fetch(
+      'https://gmail.googleapis.com/gmail/v1/users/me/settings/sendAs',
+      { headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true });
+    if (res.getResponseCode() === 200) {
+      var list = JSON.parse(res.getContentText()).sendAs || [];
+      var chosen = null;
+      for (var i = 0; i < list.length; i++) { if (list[i].isPrimary) { chosen = list[i]; break; } }
+      if (!chosen && list.length) chosen = list[0];
+      if (chosen && chosen.signature) html = chosen.signature;
+      if (!html) log_('Gmail signature is empty; using fallback.');
+    } else {
+      log_('Gmail signature fetch failed (' + res.getResponseCode() + '); using fallback. ' + res.getContentText());
+    }
+  } catch (e) {
+    log_('Gmail signature fetch error; using fallback: ' + e);
+  }
+  SIGNATURE_HTML_CACHE = html || SIGNATURE_HTML_FALLBACK;
+  return SIGNATURE_HTML_CACHE;
+}
+
+/** Minimal HTML-to-text for the plain-text fallback part (links kept as "text (url)"). */
+function htmlToText_(html) {
+  return String(html)
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|tr|li|h[1-6])>/gi, '\n')
+    .replace(/<a\b[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi, '$2 ($1)')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/gi, ' ').replace(/&middot;/gi, '|').replace(/&rarr;/gi, '')
+    .replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
+    .replace(/&#39;|&rsquo;/gi, "'").replace(/&quot;/gi, '"')
+    .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+}
 
 /** Build the /book link for E5/E6, carrying the nurture-email UTM (Sequence Plan section 7).
  *  Apex host (canonical) to avoid the www 308 redirect hop. */
@@ -345,23 +390,26 @@ function renderTemplate_(track, step, p) {
   var firstName = (p.firstname || '').trim() || 'there';
   var topGap = (p.scorecard_top_gap || '').trim() || 'the gap it flagged';
   var link = bookLink(track, step);
+  var sigHtml = getSignatureHtml_();
+  var sigText = htmlToText_(sigHtml) || SIGNATURE_TEXT;
 
   var subject = t.subject.replace(/\{\{firstName\}\}/g, firstName);
 
-  // Plain-text part (fallback): raw tokens + ASCII signature.
+  // Plain-text part (fallback): raw tokens + plain rendering of the signature.
   var text = t.body
     .replace(/\{\{firstName\}\}/g, firstName)
     .replace(/\{\{topGap\}\}/g, topGap)
-    .replace(/\{\{book_link\}\}/g, link) + '\n\n' + SIGNATURE_TEXT;
+    .replace(/\{\{book_link\}\}/g, link) + '\n\n' + sigText;
 
-  // HTML part (primary): escaped merge values, linked book URL, <br> line breaks.
+  // HTML part (primary): escaped merge values, linked book URL, <br> line breaks,
+  // then the live Gmail signature appended exactly as set in Gmail.
   var htmlBody = t.body
     .replace(/\{\{firstName\}\}/g, escapeHtml_(firstName))
     .replace(/\{\{topGap\}\}/g, escapeHtml_(topGap))
     .replace(/\{\{book_link\}\}/g, '<a href="' + link + '">' + link + '</a>')
     .replace(/\n/g, '<br>');
   var html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;' +
-    'line-height:1.5;color:#222222">' + htmlBody + '<br><br>' + SIGNATURE_HTML + '</div>';
+    'line-height:1.5;color:#222222">' + htmlBody + '</div><br><br>' + sigHtml;
 
   return { subject: subject, text: text, html: html };
 }
@@ -534,6 +582,16 @@ function installTrigger() {
   }
   ScriptApp.newTrigger('run').timeBased().everyDays(1).atHour(8).create();
   log_('Installed daily run() trigger (~08:00 project time).');
+}
+
+/** Diagnostic: print the live Gmail signature the sender will use. Run manually to verify. */
+function logSignature() {
+  SIGNATURE_HTML_CACHE = null; // force a fresh fetch
+  var html = getSignatureHtml_();
+  var usedFallback = (html === SIGNATURE_HTML_FALLBACK);
+  log_('Using ' + (usedFallback ? 'FALLBACK signature (Gmail fetch failed/empty)' : 'live Gmail signature') + ':');
+  log_('--- HTML ---\n' + html);
+  log_('--- Plain-text rendering ---\n' + htmlToText_(html));
 }
 
 // ---------------------------------------------------------------------------
