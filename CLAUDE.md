@@ -36,6 +36,31 @@ gone stale twice. The cheapest verify line there is:
 curl -s https://www.modernbizops.com/sitemap.xml | grep -c '<loc>'
 ```
 
+## Where plans live (added 2026-07-30)
+
+| File | Holds | Never holds |
+|---|---|---|
+| [ROADMAP.md](ROADMAP.md) | The forward plan for **this repo**: what is next, the backlog | Anything already shipped |
+| `Modern BizOps/state/board.yaml` | Business priorities, which loop, what is worth doing | Engineering detail |
+| `~/RevOps Coaching App/ROADMAP.md` | The forward plan for the client-facing app | Anything about this repo |
+
+**Linkage.** A board item concerning this repo carries a `roadmap:` reference
+naming a heading in `ROADMAP.md`; an entry there carries its board item id where
+one exists. Neither is the other's copy: the board says *whether and when*, the
+roadmap says *what and how*. On priority the board wins; on technical scope the
+roadmap wins.
+
+**Keep `ROADMAP.md` small, and keep shipped detail out of it.** The app repo's
+roadmap reached 560 KB by accumulating per-PR narrative until nobody opened it,
+and then four PRs shipped from that repo with no close-out at all. Shipped detail
+belongs in the receipt and the git log. "Status at a Glance" is a snapshot that
+gets **rewritten** each ship, never appended to.
+
+**Anything this repo owns that another repo gave up belongs in `ROADMAP.md`.**
+The scorecard lead magnet moved here from the app repo across six weeks and two
+PRs and was written into neither repo's plan until 2026-07-30. Cross-repo
+ownership transfers are the thing most likely to fall between the two files.
+
 ## Copy conventions
 
 Bradley's voice rules apply to anything a visitor reads. **No em dashes anywhere.** No corporate
