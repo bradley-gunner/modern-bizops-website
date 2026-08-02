@@ -2,7 +2,7 @@ import Script from "next/script";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import { getOrganizationSchema, getServiceSchema, getPersonSchema } from "./schema";
-import { GA_MEASUREMENT_ID, CLARITY_PROJECT_ID } from "@/lib/analytics";
+import { GA_MEASUREMENT_ID, CLARITY_PROJECT_ID, HUBSPOT_PORTAL_ID } from "@/lib/analytics";
 import UtmCapture from "@/components/UtmCapture";
 
 // next/font self-hosts both fonts, adds <link rel="preload"> automatically,
@@ -118,6 +118,30 @@ export default function RootLayout({ children }) {
               })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
             `}
           </Script>
+        )}
+        {/* HubSpot tracking code. Two jobs, and the second one is the reason
+            this is not optional: it powers HubSpot's buyer intent (which
+            companies are visiting), AND it is the only thing that sets the
+            `hubspotutk` cookie that lib/hubspot-client.js reads and the
+            scorecard and playbook forms send as context.hutk. Without it those
+            forms were posting an empty hutk and HubSpot was recording Original
+            Source as INTEGRATION.
+
+            Production only, matching Clarity above. Note the same caveat: on
+            Vercel, NODE_ENV is "production" for PREVIEW deployments too, so
+            this does not exclude previews. That matters more here than it does
+            for Clarity, because buyer intent turns a visit into a company in the
+            Visitors list. The enforcement lives in HubSpot rather than in this
+            check: Settings > Tracking & Analytics > Advanced Tracking >
+            "Limit tracking to these domains", with modernbizops.com the only
+            external domain listed. Turn that on once this is confirmed
+            reporting, not before, or tracking fails silently. */}
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            id="hs-script-loader"
+            src={`https://js-na2.hs-scripts.com/${HUBSPOT_PORTAL_ID}.js`}
+            strategy="afterInteractive"
+          />
         )}
         <UtmCapture />
         {children}
