@@ -78,7 +78,15 @@ export async function generateMetadata({ params }) {
   const entry = LEARN_PAGES[slug];
   if (!entry) return {};
   return {
-    title: entry.title,
+    // `absolute` opts /learn pages out of the root " | Modern BizOps" title
+    // template in app/layout.js. The suffix cost 16 characters and pushed most
+    // of these titles past Google's roughly 60-character truncation point.
+    // Note for anyone comparing this against the drafting files under
+    // Marketing Systems/SEO Pilot/published/: a rendered title is the registry
+    // entry PLUS whatever template applies. The suffix appears in none of those
+    // files, which is why the truncation went unnoticed for three weeks. The
+    // rest of the site keeps the template deliberately.
+    title: { absolute: entry.title },
     description: entry.metaDescription,
     alternates: { canonical: entry.url },
     openGraph: {
