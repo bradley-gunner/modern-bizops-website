@@ -5,15 +5,18 @@ description: >-
   /learn/[slug] hub on modernbizops.com: transcribe the staged markdown spec
   verbatim into the registry-driven architecture, wire schema and OG images,
   update the sitemap, ship, and run the post-publish loop (GSC, UTM registry,
-  Cowork notify). Use whenever a batch of approved /learn pages needs
-  publishing, when upgrading a "forthcoming" competency mention to a live link,
-  or when someone says "publish the next batch" for the SEO pilot.
+  live snippet-length check, board receipt). Use whenever a batch of approved
+  /learn pages needs publishing, when upgrading a "forthcoming" competency
+  mention to a live link, or when someone says "publish the next batch" for the
+  SEO pilot.
 ---
 
 # Publish an approved /learn page
 
 The SEO/AEO pilot publishes long-form pages under `/learn/[slug]`. Content is
-drafted and approved in Cowork sessions; this repo implements it. The
+drafted and approved elsewhere; this repo implements it. (That drafting used to
+happen in Cowork sessions. Cowork stopped being used in August 2026, so specs
+now come from code sessions and land in the same folder.) The
 architecture is registry-driven, so each new page is four code touchpoints plus
 assets. Batch 1 (July 2026, PR #33) is the reference implementation.
 
@@ -21,7 +24,8 @@ assets. Batch 1 (July 2026, PR #33) is the reference implementation.
 
 Approved specs live at
 `~/Documents/Claude/Projects/Modern BizOps/Marketing Systems/SEO Pilot/`
-(check `pending-approval/` or wherever Cowork stages the batch). Each file:
+(check `pending-approval/` for staged batches and `published/` for shipped ones,
+which is where a batch moves on publish). Each file:
 
 - Everything ABOVE the first `---` is draft-note commentary for Bradley.
   Ignore it for page content, but READ it: it often contains judgment calls
@@ -57,6 +61,23 @@ Approved specs live at
    slug `crm-architecture-governance`, URL `/learn/crm-architecture-and-governance`.
    Never assume; check both.
 6. No em dashes anywhere.
+7. **A spec's title tag is not the rendered title, and transcribing it verbatim
+   is not enough.** `app/layout.js` sets a `%s | Modern BizOps` template. Pages
+   under `/learn/[slug]` opt out of it (`title: { absolute: entry.title }`, PR
+   #58), so a /learn title renders exactly as the registry holds it, but the
+   rest of the site does NOT, and **the suffix appears in none of the drafting
+   files under `Marketing Systems/SEO Pilot/published/`.** It never did. From
+   July 9 to August 4 2026 three /learn titles sat past Google's roughly
+   60-character truncation while every review of them read a string 16
+   characters shorter than what Google saw. `stage-1-reactive` was displaying as
+   about "Stage 1: Reactive Revenue Operations, and How to Get..." and losing
+   its entire hook.
+   So: **keep the title at or under 60 characters and the meta between 120 and
+   158, count them, and if the spec's title busts the bound flag it to Bradley
+   rather than publishing it long or trimming it yourself.** Rule 1 still holds,
+   the copy is his. A length problem is a question for him, not a licence to
+   edit. **Check the number against the rendered page, never the source
+   string** (there is a post-publish command for this below).
 
 ## The four code touchpoints
 
@@ -119,5 +140,25 @@ live verify). Then:
    `~/Documents/Claude/Projects/Modern BizOps/UTM/UTM Campaign Registry - Content.csv`
    if the batch also ships a genuinely external placement.
 3. **OG spot-check**: one URL through opengraph.xyz (decline cookies).
-4. **Notify Cowork** via `~/Documents/Claude/TASKS.md`: batch live, design
-   doc phase status needs updating, source files can be archived.
+4. **Snippet length, read from the live pages.** Per rule 7, the source strings
+   cannot tell you this. Run it for every slug in the batch and expect each
+   title at or under 60 and each meta between 120 and 158:
+
+   ```bash
+   python3 -c "
+   import urllib.request as u, re
+   SLUGS = ['your-slug-here']
+   for s in SLUGS:
+       h = u.urlopen(u.Request('https://modernbizops.com/learn/'+s, headers={'User-Agent':'Mozilla/5.0'}), timeout=25).read().decode('utf-8','replace')
+       t = re.search(r'<title[^>]*>(.*?)</title>', h, re.S).group(1).strip()
+       d = re.search(r'<meta name=\"description\" content=\"(.*?)\"', h, re.S).group(1)
+       print(len(t), len(d), s)"
+   ```
+
+5. **Board receipt.** `~/Documents/Claude/TASKS.md` is GONE and the global rules
+   say never to create one; Cowork stopped being a reader in August 2026. A
+   published batch reports back through `state/inbox/` instead, per
+   ship-to-production step 9 and the contract in that folder's `README.md`.
+   **A page batch always changes the page inventory, so the receipt must say so
+   and give the new total**, which is the field the board has had wrong twice:
+   `curl -s https://modernbizops.com/sitemap.xml | grep -c '<loc>'`

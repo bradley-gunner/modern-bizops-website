@@ -96,6 +96,22 @@ Stage only what the change touches and write a conventional-commit subject
 (`feat(scope):`, `fix(scope):`, `chore(scope):`). Explain the *why* in the body,
 not just the what.
 
+**`git add -A` is blocked by a hook and this is not a nuisance to work around.**
+`session_scope.py` rejects it, because several concurrent sessions and scheduled
+passes write this repo and `-A` would sweep another session's uncommitted work
+into your commit, making it unrevertible on its own. Pass the explicit paths:
+
+```bash
+git add app/learn/[slug]/page.js lib/learn/registry.js
+```
+
+Branching in a worktree also needs the explicit base, since the local checkout
+is usually sitting on an already-merged branch rather than `main`:
+
+```bash
+git fetch origin main && git checkout -b claude/<slug> origin/main
+```
+
 ## 4. Push and open the PR
 
 ```bash
@@ -169,6 +185,14 @@ Don't busy-wait with chained `sleep`s (the harness blocks them). Re-query
 `get_deployment` after a short pause, or use the Monitor tool with an
 until-loop.
 
+**The Vercel connector rate-limits, sometimes for minutes at a stretch, and it
+returns "The connector's server is rate-limiting requests" rather than anything
+deploy-shaped.** Do not read that as a deploy problem. Two ways through, and
+prefer the second: run a background `sleep 100` and retry after, or **skip
+straight to step 7 and verify the live page**. A correct live page is stronger
+evidence than a READY state anyway, since READY only says a build finished. Come
+back for the deployment id afterwards when you need it for the receipt.
+
 **If no production deployment ever appears (the merge did not trigger a build).**
 Sometimes the squash-merge to `main` produces NO production deployment at all,
 so "poll until READY" would wait forever. Symptoms: `list_deployments` shows
@@ -185,8 +209,9 @@ click **Promote to Production**. Its dialog confirms it builds a NEW deployment
 using the production environment and aliases it to the production domains (so
 env vars are correct, not carried over from preview). It is reversible via
 Instant Rollback. Then confirm the new production deployment reaches `READY` and
-carries the apex `modernbizops.com` alias, and verify the live page as in step 7. (Root cause was
-a one-off dropped webhook; the next normal merge should deploy on its own.)
+carries the apex `modernbizops.com` alias, and verify the live page as in step 7.
+(Root cause was a one-off dropped webhook; the next normal merge should deploy on
+its own.)
 
 ## 7. Verify the live page
 
@@ -198,16 +223,45 @@ few seconds and re-screenshot), and confirm the specific thing you changed is
 present. For an interactive change, exercise it (click play, submit a form).
 This screenshot is the proof you report back, not "the deploy succeeded".
 
-**Head-level checks need the browser, not WebFetch.** WebFetch converts the page
-to markdown and strips the `<head>`, so it cannot see the `<title>`, meta tags,
-canonical, or JSON-LD. To verify those on the live page, use the Chrome MCP (read
-the page or screenshot the tab title). WebFetch is fine for body content, but a
-cache-buster query (`?v=check`) avoids its 15-minute per-URL cache when you re-check.
+**Head-level checks need the browser or a raw fetch, not WebFetch.** WebFetch
+converts the page to markdown and strips the `<head>`, so it cannot see the
+`<title>`, meta tags, canonical, or JSON-LD. WebFetch is fine for body content,
+but a cache-buster query (`?v=check`) avoids its 15-minute per-URL cache when you
+re-check.
+
+For `<head>` content the fastest path is `python3` with `urllib`, which needs no
+browser and gives you the exact string and its length. `curl` is blocked in some
+sessions, so prefer this:
+
+```bash
+python3 -c "
+import urllib.request as u, re
+h = u.urlopen(u.Request('https://modernbizops.com/<route>', headers={'User-Agent':'Mozilla/5.0'}), timeout=25).read().decode('utf-8','replace')
+for pat in [r'<title[^>]*>(.*?)</title>', r'<meta name=\"description\" content=\"(.*?)\"', r'<link rel=\"canonical\" href=\"(.*?)\"']:
+    m = re.search(pat, h, re.S)
+    print(len(m.group(1)) if m else '-', repr(m.group(1)) if m else 'NOT FOUND')"
+```
+
+**Lengths matter, not just presence.** Google truncates titles past roughly 60
+characters and meta descriptions past roughly 155 to 160. A title can be present,
+correct, and still be losing its hook in the SERP, which is exactly what happened
+to three /learn pages for three weeks (PR #58). If the change touched a title or
+meta, print the length and check it against those bounds; do not eyeball it.
+
+Use the Chrome MCP instead when you need to SEE the page (layout, images, an
+interactive flow), and screenshot that as the proof you report back.
 
 ## 8. Google Search Console (only for new or meaningfully changed indexable pages)
 
 Skip this for fixes, styling, or funnel pages. For a NEW public page (or a big
-content change worth recrawling), get it into Google's queue:
+content change worth recrawling), get it into Google's queue.
+
+**A title or meta change on an already-indexed page does NOT qualify**, even
+though it is an SEO change and the temptation is real. Google recrawls known
+pages on its own, the daily Request Indexing quota is only about 10 to 12, and
+spending it re-queueing pages Google already has is how a genuinely new page
+waits. Request indexing for those only if the new snippet still has not appeared
+in the SERP after a couple of weeks.
 
 **The GSC MCP `submit_url` tool is a no-op.** It returns
 `"submission_status": "SUBMITTED_FOR_INDEXING"` plus a fine-print note that the
