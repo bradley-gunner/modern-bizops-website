@@ -67,6 +67,15 @@ Bradley's voice rules apply to anything a visitor reads. **No em dashes anywhere
 jargon. No fabricated client results or implied testimonials; there are none yet. Benchmarks are
 supporting proof, never the headline hook.
 
+**A page's real title is the registry entry plus whatever title template applies, and only one of
+those is ever written down.** `app/layout.js` sets a `%s | Modern BizOps` template, so every page
+that does not opt out renders 16 characters longer than its source string. That suffix appears in
+none of the drafting files under `Marketing Systems/SEO Pilot/published/`, which is why three
+/learn titles sat past Google's roughly 60-character truncation for three weeks without anyone
+seeing it. **Check a title tag by fetching the live page, never by reading the source string.**
+`/learn/[slug]` now opts out with `title: { absolute: ... }`; the rest of the site keeps the
+template deliberately, because the homepage is where the brand suffix might pay.
+
 **Internal links never carry UTM parameters.** A UTM answers "which outside effort sent this
 person here", so tagging an internal link ends the GA4 session and steals attribution from the
 channel that earned the visit. Internal CTAs are plain links tracked with the `cta_click` event.
