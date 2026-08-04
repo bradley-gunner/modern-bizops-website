@@ -25,8 +25,23 @@ correct.
 
 ## Facts you'll need
 
-- **Production URLs:** apex `modernbizops.com` 307-redirects to the canonical
-  `www.modernbizops.com`. Verify against the `www` host.
+- **Production URLs:** the apex `modernbizops.com` **is** the canonical serving
+  host, and `www.modernbizops.com` 308-redirects to it. **Verify against the
+  apex.** This is a Vercel domain setting, not a code redirect, so you will not
+  find it in `next.config.js`. It runs the other way round from how this skill
+  described it until 2026-08-04, and the direction is load-bearing: the earlier
+  www-canonical arrangement caused a real indexing bug, so do not flip it back.
+  Verified 2026-08-04, apex returns 200 and www returns 308 to the apex:
+
+  ```bash
+  python3 -c "import urllib.request as u
+  class N(u.HTTPRedirectHandler):
+      def redirect_request(self,*a,**k): return None
+  op=u.build_opener(N)
+  for h in ['https://modernbizops.com/','https://www.modernbizops.com/']:
+      try: print(h,'->',op.open(u.Request(h,method='HEAD',headers={'User-Agent':'Mozilla/5.0'}),timeout=20).status)
+      except u.HTTPError as e: print(h,'->',e.code,e.headers.get('Location'))"
+  ```
 - **Vercel project id:** `prj_K6Zj9Da39ebgxcxngLupQ7SkMWi1`
 - **Vercel team id:** `team_cqQoFdwHzTvwocS8Qgf9WrSA` (slug `bradley-de-wets-projects`)
 - **Repo behavior:** PRs are **squash-merged**. `main` is the production branch.
@@ -127,8 +142,25 @@ assuming. Use the Vercel MCP tools (load via ToolSearch if deferred):
   `target: "production"` should carry your squash-merge commit. It starts
   `BUILDING`.
 - `get_deployment <id>` - poll until `state` / `readyState` is `READY`. Builds
-  take roughly a minute. When ready, its `alias` array includes
-  `www.modernbizops.com`, which means the live site is now serving your commit.
+  take roughly half a minute. When ready, its `alias` array includes the apex
+  `modernbizops.com`, which means the live site is now serving your commit.
+  **`list_deployments` does not return `alias` at all**, so the alias check has
+  to come from `get_deployment`; do not go looking for it in the list output.
+  The array carries five entries, both site hosts among them (verified against
+  the PR #58 production deploy, 2026-08-04):
+
+      "alias": [
+        "modernbizops.com",
+        "modern-bizops-website.vercel.app",
+        "www.modernbizops.com",
+        "modern-bizops-website-bradley-de-wets-projects.vercel.app",
+        "modern-bizops-website-git-main-bradley-de-wets-projects.vercel.app"
+      ]
+
+  **`www.modernbizops.com` is in there too, so checking for it is not a false
+  signal, just the wrong one.** Both hosts are aliased to the deployment and
+  Vercel redirects www to the apex at the edge. Check for the apex, because that
+  is the host that serves and the host you verify in step 7.
 
 Match the deployment to your change by the `githubCommitSha` /
 `githubCommitMessage` in the metadata so you're verifying the right build.
@@ -150,17 +182,17 @@ the already-built preview. Do not wait it out.
 Recover by promoting the branch's Ready build. Open that Preview deployment in
 the Vercel dashboard (Chrome MCP), open the `⋯` **Deployment Actions** menu, and
 click **Promote to Production**. Its dialog confirms it builds a NEW deployment
-using the production environment and aliases it to `www.modernbizops.com` (so
+using the production environment and aliases it to the production domains (so
 env vars are correct, not carried over from preview). It is reversible via
 Instant Rollback. Then confirm the new production deployment reaches `READY` and
-carries the `www` alias, and verify the live page as in step 7. (Root cause was
+carries the apex `modernbizops.com` alias, and verify the live page as in step 7. (Root cause was
 a one-off dropped webhook; the next normal merge should deploy on its own.)
 
 ## 7. Verify the live page
 
 The deploy being `READY` is necessary but not sufficient - confirm the actual
-change on the canonical host. Navigate the Chrome MCP to
-`https://www.modernbizops.com/<route>`, wait for assets (Next.js `next/image`
+change on the canonical host, which is the **apex**. Navigate the Chrome MCP to
+`https://modernbizops.com/<route>`, wait for assets (Next.js `next/image`
 shows a gray placeholder for a beat before the real image paints - give it a
 few seconds and re-screenshot), and confirm the specific thing you changed is
 present. For an interactive change, exercise it (click play, submit a form).
@@ -230,7 +262,7 @@ Fill every field. Three matter most for this repo:
 - **Page inventory.** If this PR added, removed or renamed any indexable page, say so explicitly
   and give the new total. Page counts on the board have gone stale twice, and a live sitemap
   fetch is the cheapest verify line there is:
-  `curl -s https://www.modernbizops.com/sitemap.xml | grep -c '<loc>'`
+  `curl -s https://modernbizops.com/sitemap.xml | grep -c '<loc>'`
 
 **Do NOT edit `board.yaml` or the board artifact from this repo.** One writer owns the board, and
 that is the dreaming pass with Bradley approving.
