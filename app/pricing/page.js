@@ -11,7 +11,7 @@ import {
   CARE_PLAN,
   AUDIT_TERMS,
   UPLIFT_RULE,
-  priceValue,
+  offerPriceFields,
 } from "@/lib/offers";
 import { OFFER_PAGES } from "@/lib/offerPages";
 
@@ -131,16 +131,17 @@ export default function PricingPage() {
     })),
   };
 
-  // The whole ladder as machine-readable offers. A ranged or recurring price
-  // carries its display string in the description, because the number in
-  // `price` is the entry point rather than the whole story.
+  // The whole ladder as machine-readable offers. offerPriceFields() decides the
+  // shape: a flat `price` only for a single one-time amount, and a
+  // priceSpecification with min/max or a monthly unit for everything else, so a
+  // crawler cannot read a retainer as a one-time charge, or a band as its
+  // floor. The reasoning lives with the helper in lib/offers.js.
   const toOffer = (item) => ({
     "@type": "Offer",
     name: item.name,
     description: `${item.price}. ${item.summary}`,
-    price: priceValue(item.price),
-    priceCurrency: "USD",
     url: URL,
+    ...offerPriceFields(item.price),
   });
 
   const serviceLd = {
@@ -328,7 +329,12 @@ export default function PricingPage() {
           <MaturityFaq items={FAQ} />
         </Section>
 
-        <Section bg="white" narrow={false} className="py-0 md:py-0">
+        {/* A plain band rather than a <Section>: CtaCallout already carries its
+            own max-width, centering and vertical margin, and cancelling
+            Section's py-16 with a py-0 in the same class string leaves the
+            winner to Tailwind's stylesheet order. See the same note on the
+            audit page. */}
+        <div className="bg-white px-6 py-6 md:px-8 md:py-10">
           <CtaCallout
             eyebrow="The last step"
             heading="Book the call. It confirms your fit and your price."
@@ -337,7 +343,7 @@ export default function PricingPage() {
             href="/book"
             ctaLocation="pricing_foot"
           />
-        </Section>
+        </div>
       </main>
       <Footer />
       {schemas.map((ld, i) => (

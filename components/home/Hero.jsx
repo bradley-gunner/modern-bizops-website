@@ -13,8 +13,9 @@ import Button from "../ui/Button";
 // One primary CTA site-wide is the Scan. "See pricing" is a text link, not a
 // second button, on purpose: two buttons of equal weight is two primary CTAs.
 // The trade is that a plain Link fires no cta_click, because Button is what
-// carries the analytics. Accepted here; when /pricing ships with real Buttons,
-// add "/pricing" to CTA_DESTINATIONS in components/ui/Button.jsx.
+// carries the analytics. Accepted here, and still true: "/pricing" is now in
+// CTA_DESTINATIONS (components/ui/Button.jsx), so a Button pointing there does
+// track, but this link is deliberately not one and still reports nothing.
 export default function Hero() {
   return (
     <section className="bg-cream py-16 md:py-24 lg:py-28">

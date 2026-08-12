@@ -12,7 +12,7 @@ import {
   VERTICALS,
   PARTNER_SYSTEM_LIMIT,
   carePlanMonthly,
-  priceValue,
+  offerPriceFields,
 } from "@/lib/offers";
 import { OFFER_PAGES } from "@/lib/offerPages";
 
@@ -35,13 +35,20 @@ const { url: URL, description: DESCRIPTION } = PAGE;
 // the retainer covers so the table and the retainer cannot fall out of step.
 const SYSTEM_WORDS = ["one", "two", "three", "four", "five"];
 
+// Sentence case, not the `capitalize` utility: that one uppercases every word
+// and turned the rows into "One System".
 const CARE_PLAN_MATH = Array.from(
   { length: PARTNER_SYSTEM_LIMIT },
-  (_, i) => ({
-    systems: i + 1,
-    label: `${SYSTEM_WORDS[i]} system${i === 0 ? "" : "s"}`,
-    carePlan: carePlanMonthly(i + 1),
-  })
+  (_, i) => {
+    const word = SYSTEM_WORDS[i];
+    return {
+      systems: i + 1,
+      label: `${word[0].toUpperCase()}${word.slice(1)} system${
+        i === 0 ? "" : "s"
+      }`,
+      carePlan: carePlanMonthly(i + 1),
+    };
+  }
 );
 
 const PARTNER_LIMIT_WORD = SYSTEM_WORDS[PARTNER_SYSTEM_LIMIT - 1];
@@ -95,9 +102,11 @@ export default function AiAutomationServicesPage() {
         "@type": "Offer",
         name: build.name,
         description: build.scope,
-        price: priceValue(build.price),
-        priceCurrency: "USD",
         url: URL,
+        // Every build is a single one-time amount today, so this resolves to a
+        // flat `price`. Going through the shared helper is what keeps that true
+        // if one ever becomes a band.
+        ...offerPriceFields(build.price),
       })),
     },
   };
@@ -223,9 +232,7 @@ export default function AiAutomationServicesPage() {
               <tbody>
                 {CARE_PLAN_MATH.map((row) => (
                   <tr key={row.systems} className="border-b border-border/60">
-                    <td className="py-3 pr-4 text-text-mid capitalize">
-                      {row.label}
-                    </td>
+                    <td className="py-3 pr-4 text-text-mid">{row.label}</td>
                     <td className="py-3 pr-4 text-text-mid">{row.carePlan}</td>
                     <td className="py-3 text-text-mid">{rung.partner.price}</td>
                   </tr>
@@ -236,17 +243,19 @@ export default function AiAutomationServicesPage() {
 
           <div className="mt-8 max-w-[760px] space-y-5 font-body text-text-mid text-base md:text-lg leading-relaxed">
             <p>
-              One build plus a Care Plan is the pay-as-you-go rung, and at one
-              system it is plainly the cheaper answer. Care Plans stack per
-              system. The retainer does not.
+              One build plus a Care Plan is the pay-as-you-go rung, and on price
+              alone it is the cheaper line at every row of the table above. Care
+              Plans stack per system. The retainer does not.
             </p>
             <p>
-              At two or three systems the {rung.partner.name} retainer at{" "}
-              {rung.partner.price} becomes the better deal, and not only on the
-              arithmetic: it covers up to {PARTNER_LIMIT_WORD} systems kept
-              running <em>and</em> improving, plus a monthly working session
-              with your team. A Care Plan keeps a system alive. The retainer
-              keeps it getting better.
+              So the trade is worth stating plainly rather than dressing up. The{" "}
+              {rung.partner.name} retainer at {rung.partner.price} costs more
+              than the Care Plans it replaces, and it buys more: up to{" "}
+              {PARTNER_LIMIT_WORD} systems kept running <em>and</em> improving,
+              plus a monthly working session with your team. A Care Plan keeps a
+              system alive. The retainer keeps it getting better. Choose it when
+              you want the systems improving, not when you want the monthly
+              number lower.
             </p>
             <p>
               Both numbers, and the two rungs above them, are on the{" "}
@@ -351,7 +360,12 @@ export default function AiAutomationServicesPage() {
           </p>
         </Section>
 
-        <Section bg="cream" narrow={false} className="py-0 md:py-0">
+        {/* A plain band rather than a <Section>: CtaCallout already carries its
+            own max-width, centering and vertical margin, and cancelling
+            Section's py-16 with a py-0 in the same class string leaves the
+            winner to Tailwind's stylesheet order. See the same note on the
+            audit page. */}
+        <div className="bg-cream px-6 py-6 md:px-8 md:py-10">
           <CtaCallout
             eyebrow="Which one first"
             heading="The audit tells you which of these to build."
@@ -360,7 +374,7 @@ export default function AiAutomationServicesPage() {
             href="/ai-readiness-assessment"
             ctaLocation="services_foot"
           />
-        </Section>
+        </div>
       </main>
       <Footer />
       {schemas.map((ld, i) => (

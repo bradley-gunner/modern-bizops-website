@@ -11,7 +11,7 @@ import {
   LADDER,
   AUDIT_TERMS,
   GTM_HIRE_COMPARISON,
-  priceValue,
+  offerPriceFields,
 } from "@/lib/offers";
 import { OFFER_PAGES } from "@/lib/offerPages";
 
@@ -26,7 +26,7 @@ const audit = rung.audit;
 // Title, description, canonical, OG and Twitter all come from lib/offerPages.js,
 // which is also where the brand-suffix opt-out lives and is explained.
 const PAGE = OFFER_PAGES.audit;
-const { url: URL, title: TITLE, description: DESCRIPTION } = PAGE;
+const { url: URL, description: DESCRIPTION } = PAGE;
 
 // What operations debt looks like on a screen, rather than as a concept. These
 // are deliberately different examples from the homepage failure modes: that
@@ -139,10 +139,11 @@ export default function AiReadinessAssessmentPage() {
     },
     offers: {
       "@type": "Offer",
-      price: priceValue(audit.price),
-      priceCurrency: "USD",
       url: URL,
       availability: "https://schema.org/InStock",
+      // A single one-time fee, so this resolves to a flat `price`. The helper
+      // is what keeps the shape right if the fee ever becomes a band.
+      ...offerPriceFields(audit.price),
     },
   };
 
@@ -416,7 +417,13 @@ export default function AiReadinessAssessmentPage() {
           <MaturityFaq items={FAQ} />
         </Section>
 
-        <Section bg="cream" narrow={false} className="py-0 md:py-0">
+        {/* Deliberately not a <Section>. CtaCallout brings its own max-width,
+            centering and vertical margin, so a Section would need py-0 to
+            cancel its own py-16, and both would sit in one class string where
+            Tailwind's stylesheet order, not source order, picks the winner.
+            The padding here also stops the callout's own margin collapsing
+            out of the band. */}
+        <div className="bg-cream px-6 py-6 md:px-8 md:py-10">
           <CtaCallout
             eyebrow="Start here"
             heading="Book the call and we will scope the audit."
@@ -425,7 +432,7 @@ export default function AiReadinessAssessmentPage() {
             href="/book"
             ctaLocation="audit_foot"
           />
-        </Section>
+        </div>
       </main>
       <Footer />
       {schemas.map((ld, i) => (

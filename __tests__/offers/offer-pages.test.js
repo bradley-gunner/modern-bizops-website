@@ -7,13 +7,16 @@ import {
   BUILDS,
   LADDER,
   CARE_PLAN,
+  TRAINING,
   VERTICALS,
   FOUNDING_TERMS,
   BUILD_PRICE_FLOOR,
   BUILD_PRICE_CEILING,
   UPLIFT_RULE,
+  PARTNER_SYSTEM_LIMIT,
   carePlanMonthly,
   priceValue,
+  offerPriceFields,
 } from "@/lib/offers";
 
 // Guards for the three offer pages. Each one protects a failure this repo has
@@ -255,5 +258,109 @@ describe("offers module derivations", () => {
     expect(priceValue("$2,500 a month")).toBe(2500);
     expect(priceValue("Free")).toBe(0);
     expect(priceValue("on request")).toBeNull();
+  });
+
+  // The Services page states the Care Plan / retainer choice as a trade:
+  // the retainer costs MORE and buys more. That copy is only honest while the
+  // arithmetic runs this direction. If a rate ever changes so the retainer
+  // becomes the cheaper line, this is what will say so before the page lies.
+  it("keeps the Care Plan the cheaper line at every row of the stacking table", () => {
+    const retainer = priceValue(
+      LADDER.find((r) => r.id === "partner").price,
+    );
+    for (let systems = 1; systems <= PARTNER_SYSTEM_LIMIT; systems += 1) {
+      expect(
+        CARE_PLAN.perSystem.high * systems,
+        `At ${systems} system(s) the Care Plan is no longer cheaper than the ` +
+          `retainer. The Services page copy says the retainer costs more and ` +
+          `buys more; rewrite it before changing this test.`,
+      ).toBeLessThan(retainer);
+    }
+  });
+});
+
+describe("schema.org price shapes", () => {
+  // A bare `price` asserts a single one-time amount. Two of the published
+  // prices are bands and three recur, and a crawler will surface whatever is
+  // in `price` as the cost. Published prices being right is this business's
+  // differentiation, so the shape has to match the string a buyer reads.
+  const audit = LADDER.find((r) => r.id === "audit");
+  const builds = LADDER.find((r) => r.id === "builds");
+  const partner = LADDER.find((r) => r.id === "partner");
+
+  it("keeps a flat price only for a single one-time amount", () => {
+    expect(offerPriceFields(audit.price)).toEqual({
+      price: 2500,
+      priceCurrency: "USD",
+    });
+    expect(offerPriceFields(TRAINING.price)).toEqual({
+      price: 5500,
+      priceCurrency: "USD",
+    });
+    expect(offerPriceFields("Free")).toEqual({
+      price: 0,
+      priceCurrency: "USD",
+    });
+  });
+
+  it("describes a band with minPrice and maxPrice, never its floor alone", () => {
+    const fields = offerPriceFields(builds.price);
+    expect(fields.price).toBeUndefined();
+    expect(fields.priceSpecification).toMatchObject({
+      "@type": "PriceSpecification",
+      priceCurrency: "USD",
+      minPrice: 2500,
+      maxPrice: 6500,
+    });
+  });
+
+  it("marks a retainer as monthly rather than as a one-time charge", () => {
+    const fields = offerPriceFields(partner.price);
+    expect(fields.price).toBeUndefined();
+    expect(fields.priceSpecification).toMatchObject({
+      "@type": "UnitPriceSpecification",
+      price: 2500,
+      priceCurrency: "USD",
+      unitText: "MONTH",
+    });
+  });
+
+  it("marks the Care Plan as a monthly band charged per system", () => {
+    const fields = offerPriceFields(CARE_PLAN.price);
+    expect(fields.price).toBeUndefined();
+    expect(fields.priceSpecification).toMatchObject({
+      "@type": "UnitPriceSpecification",
+      minPrice: 300,
+      maxPrice: 500,
+      unitText: "MONTH",
+      referenceQuantity: { value: 1, unitText: "system" },
+    });
+  });
+
+  it("emits no price fields at all when there is no amount to read", () => {
+    expect(offerPriceFields("on request")).toEqual({});
+  });
+});
+
+describe("closing CTA band", () => {
+  // The closing CtaCallout used to sit in a <Section> with py-0 md:py-0 to
+  // cancel Section's own py-16 md:py-20. Two padding utilities for the same
+  // property in one class string leave the winner to Tailwind's generated
+  // stylesheet order rather than to source order, so the worst case was
+  // doubled padding that nobody had looked at. These three pages now use a
+  // plain band instead.
+  const OWNED = [
+    "app/ai-readiness-assessment/page.js",
+    "app/ai-automation-services/page.js",
+    "app/pricing/page.js",
+  ];
+
+  it.each(OWNED)("%s cancels no Section padding with py-0", (relative) => {
+    const src = readFileSync(join(ROOT, relative), "utf8");
+    expect(
+      /<Section[^>]*py-0/.test(src),
+      `${relative} passes py-0 to <Section>, which collides with Section's ` +
+        `own py-16 md:py-20. Use a plain band div around CtaCallout instead.`,
+    ).toBe(false);
   });
 });
