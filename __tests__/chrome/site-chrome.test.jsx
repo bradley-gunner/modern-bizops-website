@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { readFileSync, existsSync } from "node:fs";
+import { readdirSync, readFileSync, existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -27,6 +27,43 @@ import {
 //    after the site stopped selling one.
 
 const ROOT = process.cwd();
+
+// THE fifteen-year claim, in every written form. "Over a decade" is the only
+// approved number; the live LinkedIn headline still says fifteen and nothing
+// new ever asserts it.
+//
+// This is ONE regex used against two surfaces on purpose. It started life
+// guarding the JSON-LD only, and on 2026-08-12 that gap cost exactly what you
+// would expect: `/revenue-operations-consulting` shipped a paragraph opening
+// "Fifteen years of doing the work" while all three JSON-LD blocks correctly
+// said "Over a decade". The sweep that was supposed to catch it ran
+// `grep -rF 'fifteen years'` with no `-i`, and the offending string is
+// sentence-initial, so it reported the site clean. A check that returns zero
+// because of its own flags is worse than no check, because it stops the next
+// person looking. Hence: case-insensitive, and pointed at the copy as well.
+//
+// Do NOT add a second copy of this pattern somewhere else. Widen the surfaces
+// below instead.
+const FIFTEEN_YEARS = /15\+?\s*years|fifteen years/i;
+
+// Comments are not copy. Both `app/schema.js` and `lib/learn/registry.js` carry
+// a comment naming the retired claim so the next reader knows why the string
+// changed, and those comments must not read as violations.
+function stripComments(src) {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, "") // block comments, including {/* JSX */}
+    .replace(/(^|[^:"'`\\])\/\/[^\n]*/g, "$1"); // line comments, sparing https://
+}
+
+function sourceFiles(dir) {
+  const out = [];
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) out.push(...sourceFiles(full));
+    else if (/\.jsx?$/.test(entry)) out.push(full);
+  }
+  return out;
+}
 
 // Every internal href the chrome and the /learn index put in front of a
 // visitor. External URLs are excluded on purpose: there is no route file to
@@ -201,7 +238,7 @@ describe("the site-wide JSON-LD", () => {
   it.each(names)("%s makes no fifteen-year claim", (name) => {
     const json = JSON.stringify(blocks[name]);
     expect(
-      /15\+?\s*years|fifteen years/i.test(json),
+      FIFTEEN_YEARS.test(json),
       `${name} asserts fifteen years. The only approved form is "over a decade".`,
     ).toBe(false);
   });
@@ -213,5 +250,72 @@ describe("the site-wide JSON-LD", () => {
     }
     expect(blocks.Service.serviceType).toBe("AI automation services");
     expect(blocks.Person.description).toContain("Over a decade");
+  });
+});
+
+// The same guard, pointed at the words a visitor actually reads. The JSON-LD
+// blocks above are three objects; this is every page and component that can put
+// a sentence on screen, which is where the claim survived last time.
+describe("the fifteen-year claim in rendered copy", () => {
+  const files = [
+    ...sourceFiles(join(ROOT, "app")),
+    ...sourceFiles(join(ROOT, "components")),
+    // lib/ is not chrome, but it holds copy: the /learn registry byline renders
+    // on 24 pages, and lib/offers.js and lib/maturity/ hold visible strings.
+    ...sourceFiles(join(ROOT, "lib")),
+  ];
+
+  it("finds source files to check", () => {
+    // Without this, a broken path would make the assertion below pass over an
+    // empty list, which is the same failure mode as the grep that missed it.
+    expect(files.length).toBeGreaterThan(100);
+  });
+
+  it("appears in no page, component or copy module", () => {
+    const violations = [];
+    for (const file of files) {
+      const src = stripComments(readFileSync(file, "utf8"));
+      for (const [i, line] of src.split("\n").entries()) {
+        if (FIFTEEN_YEARS.test(line)) {
+          violations.push(
+            `${file.replace(ROOT + "/", "")}:${i + 1}: ${line.trim()}`,
+          );
+        }
+      }
+    }
+    expect(
+      violations,
+      `The approved number is "over a decade" and nothing new asserts ` +
+        `fifteen. Rewrite the copy rather than loosening this test. ` +
+        `Offenders:\n${violations.join("\n")}`,
+    ).toEqual([]);
+  });
+
+  it("would catch the sentence-initial form a case-sensitive grep missed", () => {
+    // The assertion above is only worth its runtime if it bites on the exact
+    // string that got through, so prove it here rather than asking the next
+    // reader to trust the regex by eye.
+    for (const bad of [
+      "Fifteen years of doing the work, in the seat, is what I bring.",
+      "I have spent 15 years doing this work from the inside.",
+      "15+ years in the executor seat",
+      "FIFTEEN YEARS",
+    ]) {
+      expect(FIFTEEN_YEARS.test(bad), `${bad} should trip the guard`).toBe(true);
+    }
+    expect(
+      FIFTEEN_YEARS.test("Over a decade building revenue engines."),
+      "the approved form must not trip the guard",
+    ).toBe(false);
+  });
+
+  it("reads comments as comments, so the history notes can stay", () => {
+    const note = '  // It said "15 years in revenue operations" until 2026-08-11.';
+    expect(FIFTEEN_YEARS.test(note)).toBe(true);
+    expect(FIFTEEN_YEARS.test(stripComments(note))).toBe(false);
+    // And a URL is not a comment.
+    expect(stripComments('const u = "https://modernbizops.com/about";')).toBe(
+      'const u = "https://modernbizops.com/about";',
+    );
   });
 });

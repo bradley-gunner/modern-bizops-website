@@ -262,10 +262,10 @@ export default function RevenueConsultingBody() {
         systems so their marketing campaigns could actually perform.
       </p>
       <p>
-        Fifteen years of doing the work, in the seat, is what I bring to coaching
-        your team through it. I am not going to hand you best practices from a
-        blog. I am going to show you what I have built, and then coach your people
-        to build it inside your business.
+        Over a decade of doing the work, in the seat, is what I bring to your
+        team. I am not going to hand you best practices from a blog. I am going
+        to show you what I have built, and then coach your people to build it
+        inside your business.
       </p>
 
       {/* Mid-page CTA. Floats in a navy card so it reads as its own moment.
