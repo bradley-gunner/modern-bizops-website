@@ -3,7 +3,7 @@
 // manually when a page's content actually changes.
 
 const LAST_MODIFIED = {
-  home: "2026-04-21",
+  home: "2026-08-11",
   watch: "2026-04-24",
   scorecard: "2026-04-24",
   about: "2026-04-24",
