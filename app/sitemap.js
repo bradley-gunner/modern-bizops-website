@@ -9,6 +9,9 @@ const LAST_MODIFIED = {
   about: "2026-04-24",
   playbook: "2026-06-03",
   maturityModel: "2026-07-02",
+  aiReadinessAssessment: "2026-08-11",
+  aiAutomationServices: "2026-08-11",
+  pricing: "2026-08-11",
   revenueOperationsConsulting: "2026-07-21",
   privacy: "2026-04-06",
   terms: "2026-04-06",
@@ -58,6 +61,26 @@ export default function sitemap() {
     {
       url: `${baseUrl}/scorecard`,
       lastModified: new Date(LAST_MODIFIED.scorecard),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      // The money door. Every other surface walks a buyer here, so it outranks
+      // the two pages that support it.
+      url: `${baseUrl}/ai-readiness-assessment`,
+      lastModified: new Date(LAST_MODIFIED.aiReadinessAssessment),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/ai-automation-services`,
+      lastModified: new Date(LAST_MODIFIED.aiAutomationServices),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified: new Date(LAST_MODIFIED.pricing),
       changeFrequency: "monthly",
       priority: 0.8,
     },

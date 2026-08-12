@@ -39,6 +39,9 @@ export default function Button({
     "/watch": "watch",
     "/scorecard": "scorecard",
     "/playbook": "playbook",
+    "/pricing": "pricing",
+    "/ai-automation-services": "ai_automation_services",
+    "/ai-readiness-assessment": "ai_readiness_assessment",
   };
 
   const handleClick = (e) => {
