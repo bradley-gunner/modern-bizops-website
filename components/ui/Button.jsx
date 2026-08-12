@@ -42,6 +42,7 @@ export default function Button({
     "/pricing": "pricing",
     "/ai-automation-services": "ai_automation_services",
     "/ai-readiness-assessment": "ai_readiness_assessment",
+    "/founding-clients": "founding_clients",
   };
 
   const handleClick = (e) => {

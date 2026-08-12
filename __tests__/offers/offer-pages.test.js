@@ -7,6 +7,8 @@ import {
   BUILDS,
   LADDER,
   CARE_PLAN,
+  VERTICALS,
+  FOUNDING_TERMS,
   BUILD_PRICE_FLOOR,
   BUILD_PRICE_CEILING,
   UPLIFT_RULE,
@@ -51,6 +53,13 @@ const PAGES = [
     page: OFFER_PAGES.pricing,
     metadata: OFFER_PAGES.pricing.metadata,
     priority: 0.8,
+  },
+  {
+    name: "founding clients",
+    file: "app/founding-clients/page.js",
+    page: OFFER_PAGES.founding,
+    metadata: OFFER_PAGES.founding.metadata,
+    priority: 0.7,
   },
 ];
 
@@ -139,6 +148,7 @@ describe("offer page analytics wiring", () => {
     ["/pricing", "pricing"],
     ["/ai-automation-services", "ai_automation_services"],
     ["/ai-readiness-assessment", "ai_readiness_assessment"],
+    ["/founding-clients", "founding_clients"],
   ])("Button maps %s to the %s destination", (href, label) => {
     expect(
       src,
@@ -160,6 +170,59 @@ describe("offer pages in the sitemap", () => {
     expect(entry.priority).toBe(priority);
     expect(entry.changeFrequency).toBe("monthly");
     expect(entry.lastModified.toISOString().slice(0, 10)).toBe("2026-08-11");
+  });
+});
+
+describe("the founding clients page", () => {
+  const src = readFileSync(join(ROOT, "app/founding-clients/page.js"), "utf8");
+
+  // The single most expensive mistake available on this page. The offer is NOT
+  // a discounted audit: the audit stays at its published price with the
+  // standard credit, and the incentive lands on the first build. Signed by
+  // Bradley 2026-08-11, so a change here is a repricing rather than an edit.
+  it("keeps the founding audit price identical to the published audit price", () => {
+    expect(FOUNDING_TERMS.auditPrice).toBe(
+      LADDER.find((r) => r.id === "audit").price,
+    );
+  });
+
+  it("puts the incentive on the build rather than on the audit", () => {
+    expect(FOUNDING_TERMS.buildDiscount).toMatch(/first build/);
+    expect(FOUNDING_TERMS.carePlanIncluded).toMatch(/Care Plan/);
+  });
+
+  it("renders the terms and the industries from lib/offers.js", () => {
+    expect(src).toContain("FOUNDING_TERMS");
+    expect(src).toContain("VERTICALS");
+    expect(VERTICALS).toHaveLength(6);
+  });
+
+  it("carries one CTA destination, and it is the call", () => {
+    expect(src).toContain('href="/book"');
+    expect(
+      src.includes("/scorecard"),
+      "The founding clients page takes one CTA: book the call.",
+    ).toBe(false);
+  });
+
+  // Modern BizOps has zero clients. This page exists to say so, so a phrase
+  // that implies otherwise is a regression rather than a copy tweak.
+  it("implies no client, testimonial or track record", () => {
+    // Comments are stripped first: the file explains the rule in prose that
+    // would otherwise trip it. The negative forms are the whole point of the
+    // visible copy ("no testimonials"), so a preceding "no" is what separates
+    // the honest line from the claim.
+    const copy = src
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/^\s*\/\/.*$/gm, "");
+    const FABRICATION =
+      /(?<!\bno\s)(?:trusted by|our clients|client results|testimonial|success stor)/i;
+    const hit = copy.match(FABRICATION);
+    expect(
+      hit?.[0] ?? null,
+      `app/founding-clients/page.js implies a client ("${hit?.[0]}"). This ` +
+        `company has none, and the page exists to say that out loud.`,
+    ).toBeNull();
   });
 });
 

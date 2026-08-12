@@ -12,6 +12,7 @@ const LAST_MODIFIED = {
   aiReadinessAssessment: "2026-08-11",
   aiAutomationServices: "2026-08-11",
   pricing: "2026-08-11",
+  foundingClients: "2026-08-11",
   revenueOperationsConsulting: "2026-07-21",
   privacy: "2026-04-06",
   terms: "2026-04-06",
@@ -83,6 +84,15 @@ export default function sitemap() {
       lastModified: new Date(LAST_MODIFIED.pricing),
       changeFrequency: "monthly",
       priority: 0.8,
+    },
+    {
+      // The founding client hand-raise. Below the three offer pages because it
+      // converts a reader who has already priced the work, and it is the
+      // destination for build-in-public content rather than a search entry.
+      url: `${baseUrl}/founding-clients`,
+      lastModified: new Date(LAST_MODIFIED.foundingClients),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/about`,
