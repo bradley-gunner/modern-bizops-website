@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { OFFER_PAGES } from "@/lib/offerPages";
+import { LEARN_INDEX } from "@/lib/learnIndex";
 import sitemap from "@/app/sitemap";
 import {
   BUILDS,
@@ -97,6 +98,24 @@ describe("offer page metadata", () => {
     expect(metadata.openGraph.images[0].url).toMatch(
       /^https:\/\/modernbizops\.com\/og\/.+\.png$/,
     );
+  });
+
+  // These five paths were written into lib/offerPages.js and lib/learnIndex.js
+  // as a contract for a later task, and that task shipped without them: no card
+  // existed in scripts/generate-og.mjs, so nothing would ever have produced the
+  // files. Every share of all five pages, including the Pricing page, rendered
+  // with no card at all. A URL that matches the right shape is not a file, so
+  // this checks the file.
+  it.each([
+    ...PAGES.map((p) => [p.name, p.metadata.openGraph.images[0].url]),
+    ["learn index", LEARN_INDEX.ogImage],
+  ])("%s points its og:image at a PNG that exists on disk", (name, url) => {
+    const file = join(ROOT, "public", new URL(url).pathname);
+    expect(
+      existsSync(file),
+      `${name} declares ${url}, and ${file} is not there. Add a CARDS entry ` +
+        `in scripts/generate-og.mjs, run it, and commit the PNG.`,
+    ).toBe(true);
   });
 
   it("keeps no validated noun out of a title, and no governance term in one", () => {

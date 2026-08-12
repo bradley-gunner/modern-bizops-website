@@ -362,7 +362,7 @@ const CARDS = {
   // the root-level BOFU service page uses the hero template, matching the other
   // primary offer pages (revenue-operations-consulting).
   'learn-ai-for-small-business': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'AI FOR SMALL BUSINESS',
@@ -371,7 +371,7 @@ const CARDS = {
       }),
   },
   'learn-ai-tools-for-small-business': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'AI TOOLS FOR SMALL BUSINESS',
@@ -380,7 +380,7 @@ const CARDS = {
       }),
   },
   'service-ai-consulting': {
-    changed: true,
+    changed: false,
     element: () =>
       heroCard({
         headline: 'AI Consulting for Small Business',
@@ -583,7 +583,7 @@ const CARDS = {
   // Headline = each page's on-page dek (title-tag hook), sized to fit the 650px
   // column the way the earlier learn cards are.
   'learn-customer-retention-strategy': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'CUSTOMER RETENTION STRATEGY',
@@ -592,7 +592,7 @@ const CARDS = {
       }),
   },
   'learn-reduce-customer-churn': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'REDUCE CUSTOMER CHURN',
@@ -601,7 +601,7 @@ const CARDS = {
       }),
   },
   'learn-payment-recovery': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'PAYMENT RECOVERY',
@@ -610,7 +610,7 @@ const CARDS = {
       }),
   },
   'learn-customer-lifecycle-marketing': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'CUSTOMER LIFECYCLE MARKETING',
@@ -619,12 +619,67 @@ const CARDS = {
       }),
   },
   'learn-conversion-rate-optimization': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'CONVERSION RATE OPTIMIZATION',
         headline: 'Fix the Funnel, Not the Button',
         headlineSize: 60,
+      }),
+  },
+  // The August 2026 refit: the four offer pages and the /learn index. Their
+  // og:image paths were written into lib/offerPages.js and lib/learnIndex.js
+  // before any card existed, so every share of those five pages rendered with
+  // no card at all. The four offer pages use the hero template, matching the
+  // other primary pages (revenue-operations-consulting, service-ai-consulting);
+  // the /learn index uses the kicker card, because it is the front door to the
+  // pages that already carry that design.
+  //
+  // No card here states a price. A PNG cannot track lib/offers.js, so a number
+  // baked into one is a number that goes stale the first time a price moves.
+  'ai-readiness-assessment': {
+    changed: false,
+    element: () =>
+      heroCard({
+        headline: 'The AI Revenue Audit',
+        subline: 'The honest diagnosis before you spend more on AI',
+        headlineSize: 62,
+      }),
+  },
+  'ai-automation-services': {
+    changed: false,
+    element: () =>
+      heroCard({
+        headline: 'Revenue Automation Builds',
+        subline: 'Twelve named systems, published fixed prices, a clock on every one',
+        headlineSize: 58,
+      }),
+  },
+  pricing: {
+    changed: false,
+    element: () =>
+      heroCard({
+        headline: 'Every Price We Charge, on One Page',
+        subline: 'The full ladder, with no call needed to get a number',
+        headlineSize: 58,
+      }),
+  },
+  'founding-clients': {
+    changed: false,
+    element: () =>
+      heroCard({
+        headline: 'Be the First in Your Industry',
+        subline: 'One founding client in each of six industries',
+        headlineSize: 58,
+      }),
+  },
+  'learn-index': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'LEARNING LIBRARY',
+        headline: 'Every Guide We Have Published, in One Place',
+        headlineSize: 52,
       }),
   },
 };
