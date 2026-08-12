@@ -1,9 +1,17 @@
 import VizBlock from "@/components/learn/VizBlock";
+import { LADDER, AUDIT_TERMS } from "@/lib/offers";
+
+const rung = Object.fromEntries(LADDER.map((r) => [r.id, r]));
 
 // Block 2: the four cost figures at a glance, each marked for the argument the
 // page turns on, whether the spend ever stops. Fractional retainers and a
-// full-time salary are ongoing; a project fee and a coaching engagement are
-// bounded. Every figure and label is a real DOM text node, never an image.
+// full-time salary are ongoing; a project fee and a named build are bounded.
+// Every figure and label is a real DOM text node, never an image.
+//
+// The fourth card published "$5,000 to $15,000 a month" for the Modern BizOps
+// option until 2026-08-12. That was the retired coaching engagement, and the
+// figure had become two to six times the real price. It reads from
+// lib/offers.js now.
 //
 // The three outbound citations sit here, on the figures they support: the
 // full-time salary card carries the neutral salary sources, and the fractional
@@ -49,10 +57,10 @@ const CARDS = [
     sources: [],
   },
   {
-    name: "Promote and coach",
-    figure: "$5,000 to $15,000",
-    unit: "a month, for the engagement",
-    note: "not a perpetual retainer, plus the salary of an internal person you are often already paying",
+    name: "Build it and hand it over",
+    figure: rung.builds.price,
+    unit: "per named system",
+    note: `after a ${rung.audit.price} audit that is credited ${AUDIT_TERMS.creditPercent} toward the first build, plus the salary of an internal person you are often already paying`,
     kind: "bounded",
     sources: [],
   },
