@@ -392,29 +392,40 @@ const CARDS = {
   'service-ai-consulting': {
     changed: false,
     element: () =>
+      // Subline is the page dek, and that dek was shortened to "Foundations
+      // first." by the approved step-16 retarget. The card followed it.
       heroCard({
         headline: 'AI Consulting for Small Business',
-        subline: 'Foundations first, then the acceleration',
+        subline: 'Foundations first.',
         headlineSize: 58,
       }),
   },
   // The subline said "Done-with-you coaching" until 2026-08-12. Same retired
   // offer as the footer line, on the most-shared card on the site, so it goes
   // with it. Replaced with the live homepage hero's own second sentence.
-  // The headline here is still the pre-pivot hook and is owed a rewrite.
+  //
+  // The headline was left as "Grow Your Revenue Without Growing Your Headcount"
+  // in that same pass and flagged as owed. It is the pre-pivot promise, and it
+  // no longer matched a single word of the page it fronted. It is now the
+  // homepage H1 itself, which is the approved outcome-led one-liner. Two lines
+  // at 64px, so the size is left at the default.
   homepage: {
     changed: false,
     element: () =>
       heroCard({
-        headline: 'Grow Your Revenue Without Growing Your Headcount',
+        headline: 'More Leads, More Booked Calls, Less Busywork',
         subline: 'Foundation first, published fixed prices, your team owns everything we build',
       }),
   },
+  // Subline read "Helping founder-led B2B companies build revenue engines that
+  // grow without headcount" until 2026-08-12, which is the retired positioning
+  // and no longer describes the page. It now echoes the About H1 and the
+  // opening of the approved positioning paragraph.
   about: {
     changed: false,
     element: () =>
       aboutCard({
-        subline: 'Helping founder-led B2B companies build revenue engines that grow without headcount',
+        subline: 'Over a decade in the executor seat, now building the automation',
       }),
   },
   // Slug stays `scorecard` because the route and the og:image path do; the
