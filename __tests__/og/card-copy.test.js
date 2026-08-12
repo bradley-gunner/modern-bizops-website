@@ -69,6 +69,20 @@ const BANNED = [
   [/\$\s?3M\b/i, 'the "$3M to $50M" band moved into ICP qualification, off public surfaces'],
   [/\$\s?50M\b/i, 'the "$3M to $50M" band moved into ICP qualification, off public surfaces'],
   [/revenue growth coach/i, 'the retired role line that shipped on every card for months'],
+  // Retired PRODUCT names. Everything above is vocabulary and role lines, so a
+  // card headed "Get Your Revenue Leak Scan" passed every assertion here while
+  // naming an offer that no longer exists. A card is the worst place for that
+  // to sit: the words live in a PNG nobody opens, and the page it is shared
+  // from says the current name, so the two never contradict each other where
+  // anyone can see it.
+  //
+  // The free diagnostic has been renamed more than once. All three earlier
+  // names are dead; "AI Revenue Scan" is the only one allowed on a card.
+  // "Revenue Operations Maturity Model" is a LIVE framework name and is
+  // deliberately not banned here.
+  [/revenue growth scorecard/i, 'the diagnostic is the AI Revenue Scan; this name is retired'],
+  [/revenue maturity score/i, 'the diagnostic is the AI Revenue Scan; this name is retired'],
+  [/revenue leak scan/i, 'the diagnostic is the AI Revenue Scan; this name is retired'],
 ];
 
 // Website copy spells contractions out: "do not", "you are", "it will". The
