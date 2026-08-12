@@ -92,7 +92,7 @@ const WHAT_WE_ASK = [
 const FAQ = [
   {
     q: "Are we the guinea pig here?",
-    a: `The company is new. The operator is not. I spent over a decade in the executor seat and four and a half years as an agency COO before this, and the audit instrument and the build menu are the product of six months of full-time work. What you would be first at is being a Modern BizOps client, and that is exactly what the founding terms are paying you for.`,
+    a: `The company is new. The operator is not. I spent over a decade in the executor seat, four and a half years of that as an agency COO, and the audit instrument and the build menu are the product of six months of full-time work. What you would be first at is being a Modern BizOps client, and that is exactly what the founding terms are paying you for.`,
   },
   {
     q: "Why is the audit not discounted as well?",
@@ -309,8 +309,8 @@ export default function FoundingClientsPage() {
               The terms, written down before you ask.
             </h2>
             <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-              These are the same published prices everyone else reads, with one
-              change, and the change is on the build rather than on the
+              These are the same published prices everyone else reads, with two
+              concessions, and both of them land on the build rather than on the
               diagnosis.
             </p>
           </div>
@@ -397,7 +397,12 @@ export default function FoundingClientsPage() {
           <MaturityFaq items={FAQ} />
         </Section>
 
-        <Section bg="white" narrow={false} className="py-0 md:py-0">
+        {/* A plain band rather than a <Section>: CtaCallout already carries its
+            own max-width, centering and vertical margin, and cancelling
+            Section's py-16 with a py-0 in the same class string leaves the
+            winner to Tailwind's stylesheet order. Same note as the three offer
+            pages. */}
+        <div className="bg-white px-6 py-6 md:px-8 md:py-10">
           <CtaCallout
             eyebrow="One per industry"
             heading="Book the call and take your industry."
@@ -406,7 +411,7 @@ export default function FoundingClientsPage() {
             href="/book"
             ctaLocation="founding_clients_foot"
           />
-        </Section>
+        </div>
       </main>
       <Footer />
       {schemas.map((ld, i) => (

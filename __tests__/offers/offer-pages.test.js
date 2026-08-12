@@ -348,11 +348,13 @@ describe("closing CTA band", () => {
   // property in one class string leave the winner to Tailwind's generated
   // stylesheet order rather than to source order, so the worst case was
   // doubled padding that nobody had looked at. These three pages now use a
-  // plain band instead.
+  // plain band instead, and so does the founding clients page, which copied
+  // the pattern from them before it was fixed.
   const OWNED = [
     "app/ai-readiness-assessment/page.js",
     "app/ai-automation-services/page.js",
     "app/pricing/page.js",
+    "app/founding-clients/page.js",
   ];
 
   it.each(OWNED)("%s cancels no Section padding with py-0", (relative) => {
