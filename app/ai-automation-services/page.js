@@ -117,12 +117,20 @@ export default function AiAutomationServicesPage() {
     <>
       <Header />
       <main id="main-content">
+        {/* Every motif carries a caption baked into the artwork for the page it
+            was drawn for, so choosing one is choosing a sentence. This hero ran
+            fourPaths, whose caption reads "Three paths leave when the money
+            stops. One stays in the building." That argument belongs to the
+            fractional COO material and says nothing beside a twelve-item menu.
+            lifecycleLoop captions "One map, end to end", which is what this menu
+            actually is: the twelve builds run from lead capture through the sale
+            to invoicing, onboarding and the owner's report. */}
         <LearnHero
           kicker="AI Automation Services"
           h1="Revenue Automation Builds"
           accentWord="Automation"
           dek="Twelve named systems. Published fixed prices. A clock on every one."
-          motif="fourPaths"
+          motif="lifecycleLoop"
           theme="navy"
         />
 

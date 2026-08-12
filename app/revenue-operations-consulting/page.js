@@ -6,7 +6,7 @@ import LearnHero from "@/components/learn/LearnHero";
 import AuthorCard from "@/components/learn/AuthorCard";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
 import RevenueConsultingBody from "@/components/revenue-consulting/RevenueConsultingBody";
-import { AUTHOR_CREDENTIAL } from "@/lib/learn/registry";
+import { AUTHOR_CREDENTIAL, BYLINE } from "@/lib/learn/registry";
 
 const URL = "https://modernbizops.com/revenue-operations-consulting";
 const OG_IMAGE = "https://modernbizops.com/og/og-revenue-operations-consulting.png";
@@ -15,10 +15,6 @@ const DESCRIPTION =
   "Traditional revenue operations consulting builds the system for you and leaves. This coaches your team to build it, so it still works when the engagement ends. For founder-led B2B companies from $3M to $50M.";
 const LAST_UPDATED = "2026-07-21";
 
-// Locked byline, verbatim from the approved spec (matches lib/learn/registry's
-// BYLINE). Do not name the agency.
-const BYLINE =
-  "By Bradley de Wet, founder of Modern BizOps. 15 years in revenue operations, including building revenue systems at Contactually (VC-backed SaaS), founding Tasting Club, and serving as COO and leader of account management at a boutique digital marketing agency.";
 
 // FAQ, verbatim from the spec's "Frequently asked questions" section. This array
 // is the single source of truth for both the rendered accordion and the

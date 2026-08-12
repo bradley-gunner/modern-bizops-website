@@ -6,7 +6,7 @@ import LearnHero from "@/components/learn/LearnHero";
 import AuthorCard from "@/components/learn/AuthorCard";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
 import AiConsultingBody from "@/components/ai-consulting/AiConsultingBody";
-import { AUTHOR_CREDENTIAL } from "@/lib/learn/registry";
+import { AUTHOR_CREDENTIAL, BYLINE } from "@/lib/learn/registry";
 
 // Root-level, OFF-NAV BOFU service page: the AI-accelerant framing of the same
 // coaching offer at /revenue-operations-consulting. Built as a standalone page
@@ -20,10 +20,6 @@ const DESCRIPTION =
   "Most AI consulting for small business sells tools. I coach your team to fix the revenue fundamentals first, then apply AI where it actually accelerates.";
 const LAST_UPDATED = "2026-07-22";
 
-// Locked byline, verbatim from the approved spec (matches lib/learn/registry's
-// BYLINE). Do not name the agency.
-const BYLINE =
-  "By Bradley de Wet, founder of Modern BizOps. 15 years in revenue operations, including building revenue systems at Contactually (VC-backed SaaS), founding Tasting Club, and serving as COO and leader of account management at a boutique digital marketing agency.";
 
 // FAQ, verbatim from the spec's "Frequently asked questions" section. Single
 // source of truth for both the rendered accordion and the FAQPage JSON-LD.

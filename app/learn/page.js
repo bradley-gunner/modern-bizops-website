@@ -153,7 +153,7 @@ export default function LearnIndexPage() {
             the fractional COO material and to nothing else. */}
         <LearnHero
           kicker="Learning Library"
-          h1="The Revenue Operations Learning Library"
+          h1="The Modern BizOps Learning Library"
           accentWord="Learning Library"
           dek="Every guide we have published, grouped so you can find the one that matches the problem in front of you."
           motif="stageChevrons"
@@ -206,9 +206,15 @@ export default function LearnIndexPage() {
                         href={`/learn/${entry.slug}`}
                         className="group flex flex-col bg-white border border-border rounded-[14px] p-6 hover:border-navy-mid transition-colors"
                       >
-                        <p className="font-display text-xl font-semibold text-navy mb-2 group-hover:text-amber transition-colors">
+                        {/* A real h3, not a styled <p>. The visual design is
+                            unchanged; the outline is not. This is the one page
+                            whose whole job is to be an internal hub, and it ran
+                            group h2s straight into paragraph text, so assistive
+                            tech and crawlers saw a heading level with nothing
+                            under it. */}
+                        <h3 className="font-display text-xl font-semibold text-navy mb-2 group-hover:text-amber transition-colors">
                           {entry.h1}
-                        </p>
+                        </h3>
                         <p className="font-body text-[15px] text-text-mid leading-relaxed">
                           {entry.metaDescription}
                         </p>

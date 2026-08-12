@@ -56,7 +56,13 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <Button href={NAV_CTA.href} size="small" ctaLocation="nav">
+          {/* ctaLocation follows the site-wide <cluster>_<position> shape so
+              cta_location splits the same way in GA4 everywhere: the cluster is
+              everything before the last underscore, the position is the last
+              segment. The nav sits at the top of every page, so its position is
+              hero. These read "nav" and "nav_mobile" until 2026-08-11; a GA4
+              filter written against the old values needs updating. */}
+          <Button href={NAV_CTA.href} size="small" ctaLocation="nav_hero">
             {NAV_CTA.label}
           </Button>
         </nav>
@@ -109,7 +115,7 @@ export default function Header() {
             href={NAV_CTA.href}
             size="small"
             className="w-full"
-            ctaLocation="nav_mobile"
+            ctaLocation="nav_mobile_hero"
             onClick={() => setMobileOpen(false)}
           >
             {NAV_CTA.label}

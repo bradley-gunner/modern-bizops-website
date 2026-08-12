@@ -191,8 +191,10 @@ describe("learn page registry", () => {
       const e = LEARN_PAGES[slug];
       expect(e.breadcrumb.length).toBe(3);
       expect(e.breadcrumb[1].name).toBe("Learn");
-      // No /learn index route exists yet, so the crumb renders as plain text.
-      expect(e.breadcrumb[1].noLink).toBe(true);
+      expect(e.breadcrumb[1].url).toBe("https://modernbizops.com/learn");
+      // /learn is a real index route as of 2026-08-11, so the crumb must be a
+      // live link rather than the plain text it rendered as before.
+      expect(e.breadcrumb[1].noLink).toBeUndefined();
     }
   });
 

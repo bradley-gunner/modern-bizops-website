@@ -79,8 +79,8 @@ export default function WhatIsRevOpsBody() {
           structure and guidance to build it
         </Link>
         , rather than adding a $150K+ specialist to interpret a
-        system that does not exist yet. I have spent 15 years doing this work from the
-        inside, carrying a number while architecting the systems that made the number
+        system that does not exist yet. I have spent over a decade doing this work from
+        the inside, carrying a number while architecting the systems that made the number
         easier to hit, at VC-backed startups and as the COO of an agency. The pattern I
         have seen repeatedly: the companies that hire the title before building the
         discipline end up paying a salary to document their chaos.

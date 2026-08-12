@@ -32,12 +32,12 @@ export default function MobileCtaBar() {
       className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border shadow-xl px-4 py-3 flex items-center gap-3"
       style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
       role="complementary"
-      aria-label="Get the free Scan"
+      aria-label="Get the Free Scan"
     >
       <Button
         href="/scorecard"
         className="flex-1"
-        ctaLocation="home_mobile_bar"
+        ctaLocation="home_mobile_foot"
       >
         Get the Free Scan
       </Button>
