@@ -54,10 +54,9 @@ export default function ConversionRateOptimizationBody() {
         So this page is not the standard version. Conversion rate optimization, for a
         business like yours, means finding and fixing the places in your revenue funnel
         where interested buyers fall out, and most of those places are nowhere near a
-        button. Our founder has done the tactical version too, in his own seat: Bradley
-        doubled the sales conversion rate at a VC-backed startup by fixing a process
-        assumption nobody had questioned, not by testing a landing page. That is the lens
-        here.
+        button. I have done the tactical version too, in my own seat: I doubled the sales
+        conversion rate at a VC-backed startup by fixing a process assumption nobody had
+        questioned, not by testing a landing page. That is the lens here.
       </p>
 
       <h2 className={h2}>Your funnel has more than one conversion rate</h2>
@@ -154,7 +153,7 @@ export default function ConversionRateOptimizationBody() {
 
       <h2 className={h2}>Where conversion optimization sits in revenue operations maturity</h2>
       <p>
-        In the GTM Maturity Framework, a method we built for measuring the go-to-market
+        In the GTM Maturity Framework, a method I built for measuring the go-to-market
         competencies of a business, funnel conversion moves through clear stages. At the
         bottom, conversion is one blended number nobody can act on, leads are followed up
         whenever, and the founder is the only reliable closer. The first real step is

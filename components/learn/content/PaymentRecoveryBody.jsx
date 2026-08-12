@@ -90,12 +90,12 @@ export default function PaymentRecoveryBody() {
         it is a software problem.
       </p>
       <p>
-        For invoiced retainer businesses, the highest-leverage fix is different, and our
-        founder lived it. As the COO of an agency, Bradley personally chased clients month
-        after month to get invoices paid on time, and the cost is only partly cash flow. It
+        For invoiced retainer businesses, the highest-leverage fix is different and I have
+        lived it. As the COO of an agency, I personally chased clients month after month to
+        get invoices paid on time, and I can tell you the cost is only partly cash flow. It
         is a recurring source of friction and dread for whoever runs the company. To be
         precise, that was billing operations, not a payment-recovery-rate program. But the
-        fix that came out of it is the one we would give any retainer business: move
+        fix that came out of it is the one I would give any retainer business: move
         recurring fees to automatic card or ACH billing, accept the setup and exceptions
         work, and the entire chase-the-invoice category mostly disappears. You do not
         recover those payments faster, you stop them from failing in the first place.
@@ -125,7 +125,7 @@ export default function PaymentRecoveryBody() {
 
       <h2 className={h2}>Where payment recovery sits in revenue operations maturity</h2>
       <p>
-        In the GTM Maturity Framework, a method we built for measuring the go-to-market
+        In the GTM Maturity Framework, a method I built for measuring the go-to-market
         competencies of a business, this lives inside the Subscription and MRR Operations
         competency. At the bottom is a business that does not measure failed payments
         separately, processes a cancellation with no intervention, and chases invoices by

@@ -42,31 +42,28 @@ export default function FractionalCooBody() {
         That is the definition. The more useful question is what the person actually
         does all week, because most of what ranks for this term is written by
         marketplaces selling you a directory listing, not by anyone who has held the
-        job. Our founder has held the job twice. Here is what it looks like from the
-        inside.
+        job. I have held the job twice. Here is what it looks like from the inside.
       </p>
 
       <h2 className={h2}>The job, from the operator&rsquo;s seat</h2>
       <p>
-        Bradley was COO at iExcel, an agency, where he led account management and
-        operations. Some of that work was exactly what you would put on a job
-        description: running delivery, building process, owning the numbers. And some
-        of it was the unglamorous work that actually moves a business, like fixing how
-        the company got paid. He was personally chasing clients for overdue invoices
-        every month, and it was frustrating enough that he rebuilt the billing model
-        around it:
+        I was COO at iExcel, an agency, where I led account management and operations.
+        Some of that work was exactly what you would put on a job description: running
+        delivery, building process, owning the numbers. And some of it was the
+        unglamorous work that actually moves a business, like fixing how the company
+        got paid. I was personally chasing clients for overdue invoices every month,
+        and it was frustrating enough that I rebuilt the billing model around it:
         monthly-retainer clients moved to automatic card billing, so collections
         stopped being a recurring manual chase. The cash-flow benefit was real, but the
         bigger payoff was mental. Nobody who runs a company should spend part of every
         month dreading the same conversation.
       </p>
       <p>
-        Right now he is the fractional COO for a fitness business in Richmond,
-        Virginia.
+        Right now I am the fractional COO for a fitness business in Richmond, Virginia.
         The workstreams in a single engagement: pricing strategy, designing and
         executing a membership campaign, auditing the systems of a second business, and
         building the financial model for a potential acquisition. None of that is
-        advisory. He is in the tools, in the meetings, and accountable for the outcome.
+        advisory. I am in the tools, in the meetings, and accountable for the outcome.
       </p>
       <p>
         That is the pattern across both engagements. A fractional COO is not a
@@ -86,7 +83,7 @@ export default function FractionalCooBody() {
       </p>
       <p>
         That last one is the real product. In the GTM Maturity Framework,
-        the companies we call{" "}
+        the companies I call{" "}
         <Link
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"

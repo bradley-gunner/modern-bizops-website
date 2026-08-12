@@ -103,7 +103,7 @@ export default function MqlToSqlConversionRateBody() {
         Notice what all three signatures require: a handoff instrumented well enough to
         read. A defined trigger for when a lead moves to sales, required data attached at
         handoff, an explicit accept-or-return step with reason codes, and timestamps on
-        first touch. In the GTM Maturity Framework, a method we built for
+        first touch. In the GTM Maturity Framework, a method I built for
         measuring go-to-market competencies in a business, that instrumentation is Stage 2
         work, and this metric appears in the framework&rsquo;s own assessment signals
         precisely because a company that can produce it accurately has, by definition,

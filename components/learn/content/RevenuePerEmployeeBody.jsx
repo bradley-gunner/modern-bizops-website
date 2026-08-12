@@ -29,7 +29,7 @@ export default function RevenuePerEmployeeBody() {
         salary?
       </p>
       <p>
-        Here is the question we would put to you on a discovery call: if your revenue
+        Here is the question I would put to you on a discovery call: if your revenue
         doubled over the next 18 months, how much would your team have to grow? If your
         honest answer is &ldquo;it would roughly double too,&rdquo; your growth is really
         just payroll wearing a bigger number. This page covers the formula and the
@@ -140,7 +140,7 @@ export default function RevenuePerEmployeeBody() {
         </strong>{" "}
         Mature operators decide headcount by asking what revenue the next hire should
         produce and how they will know. In the GTM Maturity Framework, a
-        method we built for measuring a business&rsquo;s go-to-market competencies, this is a
+        method I built for measuring a business&rsquo;s go-to-market competencies, this is a
         Stage 3 competency: revenue per employee tracked monthly, reviewed by function,
         and used as the lens for every headcount decision. Most founder-led companies are
         not there yet, and that is normal. The entry point is simply calculating the

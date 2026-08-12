@@ -91,7 +91,7 @@ export default function WinLossAnalysisBody() {
           lead qualification framework
         </Link>
         . This closed loop is the whole point, and it is why the GTM Maturity
-        Framework, a method we built for measuring the go-to-market competencies of a
+        Framework, a method I built for measuring the go-to-market competencies of a
         business, treats win/loss analysis as a Stage 3 competency: at the bottom of the rubric,
         win/loss data is an inconsistent CRM dropdown nobody analyzes, and at the top,
         findings update qualification criteria within 30 days and competitive win rates
@@ -125,7 +125,7 @@ export default function WinLossAnalysisBody() {
         the same page.
       </p>
       <p>
-        On a discovery call we ask founders what the most common reason they lose deals is,
+        On a discovery call I ask founders what the most common reason they lose deals is,
         and then a second question: how do you know that is the real reason? The gap
         between those two answers is the size of the opportunity. If your answer to the
         second question is &ldquo;the CRM field,&rdquo; you now know exactly what that

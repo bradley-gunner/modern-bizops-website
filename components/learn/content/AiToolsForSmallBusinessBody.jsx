@@ -19,13 +19,13 @@ export default function AiToolsForSmallBusinessBody() {
     <>
       <p>
         Most advice you will find on this topic is a ranked list. Twenty tools,
-        sorted by department, each with a price and a star rating. We are not going to
+        sorted by department, each with a price and a star rating. I am not going to
         give you that, because the list is the wrong question. The tools on those
         lists are mostly fine. The reason they do not stick is that they get pointed
         at an operation that is not ready for them.
       </p>
       <p>
-        Here is the line we want you to keep in your head the whole way down this
+        Here is the line I want you to keep in your head the whole way down this
         page.
       </p>
       <PullQuote>
@@ -39,14 +39,14 @@ export default function AiToolsForSmallBusinessBody() {
         scale. The tool is not the problem. The fundamental underneath it is.
       </p>
       <p>
-        So we have organized this by the job your revenue engine needs done, not by
+        So I have organized this by the job your revenue engine needs done, not by
         the vendor. For each job you get three things: the fundamental that has to
         exist first, the move you can make today with an AI assistant you almost
         certainly already pay for, and the named tool that automates the job at
         Level 4-5 maturity, with an honest note on cost and on what it does not do.
       </p>
       <p>
-        There is a name for the mess these jobs clean up. We call it RevOps debt: the
+        There is a name for the mess these jobs clean up. I call it RevOps debt: the
         accumulated cost of a revenue operation run without fundamentals. Dirty
         data, pipeline stages nobody defined, an ICP that was never written down,
         handoffs that drop leads between teams. It compounds quietly, the way
@@ -59,8 +59,8 @@ export default function AiToolsForSmallBusinessBody() {
         the named tool is what keeps it paid.
       </p>
       <p>
-        We score this order of operations with the GTM Maturity Framework,
-        a method we built for measuring the revenue competencies of a business across
+        I score this order of operations with the GTM Maturity Framework,
+        a method I built for measuring the revenue competencies of a business across
         four stages: Reactive, Repeatable, Predictable, and Compounding. The tools
         below live at Predictable and Compounding. You cannot skip to them. If you
         want to see which stage each of your competencies is actually at before you
@@ -97,7 +97,7 @@ export default function AiToolsForSmallBusinessBody() {
         <strong>The fundamental first.</strong> You cannot automate targeting you
         have not defined. If your ideal customer profile lives in your head and
         three reps would each describe it differently, no tool fixes that. It just
-        scales the disagreement. Get the definition written down first. Our{" "}
+        scales the disagreement. Get the definition written down first. My{" "}
         <Link href="/learn/ideal-customer-profile" className={link}>
           ideal customer profile
         </Link>{" "}
@@ -130,7 +130,7 @@ export default function AiToolsForSmallBusinessBody() {
         <strong>The fundamental first.</strong> A clean CRM is not a tooling
         problem, it is a governance problem. If nobody owns what a field means or
         when a stage advances, the data rots no matter what software sits on top.
-        Decide the rules first. Our{" "}
+        Decide the rules first. My{" "}
         <Link href="/learn/crm-architecture-and-governance" className={link}>
           CRM architecture and governance
         </Link>{" "}
@@ -143,7 +143,7 @@ export default function AiToolsForSmallBusinessBody() {
         &ldquo;N/A,&rdquo; &ldquo;n/a,&rdquo; and blank in one column), and list
         records missing
         anything required. Fix them, then re-import. It is unglamorous and it works.
-        Do it once a quarter and your data quality problem stays small. Our{" "}
+        Do it once a quarter and your data quality problem stays small. My{" "}
         <Link href="/learn/data-quality-management" className={link}>
           data quality management
         </Link>{" "}
@@ -250,7 +250,7 @@ export default function AiToolsForSmallBusinessBody() {
         <strong>The fundamental first.</strong> An AI qualifies against your
         criteria. If your criteria are vague, it qualifies vaguely and hands your
         reps confident junk. Write the qualification framework before you automate
-        it. Our{" "}
+        it. My{" "}
         <Link href="/learn/lead-qualification-framework" className={link}>
           lead qualification framework
         </Link>{" "}
@@ -309,7 +309,7 @@ export default function AiToolsForSmallBusinessBody() {
         Dipper&rdquo; on June 24, 2026 (agentic execution with governance and
         human-in-the-loop built in). Clari and Salesloft shipped a live signal layer
         on July 14, 2026 that triggers next-best-action and updates the forecast as
-        things move. Here is the detail we want you to notice. Both vendors put
+        things move. Here is the detail I want you to notice. Both vendors put
         governance in the headline. The market learned the same lesson the hard way:
         AI turned loose on undefined exit criteria just executes on nonsense faster.
         When the tools that sell pipeline AI are the ones now leading with
@@ -331,8 +331,8 @@ export default function AiToolsForSmallBusinessBody() {
       </h2>
       <p>
         Read back over the five jobs. Every DIY move above is real. You could do all
-        of it yourself with an assistant you already pay for. So let us be straight
-        about what we actually sell, because it is not the tools.
+        of it yourself with an assistant you already pay for. So let me be straight
+        about what I actually sell, because it is not the tools.
       </p>
       <p>
         The gap is not &ldquo;can I technically do this.&rdquo; You can. The gap is
@@ -354,20 +354,20 @@ export default function AiToolsForSmallBusinessBody() {
       <p>
         Most consultants close it by building the system for you and leaving. Then
         the capability leaves with them, and you are renting understanding of your
-        own revenue engine. We work differently. We coach one of your own employees to
+        own revenue engine. I work differently. I coach one of your own employees to
         build these systems inside your business, so the capability stays in-house
-        after we are gone. You end up with a person on your payroll who owns it, not a
-        dependency on us.
+        after I am gone. You end up with a person on your payroll who owns it, not a
+        dependency on me.
       </p>
       <p>
-        We did not just decide AI belongs on top of clean fundamentals. We built a
-        tool around it. Our audit engine is software our founder built that connects to
-        a business&rsquo;s real systems through their APIs, pulls the actual data
+        I did not just decide AI belongs on top of clean fundamentals. I built a tool
+        around it. My audit engine is software I had built that connects to a
+        business&rsquo;s real systems through their APIs, pulls the actual data
         instead of asking anyone to fill out a survey, and uses AI to score where the
         revenue operation truly stands against the maturity framework. It drafts the
-        findings. We review and approve every one before it reaches a client, because
+        findings. I review and approve every one before it reaches a client, because
         AI reading real data is powerful and AI left unchecked is a liability. That
-        is the same order we are teaching you here: connect to the real data, let AI do
+        is the same order I am teaching you here: connect to the real data, let AI do
         the heavy reading, keep a human on the judgment. The tool only works because
         the method underneath it was defined first.
       </p>

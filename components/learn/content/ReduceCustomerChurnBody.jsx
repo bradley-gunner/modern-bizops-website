@@ -107,9 +107,8 @@ export default function ReduceCustomerChurnBody() {
       <p>
         The early conversation is where reduction actually happens. A customer three months
         from a renewal, whose usage just dropped, is a customer you can still help. The
-        same customer on cancellation day is a customer you can only discount. When our
-        founder took over customer onboarding at a VC-backed startup, the entire job was
-        closing the gap
+        same customer on cancellation day is a customer you can only discount. When I took
+        over customer onboarding at a VC-backed startup, the entire job was closing the gap
         between signing up and the first real win, because a customer who never reaches
         value has no reason to stay, and no save conversation invented later can fix that.
         Most of the churn you will see in year two was actually decided in the first ninety
@@ -173,7 +172,7 @@ export default function ReduceCustomerChurnBody() {
 
       <h2 className={h2}>Where churn reduction sits in revenue operations maturity</h2>
       <p>
-        In the GTM Maturity Framework, a method we built for measuring the go-to-market
+        In the GTM Maturity Framework, a method I built for measuring the go-to-market
         competencies of a business, this is the move from reacting to churn to preventing
         it. At the bottom, churn is a number reported after the fact and every save is a
         scramble. The first real step is measuring churn in revenue and splitting it into

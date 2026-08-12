@@ -122,10 +122,20 @@ export default function MaturityModelPage() {
               <div className="text-xs tracking-widest uppercase text-amber font-semibold">
                 For the operators who want to look under the hood
               </div>
+              {/* NO COUNT IN THIS CAPTION, ON PURPOSE (2026-08-12). It read
+                  "four stages, 51 competencies" for a few hours, sitting one
+                  click above <MaturityExperience />, which renders the 44
+                  competencies lib/maturity/competencies/ actually holds. A
+                  visitor could count the list and catch the caption in five
+                  seconds. The 51 is a knowing forward claim elsewhere on this
+                  page (doc 13 approved 45 to 51; the instrument has not shipped
+                  them yet), and it stays there. It does not belong on the label
+                  of the list that disproves it. Put a number back here only
+                  when competenciesForStage() returns that many. */}
               <div className="font-display font-semibold text-navy text-2xl md:text-3xl mt-1">
                 The full map{" "}
                 <span className="text-amber font-normal">
-                  · four stages, 51 competencies
+                  · four stages, competency by competency
                 </span>
               </div>
               <div className="text-sm text-text-light mt-2 max-w-[62ch] mx-auto">
