@@ -1,6 +1,6 @@
 import Section from "../ui/Section";
 import VSSLPlayer from "../VSSLPlayer";
-import { LADDER } from "@/lib/offers";
+import { LADDER, AUDIT_TERMS } from "@/lib/offers";
 
 const audit = LADDER.find((rung) => rung.id === "audit");
 
@@ -76,8 +76,8 @@ export default function Mechanism() {
           slide deck at the end of it. We have not found one, at any price, that
           computes the answer from your connected systems. That is the whole
           reason this instrument exists, and it is why the audit costs{" "}
-          {audit.price} and credits 100 percent forward instead of being sold as
-          a report.
+          {audit.price} and credits {AUDIT_TERMS.creditPercent} forward instead
+          of being sold as a report.
         </p>
       </div>
 
