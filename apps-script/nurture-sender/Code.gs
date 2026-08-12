@@ -40,12 +40,16 @@ var SITE_URL = 'https://modernbizops.com';
 var SCORECARD_URL = 'https://modernbizops.com/scorecard';
 
 // Plain-text fallback signature. ASCII only, so no client mis-decodes it.
+// 2026-08-12: retired "RevOps Coach" (a title Bradley does not use any more) and
+// the pre-pivot "one machine, more money less chaos" line, and renamed the free
+// diagnostic to the AI Revenue Scan. SCORECARD_URL is unchanged on purpose. The
+// product got a new name. The /scorecard route stayed the same.
 var SIGNATURE_TEXT = [
   '--',
   'Bradley de Wet',
-  'RevOps Coach | Modern BizOps',
-  'Making marketing, sales, and service one machine. More money, less chaos.',
-  'Get my free Revenue Growth Scorecard: ' + SCORECARD_URL,
+  'Founder | Modern BizOps',
+  'AI automation for B2B go-to-market. More leads, more booked calls, less busywork.',
+  'Get my free AI Revenue Scan: ' + SCORECARD_URL,
   SITE_URL + ' | ' + LINKEDIN_URL + ' | ' + YOUTUBE_URL
 ].join('\n');
 
@@ -53,9 +57,9 @@ var SIGNATURE_TEXT = [
 var SIGNATURE_HTML_FALLBACK = [
   '--',
   'Bradley de Wet',
-  'RevOps Coach &middot; Modern BizOps',
-  'Making marketing, sales, and service one machine. More money, less chaos.',
-  '<a href="' + SCORECARD_URL + '">Get my free Revenue Growth Scorecard &rarr;</a>',
+  'Founder &middot; Modern BizOps',
+  'AI automation for B2B go-to-market. More leads, more booked calls, less busywork.',
+  '<a href="' + SCORECARD_URL + '">Get my free AI Revenue Scan &rarr;</a>',
   '<a href="' + SITE_URL + '">modernbizops.com</a> | ' +
     '<a href="' + LINKEDIN_URL + '">LinkedIn</a> | ' +
     '<a href="' + YOUTUBE_URL + '">YouTube</a>'
