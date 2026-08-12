@@ -14,17 +14,20 @@ const rung = Object.fromEntries(LADDER.map((r) => [r.id, r]));
 // sentence come from lib/offers.js so the homepage can never disagree with the
 // Pricing page. Nothing here is a hardcoded number.
 //
-// Four rungs, not five: Partner and Partner Plus are one decision with two
-// sizes, so they share a card and the second price. The split lives on
-// /pricing where a buyer is actually choosing between them.
+// Four cards, five rungs: Partner and Partner Plus are one decision with two
+// sizes, so they share the last card. The split is worked through on /pricing,
+// where a buyer is actually choosing between them.
+//
+// The second price rides along with the NAME that carries it. It used to sit in
+// the Partner card's price line as "$2,500 a month or $8,000 a month", which
+// put two prices under one product name while /pricing sold the second one as a
+// separately named rung. Nothing on this page states a rung total any more
+// either, because the page shows four cards and /pricing lists five.
 const RUNGS = [
-  { id: "scan", price: rung.scan.price },
-  { id: "audit", price: rung.audit.price },
-  { id: "builds", price: rung.builds.price },
-  {
-    id: "partner",
-    price: `${rung.partner.price} or ${rung["partner-plus"].price}`,
-  },
+  { id: "scan" },
+  { id: "audit" },
+  { id: "builds" },
+  { id: "partner", also: "partner-plus" },
 ];
 
 export default function TheLadder() {
@@ -32,7 +35,7 @@ export default function TheLadder() {
     <Section bg="white" narrow={false} id="how-it-works">
       <div className="max-w-[760px] mb-10">
         <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-4">
-          Four rungs. You can stop at any of them.
+          The ladder. You can stop at any rung.
         </h2>
         <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
           Nothing here requires the next thing. The first rung is free and you
@@ -43,6 +46,7 @@ export default function TheLadder() {
       <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {RUNGS.map((step, i) => {
           const offer = rung[step.id];
+          const also = step.also ? rung[step.also] : null;
           return (
             <li
               key={step.id}
@@ -55,11 +59,16 @@ export default function TheLadder() {
                 {offer.name}
               </p>
               <p className="font-body text-sm font-semibold text-amber mb-3">
-                {step.price}
+                {offer.price}
               </p>
               <p className="font-body text-[15px] text-text-mid leading-relaxed">
                 {offer.summary}
               </p>
+              {also && (
+                <p className="mt-3 font-body text-[13px] text-text-light leading-relaxed">
+                  {also.name} is {also.price}. {also.summary}
+                </p>
+              )}
             </li>
           );
         })}
