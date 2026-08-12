@@ -102,8 +102,12 @@ const stories = [
       "Then I added an offer at the end of every demo: sign up for an annual plan today and I will copy everything you just saw into your account by tomorrow morning. A lot of people said yes.",
       "I doubled my conversion rate for some segments and closed $318,000 in churn-adjusted ARR. The sales cycle dropped from 3 to 4 calls down to about 1.5. I taught the technique to the rest of the team and the company shortened the trial period from 3 weeks to 2 weeks based on what we found.",
     ],
+    // The three lesson callouts were the only blocks on this page with no
+    // number, no name and no date in them, and all three closed on an epigram
+    // that would have sat under any LinkedIn post. Each one now carries a
+    // specific from the story directly above it. Keep it that way.
     lesson:
-      "Every sales process has hidden leverage sitting inside it. Somebody just needs to look at it with fresh eyes and be willing to test something different.",
+      "Nobody at Contactually had ever timed the trial. Three weeks was in the playbook because three weeks had always been in the playbook, and testing it took the company down to two.",
     // "for some segments" is the career record's own qualifier on this number.
     // Dropping it turns a segment result into a book-wide one.
     stat1: { value: "2x", label: "Conversion rate, some segments" },
@@ -122,7 +126,7 @@ const stories = [
       "By the time the system was fully built, it had saved the company roughly $1 million in churned annual recurring revenue across 6 quarters. That result contributed directly to the company’s Series A valuation.",
     ],
     lesson:
-      "Start manual. Measure what works. Systematize it. Then scale it. You do not need a massive team. You need the right system.",
+      "I ran the onboarding calls myself first, and the data from those calls is where the four gates came from. Only then did I hire the team of 3 to run them. Building it in that order is why it kept working once it was not me on the call.",
     stat1: { value: "~$1M", label: "ARR saved from churn" },
     stat2: { value: "50%", label: "90-day churn reduction" },
     stat3: { value: "+$720", label: "LTV per customer" },
@@ -142,7 +146,7 @@ const stories = [
       "I closed $288,000 in annual recurring revenue. The model worked.",
     ],
     lesson:
-      "A named offer with a published number beats an open-ended engagement, on both sides of the table. That is why every build Modern BizOps sells has its price printed next to it.",
+      "The offer had a name and a number on it, and that is what made eight times the standard rate sellable. Every build Modern BizOps sells has its price printed next to it for the same reason.",
     stat1: { value: "$288K", label: "ARR closed" },
     stat2: { value: "40+", label: "Customers on the premium plan" },
     stat3: { value: "8x", label: "Price premium" },
@@ -242,11 +246,10 @@ export default function AboutPage() {
               Everything I build, I have run myself
             </h2>
             <p className="font-body text-base md:text-lg text-cream/80 leading-relaxed">
-              That is the summary. Below is the long version of three of those
-              roles, all inside the same VC-backed startup: the sales process I
-              rebuilt, the onboarding system that did not exist, and the priced
-              product I took to market myself. The numbers are real and every one
-              of them is mine.
+              That is the summary. Below is the long version of three roles, all
+              at Contactually. Inside sales, customer onboarding, and a premium
+              service I priced and sold myself. Every number in them is one I
+              carried.
             </p>
           </div>
         </section>
@@ -311,7 +314,7 @@ export default function AboutPage() {
               <p>
                 My dad ran a small computer consulting business when I was growing up. I watched what it
                 takes to be the person who is responsible for everything: the sales, the delivery, the
-                operations, the people. I believe small business owners are the lifeblood of this economy.
+                operations, the people. There was nobody else to hand any of it to.
               </p>
               <p>
                 Then I spent four and a half years as COO of a digital marketing agency,
@@ -320,16 +323,17 @@ export default function AboutPage() {
                 sat on both sides of that table.
               </p>
               <p>
-                What I saw over and over: owners running the whole business on gut feel and
-                spreadsheets, while larger competitors had entire teams dedicated to the systems that
-                drive predictable growth. The gap was not talent or effort. It was access to operational
-                infrastructure.
+                Owners were running the whole business on gut feel and a spreadsheet, while the
+                competitor three times their size had a team whose only job was keeping those same
+                questions answered every Monday morning. The owners worked at least as hard. Nobody
+                had ever built them the definitions, the reporting and the handoffs the bigger
+                company took for granted.
               </p>
               <p>
                 I started Modern BizOps to close that gap, and AI is what finally makes it
                 closable at this size. We build the systems one at a time, at a published
                 price, and hand over the runbook, so what you are paying for is a machine you
-                own rather than a dependency on me.
+                own.
               </p>
             </div>
           </div>
@@ -407,9 +411,9 @@ export default function AboutPage() {
               </p>
               <p>
                 And I am not going to build something you stay dependent on me to
-                maintain. Every system ships with a runbook and a handover, which
-                is the part of this market that usually goes missing, and it is
-                why the price is published instead of quoted.
+                maintain. Every system ships with a runbook and a handover to the
+                person on your side who owns it. Every price is on the pricing
+                page, so you can rule me out without booking a call.
               </p>
             </div>
           </div>

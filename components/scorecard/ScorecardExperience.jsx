@@ -36,19 +36,19 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What you will get back</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              A maturity stage placement against the Revenue Operations Maturity Model and its more than forty competencies, the dollar gap between you and peers in your business model on three specific metrics (revenue per employee, sales cycle velocity, retention), and the one operational gap I would close first.
+              Your stage on the Revenue Operations Maturity Model, a framework I built for scoring how a revenue engine actually runs. The dollar gap between you and peers in your business model on revenue per employee, sales cycle velocity and retention. And the one operational gap I would close first.
             </p>
           </div>
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What I am comparing you against</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              Benchmark numbers drawn from published industry data (SaaS Capital, HRBench, The Bridge Group, Deltek, Recurly, Statista and others), keyed to your business model so the comparison is to peers like you, not a generic SMB blend. Sources are cited next to every number, and where a segment has no representative published data, the page says so.
+              Benchmark numbers drawn from published industry data (SaaS Capital, HRBench, The Bridge Group, Deltek, Recurly, Statista and others), keyed to your business model, so a services firm gets compared against services firms and a SaaS company against SaaS companies. Sources are cited next to every number, and where a segment has no representative published data, the page says so.
             </p>
           </div>
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What this is not</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              This is a directional read from fifteen questions you answer about yourself. It is the free first rung, not the {AUDIT.name}, which is the paid next rung: that one connects to your systems, computes the real picture instead of taking your word for it, and ranks what to automate first. If the numbers here feel right, that is the signal to take the next step.
+              Every number here comes from your own estimate of your own business, so the read is only as good as those estimates. The {AUDIT.name} is the paid version. It connects to your CRM and revenue tools and scores more than forty competencies off your live data. Then it ranks what to automate first. If the numbers here look about right to you, that is the point to go get the real ones.
             </p>
           </div>
         </div>

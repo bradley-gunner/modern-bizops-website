@@ -163,10 +163,9 @@ export default function LearnIndexPage() {
         <Section bg="cream" narrow={false}>
           <div className="max-w-[760px] mb-12">
             <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-              These pages are the written version of the work. They are free,
-              they require no email address, and they are here because a founder
-              deciding what to fix first should be able to read the reasoning
-              before talking to anybody.
+              These pages are the written version of the work. They are free and
+              they take no email address. A founder deciding what to fix first
+              should be able to read the reasoning before talking to anybody.
             </p>
           </div>
 
@@ -215,8 +214,16 @@ export default function LearnIndexPage() {
                         <h3 className="font-display text-xl font-semibold text-navy mb-2 group-hover:text-amber transition-colors">
                           {entry.h1}
                         </h3>
+                        {/* cardBlurb, NOT metaDescription. The meta strings are
+                            live SERP snippets for twenty-four ranking pages and
+                            nine of them are built on the same negation shape
+                            ("X is not A. It is B."), which earns the click in a
+                            search result and reads as one template when the grid
+                            renders nine of them in a single viewport. cardBlurb
+                            is the index-only override; entries without one fall
+                            back to the meta description. */}
                         <p className="font-body text-[15px] text-text-mid leading-relaxed">
-                          {entry.metaDescription}
+                          {entry.cardBlurb ?? entry.metaDescription}
                         </p>
                       </Link>
                     </li>
