@@ -15,6 +15,11 @@ function run(args) {
   }
 }
 
+// The lint was inverted on 2026-08-12. It used to fail on "we/our/us" and pass
+// first-person singular; Bradley retired the singular as a brand voice, so the
+// guard now enforces the opposite. These tests assert the new intent, including
+// the fact that the plural is explicitly allowed, so a revert cannot pass
+// quietly.
 describe('lint-scorecard-voice script', () => {
   it('exits 0 on a clean fixture', () => {
     const r = run(['__tests__/scorecard/fixtures/clean.txt']);
@@ -24,6 +29,30 @@ describe('lint-scorecard-voice script', () => {
   it('exits non-zero on a dirty fixture', () => {
     const r = run(['__tests__/scorecard/fixtures/dirty.txt']);
     expect(r.code).not.toBe(0);
-    expect(r.out).toMatch(/em-dash|first-person plural/i);
+    expect(r.out).toMatch(/em-dash|first-person singular/i);
+  });
+
+  it('flags first-person singular copy, naming it as such', () => {
+    const r = run(['__tests__/scorecard/fixtures/dirty.txt']);
+    expect(r.out).toMatch(/first-person singular/);
+    expect(r.out).toMatch(/I built this/);
+    expect(r.out).toMatch(/Tell me about my number/);
+  });
+
+  it('still flags an em-dash', () => {
+    const r = run(['__tests__/scorecard/fixtures/dirty.txt']);
+    expect(r.out).toMatch(/em-dash/);
+  });
+
+  it('no longer flags the first-person plural, which is now the house voice', () => {
+    const r = run(['__tests__/scorecard/fixtures/clean.txt']);
+    expect(r.out).not.toMatch(/first-person plural/i);
+    expect(r.code).toBe(0);
+  });
+
+  it('lints the three guarded scorecard surfaces by default and they pass', () => {
+    const r = run([]);
+    expect(r.code).toBe(0);
+    expect(r.out).toMatch(/Voice lint passed/);
   });
 });

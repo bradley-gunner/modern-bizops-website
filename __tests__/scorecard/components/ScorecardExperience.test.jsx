@@ -14,7 +14,7 @@ describe('ScorecardExperience', () => {
   it('renders the below-the-fold credibility framing copy', () => {
     render(<ScorecardExperience />);
     expect(screen.getByText(/What you will get back/i)).toBeInTheDocument();
-    expect(screen.getByText(/What I am comparing you against/i)).toBeInTheDocument();
+    expect(screen.getByText(/What we are comparing you against/i)).toBeInTheDocument();
     expect(screen.getByText(/What this is not/i)).toBeInTheDocument();
   });
 

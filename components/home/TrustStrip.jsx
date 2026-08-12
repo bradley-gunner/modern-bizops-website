@@ -8,9 +8,15 @@
 //
 // THE LABEL BELOW IS LOAD-BEARING AND NON-NEGOTIABLE. Bradley cleared all 28
 // iExcel-era clients for public naming on one condition: they are always framed
-// as "clients I worked with while I was at iExcel" and never stated or implied
-// to be Modern BizOps clients. Dropping or softening that label puts this block
-// in the same fabrication class as the homepage result cards that were removed.
+// as clients our founder worked with while at iExcel, and never stated or
+// implied to be Modern BizOps clients. Dropping or softening that label puts
+// this block in the same fabrication class as the homepage result cards that
+// were removed.
+//
+// 2026-08-12: the label read "Clients I worked with while I was at iExcel:"
+// until Bradley retired the first-person singular as a brand voice. He chose
+// the replacement wording himself. The attribution work is unchanged; only the
+// person doing the speaking is.
 //
 // Every number here is from the verified career record; do not round them up.
 // "Over a decade" is deliberate: the live LinkedIn headline still says fifteen
@@ -63,7 +69,7 @@ export default function TrustStrip() {
               the names stay at navy/75, so the frame lands first. The words are
               exact and non-negotiable; only their treatment changed. */}
           <p className="font-body text-[15px] md:text-base font-semibold text-navy mb-3">
-            Clients I worked with while I was at iExcel:
+            Clients our founder worked with while at iExcel
           </p>
           <ul className="flex flex-wrap justify-center gap-x-7 gap-y-2">
             {IEXCEL_CLIENTS.map((client) => (

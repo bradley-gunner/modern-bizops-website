@@ -36,11 +36,11 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What you will get back</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              Your stage on the Revenue Operations Maturity Model, a framework I built for scoring how a revenue engine actually runs. The dollar gap between you and peers in your business model on revenue per employee, sales cycle velocity and retention. And the one operational gap I would close first.
+              Your stage on the Revenue Operations Maturity Model, a framework we built for scoring how a revenue engine actually runs. The dollar gap between you and peers in your business model on revenue per employee, sales cycle velocity and retention. And the one operational gap we would close first.
             </p>
           </div>
           <div>
-            <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What I am comparing you against</h2>
+            <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What we are comparing you against</h2>
             <p className="font-body text-text-mid leading-relaxed">
               Benchmark numbers drawn from published industry data (SaaS Capital, HRBench, The Bridge Group, Deltek, Recurly, Statista and others), keyed to your business model, so a services firm gets compared against services firms and a SaaS company against SaaS companies. Sources are cited next to every number, and where a segment has no representative published data, the page says so.
             </p>

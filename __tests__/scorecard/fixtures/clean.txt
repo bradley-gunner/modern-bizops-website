@@ -1,1 +1,4 @@
-This copy is clean. You are leaving $5K on the table. Source: businessModelBenchmarks v1.1, B2B SaaS row.
+This copy is clean. We built this. You are leaving $5K on the table. Source: businessModelBenchmarks v1.1, B2B SaaS row.
+Our read of your stack is where that number comes from, and it is business as usual for us.
+// Pure function. No I/O. Comment lines are exempt from the singular check on purpose.
+<div className="my-9 me-4">Tailwind margin utilities are not first-person copy.</div>

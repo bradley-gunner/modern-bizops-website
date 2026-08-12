@@ -33,7 +33,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: TITLE,
-    description: 'Fifteen questions. Peer-anchored benchmarks. The one gap I would close first.',
+    description: 'Fifteen questions. Peer-anchored benchmarks. The one gap we would close first.',
     images: ['https://modernbizops.com/og/og-scorecard.png'],
   },
 };

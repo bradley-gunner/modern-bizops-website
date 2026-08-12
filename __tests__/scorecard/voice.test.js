@@ -22,6 +22,10 @@ import {
   metricCitation,
 } from '@/lib/scorecard/voice';
 
+// sanitizeVoice was inverted on 2026-08-12. It threw on \b(we|our|us)\b until
+// Bradley retired the first-person singular as a brand voice, at which point
+// the sanitizer was throwing on the house voice itself. It now throws on the
+// singular, and the plural is asserted to pass so a revert cannot land quietly.
 describe('sanitizeVoice', () => {
   it('returns clean strings unchanged', () => {
     expect(sanitizeVoice('Your number is right here.')).toBe('Your number is right here.');
@@ -31,14 +35,32 @@ describe('sanitizeVoice', () => {
     expect(() => sanitizeVoice('this is—broken')).toThrow(/em-dash/);
   });
 
-  it('throws on first-person plural we/our/us', () => {
-    expect(() => sanitizeVoice('we built this')).toThrow(/first-person plural/);
-    expect(() => sanitizeVoice('Our roadmap')).toThrow(/first-person plural/);
-    expect(() => sanitizeVoice('Tell us more')).toThrow(/first-person plural/);
+  it('throws on first-person singular I/my/me', () => {
+    expect(() => sanitizeVoice('I built this')).toThrow(/first-person singular/);
+    expect(() => sanitizeVoice('My roadmap')).toThrow(/first-person singular/);
+    expect(() => sanitizeVoice('Tell me more')).toThrow(/first-person singular/);
+    expect(() => sanitizeVoice('The judgment is mine')).toThrow(/first-person singular/);
+    expect(() => sanitizeVoice('I ran it myself')).toThrow(/first-person singular/);
   });
 
-  it('does NOT flag "us" inside a word (business, usually, status, etc.)', () => {
-    expect(() => sanitizeVoice('business as usual status')).not.toThrow();
+  it('throws on the I contractions', () => {
+    expect(() => sanitizeVoice("I'm on it")).toThrow(/first-person singular/);
+    expect(() => sanitizeVoice("I've seen this")).toThrow(/first-person singular/);
+  });
+
+  it('ALLOWS the first-person plural, which is now the house voice', () => {
+    expect(sanitizeVoice('We built this')).toBe('We built this');
+    expect(sanitizeVoice('Our read of your stack')).toBe('Our read of your stack');
+    expect(sanitizeVoice('Tell us more')).toBe('Tell us more');
+  });
+
+  it('does NOT flag "I" inside a word, or a lowercase i', () => {
+    expect(() => sanitizeVoice('Involuntary churn is a billing problem')).not.toThrow();
+    expect(() => sanitizeVoice('the ith item in the list')).not.toThrow();
+  });
+
+  it('does NOT flag "my" or "me" inside a word (myriad, metric, name, etc.)', () => {
+    expect(() => sanitizeVoice('a metric named something')).not.toThrow();
   });
 
   it('passes through non-string inputs', () => {
@@ -73,11 +95,12 @@ describe('static copy is clean and present', () => {
     expect(STAGE_NAMES[4]).toBe('Compounding');
   });
 
-  it('STAGE_DESCRIPTORS cover stages 1..4 with no em-dash and no first-person plural', () => {
+  it('STAGE_DESCRIPTORS cover stages 1..4 with no em-dash and no first-person singular', () => {
     for (const k of [1, 2, 3, 4]) {
       expect(STAGE_DESCRIPTORS[k]).toBeTypeOf('string');
       expect(STAGE_DESCRIPTORS[k]).not.toMatch(/—/);
-      expect(STAGE_DESCRIPTORS[k]).not.toMatch(/\b(we|our|us)\b/i);
+      expect(STAGE_DESCRIPTORS[k]).not.toMatch(/\bI\b/);
+      expect(STAGE_DESCRIPTORS[k]).not.toMatch(/\b(my|me|mine|myself)\b/i);
     }
   });
 
@@ -152,7 +175,8 @@ describe('v1.1 statics', () => {
       expect(NEXT_STAGE_CRITERIA[stage].criteria.length).toBeGreaterThanOrEqual(2);
       for (const c of NEXT_STAGE_CRITERIA[stage].criteria) {
         expect(c).not.toMatch(/—/);
-        expect(c).not.toMatch(/\b(we|our|us)\b/i);
+        expect(c).not.toMatch(/\bI\b/);
+        expect(c).not.toMatch(/\b(my|me|mine|myself)\b/i);
       }
     }
   });
@@ -166,7 +190,8 @@ describe('v1.1 statics', () => {
       expect(FIX_PARAGRAPHS[key]).toBeTypeOf('string');
       expect(FIX_PARAGRAPHS[key].length).toBeGreaterThan(40);
       expect(FIX_PARAGRAPHS[key]).not.toMatch(/—/);
-      expect(FIX_PARAGRAPHS[key]).not.toMatch(/\b(we|our|us)\b/i);
+      expect(FIX_PARAGRAPHS[key]).not.toMatch(/\bI\b/);
+      expect(FIX_PARAGRAPHS[key]).not.toMatch(/\b(my|me|mine|myself)\b/i);
     }
   });
 
