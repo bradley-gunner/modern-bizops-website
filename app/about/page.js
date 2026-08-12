@@ -94,16 +94,19 @@ const stories = [
   {
     years: "2014 to 2016",
     role: "Inside Sales, Contactually",
-    headline: "I doubled my conversion rate by questioning the demo that nobody questioned",
+    headline:
+      "I doubled my conversion rate for some segments by questioning the demo that nobody questioned",
     body: [
       "Contactually was a VC-backed CRM startup in DC. I was doing 30-minute screen-share demos all day, every day. The standard process was 3 to 4 calls spread across a 3-week free trial. Nobody had ever stopped to ask whether it actually needed to take that long.",
-      "So I started testing. I built demo accounts customized for each persona I was selling to. If I was talking to a real estate agent, the demo account looked like a real estate agent's account, with email templates and workflows built around their specific pain points. Not a generic product tour. Their world, reflected back to them.",
+      "So I started testing. I built demo accounts customized for each persona I was selling to. If I was talking to a real estate agent, the demo account looked like a real estate agent’s account, with email templates and workflows built around their specific pain points. Not a generic product tour. Their world, reflected back to them.",
       "Then I added an offer at the end of every demo: sign up for an annual plan today and I will copy everything you just saw into your account by tomorrow morning. A lot of people said yes.",
-      "I doubled my conversion rate and closed $318,000 in churn-adjusted ARR. The sales cycle dropped from 3 to 4 calls down to about 1.5. I taught the technique to the rest of the team and the company shortened the trial period from 3 weeks to 2 weeks based on what we found.",
+      "I doubled my conversion rate for some segments and closed $318,000 in churn-adjusted ARR. The sales cycle dropped from 3 to 4 calls down to about 1.5. I taught the technique to the rest of the team and the company shortened the trial period from 3 weeks to 2 weeks based on what we found.",
     ],
     lesson:
       "Every sales process has hidden leverage sitting inside it. Somebody just needs to look at it with fresh eyes and be willing to test something different.",
-    stat1: { value: "2x", label: "Conversion rate" },
+    // "for some segments" is the career record's own qualifier on this number.
+    // Dropping it turns a segment result into a book-wide one.
+    stat1: { value: "2x", label: "Conversion rate, some segments" },
     stat2: { value: "$318K", label: "Churn-adjusted ARR" },
     stat3: { value: "~1.5", label: "Avg calls to close" },
   },
@@ -116,7 +119,7 @@ const stories = [
       "I started with brute force. I ran 2-call onboarding sessions with a subset of new customers. I tracked everything. The data showed the customers I was talking to were churning at a significantly lower rate than the ones I was not.",
       "From that I built a hypothesis: there were 4 specific things a customer needed to accomplish to reach their first real moment of value. I called it the activation funnel. I oriented every onboarding call around getting people through those 4 gates, and the numbers confirmed it was working.",
       "I hired and trained a team of 3. Tested outsourcing the calls to cut costs, then shut that down when I saw what robotic, checklist-following reps did to customer relationships. Pivoted to live webinars, then eventually automated webinars that ran as if they were live.",
-      "By the time the system was fully built, it had saved the company roughly $1 million in churned annual recurring revenue across 6 quarters. That result contributed directly to the company's Series A valuation.",
+      "By the time the system was fully built, it had saved the company roughly $1 million in churned annual recurring revenue across 6 quarters. That result contributed directly to the company’s Series A valuation.",
     ],
     lesson:
       "Start manual. Measure what works. Systematize it. Then scale it. You do not need a massive team. You need the right system.",
@@ -130,10 +133,13 @@ const stories = [
     headline: "I built a premium service from scratch and priced it at 8 times the standard rate",
     body: [
       "After proving I could fix sales processes and rebuild onboarding from the ground up, the company asked me to do something new: create a premium done-with-you service and take it to market.",
-      "Contactually's enterprise customers were real estate brokerages who bought the software for their agents. The agents needed help actually using it. So I built a premium plan: weekly working calls with a success manager who would set up advanced automations in their account and show them how to run it.",
+      "Contactually’s enterprise customers were real estate brokerages who bought the software for their agents. The agents needed help actually using it. So I built a premium plan: weekly working calls with a success manager who would set up advanced automations in their account and show them how to run it.",
       "I priced it at 8 times the standard subscription rate. Eight times.",
       "I sold it through educational webinars where I would show the most advanced setups, things like automated open house follow-up sequences, and close with a simple offer: spend the next month figuring this out yourself, or let us do it with you.",
-      "I closed $288,000 in annual recurring revenue. I hired and trained 2 additional team members to deliver it alongside me. The model worked.",
+      // A "hired and trained 2 additional team members" line stood here until
+      // 2026-08-12. The career record has a team of 3 on the ONBOARDING role
+      // and no headcount at all on this one, so the number had no source.
+      "I closed $288,000 in annual recurring revenue. The model worked.",
     ],
     lesson:
       "A named offer with a published number beats an open-ended engagement, on both sides of the table. That is why every build Modern BizOps sells has its price printed next to it.",
@@ -360,8 +366,9 @@ export default function AboutPage() {
                 Modern BizOps is new. It has no case studies and no client
                 results, and I am not going to borrow someone else&rsquo;s or
                 dress up work I did under another company&rsquo;s name as if it
-                were ours. Everything above happened in a seat I held, at a
-                company I did not own.
+                were ours. Everything above happened before Modern BizOps
+                existed, in seats I held at other companies and in the one
+                company I founded myself.
               </p>
               <p>
                 That is the whole reason the{" "}
