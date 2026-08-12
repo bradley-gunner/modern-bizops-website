@@ -46,7 +46,7 @@ export default function MaturityHero({ variant }) {
       <div className="relative mx-auto max-w-[1120px] px-6 md:px-8 py-16 md:py-24 grid lg:grid-cols-[1.2fr_.8fr] gap-8 items-center">
         <div>
           <span className="inline-block text-xs tracking-[0.2em] uppercase text-amber-light font-semibold mb-4">
-            For founder-led B2B companies · $3M to $50M
+            For founder-led B2B companies
           </span>
           <h1 className="font-display font-semibold text-white text-4xl md:text-5xl leading-[1.05] max-w-[15ch]">
             {variant.h1}

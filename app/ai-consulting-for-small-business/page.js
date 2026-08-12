@@ -14,10 +14,13 @@ import { AUTHOR_CREDENTIAL, BYLINE } from "@/lib/learn/registry";
 // footer navigation; it exists for organic search and future paid ads.
 const URL = "https://modernbizops.com/ai-consulting-for-small-business";
 const OG_IMAGE = "https://modernbizops.com/og/og-service-ai-consulting.png";
-const TITLE =
-  "AI Consulting for Small Business: Foundations First, Then the Acceleration";
+// Title, dek and meta below are the strings approved in the step-16 retarget
+// handoff. The old title ran 73 characters bare and 89 rendered, so it was
+// truncated in results; the old meta promised coaching, which is retired.
+const TITLE = "AI Consulting for Small Business: Foundations First";
+const DEK = "Foundations first.";
 const DESCRIPTION =
-  "Most AI consulting for small business sells tools. I coach your team to fix the revenue fundamentals first, then apply AI where it actually accelerates.";
+  "Most AI consulting for small business sells tools on a broken foundation. Fix the foundation first, then build the automation, at published fixed prices.";
 const LAST_UPDATED = "2026-07-22";
 
 
@@ -43,9 +46,15 @@ const FAQ = [
 ];
 
 export const metadata = {
-  // Root layout applies a "%s | Modern BizOps" template, so this is the bare
-  // title tag; the brand suffix is added once by the template.
-  title: TITLE,
+  // OPTS OUT OF THE BRAND SUFFIX, the way /learn/[slug] and the offer pages do.
+  //
+  // The step-16 handoff flagged this exact decision and left it open: the
+  // approved title is 51 characters, this page is root-level rather than under
+  // /learn, and the root layout's "%s | Modern BizOps" template would render it
+  // at 67, past the roughly 60 characters Google shows. The handoff's own
+  // instruction was to check the RENDERED length, not the bare one. Approved
+  // copy is not ours to rewrite, so the suffix is what gives way.
+  title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: URL },
   openGraph: {
@@ -133,13 +142,16 @@ export default function AiConsultingForSmallBusinessPage() {
   };
 
   // Page-specific Service schema, per the build spec's recommended addition for
-  // this BOFU service page. It describes the actual offer: the AI-accelerated
-  // framing of the revenue operations coaching engagement.
+  // this BOFU service page. serviceType read "Revenue operations coaching
+  // (AI-accelerated)" until 2026-08-12, which named a retired offer in machine
+  // readable form. The page prose still argues the coaching model and is owed a
+  // rewrite against approved copy; this task only had authority over its
+  // metadata and schema.
   const serviceLd = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: "AI Consulting for Small Business",
-    serviceType: "Revenue operations coaching (AI-accelerated)",
+    serviceType: "AI consulting for small business",
     url: URL,
     description: DESCRIPTION,
     provider: {
@@ -151,7 +163,7 @@ export default function AiConsultingForSmallBusinessPage() {
     areaServed: { "@type": "Country", name: "United States" },
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Founder-led B2B companies from $3M to $50M in revenue",
+      audienceType: "Founder-led B2B companies",
     },
   };
 
@@ -164,7 +176,7 @@ export default function AiConsultingForSmallBusinessPage() {
         <LearnHero
           h1="AI Consulting for Small Business"
           accentWord="Consulting"
-          dek="Foundations first, then the acceleration."
+          dek={DEK}
           byline={`${BYLINE} Last updated ${formatLastUpdated(LAST_UPDATED)}.`}
           motif="amplifier"
           theme="navy"

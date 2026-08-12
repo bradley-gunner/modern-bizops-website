@@ -6,6 +6,7 @@ export const metadata = {
   title: "Security and Data Handling Overview",
   description:
     "How Modern BizOps accesses, protects, and handles your data.",
+  alternates: { canonical: "https://modernbizops.com/security" },
   robots: "noindex, nofollow",
 };
 

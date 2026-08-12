@@ -5,6 +5,7 @@ import Section from "@/components/ui/Section";
 export const metadata = {
   title: "Privacy Policy",
   description: "Privacy Policy for Modern BizOps LLC.",
+  alternates: { canonical: "https://modernbizops.com/privacy" },
   robots: "noindex, nofollow",
 };
 

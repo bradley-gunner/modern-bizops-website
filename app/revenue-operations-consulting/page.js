@@ -11,8 +11,16 @@ import { AUTHOR_CREDENTIAL, BYLINE } from "@/lib/learn/registry";
 const URL = "https://modernbizops.com/revenue-operations-consulting";
 const OG_IMAGE = "https://modernbizops.com/og/og-revenue-operations-consulting.png";
 const TITLE = "Revenue Operations Consulting From Someone Who Has Run the Function";
+// TITLE STAYS. This is one of the few pages that deliberately targets the
+// "revenue operations consulting" searcher, so it keeps its validated term
+// while the rest of the site drops the phrase from titles.
+//
+// The meta is replaced with the exact string specced in the step-13 sweep. The
+// old one was 203 characters (past the 158 cutoff, so Google was rewriting it),
+// promised a coaching engagement that is retired, and carried the "$3M to $50M"
+// band. This one is 155 and describes what is actually sold.
 const DESCRIPTION =
-  "Traditional revenue operations consulting builds the system for you and leaves. This coaches your team to build it, so it still works when the engagement ends. For founder-led B2B companies from $3M to $50M.";
+  "Traditional revenue operations consulting builds the system for you and leaves. This builds named systems at fixed prices that your team owns when I leave.";
 const LAST_UPDATED = "2026-07-21";
 
 
@@ -34,14 +42,22 @@ const FAQ = [
   },
   {
     q: "Is my company big enough to need revenue operations consulting?",
-    a: "If you are a founder-led B2B company between $3M and $50M in revenue and your growth has started to depend on adding headcount, you are in the range where this pays for itself. Below that, the systems problem is usually not expensive enough yet to justify the work. Above it, you likely already have an internal team. The sweet spot is the company with real revenue and a real team but no shared operating system underneath them.",
+    a: "If you are a founder-led B2B company and your growth has started to depend on adding headcount, you are in the range where this pays for itself. Below that, the systems problem is usually not expensive enough yet to justify the work. Above it, you likely already have an internal team. The sweet spot is the company with real revenue and a real team but no shared operating system underneath them.",
   },
 ];
 
 export const metadata = {
-  // Root layout applies a "%s | Modern BizOps" template, so this is the bare
-  // title tag; the brand suffix is added once by the template.
-  title: TITLE,
+  // OPTS OUT OF THE BRAND SUFFIX, like the offer pages and /learn/[slug].
+  //
+  // The title string is protected: this page deliberately targets the
+  // "revenue operations consulting" searcher and the sweep was told to keep it.
+  // At 67 characters it does not fit the suffix, and with the template on it
+  // rendered at 83. Dropping the suffix is the only lever this task had.
+  //
+  // IT IS STILL 67 RENDERED, past the roughly 60 Google shows. Shortening it
+  // means rewriting a protected string, so that is an owner decision, recorded
+  // in the step-13 report rather than made here.
+  title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: URL },
   openGraph: {
@@ -118,7 +134,7 @@ export default function RevenueOperationsConsultingPage() {
     "@context": "https://schema.org",
     "@type": "Service",
     name: "Revenue Operations Consulting",
-    serviceType: "Revenue operations coaching",
+    serviceType: "Revenue operations consulting",
     url: URL,
     description: DESCRIPTION,
     provider: {
@@ -130,7 +146,7 @@ export default function RevenueOperationsConsultingPage() {
     areaServed: { "@type": "Country", name: "United States" },
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Founder-led B2B companies from $3M to $50M in revenue",
+      audienceType: "Founder-led B2B companies",
     },
   };
 

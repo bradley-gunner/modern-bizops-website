@@ -43,7 +43,7 @@ export default function ConversionRateOptimizationBody() {
         Almost everything written about conversion rate optimization is about your website.
         A/B testing headlines, moving buttons, changing colors, reducing form fields,
         watching heatmaps. If you sell to consumers off a landing page, that work matters.
-        If you run a founder-led B2B company between $3M and $50M with a real sales motion,
+        If you run a founder-led B2B company with a real sales motion,
         it is not where your money is leaking. Your biggest conversion losses are not on the
         page where someone fills out a form. They are in the pipeline, between the lead
         arriving and the deal closing, where a slow follow-up, an inconsistent process, and

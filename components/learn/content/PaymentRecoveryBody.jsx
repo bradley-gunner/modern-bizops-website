@@ -70,7 +70,7 @@ export default function PaymentRecoveryBody() {
         Maxio, and essentially every modern billing platform already include retry logic,
         dunning emails, and a card-updater that refreshes expired cards automatically.
         These are usually switched off or left on a weak default. Configuring them well
-        recovers most of what the dedicated tools sell, at $3M to $50M in revenue, without
+        recovers most of what the dedicated tools sell, at your transaction volume, without
         a new contract.
       </p>
       <p>

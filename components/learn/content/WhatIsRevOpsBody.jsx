@@ -69,11 +69,11 @@ export default function WhatIsRevOpsBody() {
         people who want that job.
       </p>
       <p>
-        You run a founder-led company. Your version of the question is different: at $3M
-        to $50M in revenue, do you need a RevOps hire at all? The honest answer is that
+        You run a founder-led company. Your version of the question is different: at
+        your size, do you need a RevOps hire at all? The honest answer is that
         you need the discipline before you need the headcount. The definitions, the
         lifecycle, the data hygiene, and the operating cadence are buildable with the
-        team you already have. Many companies in this band get there by promoting someone
+        team you already have. Many companies at this size get there by promoting someone
         internal who already knows the business and giving that person the{" "}
         <Link href="/revenue-operations-consulting" className="text-navy underline">
           structure and guidance to build it

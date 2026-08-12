@@ -6,7 +6,7 @@ import VizBlock from "@/components/learn/VizBlock";
 // the comparison stays crawlable and AI-extractable. Desktop renders one
 // semantic <table>; mobile stacks the three categories into three cards, both
 // built from the same ROWS so the cell text is identical either way.
-const HEADERS = ["Category", "What it is for", "When it is worth it at $3M–$50M"];
+const HEADERS = ["Category", "What it is for", "When it is worth it at your size"];
 
 const ROWS = [
   {

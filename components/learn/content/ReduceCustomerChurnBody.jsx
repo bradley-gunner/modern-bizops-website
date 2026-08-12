@@ -35,7 +35,7 @@ export default function ReduceCustomerChurnBody() {
         offer is a discount that trains your best customers to threaten to leave.
       </p>
       <p>
-        This page is for founder-led B2B companies between $3M and $50M, where post-sale
+        This page is for founder-led B2B companies where post-sale
         is not a department. It is the founder, or one account manager, holding every
         relationship in their head. And it is not only for software companies, which is
         where most churn advice is aimed. Any business with recurring or repeat revenue has

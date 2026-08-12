@@ -3,6 +3,7 @@ import { buildResult } from '@/lib/scorecard/resultRender';
 
 export const metadata = {
   title: 'AI Revenue Scan preview',
+  alternates: { canonical: "https://modernbizops.com/scorecard/preview" },
   robots: { index: false, follow: false },
 };
 

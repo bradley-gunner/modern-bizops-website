@@ -93,7 +93,7 @@ export default function AiAutomationServicesPage() {
     areaServed: { "@type": "Country", name: "United States" },
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Founder-led B2B companies from $3M to $50M in revenue",
+      audienceType: "Founder-led B2B companies",
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",

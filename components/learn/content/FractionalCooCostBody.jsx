@@ -33,7 +33,7 @@ export default function FractionalCooCostBody() {
         Before you spend that, I want to give you a better question than
         &ldquo;what does a fractional COO cost.&rdquo; The better question is
         which of four options actually fixes your problem. For a lot of
-        founder-led companies between $3M and $50M, a fractional COO is not the
+        founder-led companies at this size, a fractional COO is not the
         cheapest or the most durable answer, and the other places writing about
         this cost will not tell you that, because they are selling the fractional
         COO. I am not, so I can give you the straight version.

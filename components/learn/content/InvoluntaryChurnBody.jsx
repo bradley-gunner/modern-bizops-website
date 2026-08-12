@@ -127,7 +127,7 @@ export default function InvoluntaryChurnBody() {
         Chargebee, Recurly, and most billing platforms a founder-led business already
         runs include retry logic, dunning emails, and card updaters that are configurable
         rather than purchasable. The dedicated recovery vendors selling against this
-        problem earn their fees at enterprise transaction volume; at $3M to $50M,
+        problem earn their fees at enterprise transaction volume; at your size,
         configuration usually gets you most of the recovery those tools sell.
       </p>
       <p>

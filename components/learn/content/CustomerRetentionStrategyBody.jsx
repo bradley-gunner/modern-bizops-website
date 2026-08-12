@@ -31,7 +31,7 @@ export default function CustomerRetentionStrategyBody() {
         Almost everything written about customer retention assumes you sell to consumers.
         The advice is loyalty points, birthday emails, punch cards, and omnichannel
         support desks. That is a real discipline, and it is not yours. If you run a
-        founder-led B2B company doing between $3M and $50M, your retention problem is a
+        founder-led B2B company, your retention problem is a
         revenue-operations problem: a handful of accounts that each represent real money,
         a post-sale process that lives in your head or your best account manager&rsquo;s,
         and a churn number nobody has actually decomposed. The strategy that fixes that

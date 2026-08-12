@@ -89,7 +89,7 @@ export default function RevenueConsultingBody() {
         isolation and the other three pull it back.
       </p>
       <p>
-        Your CRM and pipeline. Most companies from $3M to $50M have a CRM that is
+        Your CRM and pipeline. Most companies at this size have a CRM that is
         a glorified contact list. Half the team does not use it properly, the
         data is not trusted, and you cannot see the real state of the pipeline
         without calling a meeting and asking people directly. The fix is{" "}

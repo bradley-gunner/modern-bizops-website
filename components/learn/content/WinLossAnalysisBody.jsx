@@ -38,7 +38,7 @@ export default function WinLossAnalysisBody() {
       <p>
         Almost everything written about win/loss analysis assumes a product-marketing
         team, a research budget, and a neutral third-party interviewer. Useful at
-        enterprise scale, and completely unnecessary at yours. At $3M to $50M,
+        enterprise scale, and completely unnecessary at yours. At your size,
         founder-led, you have an advantage the enterprise version is designed to
         simulate: you can personally call the buyer. The founder-sized program is four
         moves.

@@ -9,6 +9,7 @@ import WatchQualifyForm from "@/components/WatchQualifyForm";
 export const metadata = {
   title: "You Are Booked!",
   description: "Your discovery call is confirmed. Here is what to expect.",
+  alternates: { canonical: "https://modernbizops.com/thank-you" },
   robots: { index: false, follow: false },
 };
 

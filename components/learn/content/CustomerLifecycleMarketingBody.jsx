@@ -55,7 +55,7 @@ export default function CustomerLifecycleMarketingBody() {
         Cart-abandonment emails, loyalty points, birthday discounts, win-back flows for
         shoppers who have not bought in ninety days. That is a real discipline, and it is
         built for a direct-to-consumer brand with thousands of transactions. It is not
-        built for you. A founder-led B2B company between $3M and $50M does not have a
+        built for you. A founder-led B2B company does not have a
         lifecycle of shoppers. It has a small number of high-value accounts, each one worth
         real money, each one moving through a longer and more human relationship than any
         email flow can carry. Lifecycle marketing absolutely applies to your business. The
