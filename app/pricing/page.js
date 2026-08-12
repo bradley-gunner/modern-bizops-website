@@ -32,7 +32,7 @@ const { url: URL, description: DESCRIPTION } = PAGE;
 // from lib/offers.js.
 const LADDER_NOTES = {
   scan: {
-    linkLabel: "Get the free Scan",
+    linkLabel: "Get the Free Scan",
     note: "No call, no card, and no obligation to do anything with the result.",
   },
   audit: {

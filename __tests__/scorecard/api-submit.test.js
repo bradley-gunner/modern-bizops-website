@@ -60,7 +60,7 @@ function fixtureBody() {
     utms: { utm_source: 'linkedin', utm_medium: 'social', utm_campaign: 'maturity-scorecard' },
     hutk: 'cookie-xyz',
     pageUri: 'https://modernbizops.com/scorecard?utm_source=linkedin',
-    pageName: 'Revenue Growth Scorecard',
+    pageName: 'AI Revenue Scan: Free 5-Minute Diagnostic | Modern BizOps',
     answers: {
       q1: { value: '5m_15m' },
       q2: { value: 'PROFESSIONAL_SERVICES' },
@@ -96,7 +96,7 @@ describe('POST /api/scorecard/submit', () => {
         context: expect.objectContaining({
           hutk: 'cookie-xyz',
           pageUri: 'https://modernbizops.com/scorecard?utm_source=linkedin',
-          pageName: 'Revenue Growth Scorecard',
+          pageName: 'AI Revenue Scan: Free 5-Minute Diagnostic | Modern BizOps',
         }),
       })
     );

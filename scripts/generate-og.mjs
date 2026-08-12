@@ -141,7 +141,7 @@ function aboutCard({ subline }) {
   );
 }
 
-function scorecardCard({ headline, chips, footnote }) {
+function scorecardCard({ headline, chips, footnote, headlineSize = 60 }) {
   const pill = (label, filled) =>
     h(
       'div',
@@ -178,7 +178,7 @@ function scorecardCard({ headline, chips, footnote }) {
       {
         style: {
           position: 'absolute', left: 64, top: 180, width: 720,
-          fontFamily: 'Cormorant', fontWeight: 600, fontSize: 60, lineHeight: 1.06, color: CREAM,
+          fontFamily: 'Cormorant', fontWeight: 600, fontSize: headlineSize, lineHeight: 1.06, color: CREAM,
           display: 'flex',
         },
       },
@@ -403,11 +403,15 @@ const CARDS = {
         subline: 'Helping founder-led B2B companies build revenue engines that grow without headcount',
       }),
   },
+  // Slug stays `scorecard` because the route and the og:image path do; the
+  // card is the AI Revenue Scan, the free first rung of the ladder. "Free" is
+  // carried by the FREE pill above the headline, so the headline does not
+  // repeat it, which is what keeps it on one line at the default 60px.
   scorecard: {
     changed: false,
     element: () =>
       scorecardCard({
-        headline: 'Get Your Free Revenue Maturity Score',
+        headline: 'Get Your AI Revenue Scan',
         chips: [
           'CRM Architecture', 'Lead Qualification', 'Pipeline Design', 'Forecasting',
           'Revenue Cadence', 'Retention & Expansion', 'Leading Indicators',
