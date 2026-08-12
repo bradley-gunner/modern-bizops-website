@@ -374,7 +374,7 @@ export default function AiAutomationServicesPage() {
           <CtaCallout
             eyebrow="Which one first"
             heading="The audit tells you which of these to build."
-            body={`Twelve builds, and only two or three of them will move your number this quarter. The ${rung.audit.name} ranks these against your actual stack, prices the top items from this same list, and credits its fee in full toward the first one you build.`}
+            body={`The ${rung.audit.name} ranks all twelve builds against your actual stack, prices the top items from this same list, and credits its fee in full toward the first one you build.`}
             buttonLabel={`Start with the ${rung.audit.name}`}
             href="/ai-readiness-assessment"
             ctaLocation="services_foot"

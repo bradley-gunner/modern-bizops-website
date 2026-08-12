@@ -278,8 +278,7 @@ export default function AiReadinessAssessmentPage() {
               <p>
                 Plenty of firms will sell you an AI strategy engagement. They
                 interview your team, run a workshop, and hand back a deck built
-                out of what people said in the room. That was the same offer at
-                every price we looked at.
+                out of what people said in the room.
               </p>
               <p>
                 Nobody is lying in that room. People describe the process they
