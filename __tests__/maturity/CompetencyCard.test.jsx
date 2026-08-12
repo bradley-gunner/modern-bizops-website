@@ -25,6 +25,6 @@ describe("CompetencyCard", () => {
     expect(c).toBeTruthy();
     render(<CompetencyCard competency={c} isOpen={false} onToggle={() => {}} />);
     expect(screen.queryByRole("link")).not.toBeInTheDocument();
-    expect(screen.getByText("See how I score it")).toBeInTheDocument();
+    expect(screen.getByText("See how we score it")).toBeInTheDocument();
   });
 });

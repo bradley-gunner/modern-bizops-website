@@ -79,13 +79,13 @@ export default function InvoluntaryChurnBody() {
       <p>
         If you run an invoiced retainer business, you have the same disease with a
         different symptom: the invoice that does not get paid until someone chases it,
-        and the client relationship that lapses because the chasing stopped. I lived this
-        one directly. As the COO of an agency, I personally followed up with clients
-        month after month to get invoices paid on time, and I can tell you the cost is
+        and the client relationship that lapses because the chasing stopped. Our founder
+        lived this one directly. As the COO of an agency, Bradley personally followed up
+        with clients month after month to get invoices paid on time, and the cost is
         only partly cash flow. It is a recurring source of friction and dread for whoever
         runs the company, and it puts a small awkward strain on the client relationship
         every single month. To be precise about what that experience was: billing
-        operations, not a dunning-recovery program. But the fix I would give any retainer
+        operations, not a dunning-recovery program. But the fix we would give any retainer
         business follows from it. Move recurring fees to automatic card or ACH billing,
         accept the setup and exceptions work it takes, and the entire category of
         chase-the-invoice churn risk disappears along with the monthly dread.
@@ -131,7 +131,7 @@ export default function InvoluntaryChurnBody() {
         configuration usually gets you most of the recovery those tools sell.
       </p>
       <p>
-        In the Revenue Operations Maturity Model, a method I built for measuring RevOps
+        In the Revenue Operations Maturity Model, a method we built for measuring RevOps
         competencies in a business, this whole progression lives inside the Subscription
         and MRR Operations competency: the bottom of the rubric is a business that does
         not measure involuntary churn separately and processes cancellations with no

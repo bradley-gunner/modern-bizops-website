@@ -28,7 +28,7 @@ export default function Stage1ReactiveHubBody() {
         time, and holding the whole thing together by memory and relationships.
       </p>
       <p>
-        Here is the test I use with founders: if you stopped working your network for
+        Here is the test we use with founders: if you stopped working your network for
         the next ninety days, would new deals still show up? If the honest answer is
         no, you are Reactive. It does not matter if you are doing $2M or $9M in revenue.
         Picture two founders: one runs a $2M business with a real, working revenue
@@ -75,13 +75,14 @@ export default function Stage1ReactiveHubBody() {
         personally: organic social, organic search, paid social, paid search.
       </p>
       <p>
-        I have lived a version of this myself, on the other side of the table. After
-        leaving a good role as an Enterprise Customer Success Manager at a scaled
-        startup, I founded Tasting Club, a virtual tastings marketplace. I spent most of
-        my time getting the product right and not enough time validating the demand side
-        of that marketplace. I generated real supply, beta wineries and breweries,
-        through my own network and relationships. What I did not have yet was the skill
-        or experience to acquire B2C buyer demand at that point in my career.
+        Our founder lived a version of this himself, on the other side of the table.
+        After leaving a good role as an Enterprise Customer Success Manager at a scaled
+        startup, Bradley founded Tasting Club, a virtual tastings marketplace. He spent
+        most of his time getting the product right and not enough time validating the
+        demand side of that marketplace. He generated real supply, beta wineries and
+        breweries, through his own network and relationships. What he did not have yet
+        was the skill or experience to acquire B2C buyer demand at that point in his
+        career.
       </p>
       <p>That is Reactive, no matter what size company you are running.</p>
 

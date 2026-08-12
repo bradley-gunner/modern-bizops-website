@@ -85,7 +85,7 @@ export default async function ThankYouPage({ searchParams }) {
               {[
                 "Where your revenue engine is right now",
                 "What's working and what isn't",
-                "Whether I can help, and if so, exactly how",
+                "Whether we can help, and if so, exactly how",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <svg

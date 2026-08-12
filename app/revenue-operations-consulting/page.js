@@ -20,7 +20,7 @@ const TITLE = "Revenue Operations Consulting From Someone Who Has Run the Functi
 // promised a coaching engagement that is retired, and carried the "$3M to $50M"
 // band. This one is 155 and describes what is actually sold.
 const DESCRIPTION =
-  "Traditional revenue operations consulting builds the system for you and leaves. This builds named systems at fixed prices that your team owns when I leave.";
+  "Traditional revenue operations consulting builds the system for you and leaves. This builds named systems at fixed prices that your team owns when we leave.";
 const LAST_UPDATED = "2026-07-21";
 
 
@@ -189,7 +189,7 @@ export default function RevenueOperationsConsultingPage() {
               See where your revenue engine stands
             </h2>
             <p className="mx-auto mb-6 max-w-[52ch] text-white/80">
-              Book a call and I will give you my honest assessment of whether this
+              Book a call and we will give you our honest assessment of whether this
               work is a fit, including if the answer is not yet.
             </p>
             <Button href="/book" ctaLocation="how_it_works_foot">

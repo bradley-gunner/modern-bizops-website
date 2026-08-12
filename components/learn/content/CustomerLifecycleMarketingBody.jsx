@@ -126,7 +126,7 @@ export default function CustomerLifecycleMarketingBody() {
 
       <h2 className={h2}>Design the journey first, then choose the tools</h2>
       <p>
-        Here is the mistake I see most often, and it is worth stopping on. A company decides
+        Here is the mistake we see most often, and it is worth stopping on. A company decides
         it wants to do better by its customers, so it buys a tool: a marketing automation
         platform, a customer-success app, a fancier CRM. Then the customer journey gets
         built around whatever that tool happens to do well. The software leads, and the
@@ -181,7 +181,7 @@ export default function CustomerLifecycleMarketingBody() {
 
       <h2 className={h2}>Where lifecycle marketing sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method I built for measuring the RevOps
+        In the Revenue Operations Maturity Model, a method we built for measuring the RevOps
         competencies of a business, the customer lifecycle is a design problem before it is
         a marketing problem. At the bottom, there is no defined lifecycle: the sale happens,
         and what comes after is improvised per account. The first real step is mapping the

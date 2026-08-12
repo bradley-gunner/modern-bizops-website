@@ -118,8 +118,8 @@ export default function CustomerRetentionStrategyBody() {
       </p>
       <p>
         The first is onboarding, the gap between when someone buys and when they get the
-        result they bought. When I took over customer onboarding at a VC-backed startup,
-        the whole job was closing that gap: getting a new customer to their first real win
+        result they bought. When our founder took over customer onboarding at a VC-backed
+        startup, the whole job was closing that gap: getting a new customer to their first real win
         faster, because a customer who has not yet felt the value has no reason to stay.
         Most churn that looks like a year-two problem was actually decided in the first
         ninety days, when the customer never got off the ground. Map the path to first
@@ -171,7 +171,7 @@ export default function CustomerRetentionStrategyBody() {
 
       <h2 className={h2}>Where a retention strategy sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method I built for measuring the RevOps
+        In the Revenue Operations Maturity Model, a method we built for measuring the RevOps
         competencies of a business, retention moves through predictable stages. At the
         bottom, retention is not managed at all: churn is a number someone reports after
         the fact, post-sale has no owner, and the founder finds out an account left when

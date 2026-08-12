@@ -72,7 +72,7 @@ export default function SelfLocate() {
       {sel && (
         <div id="meet-response" className="mt-6 bg-white border border-amber rounded-2xl p-7 md:p-8 shadow-[0_16px_44px_rgba(14,31,56,0.10)] scroll-mt-24">
           <div className="text-xs tracking-[0.16em] uppercase text-amber font-semibold">If this is you</div>
-          <h3 className="font-display font-semibold text-navy text-2xl md:text-3xl mt-1 mb-3">Here is where I would meet you.</h3>
+          <h3 className="font-display font-semibold text-navy text-2xl md:text-3xl mt-1 mb-3">Here is where we would meet you.</h3>
           <p className="text-[17px] text-navy/90 leading-relaxed max-w-[66ch]">{sel.meet}</p>
 
           <div className="mt-6">

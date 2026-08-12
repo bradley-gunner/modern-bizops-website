@@ -29,11 +29,11 @@ const LAST_UPDATED = "2026-07-22";
 const FAQ = [
   {
     q: "What does an AI business consultant do?",
-    a: "Most AI business consultants assess your workflows, pick high-return areas, and implement tools: chatbots, automations, forecasting models. That is useful when the process underneath is already sound. I work differently. I coach your own team to fix the revenue fundamentals first, then apply AI only where it accelerates a competency you have already made solid. The goal is a system your team runs without me, not a tool you rent from me.",
+    a: "Most AI business consultants assess your workflows, pick high-return areas, and implement tools: chatbots, automations, forecasting models. That is useful when the process underneath is already sound. We work differently. We coach your own team to fix the revenue fundamentals first, then apply AI only where it accelerates a competency you have already made solid. The goal is a system your team runs without us, not a tool you rent from us.",
   },
   {
     q: "How much does an AI consultant cost?",
-    a: "In this category, readiness assessments commonly run from about $2,500 to $10,000, and project builds from roughly $10,000 to $50,000, with retainers on top. Those are implementation prices. My engagement is coaching, priced against the capability your team keeps rather than a one-time build they cannot maintain. The honest way to compare is not the invoice. It is whether the value stays in your business after the work is done.",
+    a: "In this category, readiness assessments commonly run from about $2,500 to $10,000, and project builds from roughly $10,000 to $50,000, with retainers on top. Those are implementation prices. Our engagement is coaching, priced against the capability your team keeps rather than a one-time build they cannot maintain. The honest way to compare is not the invoice. It is whether the value stays in your business after the work is done.",
   },
   {
     q: "How much does AI cost for a small business?",
@@ -186,7 +186,7 @@ export default function AiConsultingForSmallBusinessPage() {
                 Book a call
               </Button>
               <span className="max-w-[42ch] text-[13px] leading-snug text-text-light">
-                A free call. I will tell you honestly whether this is a fit,
+                A free call. We will tell you honestly whether this is a fit,
                 including if the answer is not yet.
               </span>
             </div>

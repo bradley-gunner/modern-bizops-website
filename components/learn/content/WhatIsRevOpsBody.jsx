@@ -79,16 +79,16 @@ export default function WhatIsRevOpsBody() {
           structure and guidance to build it
         </Link>
         , rather than adding a $150K+ specialist to interpret a
-        system that does not exist yet. I have spent over a decade doing this work from
-        the inside, carrying a number while architecting the systems that made the number
-        easier to hit, at VC-backed startups and as the COO of an agency. The pattern I
-        have seen repeatedly: the companies that hire the title before building the
+        system that does not exist yet. Our founder spent over a decade doing this work
+        from the inside, carrying a number while architecting the systems that made the
+        number easier to hit, at VC-backed startups and as the COO of an agency. The
+        pattern he saw repeatedly: the companies that hire the title before building the
         discipline end up paying a salary to document their chaos.
       </p>
 
       <h2 className={h2}>How to tell whether you have a RevOps problem</h2>
       <p>
-        Ask yourself three questions. If I asked your marketing lead and your best
+        Ask yourself three questions. If we asked your marketing lead and your best
         salesperson to each write down what a qualified lead looks like, would the
         answers match? Can you produce your pipeline number right now, without calling
         anyone, and do you believe it? When a customer signs, does what happens next
@@ -97,7 +97,7 @@ export default function WhatIsRevOpsBody() {
       <p>
         Two or three misses means your revenue depends on your personal effort and
         judgment rather than on a system. In the Revenue Operations Maturity Model, a
-        method I built for measuring the RevOps competencies of a business, that is
+        method we built for measuring the RevOps competencies of a business, that is
         called{" "}
         <Link
           href="/learn/revenue-operations-maturity-stage-1-reactive"

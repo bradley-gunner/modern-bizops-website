@@ -27,7 +27,8 @@ import { OFFER_PAGES } from "@/lib/offerPages";
 //    standard credit, and the founding incentive lands on the first build.
 //    Getting that backwards misprices a signed offer (Bradley, 2026-08-11).
 //
-// Voice: "I" for Bradley personally, "we" for Modern BizOps as a company.
+// Voice: "we" throughout. Bradley is named in the third person where his own
+// record is the point (retired the first-person singular, 2026-08-12).
 // Every price and every industry renders from lib/offers.js.
 //
 // THE FOUR SECTIONS ARE DELIBERATELY NOT PARALLEL (2026-08-12). Until this
@@ -188,10 +189,10 @@ export default function FoundingClientsPage() {
             </h2>
             <div className="space-y-5 font-body text-text-mid text-base md:text-lg leading-relaxed">
               <p>
-                I spent over a decade in the executor seat, four and a half
-                years of it as an agency COO. In January I left iExcel and gave
-                myself one rule: build everything with AI, or do not build it at
-                all.
+                Our founder spent over a decade in the executor seat, four and a
+                half years of it as an agency COO. In January he left iExcel and
+                gave himself one rule: build everything with AI, or do not build
+                it at all.
               </p>
               <p>
                 Six months of that produced what you can read on the rest of

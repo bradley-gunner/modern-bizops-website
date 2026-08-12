@@ -89,7 +89,7 @@ export default function Mechanism() {
             Prefer to hear it from a person?
           </h3>
           <p className="font-body text-text-mid text-base leading-relaxed max-w-[560px] mx-auto">
-            This is me, on camera, on the thinking behind all of it. No form in
+            This is Bradley, on camera, on the thinking behind all of it. No form in
             front of it.
           </p>
         </div>

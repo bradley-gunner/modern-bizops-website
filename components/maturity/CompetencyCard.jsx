@@ -18,7 +18,7 @@ export default function CompetencyCard({ competency: c, isOpen, onToggle }) {
         type="button"
         onClick={() => onToggle(c.slug)}
         aria-expanded={isOpen}
-        aria-label={`${c.name}: ${isOpen ? "close" : "see how I score it"}`}
+        aria-label={`${c.name}: ${isOpen ? "close" : "see how we score it"}`}
         className="absolute inset-0 w-full h-full rounded-2xl cursor-pointer"
       />
       <span className="flex items-center gap-2.5">
@@ -46,7 +46,7 @@ export default function CompetencyCard({ competency: c, isOpen, onToggle }) {
           </Link>
         ) : (
           <span className="text-[13px] text-amber font-semibold">
-            {isOpen ? "Close" : "See how I score it"}
+            {isOpen ? "Close" : "See how we score it"}
           </span>
         )}
       </span>

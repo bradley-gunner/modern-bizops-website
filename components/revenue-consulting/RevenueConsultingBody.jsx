@@ -50,15 +50,15 @@ export default function RevenueConsultingBody() {
       <p>
         This model is coaching, not consulting in that sense. An experienced
         operator, someone who has actually run the revenue function, coaches your
-        own employee to build the system. Your team does the work. I provide the
+        own employee to build the system. Your team does the work. We provide the
         roadmap and the guidance. When the engagement ends, the capability stays
         in the building, because the people who run it every day are the ones who
         built it. They understand their own system well enough to coach the next
         hire on it.
       </p>
       <p>
-        That is the whole point. I do not build something you become dependent on
-        me to maintain. You end up with a working system and a team that owns it,
+        That is the whole point. We do not build something you become dependent on
+        us to maintain. You end up with a working system and a team that owns it,
         not a vendor you have to keep on retainer to keep the lights on.
       </p>
 
@@ -140,7 +140,7 @@ export default function RevenueConsultingBody() {
         <Link href="/predictable-revenue-engine" className={link}>
           Revenue Operations Maturity Model
         </Link>
-        , a method I built for scoring the revenue competencies of a business
+        , a method we built for scoring the revenue competencies of a business
         across four stages, these are not four projects. They are competencies
         inside one system, and the order you fix them in is the difference
         between a roadmap and a to-do list.
@@ -215,7 +215,7 @@ export default function RevenueConsultingBody() {
         roadmap, the specific competencies holding revenue back, in the order
         that actually compounds. Every weekly coaching session targets a
         competency from that roadmap. Your team builds the system, one competency
-        at a time, with my guidance. AI is built into the plan wherever it
+        at a time, with our guidance. AI is built into the plan wherever it
         genuinely accelerates a competency, never bolted on for its own sake.
       </p>
       <p>
@@ -227,45 +227,45 @@ export default function RevenueConsultingBody() {
       </p>
       <p>
         The core roadmap runs roughly 12 to 16 weeks. The through line is
-        ownership. You execute the changes yourself with my guidance, so you
+        ownership. You execute the changes yourself with our guidance, so you
         understand the ins and outs of your own system. When we are done, you own
-        it, and you do not need me.
+        it, and you do not need us.
       </p>
 
       <EngagementFlow />
 
-      <h2 className={h2}>Why me</h2>
+      <h2 className={h2}>Why us</h2>
       <p>
-        I have been in the seat, not on the sidelines, and in every role I have
-        held I was the person building the revenue system, not the person
-        advising on it from a distance. That is exactly why the coaching model
-        works. I can coach your employee to build it because I have been that
-        employee.
+        Our founder has been in the seat, not on the sidelines, and in every
+        role he has held he was the person building the revenue system, not the
+        person advising on it from a distance. That is exactly why the coaching
+        model works. He can coach your employee to build it because he has been
+        that employee.
       </p>
       <p>
-        At Contactually, a VC-backed SaaS company, I was an inside sales AE, then
-        the company&rsquo;s first customer onboarding manager, and then took a
-        premium coaching-and-software subscription product to market. In every
-        one of those roles I was an individual executor and a builder of the
+        At Contactually, a VC-backed SaaS company, he was an inside sales AE,
+        then the company&rsquo;s first customer onboarding manager, and then took
+        a premium coaching-and-software subscription product to market. In every
+        one of those roles he was an individual executor and a builder of the
         revenue process, not a delegator. That last product, coaching paired with
         software, is close to what Modern BizOps is now.
       </p>
       <p>
-        I then started my own company, Tasting Club, and built its revenue
-        operations process and systems from scratch, so I know what it is to be
+        He then started his own company, Tasting Club, and built its revenue
+        operations process and systems from scratch, so he knows what it is to be
         the founder who has to make the engine work.
       </p>
       <p>
         And as COO and head of account management at a boutique digital marketing
-        agency, I managed a portfolio of clients myself, executing directly and
+        agency, he managed a portfolio of clients himself, executing directly and
         supervising a team to pay down the revenue operations debt inside client
         systems so their marketing campaigns could actually perform.
       </p>
       <p>
-        Over a decade of doing the work, in the seat, is what I bring to your
-        team. I am not going to hand you best practices from a blog. I am going
-        to show you what I have built, and then coach your people to build it
-        inside your business.
+        Over a decade of doing the work, in the seat, is what he brings to your
+        team. We are not going to hand you best practices from a blog. We are
+        going to show you what we have built, and then coach your people to build
+        it inside your business.
       </p>
 
       {/* Mid-page CTA. Floats in a navy card so it reads as its own moment.
@@ -277,7 +277,7 @@ export default function RevenueConsultingBody() {
         <p className="mx-auto mt-4 mb-6 max-w-[52ch] text-white/80">
           If your growth is tied to headcount and you are tired of being the
           bottleneck, let us find out whether your business is a good fit for this
-          work. Book a call and I will give you my honest assessment, including if
+          work. Book a call and we will give you our honest assessment, including if
           the answer is not yet.
         </p>
         <Button href="/book" ctaLocation="how_it_works_mid_page">

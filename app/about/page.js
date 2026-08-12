@@ -9,27 +9,38 @@ import Button from "@/components/ui/Button";
 // approved positioning paragraph and nothing else: no dek, no summary, no
 // warm-up line ahead of it.
 //
-// The paragraph below is transcribed verbatim from section 1 of
-// "08 Messaging Architecture.md" (APPROVED-BY-BRADLEY 2026-08-10), which is the
-// law for every customer-facing copy surface. Do not paraphrase it, do not
-// trim it, and do not translate it out of the first-person singular. It is
-// Bradley's personal record, which is the "I" side of the voice split; "we" is
-// for Modern BizOps as a company and does not belong in these three
-// paragraphs.
+// The three paragraphs below carry section 1 of "08 Messaging Architecture.md"
+// (APPROVED-BY-BRADLEY 2026-08-10), which is the law for every customer-facing
+// copy surface. Do not paraphrase them further and do not trim them.
+//
+// THEY ARE NO LONGER VERBATIM, AND THE DIVERGENCE IS DELIBERATE. Doc 08 writes
+// the paragraph in Bradley's first-person singular. On 2026-08-12 he retired
+// that as a brand voice ("it needs to be a we voice rule moving forward"), so
+// this page renders his record in the third person and the company's promise in
+// the plural. Every fact, every number, every name and the order they arrive in
+// are unchanged from doc 08. If you are diffing this against the doc, expect
+// pronouns to differ and nothing else. Three pronoun swaps did real work and
+// must not be undone:
+//   - "our customers" became "Contactually's customers". In his voice "our"
+//     meant Contactually. In the third person it would read as Modern BizOps
+//     customers, which is a fabricated client claim.
+//   - "my audits" became "our audits" and "when I leave" became "when we
+//     leave". Those are the company's offer, not his biography.
+//   - "not by rebranding, by shipping" is his own construction and stays.
 //
 // Two things in it look like violations and are not:
 //   - It names Dapper Labs, Tock and SalesIntel. Those are iExcel-era clients,
 //     cleared for public naming only inside the attribution frame, and the
 //     sentence carries its own: "as COO of iExcel ... for clients like ...
-//     while I was there." Never lift those names out of that sentence.
+//     while he was there." Never lift those names out of that sentence.
 //   - It says "a RevOps coaching business". That is one of the company ideas he
 //     tested in January and abandoned, inside the origin narrative. It is not a
 //     description of what Modern BizOps sells, which is the thing that had to
 //     come off this page.
 const POSITIONING = [
-  "I spent over a decade building revenue engines at high-growth startups, as the person doing the work. At Contactually I carried an inside sales quota and closed $318,000 in churn-adjusted ARR. I built the onboarding program that cut first-90-day churn in half, which saved about a million dollars in revenue over six quarters. I was the company's first recruiter and stood up the applicant tracking system. And I taught realtors, our customers, how to generate real business from their networks with CRM technology. At FiscalNote I was a client success manager with a portfolio that included Fortune 500 companies. I founded Tasting Club, a virtual tastings marketplace, and ran it for three years. Then I spent four and a half years as COO of iExcel, a digital marketing agency, where I doubled revenue, ran delivery, invoicing, hiring, and payroll, and executed marketing and sales operations for clients like Dapper Labs, Tock, and SalesIntel while I was there.",
-  "In January I left and gave myself one rule: build everything with AI, or do not build it at all. I was not setting out to start an AI automation company. I tested company ideas, field-operations systems for HVAC companies, a RevOps coaching business, and built every system AI-first. Teaching myself to build was not new: I built Tasting Club's product myself on Bubble, a no-code tool. What was new was how far AI took it. I built my marketing website from scratch with AI coding tools. I built a working diagnostic web app the same way, the one that runs my audits: it connects to more than twenty tools through their APIs and computes a maturity heat map from a client's actual stack. I wired my own operations to APIs and MCP servers for analytics, search, CRM, and publishing. Six months of doing nothing but building with AI later, an AI automation company stopped being an idea and became the obvious thing to build. That is how I became an AI guy: not by rebranding, by shipping. And because I have sat in the executor seat and rolled out new process to real teams, I know where adoption sticks and where it dies. So every automation I build ships with the adoption work on the other side.",
-  "Most AI automation fails for a boring reason: it is built on a broken operations foundation. The debt you could tolerate for years, dirty data, duct-tape process, fields nobody fills in, now decides whether AI works for you at all. I fix the foundation and build the automation on top of it, one named system at a time, at a published price, with your team owning it when I leave.",
+  "Bradley de Wet spent over a decade building revenue engines at high-growth startups, as the person doing the work. At Contactually he carried an inside sales quota and closed $318,000 in churn-adjusted ARR. He built the onboarding program that cut first-90-day churn in half, which saved about a million dollars in revenue over six quarters. He was the company's first recruiter and stood up the applicant tracking system. And he taught realtors, Contactually's customers, how to generate real business from their networks with CRM technology. At FiscalNote he was a client success manager with a portfolio that included Fortune 500 companies. He founded Tasting Club, a virtual tastings marketplace, and ran it for three years. Then he spent four and a half years as COO of iExcel, a digital marketing agency, where he doubled revenue, ran delivery, invoicing, hiring, and payroll, and executed marketing and sales operations for clients like Dapper Labs, Tock, and SalesIntel while he was there.",
+  "In January he left and gave himself one rule: build everything with AI, or do not build it at all. He was not setting out to start an AI automation company. He tested company ideas, field-operations systems for HVAC companies, a RevOps coaching business, and built every system AI-first. Teaching himself to build was not new: he built Tasting Club's product himself on Bubble, a no-code tool. What was new was how far AI took it. He built his marketing website from scratch with AI coding tools. He built a working diagnostic web app the same way, the one that runs our audits: it connects to more than twenty tools through their APIs and computes a maturity heat map from a client's actual stack. He wired his own operations to APIs and MCP servers for analytics, search, CRM, and publishing. Six months of doing nothing but building with AI later, an AI automation company stopped being an idea and became the obvious thing to build. That is how he became an AI guy: not by rebranding, by shipping. And because he has sat in the executor seat and rolled out new process to real teams, he knows where adoption sticks and where it dies. So every automation we build ships with the adoption work on the other side.",
+  "Most AI automation fails for a boring reason: it is built on a broken operations foundation. The debt you could tolerate for years, dirty data, duct-tape process, fields nobody fills in, now decides whether AI works for you at all. We fix the foundation and build the automation on top of it, one named system at a time, at a published price, with your team owning it when we leave.",
 ];
 
 export const metadata = {
@@ -95,12 +106,12 @@ const stories = [
     years: "2014 to 2016",
     role: "Inside Sales, Contactually",
     headline:
-      "I doubled my conversion rate for some segments by questioning the demo that nobody questioned",
+      "Bradley doubled his conversion rate for some segments by questioning the demo that nobody questioned",
     body: [
-      "Contactually was a VC-backed CRM startup in DC. I was doing 30-minute screen-share demos all day, every day. The standard process was 3 to 4 calls spread across a 3-week free trial. Nobody had ever stopped to ask whether it actually needed to take that long.",
-      "So I started testing. I built demo accounts customized for each persona I was selling to. If I was talking to a real estate agent, the demo account looked like a real estate agent’s account, with email templates and workflows built around their specific pain points. Not a generic product tour. Their world, reflected back to them.",
-      "Then I added an offer at the end of every demo: sign up for an annual plan today and I will copy everything you just saw into your account by tomorrow morning. A lot of people said yes.",
-      "I doubled my conversion rate for some segments and closed $318,000 in churn-adjusted ARR. The sales cycle dropped from 3 to 4 calls down to about 1.5. I taught the technique to the rest of the team and the company shortened the trial period from 3 weeks to 2 weeks based on what we found.",
+      "Contactually was a VC-backed CRM startup in DC. He was doing 30-minute screen-share demos all day, every day. The standard process was 3 to 4 calls spread across a 3-week free trial. Nobody had ever stopped to ask whether it actually needed to take that long.",
+      "So he started testing. He built demo accounts customized for each persona he was selling to. If he was talking to a real estate agent, the demo account looked like a real estate agent’s account, with email templates and workflows built around their specific pain points. Not a generic product tour. Their world, reflected back to them.",
+      "Then he added an offer at the end of every demo: sign up for an annual plan today and he would copy everything you just saw into your account by tomorrow morning. A lot of people said yes.",
+      "He doubled his conversion rate for some segments and closed $318,000 in churn-adjusted ARR. The sales cycle dropped from 3 to 4 calls down to about 1.5. He taught the technique to the rest of the team, and Contactually shortened the trial period from 3 weeks to 2 weeks based on what they found.",
     ],
     // The three lesson callouts were the only blocks on this page with no
     // number, no name and no date in them, and all three closed on an epigram
@@ -117,16 +128,16 @@ const stories = [
   {
     years: "2016 to 2018",
     role: "Customer Onboarding Manager, Contactually",
-    headline: "I saved a million dollars in churned revenue by building what did not exist",
+    headline: "Bradley saved a million dollars in churned revenue by building what did not exist",
     body: [
-      "When I moved from sales to customer onboarding, I discovered that nobody had a structured process for what happened after a customer paid. There was no activation framework. No milestones. No data on who was actually using the product. Customers were signing up, getting confused, and canceling within 90 days, and no one had any visibility into why.",
-      "I started with brute force. I ran 2-call onboarding sessions with a subset of new customers. I tracked everything. The data showed the customers I was talking to were churning at a significantly lower rate than the ones I was not.",
-      "From that I built a hypothesis: there were 4 specific things a customer needed to accomplish to reach their first real moment of value. I called it the activation funnel. I oriented every onboarding call around getting people through those 4 gates, and the numbers confirmed it was working.",
-      "I hired and trained a team of 3. Tested outsourcing the calls to cut costs, then shut that down when I saw what robotic, checklist-following reps did to customer relationships. Pivoted to live webinars, then eventually automated webinars that ran as if they were live.",
+      "When he moved from sales to customer onboarding, he discovered that nobody had a structured process for what happened after a customer paid. There was no activation framework. No milestones. No data on who was actually using the product. Customers were signing up, getting confused, and canceling within 90 days, and no one had any visibility into why.",
+      "He started with brute force. He ran 2-call onboarding sessions with a subset of new customers. He tracked everything. The data showed the customers he was talking to were churning at a significantly lower rate than the ones he was not.",
+      "From that he built a hypothesis: there were 4 specific things a customer needed to accomplish to reach their first real moment of value. He called it the activation funnel. He oriented every onboarding call around getting people through those 4 gates, and the numbers confirmed it was working.",
+      "He hired and trained a team of 3. Tested outsourcing the calls to cut costs, then shut that down when he saw what robotic, checklist-following reps did to customer relationships. Pivoted to live webinars, then eventually automated webinars that ran as if they were live.",
       "By the time the system was fully built, it had saved the company roughly $1 million in churned annual recurring revenue across 6 quarters. That result contributed directly to the company’s Series A valuation.",
     ],
     lesson:
-      "I ran the onboarding calls myself first, and the data from those calls is where the four gates came from. Only then did I hire the team of 3 to run them. Building it in that order is why it kept working once it was not me on the call.",
+      "He ran the onboarding calls himself first, and the data from those calls is where the four gates came from. Only then did he hire the team of 3 to run them. Building it in that order is why it kept working once it was not him on the call.",
     stat1: { value: "~$1M", label: "ARR saved from churn" },
     stat2: { value: "50%", label: "90-day churn reduction" },
     stat3: { value: "+$720", label: "LTV per customer" },
@@ -134,16 +145,16 @@ const stories = [
   {
     years: "2016 to 2018",
     role: "Program Manager, Premium Services, Contactually",
-    headline: "I built a premium service from scratch and priced it at 8 times the standard rate",
+    headline: "Bradley built a premium service from scratch and priced it at 8 times the standard rate",
     body: [
-      "After proving I could fix sales processes and rebuild onboarding from the ground up, the company asked me to do something new: create a premium done-with-you service and take it to market.",
-      "Contactually’s enterprise customers were real estate brokerages who bought the software for their agents. The agents needed help actually using it. So I built a premium plan: weekly working calls with a success manager who would set up advanced automations in their account and show them how to run it.",
-      "I priced it at 8 times the standard subscription rate. Eight times.",
-      "I sold it through educational webinars where I would show the most advanced setups, things like automated open house follow-up sequences, and close with a simple offer: spend the next month figuring this out yourself, or let us do it with you.",
+      "After proving he could fix sales processes and rebuild onboarding from the ground up, the company asked him to do something new: create a premium done-with-you service and take it to market.",
+      "Contactually’s enterprise customers were real estate brokerages who bought the software for their agents. The agents needed help actually using it. So he built a premium plan: weekly working calls with a success manager who would set up advanced automations in their account and show them how to run it.",
+      "He priced it at 8 times the standard subscription rate. Eight times.",
+      "He sold it through educational webinars where he would show the most advanced setups, things like automated open house follow-up sequences, and close with a simple offer: spend the next month figuring this out yourself, or let us do it with you.",
       // A "hired and trained 2 additional team members" line stood here until
       // 2026-08-12. The career record has a team of 3 on the ONBOARDING role
       // and no headcount at all on this one, so the number had no source.
-      "I closed $288,000 in annual recurring revenue. The model worked.",
+      "He closed $288,000 in annual recurring revenue. The model worked.",
     ],
     lesson:
       "The offer had a name and a number on it, and that is what made eight times the standard rate sellable. Every build Modern BizOps sells has its price printed next to it for the same reason.",
@@ -228,7 +239,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── THE POSITIONING PARAGRAPH, VERBATIM ──────────────────────────── */}
+        {/* ── THE POSITIONING PARAGRAPH ─────────────────────────────────────── */}
         <section className="bg-white">
           <div className="mx-auto max-w-[760px] px-6 md:px-8 py-16 md:py-24">
             <div className="space-y-6 font-body text-text-primary text-[17px] md:text-lg leading-relaxed">
@@ -243,12 +254,12 @@ export default function AboutPage() {
         <section className="bg-navy">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-14 md:py-20 text-center">
             <h2 className="font-display text-[26px] md:text-[34px] font-semibold text-cream mb-5">
-              Everything I build, I have run myself
+              Everything we build, our founder has run himself
             </h2>
             <p className="font-body text-base md:text-lg text-cream/80 leading-relaxed">
               That is the summary. Below is the long version of three roles, all
               at Contactually. Inside sales, customer onboarding, and a premium
-              service I priced and sold myself. Every number in them is one I
+              service he priced and sold himself. Every number in them is one he
               carried.
             </p>
           </div>
@@ -300,7 +311,7 @@ export default function AboutPage() {
           </section>
         ))}
 
-        {/* ── WHY I BUILT MODERN BIZOPS ─────────────────────────────────────── */}
+        {/* ── WHY MODERN BIZOPS EXISTS ──────────────────────────────────────── */}
         <section className="bg-navy">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-16 md:py-24">
             <p className="font-body text-sm font-semibold tracking-widest uppercase text-amber mb-4">
@@ -312,14 +323,14 @@ export default function AboutPage() {
 
             <div className="space-y-5 font-body text-cream/80 text-base leading-relaxed">
               <p>
-                My dad ran a small computer consulting business when I was growing up. I watched what it
-                takes to be the person who is responsible for everything: the sales, the delivery, the
-                operations, the people. There was nobody else to hand any of it to.
+                Bradley grew up around a small computer consulting business, the one his dad ran. He
+                watched what it takes to be the person who is responsible for everything: the sales,
+                the delivery, the operations, the people. There was nobody else to hand any of it to.
               </p>
               <p>
-                Then I spent four and a half years as COO of a digital marketing agency,
+                Then he spent four and a half years as COO of a digital marketing agency,
                 running the operation while also carrying an account manager&rsquo;s book
-                and executing marketing and sales operations inside client companies. I have
+                and executing marketing and sales operations inside client companies. He has
                 sat on both sides of that table.
               </p>
               <p>
@@ -330,7 +341,7 @@ export default function AboutPage() {
                 company took for granted.
               </p>
               <p>
-                I started Modern BizOps to close that gap, and AI is what finally makes it
+                He started Modern BizOps to close that gap, and AI is what finally makes it
                 closable at this size. We build the systems one at a time, at a published
                 price, and hand over the runbook, so what you are paying for is a machine you
                 own.
@@ -368,11 +379,11 @@ export default function AboutPage() {
             <div className="space-y-5 font-body text-text-primary text-base md:text-lg leading-relaxed">
               <p>
                 Modern BizOps is new. It has no case studies and no client
-                results, and I am not going to borrow someone else&rsquo;s or
-                dress up work I did under another company&rsquo;s name as if it
-                were ours. Everything above happened before Modern BizOps
-                existed, in seats I held at other companies and in the one
-                company I founded myself.
+                results, and we are not going to borrow someone else&rsquo;s or
+                dress up work our founder did under another company&rsquo;s name
+                as if it were ours. Everything above happened before Modern
+                BizOps existed, in seats he held at other companies and in the
+                one company he founded himself.
               </p>
               <p>
                 That is the whole reason the{" "}
@@ -394,7 +405,7 @@ export default function AboutPage() {
         <section className="bg-white">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-16 md:py-24">
             <h2 className="font-display text-[26px] md:text-[34px] font-semibold text-navy mb-8">
-              I am not for everyone. Here is who I am for.
+              We are not for everyone. Here is who we are for.
             </h2>
             <div className="space-y-5 font-body text-text-primary text-base leading-relaxed">
               <p>
@@ -410,10 +421,10 @@ export default function AboutPage() {
                 willing to run it.
               </p>
               <p>
-                And I am not going to build something you stay dependent on me to
-                maintain. Every system ships with a runbook and a handover to the
-                person on your side who owns it. Every price is on the pricing
-                page, so you can rule me out without booking a call.
+                And we are not going to build something you stay dependent on us
+                to maintain. Every system ships with a runbook and a handover to
+                the person on your side who owns it. Every price is on the
+                pricing page, so you can rule us out without booking a call.
               </p>
             </div>
           </div>

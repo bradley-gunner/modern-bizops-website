@@ -26,8 +26,8 @@ export default function PrepCTACard({ email = "", firstName = "" }) {
             One quick thing before our call
           </h2>
           <p className="font-body text-text-primary leading-relaxed">
-            {firstName ? `${firstName}, ` : ""}I&apos;ve put together 11
-            questions (about 5 minutes) that help me walk into our call with a
+            {firstName ? `${firstName}, we` : "We"} have put together 11
+            questions (about 5 minutes) that help us walk into our call with a
             real point of view on your business. Doing this now means we spend
             our 45 minutes on the real conversation, not on catching up.
           </p>
@@ -40,7 +40,7 @@ export default function PrepCTACard({ email = "", firstName = "" }) {
           trying to solve
         </li>
         <li>
-          • Not a sales qualifier. Your responses go straight to my prep notes
+          • Not a sales qualifier. Your responses go straight to our prep notes
         </li>
       </ul>
       <div className="ml-11">

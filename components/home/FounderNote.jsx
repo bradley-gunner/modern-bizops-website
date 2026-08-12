@@ -5,8 +5,10 @@ import Section from "../ui/Section";
 // Section 7: the founder, named and faced.
 //
 // A boutique has one proof asset a logo wall cannot fake, and it is the person
-// doing the work. This is also the one section that stays firmly first-person
-// singular: the January rule is Bradley's, not the company's.
+// doing the work. The January rule is Bradley's, not the company's, so this
+// section names him and speaks about him in the third person. It was written in
+// his first-person singular until 2026-08-12, when he retired that as a brand
+// voice; the facts and the rule are unchanged.
 export default function FounderNote() {
   return (
     <Section bg="white" narrow={false}>
@@ -30,13 +32,13 @@ export default function FounderNote() {
           </h2>
           <div className="space-y-5 font-body text-text-primary text-base md:text-lg leading-relaxed">
             <p>
-              I am Bradley de Wet. In January I left iExcel, the agency where I
-              spent 4.5 years as COO, and gave myself one rule: build everything
-              with AI, or do not build it at all.
+              Our founder is Bradley de Wet. In January he left iExcel, the
+              agency where he spent 4.5 years as COO, and gave himself one rule:
+              build everything with AI, or do not build it at all.
             </p>
             <p>
               Six months of doing that turned an idea into the obvious thing to
-              build. I had spent over a decade in the executor seat watching
+              build. He had spent over a decade in the executor seat watching
               good tools land on bad data, and the rule made it plain that the
               tools were finally good enough for the foundation to be the only
               thing still in the way.
@@ -47,7 +49,7 @@ export default function FounderNote() {
               href="/about"
               className="font-body text-base font-semibold text-navy underline underline-offset-4 hover:text-amber transition-colors"
             >
-              More about me and the record behind this
+              More about Bradley and the record behind this
             </Link>
           </div>
         </div>

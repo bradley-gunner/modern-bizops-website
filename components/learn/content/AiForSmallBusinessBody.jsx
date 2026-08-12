@@ -26,11 +26,11 @@ export default function AiForSmallBusinessBody() {
         That changes the question completely. The question is not &ldquo;which AI
         tool should I buy.&rdquo; The question is &ldquo;where will AI actually
         help a business that is already working, and where will it quietly make
-        things worse.&rdquo; Let me answer that honestly.
+        things worse.&rdquo; Let us answer that honestly.
       </p>
 
       <h2 className={h2}>The one rule that decides whether AI helps you</h2>
-      <p>Here is the sentence I want you to keep.</p>
+      <p>Here is the sentence we want you to keep.</p>
       <PullQuote>
         AI amplifies the operational state it is applied to. Automating a broken
         process just produces broken outcomes faster.
@@ -43,7 +43,7 @@ export default function AiForSmallBusinessBody() {
         sooner, with a confident tone.
       </p>
       <p>
-        I see this constantly. A founder buys an AI tool to fix a problem that is
+        We see this constantly. A founder buys an AI tool to fix a problem that is
         not a tool problem. The lead follow-up is slow because nobody agreed on
         what a qualified lead is. The forecast is wrong because two people define a
         &ldquo;stage 3&rdquo; deal differently. AI cannot resolve a disagreement
@@ -59,7 +59,7 @@ export default function AiForSmallBusinessBody() {
 
       <h2 className={h2}>RevOps debt, and the two jobs AI does about it</h2>
       <p>
-        Every revenue operation carries what I call RevOps debt. It is the
+        Every revenue operation carries what we call RevOps debt. It is the
         accumulated mess in how you sell: dirty CRM data, pipeline stages nobody
         defined the same way, no written ideal customer profile, handoffs that drop
         leads between marketing and sales. You did not plan it. It built up while
@@ -195,7 +195,7 @@ export default function AiForSmallBusinessBody() {
 
       <h2 className={h2}>The urgency is real, but it is not the tool</h2>
       <p>
-        I do not like fake urgency, so here is the real version, with numbers.
+        We do not like fake urgency, so here is the real version, with numbers.
       </p>
       <p>
         McKinsey estimates that effective, scaled AI deployment can lift
@@ -233,8 +233,8 @@ export default function AiForSmallBusinessBody() {
 
       <h2 className={h2}>What &ldquo;good AI&rdquo; actually looks like at your stage</h2>
       <p>
-        I think about revenue operations in four stages, using the Revenue
-        Operations Maturity Model, a method I built for measuring the revenue
+        We think about revenue operations in four stages, using the Revenue
+        Operations Maturity Model, a method we built for measuring the revenue
         competencies of a business across four stages: Reactive, Repeatable,
         Predictable, and Compounding.
       </p>
@@ -261,17 +261,17 @@ export default function AiForSmallBusinessBody() {
       />
 
       <p>
-        I run my own marketing this way, and it is the clearest proof I can give
+        We run our own marketing this way, and it is the clearest proof we can give
         you. The engine is built on AI, but on top of a defined process, not
-        instead of one. AI drafts posts and articles in my voice, but only against
-        keyword and demand data I validated first, so the machine is aimed at
-        something real. One recorded conversation gets clipped by AI into a week of
-        short-form video for YouTube and LinkedIn, so a single input becomes a week
-        of output. Every piece ships with a tracking tag, and I measure which
+        instead of one. AI drafts posts and articles in our founder&rsquo;s voice, but
+        only against keyword and demand data we validated first, so the machine is
+        aimed at something real. One recorded conversation gets clipped by AI into a
+        week of short-form video for YouTube and LinkedIn, so a single input becomes a
+        week of output. Every piece ships with a tracking tag, and we measure which
         formats and topics actually earn attention and calls, at a fixed cadence so
         the numbers stay honest. Then those results condition the next round:
-        create, publish, measure, learn, adjust, and do it again a little sharper. I
-        approve everything that goes out in my voice, because the judgment is mine
+        create, publish, measure, learn, adjust, and do it again a little sharper. He
+        approves everything that goes out in his voice, because the judgment is his
         and the AI is the accelerant. The page you are reading now was built the
         same way.
       </p>

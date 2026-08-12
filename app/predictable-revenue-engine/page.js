@@ -109,7 +109,7 @@ export default function MaturityModelPage() {
             </h2>
             <p className="text-white/80 mb-6 max-w-[58ch] mx-auto">
               The free AI Revenue Scan runs this model against your business in
-              about five minutes and names the one gap I would fix first. It is
+              about five minutes and names the one gap we would fix first. It is
               the structured version of what you just did by feel.
             </p>
             <Button href="/scorecard">Get the Free Scan</Button>
@@ -129,7 +129,7 @@ export default function MaturityModelPage() {
                 </span>
               </div>
               <div className="text-sm text-text-light mt-2 max-w-[62ch] mx-auto">
-                This is the whole framework and how I measure each part. You would
+                This is the whole framework and how we measure each part. You would
                 never work on all of it at once.
               </div>
               <div className="mt-3 text-amber text-sm font-semibold group-open:hidden">

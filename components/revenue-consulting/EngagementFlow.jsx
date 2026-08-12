@@ -17,7 +17,7 @@ const steps = [
   {
     title: "Weekly coaching",
     description:
-      "Every weekly coaching session targets a competency from that roadmap. Your team builds the system, one competency at a time, with my guidance.",
+      "Every weekly coaching session targets a competency from that roadmap. Your team builds the system, one competency at a time, with our guidance.",
   },
   {
     title: "Continuous measurement",

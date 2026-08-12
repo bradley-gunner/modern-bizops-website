@@ -34,7 +34,7 @@ export default function NetRevenueRetentionBody() {
       <p>
         That is why it is the one number that shows whether growth is real. Top-line
         growth can come entirely from new logos papering over churn. NRR cannot be
-        papered over. Here is the question I would ask you, the same one I ask on a
+        papered over. Here is the question we would ask you, the same one we ask on a
         discovery call: if you stopped acquiring new clients today, what would happen
         to your revenue over the next 12 months? If you cannot answer that with a
         number, this page is for you.
@@ -126,7 +126,7 @@ export default function NetRevenueRetentionBody() {
 
       <p>
         Those benchmarks are drawn from SaaS companies, so read them as directional if
-        you run an agency or MSP on retainers. The working thresholds I use: below 95%,
+        you run an agency or MSP on retainers. The working thresholds we use: below 95%,
         retention is the growth problem, fix it before spending another dollar on
         acquisition. Between 95% and 105%, you are normal and have room to compound.
         Above 105%, your existing base is a growth engine and your acquisition spend is
