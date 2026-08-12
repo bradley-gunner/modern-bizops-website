@@ -154,7 +154,7 @@ export default function ConversionRateOptimizationBody() {
 
       <h2 className={h2}>Where conversion optimization sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method we built for measuring the RevOps
+        In the GTM Maturity Framework, a method we built for measuring the go-to-market
         competencies of a business, funnel conversion moves through clear stages. At the
         bottom, conversion is one blended number nobody can act on, leads are followed up
         whenever, and the founder is the only reliable closer. The first real step is
@@ -177,7 +177,7 @@ export default function ConversionRateOptimizationBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          Stage 1 of the maturity model
+          Stage 1 of the maturity framework
         </Link>
         , and the pipeline-legibility piece is{" "}
         <Link href="/learn/pipeline-stage-design" className="text-navy underline">

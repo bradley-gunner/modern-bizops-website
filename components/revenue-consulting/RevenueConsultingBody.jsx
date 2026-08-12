@@ -138,7 +138,7 @@ export default function RevenueConsultingBody() {
       <p>
         In the{" "}
         <Link href="/predictable-revenue-engine" className={link}>
-          Revenue Operations Maturity Model
+          GTM Maturity Framework
         </Link>
         , a method we built for scoring the revenue competencies of a business
         across four stages, these are not four projects. They are competencies

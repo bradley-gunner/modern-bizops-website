@@ -78,8 +78,8 @@ const BANNED = [
   //
   // The free diagnostic has been renamed more than once. All three earlier
   // names are dead; "AI Revenue Scan" is the only one allowed on a card.
-  // "Revenue Operations Maturity Model" is a LIVE framework name and is
-  // deliberately not banned here.
+  // "GTM Maturity Framework" is the LIVE framework name (renamed 2026-08-12
+  // from "Revenue Operations Maturity Model") and is deliberately not banned.
   [/revenue growth scorecard/i, 'the diagnostic is the AI Revenue Scan; this name is retired'],
   [/revenue maturity score/i, 'the diagnostic is the AI Revenue Scan; this name is retired'],
   [/revenue leak scan/i, 'the diagnostic is the AI Revenue Scan; this name is retired'],

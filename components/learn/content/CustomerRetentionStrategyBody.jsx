@@ -171,7 +171,7 @@ export default function CustomerRetentionStrategyBody() {
 
       <h2 className={h2}>Where a retention strategy sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method we built for measuring the RevOps
+        In the GTM Maturity Framework, a method we built for measuring the go-to-market
         competencies of a business, retention moves through predictable stages. At the
         bottom, retention is not managed at all: churn is a number someone reports after
         the fact, post-sale has no owner, and the founder finds out an account left when
@@ -198,7 +198,7 @@ export default function CustomerRetentionStrategyBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          Stage 1 of the maturity model
+          Stage 1 of the maturity framework
         </Link>
         .
       </p>

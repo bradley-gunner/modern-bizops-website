@@ -186,7 +186,7 @@ export default function FractionalCooCostBody() {
           href="/predictable-revenue-engine"
           className="text-navy underline"
         >
-          Revenue Operations Maturity Model
+          GTM Maturity Framework
         </Link>
         , a method we built for measuring the revenue competencies of a business
         across four stages. If it surfaces the real problem, you likely do not

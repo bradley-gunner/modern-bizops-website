@@ -85,7 +85,7 @@ export default function FractionalCooBody() {
         system instead of required in every decision.
       </p>
       <p>
-        That last one is the real product. In the Revenue Operations Maturity Model,
+        That last one is the real product. In the GTM Maturity Framework,
         the companies we call{" "}
         <Link
           href="/learn/revenue-operations-maturity-stage-1-reactive"

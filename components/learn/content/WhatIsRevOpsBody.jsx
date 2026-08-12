@@ -96,8 +96,8 @@ export default function WhatIsRevOpsBody() {
       </p>
       <p>
         Two or three misses means your revenue depends on your personal effort and
-        judgment rather than on a system. In the Revenue Operations Maturity Model, a
-        method we built for measuring the RevOps competencies of a business, that is
+        judgment rather than on a system. In the GTM Maturity Framework, a
+        method we built for measuring the go-to-market competencies of a business, that is
         called{" "}
         <Link
           href="/learn/revenue-operations-maturity-stage-1-reactive"

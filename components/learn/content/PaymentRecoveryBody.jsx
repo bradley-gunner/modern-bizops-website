@@ -125,7 +125,7 @@ export default function PaymentRecoveryBody() {
 
       <h2 className={h2}>Where payment recovery sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method we built for measuring the RevOps
+        In the GTM Maturity Framework, a method we built for measuring the go-to-market
         competencies of a business, this lives inside the Subscription and MRR Operations
         competency. At the bottom is a business that does not measure failed payments
         separately, processes a cancellation with no intervention, and chases invoices by
@@ -147,7 +147,7 @@ export default function PaymentRecoveryBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          Stage 1 of the maturity model
+          Stage 1 of the maturity framework
         </Link>
         .
       </p>

@@ -27,7 +27,7 @@ const FOOTER_COLUMNS = [
     heading: "Learn",
     links: [
       { label: "Learning Library", href: "/learn" },
-      { label: "The Revenue Maturity Model", href: "/predictable-revenue-engine" },
+      { label: "The GTM Maturity Framework", href: "/predictable-revenue-engine" },
       { label: "How We Work", href: "/revenue-operations-consulting" },
       { label: "Watch the Walkthrough", href: "/watch" },
       { label: "About Bradley", href: "/about" },

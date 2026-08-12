@@ -181,7 +181,7 @@ export default function CustomerLifecycleMarketingBody() {
 
       <h2 className={h2}>Where lifecycle marketing sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method we built for measuring the RevOps
+        In the GTM Maturity Framework, a method we built for measuring the go-to-market
         competencies of a business, the customer lifecycle is a design problem before it is
         a marketing problem. At the bottom, there is no defined lifecycle: the sale happens,
         and what comes after is improvised per account. The first real step is mapping the
@@ -205,7 +205,7 @@ export default function CustomerLifecycleMarketingBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          Stage 1 of the maturity model
+          Stage 1 of the maturity framework
         </Link>
         , and the retention system that lives inside the later stages is your{" "}
         <Link href="/learn/customer-retention-strategy" className="text-navy underline">

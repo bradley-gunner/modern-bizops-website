@@ -169,9 +169,9 @@ export default function PlaybookPage() {
             </h2>
             <p className="font-body text-base md:text-lg text-cream/80 leading-relaxed">
               Most B2B founders between $3M and $50M are operating at Stage 1 or Stage 2 of the
-              revenue maturity model without knowing it. The framework in this
-              playbook maps exactly where you are and what to build next to reach
-              predictable, capital-efficient growth.
+              GTM Maturity Framework without knowing it. This playbook maps
+              exactly where you are and what to build next to reach predictable,
+              capital-efficient growth.
             </p>
           </div>
         </section>

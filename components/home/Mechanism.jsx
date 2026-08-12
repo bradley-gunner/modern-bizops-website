@@ -31,7 +31,7 @@ const STEPS = [
     body: "Field completeness, stage discipline, which records stopped moving, what never gets filled in at all.",
   },
   {
-    label: "It scores 44 competencies",
+    label: "It scores 51 competencies",
     body: "The same four-stage model behind the free Scan, run across the whole revenue engine. The Scan asks you fifteen questions. This one reads the answers off your systems.",
   },
   {

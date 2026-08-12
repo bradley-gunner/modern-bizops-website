@@ -90,9 +90,9 @@ export default function WinLossAnalysisBody() {
         >
           lead qualification framework
         </Link>
-        . This closed loop is the whole point, and it is why the Revenue Operations
-        Maturity Model, a method we built for measuring RevOps competencies in a business,
-        treats win/loss analysis as a Stage 3 competency: at the bottom of the rubric,
+        . This closed loop is the whole point, and it is why the GTM Maturity
+        Framework, a method we built for measuring the go-to-market competencies of a
+        business, treats win/loss analysis as a Stage 3 competency: at the bottom of the rubric,
         win/loss data is an inconsistent CRM dropdown nobody analyzes, and at the top,
         findings update qualification criteria within 30 days and competitive win rates
         are tracked and improving. The foundations underneath it start at{" "}

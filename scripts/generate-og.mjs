@@ -448,8 +448,8 @@ const CARDS = {
     changed: false,
     element: () =>
       heroCard({
-        headline: 'The Revenue Operations Maturity Model',
-        subline: 'Four stages. 44 competencies. From revenue that runs on you to revenue you can predict.',
+        headline: 'The GTM Maturity Framework',
+        subline: 'Four stages. 51 competencies. From revenue that runs on you to revenue you can predict.',
         headlineSize: 58,
       }),
   },

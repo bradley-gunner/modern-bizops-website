@@ -172,7 +172,7 @@ export default function AiConsultingBody() {
         is today. Not by feel. By a score.
       </p>
       <p>
-        We use the Revenue Operations Maturity Model, a method we built for measuring
+        We use the GTM Maturity Framework, a method we built for measuring
         the revenue competencies of a business across four stages: Reactive,
         Repeatable, Predictable, and Compounding. It tells you which competencies
         are solid enough to accelerate and which ones would just break faster under

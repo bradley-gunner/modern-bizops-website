@@ -131,7 +131,7 @@ export default function InvoluntaryChurnBody() {
         configuration usually gets you most of the recovery those tools sell.
       </p>
       <p>
-        In the Revenue Operations Maturity Model, a method we built for measuring RevOps
+        In the GTM Maturity Framework, a method we built for measuring go-to-market
         competencies in a business, this whole progression lives inside the Subscription
         and MRR Operations competency: the bottom of the rubric is a business that does
         not measure involuntary churn separately and processes cancellations with no
@@ -153,7 +153,7 @@ export default function InvoluntaryChurnBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          Stage 1 of the maturity model
+          Stage 1 of the maturity framework
         </Link>
         .
       </p>

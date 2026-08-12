@@ -44,7 +44,7 @@ const STEPS = [
   },
   {
     label: "We compute a heat map and an AI Readiness Profile",
-    body: "Forty-four competencies scored across the four stages of the maturity model, computed from what your systems record. Beside it sits an AI Readiness Profile across six dimensions. That profile is what decides whether automation holds once it ships.",
+    body: "Fifty-one competencies scored across the four stages of the maturity framework, computed from what your systems record. Beside it sits an AI Readiness Profile across six dimensions. That profile is what decides whether automation holds once it ships.",
   },
   {
     label: "You get a ranked automation map, priced",
@@ -304,7 +304,7 @@ export default function AiReadinessAssessmentPage() {
               rightItems={[
                 "Connects to more than twenty of the tools you already run.",
                 "Reads field completeness, stage discipline, and where records go quiet.",
-                "Scores 44 competencies out of what your systems already record.",
+                "Scores 51 competencies out of what your systems already record.",
                 "Returns a ranked, priced map, and the fee credits into building it.",
               ]}
             />

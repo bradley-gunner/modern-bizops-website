@@ -30,7 +30,7 @@ export const metadata = learnIndexMetadata;
 // registry already carries means a new page groups itself.
 const GROUP_ORDER = [
   "Revenue Operations",
-  "Revenue Maturity Model",
+  "GTM Maturity Framework",
   "AI for Revenue Operations",
 ];
 
@@ -44,8 +44,8 @@ const GROUP_ALIASES = {
 const GROUP_BLURBS = {
   "Revenue Operations":
     "The vocabulary and the benchmarks. Start here if you want the concepts before the framework.",
-  "Revenue Maturity Model":
-    "The four-stage model and the competencies each stage rests on. The whole framework lives on the Revenue Maturity Model page.",
+  "GTM Maturity Framework":
+    "The four stages and the competencies each one rests on. The whole framework lives on a single page.",
   "AI for Revenue Operations":
     "Where AI actually earns its keep in a smaller business, and which tools are worth paying for.",
 };
@@ -182,14 +182,14 @@ export default function LearnIndexPage() {
                   {group.blurb && (
                     <p className="font-body text-text-mid text-base leading-relaxed">
                       {group.blurb}
-                      {group.name === "Revenue Maturity Model" && (
+                      {group.name === "GTM Maturity Framework" && (
                         <>
                           {" "}
                           <Link
                             href="/predictable-revenue-engine"
                             className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
                           >
-                            See the model
+                            See the framework
                           </Link>
                           .
                         </>

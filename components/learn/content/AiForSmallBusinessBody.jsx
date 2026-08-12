@@ -233,8 +233,8 @@ export default function AiForSmallBusinessBody() {
 
       <h2 className={h2}>What &ldquo;good AI&rdquo; actually looks like at your stage</h2>
       <p>
-        We think about revenue operations in four stages, using the Revenue
-        Operations Maturity Model, a method we built for measuring the revenue
+        We think about revenue operations in four stages, using the GTM
+        Maturity Framework, a method we built for measuring the go-to-market
         competencies of a business across four stages: Reactive, Repeatable,
         Predictable, and Compounding.
       </p>
@@ -281,7 +281,7 @@ export default function AiForSmallBusinessBody() {
         <Link href="/scorecard" className={link}>
           AI Revenue Scan
         </Link>{" "}
-        measures. It scores your revenue operations against the model above, for
+        measures. It scores your revenue operations against the framework above, for
         free, in a few minutes, and it tells you where AI will help you and where it
         would just scale a problem.
       </p>

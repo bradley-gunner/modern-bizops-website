@@ -36,7 +36,7 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What you will get back</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              Your stage on the Revenue Operations Maturity Model, a framework we built for scoring how a revenue engine actually runs. The dollar gap between you and peers in your business model on revenue per employee, sales cycle velocity and retention. And the one operational gap we would close first.
+              Your stage on the GTM Maturity Framework, a method we built for scoring how a revenue engine actually runs. The dollar gap between you and peers in your business model on revenue per employee, sales cycle velocity and retention. And the one operational gap we would close first.
             </p>
           </div>
           <div>
@@ -48,7 +48,7 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What this is not</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              Every number here comes from your own estimate of your own business, so the read is only as good as those estimates. The {AUDIT.name} is the paid version. It connects to your CRM and revenue tools and scores more than forty competencies off your live data. Then it ranks what to automate first. If the numbers here look about right to you, that is the point to go get the real ones.
+              Every number here comes from your own estimate of your own business, so the read is only as good as those estimates. The {AUDIT.name} is the paid version. It connects to your CRM and revenue tools and scores more than fifty competencies off your live data. Then it ranks what to automate first. If the numbers here look about right to you, that is the point to go get the real ones.
             </p>
           </div>
         </div>

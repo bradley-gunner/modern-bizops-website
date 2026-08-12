@@ -16,19 +16,19 @@ export const metadata = {
   // not repeat the brand or the tab reads "... | Modern BizOps | Modern BizOps".
   title: "Revenue Operations: The Four Stages From Founder-Led to Predictable",
   description:
-    "The four stages and 44 competencies that move a founder-led business from revenue that depends on you to revenue you can predict. See exactly how each one is measured.",
+    "The four stages and 51 competencies that move a founder-led business from revenue that depends on you to revenue you can predict. See exactly how each one is measured.",
   alternates: { canonical: URL },
   openGraph: {
     title: "Revenue Operations: The Four Stages From Founder-Led to Predictable",
     description:
-      "From revenue that runs on you to revenue you can predict. Four stages, 44 competencies.",
+      "From revenue that runs on you to revenue you can predict. Four stages, 51 competencies.",
     url: URL,
     images: [
       {
         url: "https://modernbizops.com/og/og-maturity-model.png",
         width: 1200,
         height: 630,
-        alt: "The Revenue Operations Maturity Model",
+        alt: "The GTM Maturity Framework",
       },
     ],
   },
@@ -36,7 +36,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Revenue Operations: The Four Stages From Founder-Led to Predictable",
     description:
-      "Four stages, 44 competencies, from revenue that runs on you to revenue you can predict.",
+      "Four stages, 51 competencies, from revenue that runs on you to revenue you can predict.",
     images: ["https://modernbizops.com/og/og-maturity-model.png"],
   },
 };
@@ -66,7 +66,7 @@ export default function MaturityModelPage() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "The Revenue Operations Maturity Model",
+        name: "The GTM Maturity Framework",
         item: URL,
       },
     ],
@@ -89,9 +89,9 @@ export default function MaturityModelPage() {
               &ldquo;where am I, and what is the next right thing to build?&rdquo;
             </p>
             <p className="text-lg text-text-mid mt-6">
-              The Revenue Operations Maturity Model has a total of forty-four
-              competencies, broken into four maturity stages. You do not need all
-              forty-four. You need to improve in the{" "}
+              The GTM Maturity Framework has a total of fifty-one competencies,
+              broken into four maturity stages. You do not need all fifty-one.
+              You need to improve in the{" "}
               <span className="text-amber font-semibold italic">three or four</span>{" "}
               that matter for where you are right now.
             </p>
@@ -108,7 +108,7 @@ export default function MaturityModelPage() {
               Want to know exactly where you are?
             </h2>
             <p className="text-white/80 mb-6 max-w-[58ch] mx-auto">
-              The free AI Revenue Scan runs this model against your business in
+              The free AI Revenue Scan runs this framework against your business in
               about five minutes and names the one gap we would fix first. It is
               the structured version of what you just did by feel.
             </p>
@@ -125,7 +125,7 @@ export default function MaturityModelPage() {
               <div className="font-display font-semibold text-navy text-2xl md:text-3xl mt-1">
                 The full map{" "}
                 <span className="text-amber font-normal">
-                  · four stages, 44 competencies
+                  · four stages, 51 competencies
                 </span>
               </div>
               <div className="text-sm text-text-light mt-2 max-w-[62ch] mx-auto">
