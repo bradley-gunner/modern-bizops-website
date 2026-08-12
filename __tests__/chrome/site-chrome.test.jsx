@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { readdirSync, readFileSync, existsSync, statSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { stripComments, sourceFiles } from "../helpers/copy.js";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import sitemap from "@/app/sitemap";
@@ -49,21 +50,14 @@ const FIFTEEN_YEARS = /15\+?\s*years|fifteen years/i;
 // Comments are not copy. Both `app/schema.js` and `lib/learn/registry.js` carry
 // a comment naming the retired claim so the next reader knows why the string
 // changed, and those comments must not read as violations.
-function stripComments(src) {
-  return src
-    .replace(/\/\*[\s\S]*?\*\//g, "") // block comments, including {/* JSX */}
-    .replace(/(^|[^:"'`\\])\/\/[^\n]*/g, "$1"); // line comments, sparing https://
-}
-
-function sourceFiles(dir) {
-  const out = [];
-  for (const entry of readdirSync(dir)) {
-    const full = join(dir, entry);
-    if (statSync(full).isDirectory()) out.push(...sourceFiles(full));
-    else if (/\.jsx?$/.test(entry)) out.push(full);
-  }
-  return out;
-}
+//
+// stripComments used to live here as two regex passes, and it had the same
+// disease as the grep in the note above: it reported clean by eating its own
+// input. Block comments were stripped first, so a line comment mentioning
+// `components/learn/content/*.jsx` opened a block that swallowed the next 1300
+// lines, and this guard read 4% of lib/learn/registry.js. It walks the source
+// now, and it lives in __tests__/helpers/copy.js because the voice guard in
+// __tests__/copy/voice-split.test.js stands on the same step.
 
 // Every internal href the chrome and the /learn index put in front of a
 // visitor. External URLs are excluded on purpose: there is no route file to
