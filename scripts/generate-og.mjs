@@ -71,12 +71,19 @@ const Headshot = ({ size = 256, top = 187, right = 80 }) =>
     h('img', { src: HEADSHOT, width: size, height: size, style: { borderRadius: 9999 } }),
   );
 
-// The logo now carries the name, so the footer is role + URL.
+// The logo now carries the name, so the footer is the positioning line + URL.
+//
+// That line said "Revenue Growth Coach" until 2026-08-12, which is the retired
+// offer. It is baked into this shared template, so every card the script has
+// ever produced carried it, including the five made hours earlier for pages
+// that sell an AI automation partnership. The string below is the site footer's
+// own line, verbatim (components/Footer.jsx), so the card and the page a share
+// links to say the same thing.
 const Footer = () =>
   h(
     'div',
     { style: { position: 'absolute', left: 64, bottom: 44, display: 'flex', alignItems: 'center', fontSize: 24 } },
-    h('span', { style: { fontFamily: 'Jost', color: CREAM } }, 'Revenue Growth Coach'),
+    h('span', { style: { fontFamily: 'Jost', color: CREAM } }, 'The AI automation partner for B2B go-to-market'),
     h('span', { style: { color: 'rgba(246,242,235,0.35)', margin: '0 16px' } }, '|'),
     h('span', { style: { fontFamily: 'Jost', color: ORANGE } }, 'modernbizops.com'),
   );
@@ -134,7 +141,10 @@ function aboutCard({ subline }) {
       },
       h('div', { style: { fontFamily: 'Cormorant', fontWeight: 600, fontSize: 52, color: ORANGE, lineHeight: 1 } }, 'Meet'),
       h('div', { style: { fontFamily: 'Cormorant', fontWeight: 600, fontSize: 72, color: CREAM, lineHeight: 1.05 } }, 'Bradley de Wet'),
-      h('div', { style: { marginTop: 10, fontFamily: 'Jost', fontWeight: 600, fontSize: 26, color: ORANGE } }, 'Revenue Growth Coach'),
+      // Sits under his name, so this one is the job title rather than the
+      // company positioning line the footer carries. Verbatim from the Person
+      // schema in app/schema.js.
+      h('div', { style: { marginTop: 10, fontFamily: 'Jost', fontWeight: 600, fontSize: 26, color: ORANGE } }, 'Founder, Modern BizOps'),
       h('div', { style: { marginTop: 22, fontFamily: 'Jost', fontWeight: 400, fontSize: 24, lineHeight: 1.4, color: CREAM_DIM } }, subline),
     ),
     h(Headshot, {}),
@@ -388,12 +398,16 @@ const CARDS = {
         headlineSize: 58,
       }),
   },
+  // The subline said "Done-with-you coaching" until 2026-08-12. Same retired
+  // offer as the footer line, on the most-shared card on the site, so it goes
+  // with it. Replaced with the live homepage hero's own second sentence.
+  // The headline here is still the pre-pivot hook and is owed a rewrite.
   homepage: {
     changed: false,
     element: () =>
       heroCard({
         headline: 'Grow Your Revenue Without Growing Your Headcount',
-        subline: 'Done-with-you coaching for founder-led B2B companies, $3M to $50M',
+        subline: 'Foundation first, published fixed prices, your team owns everything we build',
       }),
   },
   about: {
