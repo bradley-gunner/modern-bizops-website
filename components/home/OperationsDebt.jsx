@@ -18,7 +18,7 @@ const FAILURE_MODES = [
   },
   {
     title: "Nobody owned it after launch",
-    body: "It ran for a month, drifted, and quietly stopped. No one noticed until a number looked wrong.",
+    body: "It ran for a month, then stopped firing. No one noticed until a number looked wrong.",
   },
 ];
 
@@ -38,9 +38,9 @@ export default function OperationsDebt() {
             And it died quietly on a foundation nobody checked.
           </p>
           <p>
-            That is not really an AI problem. Dirty data, duct-tape process,
-            fields nobody fills in: the debt you could tolerate for years was
-            priced against inconvenience. AI repriced it against capability. The
+            The tool was probably fine. Dirty data, duct-tape process, fields
+            nobody fills in. The debt you could tolerate for years was priced
+            against inconvenience, and AI repriced it against capability. The
             cleanup you kept meaning to get to is now the thing that decides
             whether any of this works for you at all.
           </p>

@@ -20,7 +20,7 @@ const METRICS = [
   "$318K churn-adjusted ARR closed",
   "About $1M churn saved",
   "4.5 years as an agency COO",
-  "20+ tools connected by the audit instrument",
+  "20+ tools the audit connects to",
 ];
 
 const IEXCEL_CLIENTS = [

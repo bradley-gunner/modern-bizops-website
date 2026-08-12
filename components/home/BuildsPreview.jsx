@@ -17,9 +17,8 @@ export default function BuildsPreview() {
           Named systems, published prices.
         </h2>
         <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-          Each one is a fixed price, a named scope, and a clock. You get the
-          runbook, and your team runs it when we are gone. Here are six of the
-          twelve.
+          Each one is a fixed price, a named scope, and a clock. The runbook
+          goes to a named person on your side. Here are six of the twelve.
         </p>
       </div>
 

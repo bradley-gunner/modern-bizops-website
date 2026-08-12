@@ -143,8 +143,7 @@ export default function AiAutomationServicesPage() {
               <p>
                 Each of these is one named system, built at a fixed price, on a
                 clock, with a runbook handed over at the end. Your team owns it
-                when we are gone, which is the part most of this market leaves
-                out.
+                when we are gone, and we do not keep a login.
               </p>
               <p>
                 Every price below is the base pattern. The one rule that moves
@@ -256,14 +255,13 @@ export default function AiAutomationServicesPage() {
               Plans stack per system. The retainer does not.
             </p>
             <p>
-              So the trade is worth stating plainly rather than dressing up. The{" "}
-              {rung.partner.name} retainer at {rung.partner.price} costs more
-              than the Care Plans it replaces, and it buys more: up to{" "}
-              {PARTNER_LIMIT_WORD} systems kept running <em>and</em> improving,
-              plus a monthly working session with your team. A Care Plan keeps a
-              system alive. The retainer keeps it getting better. Choose it when
-              you want the systems improving, not when you want the monthly
-              number lower.
+              The {rung.partner.name} retainer at {rung.partner.price} costs
+              more than the Care Plans it replaces, and it covers more: up to{" "}
+              {PARTNER_LIMIT_WORD} systems kept running and improving, plus a
+              monthly working session with your team. A Care Plan keeps one
+              system from breaking. The retainer is for when you want{" "}
+              {PARTNER_LIMIT_WORD} of them getting better every month. If the
+              monthly number is what matters most right now, take the Care Plan.
             </p>
             <p>
               Both numbers, and the two rungs above them, are on the{" "}
@@ -317,13 +315,12 @@ export default function AiAutomationServicesPage() {
             </h2>
             <div className="space-y-5 font-body text-text-mid text-base md:text-lg leading-relaxed">
               <p>
-                A pack is the same menu pre-shaped for one industry: the system
-                of record that industry actually runs, its vocabulary, and the
-                one pipeline the whole business hangs on.
+                A pack is the same menu, pre-shaped for one industry: its system
+                of record, and the one pipeline that industry runs on.
               </p>
               <p>
                 Packs publish after that vertical&apos;s first audit proves the
-                need. That is why this is a pipeline and not a product grid. We
+                need. So this list is what we intend to build, in order. We
                 would rather ship a pack built from one real stack than six
                 built from guesses.
               </p>
@@ -356,8 +353,8 @@ export default function AiAutomationServicesPage() {
           </ul>
 
           <p className="mt-9 max-w-[760px] font-body text-text-mid text-base md:text-lg leading-relaxed">
-            If you want the pack for your industry shaped around your stack
-            rather than somebody else&apos;s, that is what the{" "}
+            If you want the pack for your industry shaped around your own
+            stack, that is what the{" "}
             <Link
               href="/founding-clients"
               className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
@@ -377,7 +374,7 @@ export default function AiAutomationServicesPage() {
           <CtaCallout
             eyebrow="Which one first"
             heading="The audit tells you which of these to build."
-            body={`Picking off a menu is guessing. The ${rung.audit.name} ranks these against your actual stack, prices the top items from this same list, and credits its fee in full toward the first one you build.`}
+            body={`Twelve builds, and only two or three of them will move your number this quarter. The ${rung.audit.name} ranks these against your actual stack, prices the top items from this same list, and credits its fee in full toward the first one you build.`}
             buttonLabel={`Start with the ${rung.audit.name}`}
             href="/ai-readiness-assessment"
             ctaLocation="services_foot"

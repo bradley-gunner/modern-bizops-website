@@ -10,27 +10,33 @@ const audit = LADDER.find((rung) => rung.id === "audit");
 // two things they name most often before they will believe one are a
 // measurable outcome and a plain account of what the software actually does.
 // There is no client outcome to show yet, so this section spends all of its
-// credibility budget on the second one: what the instrument reads, where the
-// numbers come from, and what comes back. Show the mechanism, never the magic.
+// credibility budget on the second one: what the audit reads, where the
+// numbers come from, and what comes back.
 //
 // The 72% figure is the reason this section exists, not copy for it. House
 // rule: a benchmark is supporting proof, never the hook.
+//
+// This section TEASES the mechanism. /ai-readiness-assessment is the only place
+// that argues it in full. Until 2026-08-12 the two were near-duplicates: the
+// same four-item stack list after the same colon, the same "nobody has to grade
+// themselves" line, the same strategy-workshop paragraph. A visitor reading
+// both met one page twice. Keep new detail on the audit page, not here.
 const STEPS = [
   {
     label: "It connects to the tools you already run",
-    body: "More than twenty of them: the CRM, the marketing platform, the billing system, the support desk. You authorize the connection and it reads from there.",
+    body: "More than twenty of them, starting with whatever you use as a CRM. You authorize read access once and the audit pulls from there.",
   },
   {
-    label: "It reads the stack, not a survey",
-    body: "Field completeness, stage discipline, where records go quiet, what never gets filled in. Nobody on your team has to grade themselves, which is the step where most assessments stop being true.",
+    label: "It reads what your records actually contain",
+    body: "Field completeness, stage discipline, which records stopped moving, what never gets filled in at all.",
   },
   {
     label: "It scores 44 competencies",
-    body: "The same four-stage model behind the free Scan, computed from your data instead of self-reported, across the whole revenue engine rather than one function.",
+    body: "The same four-stage model behind the free Scan, run across the whole revenue engine. The Scan asks you fifteen questions. This one reads the answers off your systems.",
   },
   {
     label: "It returns a heat map and an automation map",
-    body: "One shows where the engine is thin. The other ranks what to automate first and what has to be fixed before any of it will hold.",
+    body: "One shows where the engine is thin. The other ranks what to automate first, and names the repairs that come before the first build.",
   },
 ];
 
@@ -39,15 +45,14 @@ export default function Mechanism() {
     <Section bg="cream" narrow={false}>
       <div className="max-w-[760px] mb-10">
         <p className="font-body text-[13px] font-medium uppercase tracking-[0.26em] text-amber mb-4">
-          Mechanism, not magic
+          How the audit works
         </p>
         <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-4">
           What the audit computes, and where the numbers come from.
         </h2>
         <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-          You should not have to take an AI claim on faith, so here is the
-          instrument in full. It is the same thing whether you like the answer
-          or not.
+          You should not have to take an AI claim on faith, so here is the whole
+          method. It runs the same way whether you like the answer or not.
         </p>
       </div>
 
@@ -72,12 +77,9 @@ export default function Mechanism() {
 
       <div className="mt-10 max-w-[760px]">
         <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-          Plenty of firms will sell you an AI strategy workshop and hand you a
-          slide deck at the end of it. We have not found one, at any price, that
-          computes the answer from your connected systems. That is the whole
-          reason this instrument exists, and it is why the audit costs{" "}
-          {audit.price} and credits {AUDIT_TERMS.creditPercent} forward instead
-          of being sold as a report.
+          The audit costs {audit.price}. {AUDIT_TERMS.creditPercent} of that
+          credits forward into the first thing you build, and both maps are
+          yours whether you build with us or not.
         </p>
       </div>
 
