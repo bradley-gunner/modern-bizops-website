@@ -355,6 +355,9 @@ describe("closing CTA band", () => {
     "app/ai-automation-services/page.js",
     "app/pricing/page.js",
     "app/founding-clients/page.js",
+    // Not an offer page, but it closes with the same CtaCallout band and was
+    // written by copying the shape from these, so it inherits the same trap.
+    "app/learn/page.js",
   ];
 
   it.each(OWNED)("%s cancels no Section padding with py-0", (relative) => {

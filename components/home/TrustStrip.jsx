@@ -54,7 +54,15 @@ export default function TrustStrip() {
         </ul>
 
         <div className="mt-6 pt-5 border-t border-border/70 text-center">
-          <p className="font-body text-xs uppercase tracking-[0.18em] text-text-light mb-3">
+          {/* The label used to be set `text-xs uppercase tracking-[0.18em]
+              text-text-light`, which did two harmful things at once. It
+              rendered the brand name as "IEXCEL", and it set the sentence that
+              does the attribution work visually beneath the names it governs,
+              so the eye read seven client logos with a caption underneath. The
+              label is the load-bearing part. It now reads at full navy while
+              the names stay at navy/75, so the frame lands first. The words are
+              exact and non-negotiable; only their treatment changed. */}
+          <p className="font-body text-[15px] md:text-base font-semibold text-navy mb-3">
             Clients I worked with while I was at iExcel:
           </p>
           <ul className="flex flex-wrap justify-center gap-x-7 gap-y-2">

@@ -14,6 +14,7 @@ const LAST_MODIFIED = {
   pricing: "2026-08-11",
   foundingClients: "2026-08-11",
   revenueOperationsConsulting: "2026-07-21",
+  learnIndex: "2026-08-11",
   privacy: "2026-04-06",
   terms: "2026-04-06",
   learnStage1Reactive: "2026-07-14",
@@ -118,6 +119,15 @@ export default function sitemap() {
       // sitemap. A notch below the primary consulting page.
       url: `${baseUrl}/ai-consulting-for-small-business`,
       lastModified: new Date(LAST_MODIFIED.aiConsultingForSmallBusiness),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      // The library index. It ships with the nav restructure that gave "Learn"
+      // a real destination, and it is the internal hub the twenty-four pages
+      // below now hang off.
+      url: `${baseUrl}/learn`,
+      lastModified: new Date(LAST_MODIFIED.learnIndex),
       changeFrequency: "monthly",
       priority: 0.8,
     },

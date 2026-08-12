@@ -1,8 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import Button from "@/components/ui/Button";
 
+// Sticky mobile CTA, rendered on the homepage only. It appears once the reader
+// has scrolled past the hero, so the primary CTA is never more than a thumb
+// away on the surface where the page is longest.
+//
+// It used to point at /book with "Book a Free Call", which was the old funnel:
+// the first ask was a call. The Scan is now the one primary CTA site-wide, and
+// the hero and the closing block both send there, so a bar that asked for a
+// call was the single loudest contradiction of that rule on the page.
+//
+// It also used to be a bare <Link>, which fires no cta_click at all. It is a
+// <Button> now, so this bar is measurable against the hero and the close
+// instead of being invisible in GA4.
 export default function MobileCtaBar() {
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
@@ -20,14 +32,15 @@ export default function MobileCtaBar() {
       className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border shadow-xl px-4 py-3 flex items-center gap-3"
       style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
       role="complementary"
-      aria-label="Book a call"
+      aria-label="Get the free Scan"
     >
-      <Link
-        href="/book"
-        className="flex-1 inline-flex items-center justify-center bg-amber text-white font-body font-semibold rounded-full py-3 px-6 text-base hover:bg-amber-hover transition-colors"
+      <Button
+        href="/scorecard"
+        className="flex-1"
+        ctaLocation="home_mobile_bar"
       >
-        Book a Free Call
-      </Link>
+        Get the Free Scan
+      </Button>
       <button
         onClick={() => setDismissed(true)}
         aria-label="Dismiss"
