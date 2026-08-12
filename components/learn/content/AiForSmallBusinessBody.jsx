@@ -279,7 +279,7 @@ export default function AiForSmallBusinessBody() {
         If you want to know which stage you are actually at, that is exactly what
         the{" "}
         <Link href="/scorecard" className={link}>
-          Revenue Maturity Score
+          AI Revenue Scan
         </Link>{" "}
         measures. It scores your revenue operations against the model above, for
         free, in a few minutes, and it tells you where AI will help you and where it

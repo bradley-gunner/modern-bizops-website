@@ -194,7 +194,7 @@ export default function AiConsultingBody() {
       <p>
         You can get your free score in a few minutes with the{" "}
         <Link href="/scorecard" className={link}>
-          Revenue Maturity Score
+          AI Revenue Scan
         </Link>
         . Most founders are surprised by which parts of their operation are further
         along than they thought, and which parts are not ready for AI at all.

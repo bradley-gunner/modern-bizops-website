@@ -2,14 +2,19 @@
 import { useState, useEffect } from 'react';
 import { captureUtms, getUtms } from '@/lib/utm';
 import { trackMagnetStart } from '@/lib/analytics';
+import { LADDER } from '@/lib/offers';
 import QuizFlow from './QuizFlow';
+
+// The paid next rung, named from the single source of truth so this page can
+// never disagree with the ladder. Nothing here quotes a price.
+const AUDIT = LADDER.find((rung) => rung.id === 'audit');
 
 function Landing({ onStart }) {
   return (
     <main>
       <section className="mx-auto max-w-[820px] px-6 md:px-8 pt-10 pb-16 md:pt-16 md:pb-24 text-center">
         <p className="font-body text-sm font-semibold tracking-widest uppercase text-amber mb-4">
-          Free Diagnostic
+          Free AI Revenue Scan
         </p>
         <h1 className="font-display text-[32px] md:text-[48px] leading-tight font-semibold text-navy mb-6">
           Find the dollar amount your operating system is leaving on the table this year.
@@ -23,7 +28,7 @@ function Landing({ onStart }) {
         >
           Find your number
         </button>
-        <p className="font-body text-sm text-text-light mt-3">Fifteen questions. About five minutes.</p>
+        <p className="font-body text-sm text-text-light mt-3">Fifteen questions. About five minutes. No call.</p>
       </section>
 
       <section className="bg-white">
@@ -31,7 +36,7 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What you will get back</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              A maturity stage placement against the framework of more than forty competencies I use with paying clients, the dollar gap between you and peers in your business model on three specific metrics (revenue per employee, sales cycle velocity, retention), and the one operational gap I would attack first.
+              A maturity stage placement against the Revenue Operations Maturity Model and its more than forty competencies, the dollar gap between you and peers in your business model on three specific metrics (revenue per employee, sales cycle velocity, retention), and the one operational gap I would close first.
             </p>
           </div>
           <div>
@@ -43,7 +48,7 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What this is not</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              This is a directional read from fifteen questions. It is not the full assessment I run with paying clients, which connects to your CRM and revenue tools and scores more than forty competencies. If the numbers below feel right, that is the signal to take the next step.
+              This is a directional read from fifteen questions you answer about yourself. It is the free first rung, not the {AUDIT.name}, which is the paid next rung: that one connects to your systems, computes the real picture instead of taking your word for it, and ranks what to automate first. If the numbers here feel right, that is the signal to take the next step.
             </p>
           </div>
         </div>

@@ -497,7 +497,7 @@ function ResultDocument({ result, meta, questions }) {
         )}
 
         <View wrap={false}>
-          <Text style={styles.h2}>What this scorecard can and cannot tell you</Text>
+          <Text style={styles.h2}>What this Scan can and cannot tell you</Text>
           <Text style={styles.p}>{result.disclosure}</Text>
         </View>
 
@@ -519,7 +519,7 @@ function ResultDocument({ result, meta, questions }) {
         <QASection questions={questions} />
 
         <View style={styles.footer} fixed>
-          <Text style={styles.footerText}>Modern BizOps Revenue Maturity Scorecard</Text>
+          <Text style={styles.footerText}>Modern BizOps AI Revenue Scan</Text>
           <Text style={styles.footerText}>{result.generatedAt.slice(0, 10)}</Text>
         </View>
       </Page>

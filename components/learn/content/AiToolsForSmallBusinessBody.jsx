@@ -66,7 +66,7 @@ export default function AiToolsForSmallBusinessBody() {
         want to see which stage each of your competencies is actually at before you
         spend a dollar, the{" "}
         <Link href="/scorecard" className={link}>
-          Revenue Maturity Score
+          AI Revenue Scan
         </Link>{" "}
         is free.
       </p>
@@ -320,8 +320,8 @@ export default function AiToolsForSmallBusinessBody() {
       <CtaCallout
         eyebrow="Before you buy a tool"
         heading="Which of your competencies are actually ready?"
-        body="Every job above rests on a competency in the Revenue Operations Maturity Model. The free Revenue Maturity Score measures where each of yours stands today, so you know which fundamentals are solid enough for a tool to accelerate and which would just scale the mess. A few minutes, fifteen questions."
-        buttonLabel="Get your Revenue Maturity Score"
+        body="Every job above rests on a competency in the Revenue Operations Maturity Model. The free AI Revenue Scan measures where each of yours stands today, so you know which fundamentals are solid enough for a tool to accelerate and which would just scale the mess. A few minutes, fifteen questions."
+        buttonLabel="Get the Free Scan"
         href="/scorecard"
         ctaLocation="learn_ai_tools_scorecard"
       />

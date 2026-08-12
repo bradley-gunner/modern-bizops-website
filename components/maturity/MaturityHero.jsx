@@ -55,7 +55,7 @@ export default function MaturityHero({ variant }) {
             {variant.sub}
           </p>
           <div className="mt-7 flex flex-col sm:flex-row gap-3">
-            <Button href="/scorecard">Get your Revenue Maturity Score</Button>
+            <Button href="/scorecard">Get the Free Scan</Button>
             <a
               href="#locate"
               className="inline-flex items-center justify-center rounded-full font-body font-semibold px-8 py-3.5 text-base text-white border border-white/35 hover:border-white/70 transition-colors"

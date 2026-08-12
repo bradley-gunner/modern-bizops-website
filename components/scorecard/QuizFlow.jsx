@@ -10,11 +10,19 @@ import ResultView from './ResultView';
 
 const STORAGE_KEY = 'scorecard:state';
 
+// Drops any answer that no longer corresponds to a visible question OR to a
+// live option on that question. The option check matters on restore: a retired
+// option value (the revenue bands were realigned to the /book set) would sit in
+// a restored session as a value nothing can score, and every ROI generator
+// would quietly return null, so the visitor would get the no-gap result with no
+// error anywhere. Better to re-ask than to compute from a value that is gone.
 function pruneStaleAnswers(answers) {
-  const visible = new Set(getQuestionsFor(answers).map((q) => q.id));
   const out = {};
-  for (const id of Object.keys(answers)) {
-    if (visible.has(id)) out[id] = answers[id];
+  for (const q of getQuestionsFor(answers)) {
+    const answer = answers[q.id];
+    if (!answer) continue;
+    if (!q.options.some((o) => o.value === answer.value)) continue;
+    out[q.id] = answer;
   }
   return out;
 }
@@ -35,10 +43,18 @@ export default function QuizFlow({ utms = {} }) {
       const raw = sessionStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (parsed.answers) setAnswers(parsed.answers);
-        if (parsed.step) setStep(parsed.step);
-        if (typeof parsed.currentIndex === 'number') setCurrentIndex(parsed.currentIndex);
         if (parsed.result) setResult(parsed.result);
+        const kept = pruneStaleAnswers(parsed.answers || {});
+        const dropped =
+          Object.keys(kept).length !== Object.keys(parsed.answers || {}).length;
+        // An already-computed result is self-contained and still valid, so it
+        // survives. Partial progress built on a retired option value does not:
+        // restart rather than resume onto answers that can no longer be scored.
+        if (!dropped || parsed.result) {
+          setAnswers(kept);
+          if (parsed.step) setStep(parsed.step);
+          if (typeof parsed.currentIndex === 'number') setCurrentIndex(parsed.currentIndex);
+        }
       }
     } catch {}
     setRestored(true);

@@ -158,7 +158,7 @@ export default function RevenuePerEmployeeBody() {
         The dollar version of this analysis is the one worth having. Your revenue per
         employee, against your business model&rsquo;s benchmark, converts to a dollar
         gap: the revenue your current team would produce at peer efficiency. Finding that
-        gap is exactly what the Revenue Growth Scorecard computes, against the named
+        gap is exactly what the AI Revenue Scan puts in front of you, against the named
         public benchmarks above, keyed to your business model rather than a generic
         average.
       </p>

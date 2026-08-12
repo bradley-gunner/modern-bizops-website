@@ -180,7 +180,7 @@ export default function FractionalCooCostBody() {
         companies in this range.
       </p>
       <p>
-        The Revenue Maturity Score is a free diagnostic that scores your revenue
+        The AI Revenue Scan is a free diagnostic that scores your revenue
         operations against the{" "}
         <Link
           href="/predictable-revenue-engine"
@@ -197,7 +197,7 @@ export default function FractionalCooCostBody() {
       </p>
       <div className="mt-6">
         <Button href="/scorecard" ctaLocation="learn_mid_page">
-          Get your Revenue Maturity Score
+          Get the Free Scan
         </Button>
       </div>
 

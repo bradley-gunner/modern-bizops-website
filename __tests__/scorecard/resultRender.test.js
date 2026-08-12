@@ -3,9 +3,12 @@ import { buildResult } from '@/lib/scorecard/resultRender';
 
 function ans(overrides = {}) {
   return {
-    q1: { value: '7m_15m' },                          // $11M
+    q1: { value: '5m_15m' },                          // $10M midpoint
     q2: { value: 'PROFESSIONAL_SERVICES' },
-    q3: { value: '51_75' },                           // 63
+    // 38. Chosen so revenue per employee ($10M / 38 = $263K) clears the
+    // professional-services median of $170K, which keeps the no-gap fixtures
+    // below genuinely no-gap after the revenue bands moved to the /book set.
+    q3: { value: '26_50' },
     q4:  { value: 'A', score: 1 },
     q5:  { value: 'B', score: 2 },
     q6:  { value: 'A', score: 1 },
@@ -82,8 +85,11 @@ describe('buildResult', () => {
     for (const s of r.brightSpots) expect(s.score).toBeGreaterThan(1);
   });
 
-  it('CTA destination is /watch', () => {
-    expect(buildResult(ans()).cta.destination).toBe('/watch');
+  it('CTA bridges to the paid next rung, the AI Revenue Audit', () => {
+    const cta = buildResult(ans()).cta;
+    expect(cta.destination).toBe('/ai-readiness-assessment');
+    expect(cta.heading).toBe('The AI Revenue Audit');
+    expect(cta.buttonLabel).toBe('See the AI Revenue Audit');
   });
 
   it('model label resolves from q2', () => {
@@ -224,6 +230,8 @@ describe('cta.focus', () => {
       q14: { value: 'under_30' }, q15: { value: 'under_5' },
     }));
     expect(r.cta.focus).toBeNull();
-    expect(r.cta.focusLine).toMatch(/Book 30 minutes/);
+    // Still the Audit bridge, just with no competency to name.
+    expect(r.cta.focusLine).toMatch(/AI Revenue Audit/);
+    expect(r.cta.focusLine).not.toMatch(/undefined/);
   });
 });

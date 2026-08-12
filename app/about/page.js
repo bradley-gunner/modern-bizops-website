@@ -386,7 +386,7 @@ export default function AboutPage() {
                 href="/scorecard"
                 className="inline-flex items-center justify-center font-body font-semibold border border-cream/30 text-cream hover:bg-white/10 transition-colors duration-200 rounded-full px-8 py-4 text-base"
               >
-                Take the Free Scorecard
+                Get the Free Scan
               </Link>
             </div>
 

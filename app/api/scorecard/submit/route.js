@@ -141,7 +141,7 @@ export async function POST(request) {
       await createContactTask({
         contactId,
         subject: `New lead to qualify: ${firstName || email} (Stage ${result.placement.stage})`,
-        body: `New scorecard submission. Stage ${result.placement.stage} (${result.placement.name}). Model: ${result.modelLabel}. Headline gap: ${result.headline.lead}`,
+        body: `New AI Revenue Scan submission. Stage ${result.placement.stage} (${result.placement.name}). Model: ${result.modelLabel}. Headline gap: ${result.headline.lead}`,
         ownerId: BRADLEY_OWNER_ID,
         priority: 'HIGH',
         dueInHours: 24,
@@ -154,7 +154,7 @@ export async function POST(request) {
       await runAfterResponse(async () => {
         try {
           const fileName = safeFileName([
-            'Modern-BizOps-Scorecard',
+            'Modern-BizOps-AI-Revenue-Scan',
             company || firstName || email.split('@')[0],
             result.generatedAt.slice(0, 10),
           ]);
@@ -172,7 +172,7 @@ export async function POST(request) {
           });
           await createContactNote({
             contactId,
-            body: `Scorecard result PDF for ${firstName || email}${company ? ` (${company})` : ''}. Stage ${result.placement.stage} ${result.placement.name}. Dollar gap ${result.headline.floorDollars} to ${result.headline.medianDollars}. Model ${result.modelLabel}.`,
+            body: `AI Revenue Scan result PDF for ${firstName || email}${company ? ` (${company})` : ''}. Stage ${result.placement.stage} ${result.placement.name}. Dollar gap ${result.headline.floorDollars} to ${result.headline.medianDollars}. Model ${result.modelLabel}.`,
             attachmentIds: file.id,
           });
         } catch (bgErr) {

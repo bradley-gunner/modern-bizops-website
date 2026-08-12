@@ -108,11 +108,11 @@ export default function MaturityModelPage() {
               Want to know exactly where you are?
             </h2>
             <p className="text-white/80 mb-6 max-w-[58ch] mx-auto">
-              The scorecard runs the full model against your business in about
-              five minutes and names the one gap I would fix first. It does the
-              precise version of what you just did by feel.
+              The free AI Revenue Scan runs this model against your business in
+              about five minutes and names the one gap I would fix first. It is
+              the structured version of what you just did by feel.
             </p>
-            <Button href="/scorecard">Get your Revenue Maturity Score</Button>
+            <Button href="/scorecard">Get the Free Scan</Button>
           </div>
         </Section>
 

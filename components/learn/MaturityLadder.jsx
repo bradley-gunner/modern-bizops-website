@@ -12,8 +12,8 @@ const RAMP = {
 };
 
 // Levels 1-4 match LEVEL_WORDS in lib/scorecard/voice.js, the same vocabulary
-// the Revenue Growth Scorecard reports back. The /learn rubric runs one rung
-// further than the scorecard's 1-4, so Optimized is defined here. Shared rather
+// the AI Revenue Scan reports back. The /learn rubric runs one rung
+// further than the Scan's 1-4, so Optimized is defined here. Shared rather
 // than passed per page: the tag is a property of the level, not of the page.
 export const LADDER_TAGS = {
   1: "Absent",
