@@ -1,4 +1,7 @@
 import VizBlock from "@/components/learn/VizBlock";
+import { LADDER, AUDIT_TERMS } from "@/lib/offers";
+
+const rung = Object.fromEntries(LADDER.map((r) => [r.id, r]));
 
 // The page's centerpiece: the four ways to fix operations, side by side. Every
 // cost, scope, and label is a real DOM text node (never an image), so the
@@ -6,13 +9,19 @@ import VizBlock from "@/components/learn/VizBlock";
 // semantic <table>; on mobile the four options stack into four cards, both
 // built from the same data below so the cell text is identical either way.
 //
-// The "Promote and coach" column is picked out in amber: it is Modern BizOps'
-// actual offer and the one option the other cost guides leave out.
+// The fourth column is picked out in amber: it is Modern BizOps' actual offer
+// and the one option the other cost guides leave out.
+//
+// It was headed "Promote and coach" and priced at "$5,000 to $15,000 a month"
+// until 2026-08-12, which was the retired coaching engagement. That number was
+// two to six times the real one by then, published on a live page next to a
+// pricing page that said otherwise. It now interpolates from lib/offers.js, so
+// it cannot drift from the ladder again.
 const OPTIONS = [
   "Fractional COO",
   "Full-time COO",
   "Project consultant",
-  "Promote and coach",
+  "Build it and hand it over",
 ];
 
 const ROWS = [
@@ -22,7 +31,7 @@ const ROWS = [
       "$3,000 to $20,000 a month, commonly $5,000 to $15,000 for 10 to 20 hours a week ($60,000 to $180,000 a year)",
       "Base salary of roughly $150,000 to $255,000, total compensation reaching $277,000 to $298,000, and an all-in first-year cost above $400,000 with recruiting, benefits, and equity",
       "$10,000 to $50,000 or more as a fixed fee for one defined project",
-      "The coaching engagement at $5,000 to $15,000 a month for its duration, not a perpetual retainer, plus the salary of an internal person you are often already paying",
+      `A ${rung.audit.price} audit, credited ${AUDIT_TERMS.creditPercent} toward the first build, then named systems at ${rung.builds.price} each, or ${rung.partner.price} for the ongoing partnership. Published, bounded, and on top of the salary of an internal person you are often already paying`,
     ],
   },
   {
@@ -31,7 +40,7 @@ const ROWS = [
       "Part-time senior operational leadership, hands-on",
       "Full, permanent ownership of operations",
       "One bounded project, then done",
-      "Build the systems into your team and coach an internal owner to run them",
+      "Named systems built into your business, with a runbook and an internal owner coached to run them after we leave",
     ],
   },
   {
@@ -40,7 +49,7 @@ const ROWS = [
       "Fast, often contributing in week one",
       "Slow, months to recruit and onboard",
       "Fast, but narrow",
-      "Moderate, your person learns as they build",
+      "Moderate, your person learns the system as it goes in",
     ],
   },
   {
@@ -72,7 +81,7 @@ const ROWS = [
   },
 ];
 
-// Index of the highlighted "Promote and coach" column.
+// Index of the highlighted Modern BizOps column.
 const KEPT = 3;
 
 export default function CooComparisonTable() {

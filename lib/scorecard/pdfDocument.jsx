@@ -439,7 +439,7 @@ function ResultDocument({ result, meta, questions }) {
 
         {result.roiLines.map((line, i) => (
           <View key={line.key} wrap={false}>
-            {i === 0 && <Text style={styles.h2}>How I got there</Text>}
+            {i === 0 && <Text style={styles.h2}>How we got there</Text>}
             <View style={styles.card}>
               <Text style={styles.roiTitle}>{line.title}</Text>
               <Text style={styles.meta}>Your number: {line.clientValue.display}</Text>

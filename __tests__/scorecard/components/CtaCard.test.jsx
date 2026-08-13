@@ -7,7 +7,7 @@ const cta = {
   heading: 'The AI Revenue Audit',
   cardLines: [
     'A connected read of your CRM and revenue tools, computed rather than self-reported',
-    'All 44 competencies scored, not just nine',
+    'More than fifty competencies scored, against the nine this Scan asked you about',
     'A ranked list of what to automate first',
     '$2,500, and it credits 100 percent toward your first build',
   ],

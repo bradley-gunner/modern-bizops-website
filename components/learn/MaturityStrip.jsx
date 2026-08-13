@@ -1,6 +1,6 @@
 import VizBlock from "@/components/learn/VizBlock";
 
-// The four named stages of the Revenue Operations Maturity Model, rendered as
+// The four named stages of the GTM Maturity Framework, rendered as
 // semantic HTML rather than an image. A fill that rises 25% per stage encodes
 // the claim the AI cluster shares: AI usefulness climbs with maturity. Every
 // stage name and note is a real text node, so the strip stays crawlable.

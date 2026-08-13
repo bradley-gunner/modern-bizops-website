@@ -14,7 +14,7 @@ export default function HomeFaq() {
           The questions you were going to ask on the call.
         </h2>
         <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-          Answered here so the call can be about your business instead.
+          Answered here, so the call can go straight to your business.
         </p>
       </div>
       <div className="max-w-[820px]">

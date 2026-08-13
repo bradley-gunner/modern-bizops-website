@@ -2,18 +2,64 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Button from "@/components/ui/Button";
+
+// THE ABOUT PAGE IS FOUNDER PROOF, and after the AI pivot it is one of only
+// five nav destinations on a site selling AI automation. So it opens with the
+// approved positioning paragraph and nothing else: no dek, no summary, no
+// warm-up line ahead of it.
+//
+// The paragraph below is transcribed verbatim from section 1 of
+// "08 Messaging Architecture.md" (APPROVED-BY-BRADLEY 2026-08-10), which is the
+// law for every customer-facing copy surface. Do not paraphrase it, do not
+// trim it, and do not translate it out of the first-person singular. It is
+// Bradley's personal record, which is the "I" side of the voice split; "we" is
+// for Modern BizOps as a company and does not belong in these three
+// paragraphs.
+//
+// IT IS VERBATIM AGAIN, AFTER A ROUND TRIP ON 2026-08-12. The "we" voice sweep
+// rewrote this whole page into the third person and recorded the divergence
+// from doc 08 as deliberate. Bradley reversed that the same day: "If the page
+// is set to be authored by a specific person such as myself then first person
+// language still makes sense to use in that instance." This page is his story
+// told by him, so it reads as "I" and matches doc 08 byte for byte. The brand
+// surfaces (homepage, offer pages, /founding-clients, nav, footer, the Scan)
+// keep the "we" voice; do not sweep this page with them.
+//
+// "our customers" in the Contactually sentence is safe ONLY in the first
+// person, where "our" is Contactually's. The sweep had to rewrite it to
+// "Contactually's customers" because the third person made it read as a Modern
+// BizOps client claim, and there are none. If anyone converts this page again,
+// that pronoun is the one that turns into a false claim.
+//
+// Two things in it look like violations and are not:
+//   - It names Dapper Labs, Tock and SalesIntel. Those are iExcel-era clients,
+//     cleared for public naming only inside the attribution frame, and the
+//     sentence carries its own: "as COO of iExcel ... for clients like ...
+//     while I was there." Never lift those names out of that sentence.
+//   - It says "a RevOps coaching business". That is one of the company ideas he
+//     tested in January and abandoned, inside the origin narrative. It is not a
+//     description of what Modern BizOps sells, which is the thing that had to
+//     come off this page.
+const POSITIONING = [
+  "I spent over a decade building revenue engines at high-growth startups, as the person doing the work. At Contactually I carried an inside sales quota and closed $318,000 in churn-adjusted ARR. I built the onboarding program that cut first-90-day churn in half, which saved about a million dollars in revenue over six quarters. I was the company's first recruiter and stood up the applicant tracking system. And I taught realtors, our customers, how to generate real business from their networks with CRM technology. At FiscalNote I was a client success manager with a portfolio that included Fortune 500 companies. I founded Tasting Club, a virtual tastings marketplace, and ran it for three years. Then I spent four and a half years as COO of iExcel, a digital marketing agency, where I doubled revenue, ran delivery, invoicing, hiring, and payroll, and executed marketing and sales operations for clients like Dapper Labs, Tock, and SalesIntel while I was there.",
+  "In January I left and gave myself one rule: build everything with AI, or do not build it at all. I was not setting out to start an AI automation company. I tested company ideas, field-operations systems for HVAC companies, a RevOps coaching business, and built every system AI-first. Teaching myself to build was not new: I built Tasting Club's product myself on Bubble, a no-code tool. What was new was how far AI took it. I built my marketing website from scratch with AI coding tools. I built a working diagnostic web app the same way, the one that runs my audits: it connects to more than twenty tools through their APIs and computes a maturity heat map from a client's actual stack. I wired my own operations to APIs and MCP servers for analytics, search, CRM, and publishing. Six months of doing nothing but building with AI later, an AI automation company stopped being an idea and became the obvious thing to build. That is how I became an AI guy: not by rebranding, by shipping. And because I have sat in the executor seat and rolled out new process to real teams, I know where adoption sticks and where it dies. So every automation I build ships with the adoption work on the other side.",
+  "Most AI automation fails for a boring reason: it is built on a broken operations foundation. The debt you could tolerate for years, dirty data, duct-tape process, fields nobody fills in, now decides whether AI works for you at all. I fix the foundation and build the automation on top of it, one named system at a time, at a published price, with your team owning it when I leave.",
+];
 
 export const metadata = {
+  // Root layout applies a "%s | Modern BizOps" template, so this bare title
+  // renders at 36.
   title: "About Bradley de Wet",
   description:
-    "15 years building revenue systems from the inside. Bradley de Wet is the founder of Modern BizOps and a former revenue operator at VC-backed startups.",
+    "Bradley de Wet spent over a decade in the executor seat at high-growth startups, and now builds AI automation for founder-led B2B go-to-market.",
   alternates: {
     canonical: "https://modernbizops.com/about",
   },
   openGraph: {
     title: "About Bradley de Wet | Modern BizOps",
     description:
-      "15 years building revenue systems from the inside. Bradley de Wet is the founder of Modern BizOps and a former revenue operator at VC-backed startups.",
+      "Bradley de Wet spent over a decade in the executor seat at high-growth startups, and now builds AI automation for founder-led B2B go-to-market.",
     url: "https://modernbizops.com/about",
     siteName: "Modern BizOps",
     images: [
@@ -30,41 +76,61 @@ export const metadata = {
     card: "summary_large_image",
     title: "About Bradley de Wet | Modern BizOps",
     description:
-      "15 years building revenue systems from the inside. Operator, not consultant.",
+      "Over a decade in the executor seat. Operator first, consultant never.",
     images: ["/og/og-about.png"],
   },
 };
 
+// Every number here is in the paragraph above it or in the career record it was
+// transcribed from. The row read "15 / Years in RevOps" and "25+ / Companies"
+// until 2026-08-11: the first asserts a number nothing new is allowed to
+// assert, and the second was a headline stat built by adding up client counts
+// across employers, which is the additive-total shape already removed from the
+// founding clients page.
 const credentials = [
-  { label: "15", sublabel: "Years in RevOps" },
-  { label: "25+", sublabel: "Companies" },
-  { label: "3", sublabel: "In-Seat Operator Roles" },
+  { label: "10+", sublabel: "Years building revenue engines" },
+  { label: "~$1M", sublabel: "Revenue saved from churn at Contactually" },
+  { label: "2x", sublabel: "Agency revenue as COO" },
 ];
 
+// The certification list said "HubSpot Revenue Operations Certified", which
+// appears nowhere in the verified career record. These three do.
 const certifications = [
-  "HubSpot Revenue Operations Certified",
   "HubSpot Solutions Partner",
+  "HubSpot Marketing Hub Implementation",
+  "Professional Scrum Master I",
 ];
 
+// Dates corrected to the verified career record. The onboarding and premium
+// services roles overlapped in real life, which is why two rows carry the same
+// span; the page previously split them into tidy non-overlapping ranges that
+// the record does not support.
 const stories = [
   {
     years: "2014 to 2016",
-    role: "Inside Sales AE, Contactually",
-    headline: "I doubled my conversion rate by questioning the demo that nobody questioned",
+    role: "Inside Sales, Contactually",
+    headline:
+      "I doubled my conversion rate for some segments by questioning the demo that nobody questioned",
     body: [
       "Contactually was a VC-backed CRM startup in DC. I was doing 30-minute screen-share demos all day, every day. The standard process was 3 to 4 calls spread across a 3-week free trial. Nobody had ever stopped to ask whether it actually needed to take that long.",
-      "So I started testing. I built demo accounts customized for each persona I was selling to. If I was talking to a real estate agent, the demo account looked like a real estate agent's account, with email templates and workflows built around their specific pain points. Not a generic product tour. Their world, reflected back to them.",
+      "So I started testing. I built demo accounts customized for each persona I was selling to. If I was talking to a real estate agent, the demo account looked like a real estate agent’s account, with email templates and workflows built around their specific pain points. Not a generic product tour. Their world, reflected back to them.",
       "Then I added an offer at the end of every demo: sign up for an annual plan today and I will copy everything you just saw into your account by tomorrow morning. A lot of people said yes.",
-      "I doubled my conversion rate and closed $318,000 in churn-adjusted ARR. The sales cycle dropped from 3 to 4 calls down to about 1.5. I taught the technique to the rest of the team and the company shortened the trial period from 3 weeks to 2 weeks based on what we found.",
+      "I doubled my conversion rate for some segments and closed $318,000 in churn-adjusted ARR. The sales cycle dropped from 3 to 4 calls down to about 1.5. I taught the technique to the rest of the team and the company shortened the trial period from 3 weeks to 2 weeks based on what we found.",
     ],
+    // The three lesson callouts were the only blocks on this page with no
+    // number, no name and no date in them, and all three closed on an epigram
+    // that would have sat under any LinkedIn post. Each one now carries a
+    // specific from the story directly above it. Keep it that way.
     lesson:
-      "Every sales process has hidden leverage sitting inside it. Somebody just needs to look at it with fresh eyes and be willing to test something different.",
-    stat1: { value: "2x", label: "Conversion rate" },
+      "Nobody at Contactually had ever timed the trial. Three weeks was in the playbook because three weeks had always been in the playbook, and testing it took the company down to two.",
+    // "for some segments" is the career record's own qualifier on this number.
+    // Dropping it turns a segment result into a book-wide one.
+    stat1: { value: "2x", label: "Conversion rate, some segments" },
     stat2: { value: "$318K", label: "Churn-adjusted ARR" },
     stat3: { value: "~1.5", label: "Avg calls to close" },
   },
   {
-    years: "2016 to 2017",
+    years: "2016 to 2018",
     role: "Customer Onboarding Manager, Contactually",
     headline: "I saved a million dollars in churned revenue by building what did not exist",
     body: [
@@ -72,29 +138,32 @@ const stories = [
       "I started with brute force. I ran 2-call onboarding sessions with a subset of new customers. I tracked everything. The data showed the customers I was talking to were churning at a significantly lower rate than the ones I was not.",
       "From that I built a hypothesis: there were 4 specific things a customer needed to accomplish to reach their first real moment of value. I called it the activation funnel. I oriented every onboarding call around getting people through those 4 gates, and the numbers confirmed it was working.",
       "I hired and trained a team of 3. Tested outsourcing the calls to cut costs, then shut that down when I saw what robotic, checklist-following reps did to customer relationships. Pivoted to live webinars, then eventually automated webinars that ran as if they were live.",
-      "By the time the system was fully built, it had saved the company roughly $1 million in churned annual recurring revenue across 6 quarters. That result contributed directly to the company's Series A valuation.",
+      "By the time the system was fully built, it had saved the company roughly $1 million in churned annual recurring revenue across 6 quarters. That result contributed directly to the company’s Series A valuation.",
     ],
     lesson:
-      "Start manual. Measure what works. Systematize it. Then scale it. You do not need a massive team. You need the right system.",
+      "I ran the onboarding calls myself first, and the data from those calls is where the four gates came from. Only then did I hire the team of 3 to run them. Building it in that order is why it kept working once it was not me on the call.",
     stat1: { value: "~$1M", label: "ARR saved from churn" },
     stat2: { value: "50%", label: "90-day churn reduction" },
     stat3: { value: "+$720", label: "LTV per customer" },
   },
   {
-    years: "2017 to 2018",
+    years: "2016 to 2018",
     role: "Program Manager, Premium Services, Contactually",
-    headline: "I built a premium coaching service from scratch and priced it at 8 times the standard rate",
+    headline: "I built a premium service from scratch and priced it at 8 times the standard rate",
     body: [
-      "After proving I could fix sales processes and rebuild onboarding from the ground up, the company asked me to do something new: create a premium done-with-you coaching service and take it to market.",
-      "Our enterprise clients were real estate brokerages who bought the software for their agents. The agents needed help actually using it. So I created a coaching program: weekly calls with a success manager who would set up advanced automations in their account and teach them how to use them.",
+      "After proving I could fix sales processes and rebuild onboarding from the ground up, the company asked me to do something new: create a premium done-with-you service and take it to market.",
+      "Contactually’s enterprise customers were real estate brokerages who bought the software for their agents. The agents needed help actually using it. So I built a premium plan: weekly working calls with a success manager who would set up advanced automations in their account and show them how to run it.",
       "I priced it at 8 times the standard subscription rate. Eight times.",
       "I sold it through educational webinars where I would show the most advanced setups, things like automated open house follow-up sequences, and close with a simple offer: spend the next month figuring this out yourself, or let us do it with you.",
-      "We reached $288,000 in annual recurring revenue. I hired and trained 2 additional team members to deliver the coaching alongside me. The model worked.",
+      // A "hired and trained 2 additional team members" line stood here until
+      // 2026-08-12. The career record has a team of 3 on the ONBOARDING role
+      // and no headcount at all on this one, so the number had no source.
+      "I closed $288,000 in annual recurring revenue. The model worked.",
     ],
     lesson:
-      "The service I offer today is not a theory. I have built and delivered this exact model before. The difference is now I apply it to what I am best at: revenue operations.",
-    stat1: { value: "$288K", label: "ARR" },
-    stat2: { value: "40+", label: "Coaching customers" },
+      "The offer had a name and a number on it, and that is what made eight times the standard rate sellable. Every build Modern BizOps sells has its price printed next to it for the same reason.",
+    stat1: { value: "$288K", label: "ARR closed" },
+    stat2: { value: "40+", label: "Customers on the premium plan" },
     stat3: { value: "8x", label: "Price premium" },
   },
 ];
@@ -105,7 +174,7 @@ export default function AboutPage() {
       <Header />
       <main id="main-content">
 
-        {/* ── HERO ─────────────────────────────────────────────────────────── */}
+        {/* ── HERO: headshot, H1, then the approved paragraph, in that order ── */}
         <section className="bg-cream">
           <div className="mx-auto max-w-[1200px] px-6 md:px-8 py-16 md:py-24">
             <div className="flex flex-col md:flex-row gap-12 items-start max-w-[960px] mx-auto">
@@ -128,13 +197,8 @@ export default function AboutPage() {
                   About Bradley de Wet
                 </p>
                 <h1 className="font-display text-[34px] md:text-[48px] leading-tight font-semibold text-navy mb-6">
-                  15 Years Building Revenue Systems From the Inside
+                  Over a Decade in the Executor Seat
                 </h1>
-                <p className="font-body text-lg text-text-mid leading-relaxed mb-6 max-w-[560px]">
-                  I was not a consultant who walked in with a framework. I was the operator who built the
-                  sales process, rebuilt the onboarding system, and launched the premium service from
-                  scratch. These are the stories that became my methodology.
-                </p>
 
                 {/* Credential stats */}
                 <div className="flex flex-wrap gap-8 mb-6">
@@ -143,7 +207,9 @@ export default function AboutPage() {
                       <p className="font-display text-[32px] font-semibold text-amber leading-none">
                         {c.label}
                       </p>
-                      <p className="font-body text-sm text-text-mid mt-1">{c.sublabel}</p>
+                      <p className="font-body text-sm text-text-mid mt-1 max-w-[180px]">
+                        {c.sublabel}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -177,17 +243,28 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── CONTEXT SETTER ───────────────────────────────────────────────── */}
+        {/* ── THE POSITIONING PARAGRAPH, VERBATIM ──────────────────────────── */}
+        <section className="bg-white">
+          <div className="mx-auto max-w-[760px] px-6 md:px-8 py-16 md:py-24">
+            <div className="space-y-6 font-body text-text-primary text-[17px] md:text-lg leading-relaxed">
+              {POSITIONING.map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── BRIDGE INTO THE THREE STORIES ────────────────────────────────── */}
         <section className="bg-navy">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-14 md:py-20 text-center">
             <h2 className="font-display text-[26px] md:text-[34px] font-semibold text-cream mb-5">
-              Everything I teach, I have already done
+              Everything I build, I have run myself
             </h2>
             <p className="font-body text-base md:text-lg text-cream/80 leading-relaxed">
-              Before I started coaching founders on revenue systems, I spent several years as an
-              operator inside a single VC-backed startup, moving through sales, customer onboarding,
-              and premium services. The three stories below are where my methodology was built. The
-              numbers are real. The lessons are what I now bring to every client engagement.
+              That is the summary. Below is the long version of three roles, all
+              at Contactually. Inside sales, customer onboarding, and a premium
+              service I priced and sold myself. Every number in them is one I
+              carried.
             </p>
           </div>
         </section>
@@ -245,95 +322,85 @@ export default function AboutPage() {
               The reason behind the company
             </p>
             <h2 className="font-display text-[28px] md:text-[38px] font-semibold text-cream mb-8 leading-tight">
-              The playbooks I used at venture-backed companies should not be locked behind a $200,000 executive hire
+              The systems that make a venture-backed company run should not cost a two-hundred-thousand-dollar hire to get
             </h2>
 
             <div className="space-y-5 font-body text-cream/80 text-base leading-relaxed">
               <p>
                 My dad ran a small computer consulting business when I was growing up. I watched what it
                 takes to be the person who is responsible for everything: the sales, the delivery, the
-                operations, the people. I believe small business owners are the lifeblood of this economy.
+                operations, the people. There was nobody else to hand any of it to.
               </p>
               <p>
-                After my time at Contactually, I spent four years as a fractional operator, running
-                revenue operations for more than 10 companies at a time. I also started my own company,
-                ran it for three years, and shut it down. I have sat in every one of these seats.
+                Then I spent four and a half years as COO of a digital marketing agency,
+                running the operation while also carrying an account manager&rsquo;s book
+                and executing marketing and sales operations inside client companies. I have
+                sat on both sides of that table.
               </p>
               <p>
-                What I saw over and over: founders between $3M and $50M running on gut feel and
-                spreadsheets, while larger competitors had entire teams dedicated to the systems that
-                drive predictable growth. The gap was not talent or effort. It was access to operational
-                infrastructure.
+                Owners were running the whole business on gut feel and a spreadsheet, while the
+                competitor three times their size had a team whose only job was keeping those same
+                questions answered every Monday morning. The owners worked at least as hard. Nobody
+                had ever built them the definitions, the reporting and the handoffs the bigger
+                company took for granted.
               </p>
               <p>
-                I started Modern BizOps to close that gap. The same revenue operations playbooks that
-                power high-growth startups, rebuilt for companies your size, delivered with your team
-                doing the implementation so the results stick after I am gone.
+                I started Modern BizOps to close that gap, and AI is what finally makes it
+                closable at this size. We build the systems one at a time, at a published
+                price, and hand over the runbook, so what you are paying for is a machine you
+                own.
               </p>
             </div>
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
+        {/* ── NO CLIENT RESULTS YET, SAID OUT LOUD ─────────────────────────── */}
+        {/* This band replaced a "What people say" section carrying two named
+            quotes with headshots.
+
+            Katie Ellis MacMillan's read "Working with Bradley was a genuinely
+            great experience ... brought much-needed clarity and structure to our
+            marketing and operations." That is a delivered-work claim in a
+            client's voice, with no employer, no date and no attribution frame.
+            On a page that is now one of five nav destinations for a company with
+            zero clients, a visitor reads it as a Modern BizOps result. Cut.
+
+            Brendan Troy's ("Bradley checks all the boxes ...") is a genuine peer
+            character reference and claims no engagement and no outcome. It was
+            still cut, for two reasons that have nothing to do with the quote
+            itself: a two-card grid under "What people say" is testimonial
+            furniture regardless of what the cards say, and leaving one card
+            standing in that frame makes the frame louder, not quieter. It also
+            endorses Bradley as a hire, which is proof for the wrong purchase.
+
+            Nothing was fabricated to replace them. The honest version of this
+            section is the sentence below. */}
         <section className="bg-cream">
-          <div className="mx-auto max-w-[900px] px-6 md:px-8 py-16 md:py-24">
-            <h2 className="font-display text-[28px] md:text-[38px] font-semibold text-navy text-center mb-12">
-              What people say
+          <div className="mx-auto max-w-[720px] px-6 md:px-8 py-16 md:py-24">
+            <h2 className="font-display text-[28px] md:text-[38px] font-semibold text-navy mb-6 leading-tight">
+              There is no client logo wall on this page
             </h2>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Katie MacMillan */}
-              <div className="bg-white rounded-[14px] border border-border p-8">
-                <blockquote>
-                  <p className="font-display text-xl italic text-navy leading-snug mb-6">
-                    &ldquo;Working with Bradley was a genuinely great experience. He quickly became a
-                    trusted partner and brought much-needed clarity and structure to our marketing and
-                    operations.&rdquo;
-                  </p>
-                  <footer className="flex items-center gap-3">
-                    <Image
-                      src="/images/katie-macmillan.jpeg"
-                      alt="Katie Ellis MacMillan"
-                      width={52}
-                      height={52}
-                      sizes="52px"
-                      className="w-13 h-13 rounded-full object-cover border-2 border-border shrink-0"
-                    />
-                    <div>
-                      <p className="font-body font-semibold text-text-primary text-sm">
-                        Katie Ellis MacMillan
-                      </p>
-                      <p className="font-body text-xs text-text-mid">Marketing Leader</p>
-                    </div>
-                  </footer>
-                </blockquote>
-              </div>
-
-              {/* Brendan Troy */}
-              <div className="bg-white rounded-[14px] border border-border p-8">
-                <blockquote>
-                  <p className="font-display text-xl italic text-navy leading-snug mb-6">
-                    &ldquo;Bradley checks all the boxes. His greatest strengths fall outside the standard
-                    roles and responsibilities.&rdquo;
-                  </p>
-                  <footer className="flex items-center gap-3">
-                    <Image
-                      src="/images/brendan-troy.jpeg"
-                      alt="Brendan Troy"
-                      width={52}
-                      height={52}
-                      sizes="52px"
-                      className="w-13 h-13 rounded-full object-cover border-2 border-border shrink-0"
-                    />
-                    <div>
-                      <p className="font-body font-semibold text-text-primary text-sm">
-                        Brendan Troy
-                      </p>
-                      <p className="font-body text-xs text-text-mid">GTM Operator, 2 Successful Exits</p>
-                    </div>
-                  </footer>
-                </blockquote>
-              </div>
+            <div className="space-y-5 font-body text-text-primary text-base md:text-lg leading-relaxed">
+              <p>
+                Modern BizOps is new. It has no case studies and no client
+                results, and I am not going to borrow someone else&rsquo;s or
+                dress up work I did under another company&rsquo;s name as if it
+                were ours. Everything above happened before Modern BizOps
+                existed, in seats I held at other companies and in the one
+                company I founded myself.
+              </p>
+              <p>
+                That is the whole reason the{" "}
+                <Link
+                  href="/founding-clients"
+                  className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
+                >
+                  founding client program
+                </Link>{" "}
+                exists, and why it is priced the way it is. The first companies
+                through the door are trading a shorter track record for terms
+                nobody after them gets.
+              </p>
             </div>
           </div>
         </section>
@@ -346,52 +413,51 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-5 font-body text-text-primary text-base leading-relaxed">
               <p>
-                If you want someone to just do it for you and hand you a binder, I am not your person.
-                If you are looking for a magic tool or a quick fix, this is not it.
+                If you are looking for a magic tool, or for AI to be the thing
+                that finally makes a broken process work, this is not it.
+                Automating a process nobody has defined just produces the wrong
+                answer faster.
               </p>
               <p>
-                This works for founders and operators who are willing to roll up their sleeves and do
-                the work alongside me. Because that is how your team actually learns the skills. That is
-                how the results stick after I am gone.
+                This works for founders and operators who will give the build a
+                real system of record to sit on and one person on their side who
+                owns it afterward. We do the building. Your team has to be
+                willing to run it.
               </p>
               <p>
-                I am not going to build something you become dependent on me to maintain. I am going to
-                teach you and your team how to build it yourselves, with my guidance, my methodology,
-                and a diagnostic platform that connects to your actual business data and shows us exactly
-                where to focus.
+                And I am not going to build something you stay dependent on me to
+                maintain. Every system ships with a runbook and a handover to the
+                person on your side who owns it. Every price is on the pricing
+                page, so you can rule me out without booking a call.
               </p>
             </div>
           </div>
         </section>
 
         {/* ── BOTTOM CTA ───────────────────────────────────────────────────── */}
+        {/* Both of these were bare <Link>s, which fire no cta_click at all. */}
         <section className="bg-navy">
           <div className="mx-auto max-w-[600px] px-6 md:px-8 py-16 md:py-24 text-center">
             <h2 className="font-display text-[28px] md:text-[40px] font-semibold text-cream mb-5 leading-tight">
-              Ready to talk about your revenue engine?
+              Want to know what is worth automating first?
             </h2>
             <p className="font-body text-cream/80 text-lg mb-8 leading-relaxed">
-              A free 45-minute discovery call. We look at where your business is, where you want it to
-              be, and whether I can help you get there. No pitch. An honest conversation.
+              Start with the free Scan. Fifteen questions, about five minutes,
+              and no call required. If you would rather talk it through, the
+              call confirms your fit and your price.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/book"
-                className="inline-flex items-center justify-center font-body font-semibold bg-amber text-white hover:bg-amber-light transition-colors duration-200 rounded-full px-8 py-4 text-base"
-              >
-                Book a Discovery Call
-              </Link>
-              <Link
-                href="/scorecard"
-                className="inline-flex items-center justify-center font-body font-semibold border border-cream/30 text-cream hover:bg-white/10 transition-colors duration-200 rounded-full px-8 py-4 text-base"
-              >
+              <Button href="/scorecard" ctaLocation="about_foot">
                 Get the Free Scan
-              </Link>
+              </Button>
+              <Button href="/book" variant="secondary" ctaLocation="about_foot">
+                Book a call
+              </Button>
             </div>
 
             <p className="font-body text-sm text-cream/50 mt-6">
-              45 minutes · No obligation · HubSpot Solutions Partner
+              Five minutes · No call required · HubSpot Solutions Partner
             </p>
           </div>
         </section>

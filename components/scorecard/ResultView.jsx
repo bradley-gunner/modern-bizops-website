@@ -26,7 +26,7 @@ export default function ResultView({ result }) {
 
       {showRoi && (
         <section>
-          <h2 className="font-display text-2xl md:text-3xl text-navy mb-5 text-center">How I got there</h2>
+          <h2 className="font-display text-2xl md:text-3xl text-navy mb-5 text-center">How we got there</h2>
           <div>
             {result.roiLines.map((line) => (
               <RoiLine key={line.key} line={line} modelLabel={result.modelLabel} />

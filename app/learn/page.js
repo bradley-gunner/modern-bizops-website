@@ -30,7 +30,7 @@ export const metadata = learnIndexMetadata;
 // registry already carries means a new page groups itself.
 const GROUP_ORDER = [
   "Revenue Operations",
-  "Revenue Maturity Model",
+  "GTM Maturity Framework",
   "AI for Revenue Operations",
 ];
 
@@ -44,8 +44,8 @@ const GROUP_ALIASES = {
 const GROUP_BLURBS = {
   "Revenue Operations":
     "The vocabulary and the benchmarks. Start here if you want the concepts before the framework.",
-  "Revenue Maturity Model":
-    "The four-stage model and the competencies each stage rests on. The whole framework lives on the Revenue Maturity Model page.",
+  "GTM Maturity Framework":
+    "The four stages and the competencies each one rests on. The whole framework lives on a single page.",
   "AI for Revenue Operations":
     "Where AI actually earns its keep in a smaller business, and which tools are worth paying for.",
 };
@@ -153,7 +153,7 @@ export default function LearnIndexPage() {
             the fractional COO material and to nothing else. */}
         <LearnHero
           kicker="Learning Library"
-          h1="The Revenue Operations Learning Library"
+          h1="The Modern BizOps Learning Library"
           accentWord="Learning Library"
           dek="Every guide we have published, grouped so you can find the one that matches the problem in front of you."
           motif="stageChevrons"
@@ -163,10 +163,9 @@ export default function LearnIndexPage() {
         <Section bg="cream" narrow={false}>
           <div className="max-w-[760px] mb-12">
             <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-              These pages are the written version of the work. They are free,
-              they require no email address, and they are here because a founder
-              deciding what to fix first should be able to read the reasoning
-              before talking to anybody.
+              These pages are the written version of the work. They are free and
+              they take no email address. A founder deciding what to fix first
+              should be able to read the reasoning before talking to anybody.
             </p>
           </div>
 
@@ -183,14 +182,14 @@ export default function LearnIndexPage() {
                   {group.blurb && (
                     <p className="font-body text-text-mid text-base leading-relaxed">
                       {group.blurb}
-                      {group.name === "Revenue Maturity Model" && (
+                      {group.name === "GTM Maturity Framework" && (
                         <>
                           {" "}
                           <Link
                             href="/predictable-revenue-engine"
                             className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
                           >
-                            See the model
+                            See the framework
                           </Link>
                           .
                         </>
@@ -206,11 +205,25 @@ export default function LearnIndexPage() {
                         href={`/learn/${entry.slug}`}
                         className="group flex flex-col bg-white border border-border rounded-[14px] p-6 hover:border-navy-mid transition-colors"
                       >
-                        <p className="font-display text-xl font-semibold text-navy mb-2 group-hover:text-amber transition-colors">
+                        {/* A real h3, not a styled <p>. The visual design is
+                            unchanged; the outline is not. This is the one page
+                            whose whole job is to be an internal hub, and it ran
+                            group h2s straight into paragraph text, so assistive
+                            tech and crawlers saw a heading level with nothing
+                            under it. */}
+                        <h3 className="font-display text-xl font-semibold text-navy mb-2 group-hover:text-amber transition-colors">
                           {entry.h1}
-                        </p>
+                        </h3>
+                        {/* cardBlurb, NOT metaDescription. The meta strings are
+                            live SERP snippets for twenty-four ranking pages and
+                            nine of them are built on the same negation shape
+                            ("X is not A. It is B."), which earns the click in a
+                            search result and reads as one template when the grid
+                            renders nine of them in a single viewport. cardBlurb
+                            is the index-only override; entries without one fall
+                            back to the meta description. */}
                         <p className="font-body text-[15px] text-text-mid leading-relaxed">
-                          {entry.metaDescription}
+                          {entry.cardBlurb ?? entry.metaDescription}
                         </p>
                       </Link>
                     </li>

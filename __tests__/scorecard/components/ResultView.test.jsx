@@ -23,7 +23,7 @@ describe('ResultView', () => {
     const headings = Array.from(container.querySelectorAll('h2')).map((h) => h.textContent);
     expect(headings).toEqual([
       'How you stack up',
-      'How I got there',
+      'How we got there',
       'Why this is happening',
       'Your competency map',
       'What this Scan can and cannot tell you',

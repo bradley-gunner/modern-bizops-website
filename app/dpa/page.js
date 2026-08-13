@@ -5,6 +5,7 @@ import Section from "@/components/ui/Section";
 export const metadata = {
   title: "Data Processing Agreement",
   description: "Data Processing Agreement for Modern BizOps LLC.",
+  alternates: { canonical: "https://modernbizops.com/dpa" },
   robots: "noindex, nofollow",
 };
 

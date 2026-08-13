@@ -8,7 +8,7 @@ const rows = [
     aspect: "Who does the work",
     traditional:
       "A traditional consultant or agency does the work themselves. They configure your CRM, redesign your process, and present the finished thing.",
-    coaching: "Your team does the work. I provide the roadmap and the guidance.",
+    coaching: "Your team does the work. We provide the roadmap and the guidance.",
   },
   {
     aspect: "Who owns the capability afterward",

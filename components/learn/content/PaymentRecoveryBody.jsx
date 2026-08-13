@@ -70,7 +70,7 @@ export default function PaymentRecoveryBody() {
         Maxio, and essentially every modern billing platform already include retry logic,
         dunning emails, and a card-updater that refreshes expired cards automatically.
         These are usually switched off or left on a weak default. Configuring them well
-        recovers most of what the dedicated tools sell, at $3M to $50M in revenue, without
+        recovers most of what the dedicated tools sell, at your transaction volume, without
         a new contract.
       </p>
       <p>
@@ -125,7 +125,7 @@ export default function PaymentRecoveryBody() {
 
       <h2 className={h2}>Where payment recovery sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method I built for measuring the RevOps
+        In the GTM Maturity Framework, a method I built for measuring the go-to-market
         competencies of a business, this lives inside the Subscription and MRR Operations
         competency. At the bottom is a business that does not measure failed payments
         separately, processes a cancellation with no intervention, and chases invoices by
@@ -147,7 +147,7 @@ export default function PaymentRecoveryBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          Stage 1 of the maturity model
+          Stage 1 of the maturity framework
         </Link>
         .
       </p>

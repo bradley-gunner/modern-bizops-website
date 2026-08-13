@@ -31,7 +31,7 @@ export default function CustomerRetentionStrategyBody() {
         Almost everything written about customer retention assumes you sell to consumers.
         The advice is loyalty points, birthday emails, punch cards, and omnichannel
         support desks. That is a real discipline, and it is not yours. If you run a
-        founder-led B2B company doing between $3M and $50M, your retention problem is a
+        founder-led B2B company, your retention problem is a
         revenue-operations problem: a handful of accounts that each represent real money,
         a post-sale process that lives in your head or your best account manager&rsquo;s,
         and a churn number nobody has actually decomposed. The strategy that fixes that
@@ -171,7 +171,7 @@ export default function CustomerRetentionStrategyBody() {
 
       <h2 className={h2}>Where a retention strategy sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method I built for measuring the RevOps
+        In the GTM Maturity Framework, a method I built for measuring the go-to-market
         competencies of a business, retention moves through predictable stages. At the
         bottom, retention is not managed at all: churn is a number someone reports after
         the fact, post-sale has no owner, and the founder finds out an account left when
@@ -198,7 +198,7 @@ export default function CustomerRetentionStrategyBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          Stage 1 of the maturity model
+          Stage 1 of the maturity framework
         </Link>
         .
       </p>

@@ -27,8 +27,18 @@ import { OFFER_PAGES } from "@/lib/offerPages";
 //    standard credit, and the founding incentive lands on the first build.
 //    Getting that backwards misprices a signed offer (Bradley, 2026-08-11).
 //
-// Voice: "I" for Bradley personally, "we" for Modern BizOps as a company.
+// Voice: "we" throughout. Bradley is named in the third person where his own
+// record is the point (retired the first-person singular, 2026-08-12).
 // Every price and every industry renders from lib/offers.js.
+//
+// THE FOUR SECTIONS ARE DELIBERATELY NOT PARALLEL (2026-08-12). Until this
+// date all four ran the identical five beats: kicker, an H2 in the same
+// comma-pivot rhythm, one intro paragraph, a card grid, and a standalone
+// closing paragraph carrying a balanced aphorism. Three of those four closers
+// restated the section they closed. The first two sections now end on the grid
+// with no closer at all, the H2s are four different grammatical shapes, and
+// section two's intro carries the builds-menu link the deleted closer used to.
+// A future pass that "restores consistency" here puts the tell back.
 const rung = Object.fromEntries(LADDER.map((r) => [r.id, r]));
 const audit = rung.audit;
 
@@ -75,7 +85,7 @@ const WHAT_YOU_GET = [
 const WHAT_WE_ASK = [
   {
     title: "A named automation owner",
-    body: "One person at your company owns the system after we hand it over. That is a requirement on every build we do, and on a founding build it is the difference between a case study and a story about software nobody opened.",
+    body: "One person at your company owns the system after we hand it over. That is a requirement on every build we do. On a founding build it is also what makes the write-up possible, because somebody has to be accountable for the numbers we publish.",
   },
   {
     title: "The outcome written up, with real numbers",
@@ -92,11 +102,15 @@ const WHAT_WE_ASK = [
 const FAQ = [
   {
     q: "Are we the guinea pig here?",
-    a: `The company is new. The operator is not. I spent over a decade in the executor seat, four and a half years of that as an agency COO, and the audit instrument and the build menu are the product of six months of full-time work. What you would be first at is being a Modern BizOps client, and that is exactly what the founding terms are paying you for.`,
+    a: `You would be first at being a Modern BizOps client, and that is what the founding terms are paying you for. The audit instrument and the build menu already exist and already run. They are six months of full-time work, built by somebody with over a decade in the executor seat and four and a half years of that as an agency COO.`,
   },
   {
+    // The body copy two screens up already argues why a paid diagnosis stays
+    // honest. This answer used to repeat that argument almost word for word, so
+    // it now answers the question actually asked: why the discount lands where
+    // it does. Same signed terms, different information.
     q: "Why is the audit not discounted as well?",
-    a: `Because paying for a diagnosis is what keeps it honest. A free audit has to sell you something to pay for itself, and then it is not a diagnosis any more. The ${audit.name} stays at ${audit.price}, it credits ${AUDIT_TERMS.creditPercent} toward ${AUDIT_TERMS.creditTarget}, and the founding discount lands on the first build, which is where the larger number is.`,
+    a: `Because the discount is worth more where the money is. The ${audit.name} stays at ${audit.price} and a first build is several times that, so ${FOUNDING_TERMS.buildDiscount} beats the same percentage off the diagnosis. The audit still credits ${AUDIT_TERMS.creditPercent} toward ${AUDIT_TERMS.creditTarget}, so the fee comes back to you either way.`,
   },
   {
     q: "How public is public?",
@@ -104,11 +118,11 @@ const FAQ = [
   },
   {
     q: "What if my industry is not one of the six?",
-    a: "Then the menu and the audit still apply and you should book the call anyway. The six are where the first builds go, because we know the systems of record inside them and a vertical pack has to be shaped by a real stack rather than a guess. If you are outside them, we will tell you plainly on the call whether we are the right people for the work.",
+    a: "Then the menu and the audit still apply and you should book the call anyway. The six are where the first builds go, because we know the systems of record inside them and a vertical pack has to be shaped by a real stack. If you are outside them, we will tell you plainly on the call whether we are the right people for the work.",
   },
   {
     q: "What happens if the build does not deliver?",
-    a: "The scope is fixed and written before the work starts, so an overrun is our problem rather than a change order. The systems, the data and the runbook are yours, and every retainer carries a quarterly out, so the longest commitment is three months. A founding client is not signing a longer leash than anyone else. If it does not work, the write-up says that too.",
+    a: "The scope is fixed and written before the work starts, so an overrun costs you nothing and there is no change order. The systems, the data and the runbook are yours, and every retainer carries a quarterly out, so the longest commitment is three months. A founding client is not signing a longer leash than anyone else. If it does not work, the write-up says that too.",
   },
 ];
 
@@ -175,24 +189,25 @@ export default function FoundingClientsPage() {
             </h2>
             <div className="space-y-5 font-body text-text-mid text-base md:text-lg leading-relaxed">
               <p>
-                I spent over a decade in the executor seat, four and a half
-                years of it as an agency COO. In January I left iExcel and gave
-                myself one rule: build everything with AI, or do not build it at
-                all.
+                Our founder spent over a decade in the executor seat, four and a
+                half years of it as an agency COO. In January he left iExcel and
+                gave himself one rule: build everything with AI, or do not build
+                it at all.
               </p>
               <p>
                 Six months of that produced what you can read on the rest of
                 this site. A menu of twelve named builds. Published prices. An
-                audit that computes its answer from your systems instead of from
-                a workshop. What it has not produced is a single Modern BizOps
+                audit that computes its answer from your systems. What it has
+                not produced is a single Modern BizOps
                 case study, because the company is six months old and we are not
                 going to invent one.
               </p>
               <p className="text-navy font-medium">
                 So we are doing the version that survives a diligence-heavy
                 buyer. We are looking for one founding client in each of six
-                industries. You get real terms, we get the first proof this
-                company can point at, and both sides say so out loud.
+                industries. You get the terms below. We get the first case study
+                this company can point at. Both halves are written down before
+                anybody signs anything.
               </p>
             </div>
           </div>
@@ -235,11 +250,6 @@ export default function FoundingClientsPage() {
               </ul>
             </div>
           </div>
-
-          <p className="mt-8 max-w-[760px] font-body text-text-mid text-base md:text-lg leading-relaxed">
-            The first list is why this is worth an hour of your time. The second
-            list is why the terms below exist.
-          </p>
         </Section>
 
         <Section bg="white" narrow={false}>
@@ -248,7 +258,7 @@ export default function FoundingClientsPage() {
               The six
             </p>
             <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-4">
-              Six industries, and the build each one hangs on.
+              Each of these six industries has one build we start with.
             </h2>
             <div className="space-y-5 font-body text-text-mid text-base md:text-lg leading-relaxed">
               <p>
@@ -256,6 +266,17 @@ export default function FoundingClientsPage() {
                 the one pipeline the whole business runs on. Each has an anchor
                 build, and the founding client in that industry is the company
                 it gets built for first.
+              </p>
+              <p>
+                The anchor build is where a vertical starts. The whole{" "}
+                <Link
+                  href="/ai-automation-services"
+                  className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
+                >
+                  menu of twelve builds
+                </Link>{" "}
+                is open to a founding client, and the audit is what decides
+                which one goes first.
               </p>
               <p>{FOUNDING_TERMS.perVertical}</p>
             </div>
@@ -285,19 +306,6 @@ export default function FoundingClientsPage() {
               </li>
             ))}
           </ul>
-
-          <p className="mt-9 max-w-[760px] font-body text-text-mid text-base md:text-lg leading-relaxed">
-            The anchor build is where a vertical starts, not the limit of it.
-            The whole{" "}
-            <Link
-              href="/ai-automation-services"
-              className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
-            >
-              menu of twelve builds
-            </Link>{" "}
-            is available to a founding client, and the audit is what decides
-            which one goes first.
-          </p>
         </Section>
 
         <Section bg="cream" narrow={false}>
@@ -306,12 +314,11 @@ export default function FoundingClientsPage() {
               What you get
             </p>
             <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-4">
-              The terms, written down before you ask.
+              The discount lands on the first build.
             </h2>
             <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-              These are the same published prices everyone else reads, with two
-              concessions, and both of them land on the build rather than on the
-              diagnosis.
+              Everything on the pricing page still applies to a founding client.
+              Two things change, and one constraint comes with them.
             </p>
           </div>
 
@@ -336,7 +343,7 @@ export default function FoundingClientsPage() {
               The audit is deliberately not the discount. A free diagnosis has
               to sell you something to pay for itself, and at that point it is
               not a diagnosis any more. Paying for it is what buys you a finding
-              that can tell you no, which is the only kind worth having.
+              that can tell you no.
             </p>
             <p>
               Every other number is on the{" "}
@@ -358,12 +365,11 @@ export default function FoundingClientsPage() {
               What we ask back
             </p>
             <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-4">
-              This is a trade, so here is our half of it.
+              The other half of the trade.
             </h2>
             <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-              The discount buys proof. Proof needs a person on your side who
-              owns the thing, numbers we are both willing to publish, and one
-              review at the end.
+              The discount buys proof, so three things have to be true on your
+              side before the work starts.
             </p>
           </div>
 
@@ -384,9 +390,10 @@ export default function FoundingClientsPage() {
           </ul>
 
           <p className="mt-9 max-w-[760px] font-body text-text-mid text-base md:text-lg leading-relaxed">
-            None of it is a surprise clause. It is written here, in public,
-            before a call, because a founding client who finds out about the
-            write-up afterwards is a founding client we have already lost.
+            All of it is on this page before the call, because the write-up is
+            the part of this trade that is easiest to spring on somebody late.
+            If you read it now and it is a problem, say so on the call and we
+            will quote you the published prices.
           </p>
         </Section>
 

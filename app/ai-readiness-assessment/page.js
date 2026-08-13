@@ -44,7 +44,7 @@ const STEPS = [
   },
   {
     label: "We compute a heat map and an AI Readiness Profile",
-    body: "Forty-four competencies scored across the four stages of the maturity model, from your data rather than your opinion of it. Beside it sits an AI Readiness Profile across six dimensions, which is what decides whether automation will hold once it ships.",
+    body: "Fifty-one competencies scored across the four stages of the maturity framework, computed from what your systems record. Beside it sits an AI Readiness Profile across six dimensions. That profile is what decides whether automation holds once it ships.",
   },
   {
     label: "You get a ranked automation map, priced",
@@ -78,15 +78,15 @@ const FAQ = [
   },
   {
     q: "We already ran an AI pilot and it did not work.",
-    a: "Then you are the buyer this was designed for. A pilot usually dies because the foundation could not carry what was built on it, and nobody checked the foundation first. This checks first. If your stack cannot carry the thing you want, you learn that before you pay for the build rather than after.",
+    a: "Then you are the buyer this was designed for. A pilot usually dies because the foundation could not carry what was built on it, and nobody checked the foundation first. This checks first. If your stack cannot carry the thing you want, you learn that before you pay for the build.",
   },
   {
     q: "Is this about replacing our team with AI?",
-    a: "No. The work worth automating is the work nobody wanted anyway: retyping, chasing, sorting, remembering. Every build we scope has a named owner on your side, and that is a requirement rather than a courtesy, because automation with nobody responsible for it drifts and then breaks quietly.",
+    a: "No. The work we automate is retyping, chasing, sorting and remembering. Nobody on your team wanted that work. Every build we scope also names one person on your side who owns it afterwards, and we ask for that name before the work starts.",
   },
   {
     q: "What stops this from turning into a permanent dependency?",
-    a: "The audit is a one-time fee, not a subscription, and it ends with a document you own. Nothing in it obliges you to buy the next thing. If you take the ranked map to your own team or to another firm, it still works, because it is a map of your business rather than a proposal for ours.",
+    a: "The audit is a one-time fee, not a subscription, and it ends with a document you own. Nothing in it obliges you to buy the next thing. Take the ranked map to your own team or to another firm and it still works. There is no Modern BizOps product named anywhere in it.",
   },
 ];
 
@@ -135,7 +135,7 @@ export default function AiReadinessAssessmentPage() {
     areaServed: { "@type": "Country", name: "United States" },
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Founder-led B2B companies from $3M to $50M in revenue",
+      audienceType: "Founder-led B2B companies",
     },
     offers: {
       "@type": "Offer",
@@ -197,9 +197,9 @@ export default function AiReadinessAssessmentPage() {
                 nothing to automate except a guess about how the work gets done.
               </p>
               <p className="text-navy font-medium">
-                So the first question is not which tool to buy. It is what your
-                systems can carry today, and what has to be fixed before
-                anything you build on top of them will hold.
+                We start on your systems. What they can carry today, and what is
+                broken enough to stop a build from working. That question gets
+                answered before anybody picks a tool.
               </p>
             </div>
 
@@ -225,12 +225,12 @@ export default function AiReadinessAssessmentPage() {
               How it works
             </p>
             <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-4">
-              Three steps, and none of them is a survey.
+              Three steps. You authorize, we compute, you get the map.
             </h2>
             <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-              The whole point is that the answer is computed rather than
-              collected. You should be able to disagree with the finding and
-              still trust where it came from.
+              You authorize read access and the numbers come out of your own
+              systems. You should be able to disagree with a finding and still
+              trust where it came from.
             </p>
           </div>
 
@@ -262,7 +262,7 @@ export default function AiReadinessAssessmentPage() {
             >
               builds menu
             </Link>
-            . Nothing on your map is a number invented for you.
+            .
           </p>
         </Section>
 
@@ -272,33 +272,31 @@ export default function AiReadinessAssessmentPage() {
               What makes it different
             </p>
             <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-6">
-              Nobody else computes this from your systems.
+              We looked for a firm that reads the stack. We did not find one.
             </h2>
             <div className="space-y-5 font-body text-text-mid text-base md:text-lg leading-relaxed">
               <p>
                 Plenty of firms will sell you an AI strategy engagement. They
                 interview your team, run a workshop, and hand back a deck built
-                out of what people said in the room. We have not found one, at
-                any price, that reads the actual stack.
+                out of what people said in the room.
               </p>
               <p>
-                That gap matters because the interview is where the truth goes
-                missing, and not because anyone is lying. People describe the
-                process they were trained on rather than the one running on a
-                Tuesday afternoon in a busy quarter. Systems do not have that
-                problem. The evidence is already sitting in them.
+                Nobody is lying in that room. People describe the process they
+                were trained on, and the process running on a Tuesday afternoon
+                in a busy quarter is a different thing. Your systems have a
+                record of the second one.
               </p>
             </div>
           </div>
 
           <div className="max-w-[900px]">
             <ContrastColumns
-              label="Same question, two instruments"
+              label="Same question, two methods"
               title="What the answer is actually built from"
               leftTitle="The strategy workshop"
               leftItems={[
                 "Asks your team how the work is supposed to run.",
-                "Reads the room, and the room has an audience.",
+                "Gets the version people say in front of their boss.",
                 "Returns a deck assembled from what people said.",
                 "Priced as a report, and it ends when the report lands.",
               ]}
@@ -306,7 +304,7 @@ export default function AiReadinessAssessmentPage() {
               rightItems={[
                 "Connects to more than twenty of the tools you already run.",
                 "Reads field completeness, stage discipline, and where records go quiet.",
-                "Scores 44 competencies from your data instead of your opinion of it.",
+                "Scores 51 competencies out of what your systems already record.",
                 "Returns a ranked, priced map, and the fee credits into building it.",
               ]}
             />
@@ -338,8 +336,7 @@ export default function AiReadinessAssessmentPage() {
               </p>
               <p className="font-body text-[15px] text-text-mid leading-relaxed">
                 Before tools, recruiting and ramp. You commit to the salary
-                first and find out what should have been built second, which is
-                a large bet placed in the wrong order.
+                first and find out what should have been built second.
               </p>
             </div>
             <div className="bg-navy rounded-[14px] p-7 text-white">
@@ -361,8 +358,8 @@ export default function AiReadinessAssessmentPage() {
           <p className="mt-9 max-w-[760px] font-body text-text-mid text-base md:text-lg leading-relaxed">
             If the answer turns out to be that you should hire, that is a fine
             outcome and we will say so. The ranked map is what your new hire
-            starts from on day one instead of spending a quarter working out
-            where the bodies are buried.
+            starts from on day one. It saves them a quarter of working out where
+            the bodies are buried.
           </p>
         </Section>
 
@@ -375,8 +372,8 @@ export default function AiReadinessAssessmentPage() {
               Published, so there is nothing to negotiate.
             </h2>
             <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-              A diagnosis is only honest if it can tell you no. These terms
-              exist so that saying no costs us and not you.
+              The audit has to be able to tell you no. That is what the three
+              terms below are for, and they are the same for everybody.
             </p>
           </div>
 
@@ -397,8 +394,8 @@ export default function AiReadinessAssessmentPage() {
           </ul>
 
           <p className="mt-9 max-w-[760px] font-body text-text-mid text-base md:text-lg leading-relaxed">
-            How you start: book a call. We confirm fit and scope on that call
-            and invoice from there. Every other number you might want first is
+            How you start: book a call. We agree the scope on that call and
+            invoice from there. Every other number you might want first is
             already published on the{" "}
             <Link
               href="/pricing"
@@ -427,7 +424,7 @@ export default function AiReadinessAssessmentPage() {
           <CtaCallout
             eyebrow="Start here"
             heading="Book the call and we will scope the audit."
-            body="The price is published, so the call is not a negotiation. We confirm your fit and your scope, and if the audit is not the right next step for you, we will tell you that instead."
+            body="The price is published, so there is nothing to negotiate on the call. We work out the scope with you, and if the audit is the wrong next step right now, we will say so."
             buttonLabel="Book a call"
             href="/book"
             ctaLocation="audit_foot"

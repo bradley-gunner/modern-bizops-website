@@ -100,6 +100,28 @@ const PILLAR_ARTICLE_SLUGS = [
   "ai-tools-for-small-business",
   ...WAVE_4_SLUGS,
 ];
+// The sixteen entries whose metaDescription carries a negation pivot, a
+// "Here is how to" opener, or (fractional-coo-cost) a snippet too long to read
+// as a card. Each one gets an index-only cardBlurb. The other eight read as
+// plain prose already and fall through to their meta description.
+const CARD_BLURB_SLUGS = [
+  "revenue-operations-maturity-stage-1-reactive",
+  "crm-architecture-and-governance",
+  "pipeline-stage-design",
+  "ideal-customer-profile",
+  "revenue-lifecycle-design",
+  "data-quality-management",
+  "lead-qualification-framework",
+  "fractional-coo",
+  "net-revenue-retention",
+  "revenue-per-employee",
+  "involuntary-churn",
+  "fractional-coo-cost",
+  "ai-tools-for-small-business",
+  "customer-retention-strategy",
+  "customer-lifecycle-marketing",
+  "conversion-rate-optimization",
+];
 // Standalone DefinedTerm pages: cover a Stage 2/3 competency with no hub yet,
 // so no inDefinedTermSet reference. Flatter Home > Learn > <page> breadcrumb.
 const STANDALONE_TERM_SLUGS = ["net-revenue-retention"];
@@ -191,8 +213,10 @@ describe("learn page registry", () => {
       const e = LEARN_PAGES[slug];
       expect(e.breadcrumb.length).toBe(3);
       expect(e.breadcrumb[1].name).toBe("Learn");
-      // No /learn index route exists yet, so the crumb renders as plain text.
-      expect(e.breadcrumb[1].noLink).toBe(true);
+      expect(e.breadcrumb[1].url).toBe("https://modernbizops.com/learn");
+      // /learn is a real index route as of 2026-08-11, so the crumb must be a
+      // live link rather than the plain text it rendered as before.
+      expect(e.breadcrumb[1].noLink).toBeUndefined();
     }
   });
 
@@ -246,6 +270,50 @@ describe("learn page registry", () => {
       expect(e.subhead).not.toBe(e.h1);
       expect(e.subhead).not.toContain(e.h1);
     }
+  });
+
+  // cardBlurb is the /learn index grid's copy. It exists because nine
+  // metaDescription strings share the "X is not A. It is B." shape, which earns
+  // a click in a SERP and reads as one template when the grid renders nine of
+  // them at once. These assertions are what stop the two from converging again:
+  // the SERP strings must stay exactly as they are, and the card strings must
+  // stay free of the constructions they were written to replace.
+  it("card blurbs cover every entry whose meta description carries a de-slopped tell", () => {
+    for (const slug of CARD_BLURB_SLUGS) {
+      const blurb = LEARN_PAGES[slug].cardBlurb;
+      expect(blurb, `${slug} lost its cardBlurb`).toBeTypeOf("string");
+      expect(blurb.length).toBeGreaterThan(40);
+      // The index falls back to metaDescription, so an identical blurb is a
+      // silent no-op rather than an override.
+      expect(blurb).not.toBe(LEARN_PAGES[slug].metaDescription);
+    }
+  });
+
+  it("no card blurb reintroduces a negation pivot or a 'Here is how to' opener", () => {
+    for (const slug of SLUGS) {
+      const blurb = LEARN_PAGES[slug].cardBlurb;
+      if (!blurb) continue;
+      expect(blurb, `${slug}`).not.toMatch(/\bnot (just|only|merely|simply)\b/i);
+      expect(blurb, `${slug}`).not.toMatch(/\b(rather than|instead of)\b/i);
+      // "X is not A. It is B." and its comma-pivot cousin ", not B".
+      expect(blurb, `${slug}`).not.toMatch(
+        /\b(is|are|was|were)\s+not\b[^.!?]*[.!?]\s+(It|They)\s+(is|are)\b/i
+      );
+      expect(blurb, `${slug}`).not.toMatch(/,\s+not\s+/i);
+      expect(blurb, `${slug}`).not.toMatch(/\bHere (is|are) how\b/i);
+    }
+  });
+
+  it("SERP-facing meta descriptions are left alone by the card-blurb change", () => {
+    // Spot-check two of the nine negation-shaped snippets. They rank today and
+    // rewriting them degrades live search results, which is the whole reason
+    // cardBlurb exists instead of an in-place edit.
+    expect(LEARN_PAGES["crm-architecture-and-governance"].metaDescription).toBe(
+      "A messy CRM is not a training problem. It is a design problem. Here is how to build a CRM your whole team actually trusts and uses."
+    );
+    expect(
+      LEARN_PAGES["conversion-rate-optimization"].metaDescription
+    ).toContain("a pipeline problem, not a landing-page problem");
   });
 
   it("has an h1 and byline distinct from the SEO title", () => {

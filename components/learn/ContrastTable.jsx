@@ -2,7 +2,7 @@
 // coaching model), with one labeled aspect per row. Every cell is a real DOM
 // text node condensed from the page's own prose, so the distinction stays
 // crawlable and never lives only in an image. Light treatment to sit on the
-// cream article. Used by the 4.3 page for "most AI consulting" vs "how I work".
+// cream article. Used by the 4.3 page for "most AI consulting" vs "how we work".
 export default function ContrastTable({ leftTitle, rightTitle, rows }) {
   return (
     <div className="my-9 overflow-hidden rounded-2xl border border-border bg-white shadow-sm">

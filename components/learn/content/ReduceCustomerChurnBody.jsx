@@ -35,7 +35,7 @@ export default function ReduceCustomerChurnBody() {
         offer is a discount that trains your best customers to threaten to leave.
       </p>
       <p>
-        This page is for founder-led B2B companies between $3M and $50M, where post-sale
+        This page is for founder-led B2B companies where post-sale
         is not a department. It is the founder, or one account manager, holding every
         relationship in their head. And it is not only for software companies, which is
         where most churn advice is aimed. Any business with recurring or repeat revenue has
@@ -172,7 +172,7 @@ export default function ReduceCustomerChurnBody() {
 
       <h2 className={h2}>Where churn reduction sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method I built for measuring the RevOps
+        In the GTM Maturity Framework, a method I built for measuring the go-to-market
         competencies of a business, this is the move from reacting to churn to preventing
         it. At the bottom, churn is a number reported after the fact and every save is a
         scramble. The first real step is measuring churn in revenue and splitting it into
@@ -195,7 +195,7 @@ export default function ReduceCustomerChurnBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          Stage 1 of the maturity model
+          Stage 1 of the maturity framework
         </Link>
         , and the broader system this fits inside is the{" "}
         <Link href="/learn/customer-retention-strategy" className="text-navy underline">

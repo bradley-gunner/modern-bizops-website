@@ -19,7 +19,7 @@ export default function AiConsultingBody() {
   return (
     <>
       <h2 className={h2}>What AI consulting for a small business actually is</h2>
-      <p>Let me answer the question you came here with, plainly.</p>
+      <p>Let us answer the question you came here with, plainly.</p>
       <p>
         AI consulting for a small business is a service that helps you decide where
         artificial intelligence belongs in your operation, then puts it there. Most
@@ -32,24 +32,24 @@ export default function AiConsultingBody() {
       <p>
         That is the standard version of the category, and for a specific kind of
         buyer it is the right one. If you already know exactly what you want built,
-        and you only want the build, hire an implementation shop and move on. I will
-        tell you when that is you.
+        and you only want the build, hire an implementation shop and move on. We
+        will tell you when that is you.
       </p>
       <p>
-        But if you run a founder-led B2B company doing $3M to $50M, and you are
+        But if you run a founder-led B2B company, and you are
         asking who should own AI in your revenue operation, the standard version has
         a flaw worth understanding before you spend a dollar.
       </p>
 
       <h2 className={h2}>The flaw in &ldquo;just implement AI&rdquo;</h2>
-      <p>Here is the governing idea behind everything I do:</p>
+      <p>Here is the governing idea behind everything we do:</p>
       <PullQuote>
         AI amplifies the operational state it is applied to. Automating a broken
         process just produces broken outcomes faster.
       </PullQuote>
       <p>
         Most AI consulting for small business skips past this. It sells you tools
-        and implementation on top of what I call your RevOps debt: the accumulated
+        and implementation on top of what we call your RevOps debt: the accumulated
         mess in a revenue operation. Dirty CRM data, undefined pipeline stages, no
         written ICP, broken handoffs between sales and delivery. That debt is real,
         it compounds quietly, and most consultants never pay a cent of it down
@@ -93,24 +93,24 @@ export default function AiConsultingBody() {
       />
 
       <h2 className={h2}>
-        What I do instead: coach the fundamentals, then accelerate
+        What we do instead: coach the fundamentals, then accelerate
       </h2>
       <p>
-        I do not walk in, build you a system, and leave. That model puts the
-        capability on my laptop and takes it with me.
+        We do not walk in, build you a system, and leave. That model puts the
+        capability on our laptops and takes it with us.
       </p>
       <p>
-        Instead, I coach one of your own employees to build the revenue systems, so
+        Instead, we coach one of your own employees to build the revenue systems, so
         the capability stays in-house. An experienced operator sits beside your
         person and teaches them to fix the fundamentals: how leads get qualified,
         how deals move stage to stage, how sales hands off to delivery, how you
         forecast without guessing. Your team builds it. Your team keeps it. You run
-        it after I am gone.
+        it after we are gone.
       </p>
 
       <ContrastTable
         leftTitle="Most AI consulting"
-        rightTitle="How I work"
+        rightTitle="How we work"
         rows={[
           {
             aspect: "The starting point",
@@ -149,7 +149,7 @@ export default function AiConsultingBody() {
         here. The tools are just the last mile.
       </p>
       <p>
-        This is the same coaching model I detail on my{" "}
+        This is the same coaching model we detail on our{" "}
         <Link href="/revenue-operations-consulting" className={link}>
           revenue operations consulting
         </Link>{" "}
@@ -160,7 +160,7 @@ export default function AiConsultingBody() {
       <CtaCallout
         eyebrow="See if it fits"
         heading="Not sure whether this is you?"
-        body="Book a call and I will give you my honest read on whether coaching the fundamentals first is the right move for your business, including when the answer is an implementation shop and not me."
+        body="Book a call and we will give you our honest read on whether coaching the fundamentals first is the right move for your business, including when the answer is an implementation shop and not us."
         buttonLabel="Book a call"
         href="/book"
         ctaLocation="ai_consulting_mid_page"
@@ -168,11 +168,11 @@ export default function AiConsultingBody() {
 
       <h2 className={h2}>Where you actually are, measured</h2>
       <p>
-        Before we talk about AI, I want to know how sound your revenue operation is
-        today. Not by feel. By a score.
+        Before we talk about AI, we want to know how sound your revenue operation
+        is today. Not by feel. By a score.
       </p>
       <p>
-        I use the Revenue Operations Maturity Model, a method I built for measuring
+        We use the GTM Maturity Framework, a method we built for measuring
         the revenue competencies of a business across four stages: Reactive,
         Repeatable, Predictable, and Compounding. It tells you which competencies
         are solid enough to accelerate and which ones would just break faster under
@@ -200,22 +200,22 @@ export default function AiConsultingBody() {
         along than they thought, and which parts are not ready for AI at all.
       </p>
 
-      <h2 className={h2}>Do I run my own business this way</h2>
+      <h2 className={h2}>Do we run our own business this way</h2>
       <p>
-        I hold myself to this. I run my own business on the same order I am
-        describing to you. Before I let AI accelerate anything, the process
-        underneath it is defined, and every AI output in my operation passes a human
-        gate before it counts, whether that is a marketing post going out in my
-        voice or a client deliverable my own audit software drafted from real data.
-        That is not caution for its own sake. It is the whole point. AI amplifies the
-        state it is applied to, so the state has to be right and the judgment has to
-        stay human. I would not ask you to run your revenue engine on a principle I
-        was not willing to run mine on.
+        We hold ourselves to this. We run our own business on the same order we
+        are describing to you. Before we let AI accelerate anything, the process
+        underneath it is defined, and every AI output in our operation passes a
+        human gate before it counts, whether that is a marketing post going out in
+        our voice or a client deliverable our own audit software drafted from real
+        data. That is not caution for its own sake. It is the whole point. AI
+        amplifies the state it is applied to, so the state has to be right and the
+        judgment has to stay human. We would not ask you to run your revenue engine
+        on a principle we were not willing to run ours on.
       </p>
 
       <h2 className={h2}>When you should hire someone else instead</h2>
       <p>
-        I would rather you find the right fit than hire me for the wrong reason.
+        We would rather you find the right fit than hire us for the wrong reason.
       </p>
       <p>
         If you want a single, specific technical build, an AI phone system, a custom
@@ -224,7 +224,7 @@ export default function AiConsultingBody() {
         that, and they are usually cheaper for a defined build.
       </p>
       <p>
-        Come to me when the real question is not &ldquo;which tool&rdquo; but
+        Come to us when the real question is not &ldquo;which tool&rdquo; but
         &ldquo;who owns revenue in my company, and how do we make it run without
         me.&rdquo; That is a coaching problem. AI is one accelerant inside it, not
         the point of it.

@@ -82,7 +82,7 @@ export default function FractionalCooBody() {
         system instead of required in every decision.
       </p>
       <p>
-        That last one is the real product. In the Revenue Operations Maturity Model,
+        That last one is the real product. In the GTM Maturity Framework,
         the companies I call{" "}
         <Link
           href="/learn/revenue-operations-maturity-stage-1-reactive"
@@ -138,13 +138,13 @@ export default function FractionalCooBody() {
         library. They have seen one company&rsquo;s operations; an experienced COO has
         seen dozens, and knows which fix comes first because they have watched the
         wrong order fail somewhere else. That gap is real, but it is closable with
-        outside structure and guidance, and closing it costs a raise plus a coaching
-        engagement rather than an executive retainer. Meanwhile the internal candidate
+        outside structure and guidance, and closing it costs a raise plus a bounded
+        build rather than an executive retainer. Meanwhile the internal candidate
         arrives with the half of the job no outside hire ever has on day one: they
         already know your clients, your team, and how the work actually gets done. This
-        is the model I coach at Modern BizOps. Your operator does the work, I provide
-        the roadmap and the guidance, and the capability stays in your company instead
-        of leaving when a contract ends.
+        is the model Modern BizOps is built on. We build the named systems, your
+        operator learns them as they go in, and the capability stays in your company
+        instead of leaving when a contract ends.
       </p>
       <p>
         The boundary, stated plainly: this path only works if the candidate exists. If

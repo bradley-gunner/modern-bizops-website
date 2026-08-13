@@ -34,7 +34,7 @@ describe('EmailGateForm', () => {
 
   it('trust footer renders with no em-dash and references data deletion', () => {
     render(<EmailGateForm onSubmit={() => {}} />);
-    const footer = screen.getByText(/I will follow up with one personal note/i);
+    const footer = screen.getByText(/We will follow up with one personal note/i);
     expect(footer).toBeInTheDocument();
     expect(footer.textContent).not.toMatch(/—/);
     expect(footer.textContent).toMatch(/deleted at any time/i);

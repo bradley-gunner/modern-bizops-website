@@ -8,9 +8,15 @@
 //
 // THE LABEL BELOW IS LOAD-BEARING AND NON-NEGOTIABLE. Bradley cleared all 28
 // iExcel-era clients for public naming on one condition: they are always framed
-// as "clients I worked with while I was at iExcel" and never stated or implied
-// to be Modern BizOps clients. Dropping or softening that label puts this block
-// in the same fabrication class as the homepage result cards that were removed.
+// as clients our founder worked with while at iExcel, and never stated or
+// implied to be Modern BizOps clients. Dropping or softening that label puts
+// this block in the same fabrication class as the homepage result cards that
+// were removed.
+//
+// 2026-08-12: the label read "Clients I worked with while I was at iExcel:"
+// until Bradley retired the first-person singular as a brand voice. He chose
+// the replacement wording himself. The attribution work is unchanged; only the
+// person doing the speaking is.
 //
 // Every number here is from the verified career record; do not round them up.
 // "Over a decade" is deliberate: the live LinkedIn headline still says fifteen
@@ -20,7 +26,7 @@ const METRICS = [
   "$318K churn-adjusted ARR closed",
   "About $1M churn saved",
   "4.5 years as an agency COO",
-  "20+ tools connected by the audit instrument",
+  "20+ tools the audit connects to",
 ];
 
 const IEXCEL_CLIENTS = [
@@ -33,10 +39,15 @@ const IEXCEL_CLIENTS = [
   "Jenni.ai",
 ];
 
+// 2026-08-12: the strip was white, sitting between a cream hero and a white
+// problem section, so two full-height sections ran together with only a hairline
+// between them. Banding it in cream-dark gives the page an alternating rhythm
+// from the first scroll and makes the strip read as a strip. Not one word here
+// changed, and the attribution label above is still the load-bearing part.
 export default function TrustStrip() {
   return (
-    <section className="bg-white border-y border-border">
-      <div className="mx-auto max-w-[1200px] px-6 md:px-8 py-7">
+    <section className="bg-cream-dark border-y border-border">
+      <div className="mx-auto max-w-[1200px] px-6 md:px-8 py-8 md:py-10">
         <ul className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
           {METRICS.map((metric, i) => (
             <li
@@ -63,7 +74,7 @@ export default function TrustStrip() {
               the names stay at navy/75, so the frame lands first. The words are
               exact and non-negotiable; only their treatment changed. */}
           <p className="font-body text-[15px] md:text-base font-semibold text-navy mb-3">
-            Clients I worked with while I was at iExcel:
+            Clients our founder worked with while at iExcel
           </p>
           <ul className="flex flex-wrap justify-center gap-x-7 gap-y-2">
             {IEXCEL_CLIENTS.map((client) => (

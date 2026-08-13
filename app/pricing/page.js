@@ -41,10 +41,10 @@ const LADDER_NOTES = {
   },
   builds: {
     linkLabel: "See all twelve builds",
-    note: `The listed price is the base pattern: one system of record, one funnel. A second of either adds ${UPLIFT_RULE.addition}, and the ceiling is ${UPLIFT_RULE.cap}.`,
+    note: `That price covers one system of record and one funnel. A second of either adds ${UPLIFT_RULE.addition}, and the ceiling is ${UPLIFT_RULE.cap}.`,
   },
   partner: {
-    note: `Includes the ${CARE_PLAN.name} work on every system it covers. Quarterly out, so the longest commitment is three months.`,
+    note: `Includes the ${CARE_PLAN.name} work on every system it covers. Quarterly out.`,
   },
   "partner-plus": {
     note: "Same terms as the Partner plan, including the quarterly out.",
@@ -62,15 +62,15 @@ const BESIDE_THE_LADDER = [TRAINING, CARE_PLAN];
 const ACCOUNTABILITY = [
   {
     title: "Fixed scope, written first",
-    body: "What the build includes, and what it does not, is agreed before the work starts. An overrun is our problem rather than a change order.",
+    body: "What the build includes, and what it does not, is agreed before the work starts. If it takes us longer than we said, that is our cost. You will not see a change order.",
   },
   {
     title: "A named owner on your side",
-    body: "Every build requires one person at your company who owns the system afterwards. It is a requirement rather than a courtesy, because automation with nobody responsible for it drifts and then breaks quietly.",
+    body: "Every build requires one person at your company who owns the system afterwards. We do not start a build without that name. Automation nobody owns drifts, and you keep paying for it while it does.",
   },
   {
     title: "Runbooks handed over",
-    body: "How it works, how to change it, and what to do when it breaks, written down and handed to that owner. The runbook ships with the build rather than after it.",
+    body: "How it works, how to change it, and what to do when it breaks, written down and handed to that owner. The runbook ships on the same day the build does.",
   },
   {
     title: "A quarterly out on every retainer",
@@ -78,7 +78,7 @@ const ACCOUNTABILITY = [
   },
   {
     title: "A graduation path, designed in",
-    body: "The end state is your team running this without us. That is the plan from the first day rather than a thing we tolerate when you raise it.",
+    body: "The end state is your team running this without us. We write that into the scope document before the work starts.",
   },
 ];
 
@@ -88,7 +88,7 @@ const ACCOUNTABILITY = [
 const FAQ = [
   {
     q: "How do I avoid getting locked in?",
-    a: `Fixed scope, your systems, your data, and the runbook handed over when a build ships. Retainers carry a quarterly out, so the longest thing you are ever committed to is three months. Nothing we build lives on infrastructure you cannot reach without us, and the graduation path is designed in rather than tolerated. When it is done, you do not need us.`,
+    a: `Fixed scope, your systems, your data, and the runbook handed over when a build ships. Retainers carry a quarterly out. Nothing we build lives on infrastructure you cannot reach without us, and the end of the engagement is written into the scope document on day one. When it is done, you do not need us.`,
   },
   {
     q: "Why not use a freelancer or a cheaper agency?",
@@ -96,11 +96,11 @@ const FAQ = [
   },
   {
     q: "Is the price really fixed?",
-    a: `Yes, with one published exception. The listed price on a build is the base pattern: one system of record and one funnel. A second of either adds ${UPLIFT_RULE.addition}, and the ceiling is ${UPLIFT_RULE.cap}. That rule is on the builds page in public, rather than in a contract you read after you have signed it.`,
+    a: `Yes, with one published exception. The listed price on a build is the base pattern: one system of record and one funnel. A second of either adds ${UPLIFT_RULE.addition}, and the ceiling is ${UPLIFT_RULE.cap}. That rule is on the builds page, in public, where you can read it before you sign anything.`,
   },
   {
     q: "Why publish prices at all?",
-    a: "Because a price you have to ask for is a price that changes with who is asking. Publishing them means you can rule us out in two minutes without spending an hour on a call to do it, and it means the call itself is about whether this fits your business rather than about what it costs.",
+    a: "Because a price you have to ask for is a price that changes with who is asking. Publishing them means you can rule us out in two minutes without spending an hour on a call to do it, and it means the call can be about whether this fits your business. You already know what it costs.",
   },
 ];
 
@@ -160,7 +160,7 @@ export default function PricingPage() {
     areaServed: { "@type": "Country", name: "United States" },
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Founder-led B2B companies from $3M to $50M in revenue",
+      audienceType: "Founder-led B2B companies",
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -179,7 +179,7 @@ export default function PricingPage() {
           kicker="Pricing"
           h1="Published prices. Fixed scope. Your team owns it."
           accentWord="Published prices."
-          dek="Every number we charge is on this page. The call confirms your fit, not your quote."
+          dek="Every number we charge is on this page. The rest is a fit conversation."
           motif="stageChevrons"
           theme="navy"
         />
@@ -276,7 +276,7 @@ export default function PricingPage() {
               What the price buys
             </p>
             <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-6">
-              The structure is the guarantee.
+              Five things that are true of every build and every retainer.
             </h2>
             <div className="space-y-5 font-body text-text-mid text-base md:text-lg leading-relaxed">
               <p>
@@ -286,9 +286,8 @@ export default function PricingPage() {
               </p>
               <p>
                 What we can put in front of you is the structure the work runs
-                on. It is the same structure that makes a good outcome likely
-                and makes walking away cheap, and it is the reason a price can
-                be published at all.
+                on. It is what makes walking away cheap, and it is why a price
+                can be published at all.
               </p>
             </div>
           </div>
@@ -318,7 +317,7 @@ export default function PricingPage() {
             >
               {rung.audit.name}
             </Link>{" "}
-            computes, from your systems rather than from a conversation.
+            computes, straight out of your connected systems.
           </p>
         </Section>
 
@@ -337,8 +336,8 @@ export default function PricingPage() {
         <div className="bg-white px-6 py-6 md:px-8 md:py-10">
           <CtaCallout
             eyebrow="The last step"
-            heading="Book the call. It confirms your fit and your price."
-            body="You have already read every number, so there is nothing left to quote. The call is where we work out whether this is the right thing for your business right now, and we will say so plainly if it is not."
+            heading="Book the call. You have already seen the prices."
+            body="There is nothing left to quote. The call is where we work out whether this is the right thing for your business right now, and we will say so plainly if it is not."
             buttonLabel="Book a call"
             href="/book"
             ctaLocation="pricing_foot"
