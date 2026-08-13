@@ -33,7 +33,7 @@ export default function FractionalCooCostBody() {
         Before you spend that, I want to give you a better question than
         &ldquo;what does a fractional COO cost.&rdquo; The better question is
         which of four options actually fixes your problem. For a lot of
-        founder-led companies between $3M and $50M, a fractional COO is not the
+        founder-led companies at this size, a fractional COO is not the
         cheapest or the most durable answer, and the other places writing about
         this cost will not tell you that, because they are selling the fractional
         COO. I am not, so I can give you the straight version.
@@ -125,13 +125,13 @@ export default function FractionalCooCostBody() {
         admits.
       </p>
       <p>
-        The math works differently. The coaching engagement runs $5,000 to $15,000
-        a month, depending on its length and the impact on your business, and it
-        runs for the length of the engagement, not forever. On top of that you
+        The math works differently. The work is priced per named system rather
+        than per month, so it is bounded by what you asked for instead of by how
+        long you keep paying. On top of that you
         carry the salary of a person you are frequently already paying anyway. I
         am not going to tell you that is automatically cheaper month to month than
         a fractional COO, because it is not. What it is, is bounded. When the
-        engagement ends, there is no cliff and no more invoices. The systems are
+        build ends, there is no cliff and no more invoices. The systems are
         built, the person who built them is still on your payroll running them, and
         they can coach the next hire on how they work. You spent to build an asset
         you keep, instead of renting one you give back.
@@ -180,13 +180,13 @@ export default function FractionalCooCostBody() {
         companies in this range.
       </p>
       <p>
-        The Revenue Maturity Score is a free diagnostic that scores your revenue
+        The AI Revenue Scan is a free diagnostic that scores your revenue
         operations against the{" "}
         <Link
           href="/predictable-revenue-engine"
           className="text-navy underline"
         >
-          Revenue Operations Maturity Model
+          GTM Maturity Framework
         </Link>
         , a method I built for measuring the revenue competencies of a business
         across four stages. If it surfaces the real problem, you likely do not
@@ -197,7 +197,7 @@ export default function FractionalCooCostBody() {
       </p>
       <div className="mt-6">
         <Button href="/scorecard" ctaLocation="learn_mid_page">
-          Get your Revenue Maturity Score
+          Get the Free Scan
         </Button>
       </div>
 

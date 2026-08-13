@@ -71,12 +71,19 @@ const Headshot = ({ size = 256, top = 187, right = 80 }) =>
     h('img', { src: HEADSHOT, width: size, height: size, style: { borderRadius: 9999 } }),
   );
 
-// The logo now carries the name, so the footer is role + URL.
+// The logo now carries the name, so the footer is the positioning line + URL.
+//
+// That line said "Revenue Growth Coach" until 2026-08-12, which is the retired
+// offer. It is baked into this shared template, so every card the script has
+// ever produced carried it, including the five made hours earlier for pages
+// that sell an AI automation partnership. The string below is the site footer's
+// own line, verbatim (components/Footer.jsx), so the card and the page a share
+// links to say the same thing.
 const Footer = () =>
   h(
     'div',
     { style: { position: 'absolute', left: 64, bottom: 44, display: 'flex', alignItems: 'center', fontSize: 24 } },
-    h('span', { style: { fontFamily: 'Jost', color: CREAM } }, 'Revenue Growth Coach'),
+    h('span', { style: { fontFamily: 'Jost', color: CREAM } }, 'The AI automation partner for B2B go-to-market'),
     h('span', { style: { color: 'rgba(246,242,235,0.35)', margin: '0 16px' } }, '|'),
     h('span', { style: { fontFamily: 'Jost', color: ORANGE } }, 'modernbizops.com'),
   );
@@ -134,14 +141,17 @@ function aboutCard({ subline }) {
       },
       h('div', { style: { fontFamily: 'Cormorant', fontWeight: 600, fontSize: 52, color: ORANGE, lineHeight: 1 } }, 'Meet'),
       h('div', { style: { fontFamily: 'Cormorant', fontWeight: 600, fontSize: 72, color: CREAM, lineHeight: 1.05 } }, 'Bradley de Wet'),
-      h('div', { style: { marginTop: 10, fontFamily: 'Jost', fontWeight: 600, fontSize: 26, color: ORANGE } }, 'Revenue Growth Coach'),
+      // Sits under his name, so this one is the job title rather than the
+      // company positioning line the footer carries. Verbatim from the Person
+      // schema in app/schema.js.
+      h('div', { style: { marginTop: 10, fontFamily: 'Jost', fontWeight: 600, fontSize: 26, color: ORANGE } }, 'Founder, Modern BizOps'),
       h('div', { style: { marginTop: 22, fontFamily: 'Jost', fontWeight: 400, fontSize: 24, lineHeight: 1.4, color: CREAM_DIM } }, subline),
     ),
     h(Headshot, {}),
   );
 }
 
-function scorecardCard({ headline, chips, footnote }) {
+function scorecardCard({ headline, chips, footnote, headlineSize = 60 }) {
   const pill = (label, filled) =>
     h(
       'div',
@@ -178,7 +188,7 @@ function scorecardCard({ headline, chips, footnote }) {
       {
         style: {
           position: 'absolute', left: 64, top: 180, width: 720,
-          fontFamily: 'Cormorant', fontWeight: 600, fontSize: 60, lineHeight: 1.06, color: CREAM,
+          fontFamily: 'Cormorant', fontWeight: 600, fontSize: headlineSize, lineHeight: 1.06, color: CREAM,
           display: 'flex',
         },
       },
@@ -362,7 +372,7 @@ const CARDS = {
   // the root-level BOFU service page uses the hero template, matching the other
   // primary offer pages (revenue-operations-consulting).
   'learn-ai-for-small-business': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'AI FOR SMALL BUSINESS',
@@ -371,7 +381,7 @@ const CARDS = {
       }),
   },
   'learn-ai-tools-for-small-business': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'AI TOOLS FOR SMALL BUSINESS',
@@ -380,34 +390,53 @@ const CARDS = {
       }),
   },
   'service-ai-consulting': {
-    changed: true,
+    changed: false,
     element: () =>
+      // Subline is the page dek, and that dek was shortened to "Foundations
+      // first." by the approved step-16 retarget. The card followed it.
       heroCard({
         headline: 'AI Consulting for Small Business',
-        subline: 'Foundations first, then the acceleration',
+        subline: 'Foundations first.',
         headlineSize: 58,
       }),
   },
+  // The subline said "Done-with-you coaching" until 2026-08-12. Same retired
+  // offer as the footer line, on the most-shared card on the site, so it goes
+  // with it. Replaced with the live homepage hero's own second sentence.
+  //
+  // The headline was left as "Grow Your Revenue Without Growing Your Headcount"
+  // in that same pass and flagged as owed. It is the pre-pivot promise, and it
+  // no longer matched a single word of the page it fronted. It is now the
+  // homepage H1 itself, which is the approved outcome-led one-liner. Two lines
+  // at 64px, so the size is left at the default.
   homepage: {
     changed: false,
     element: () =>
       heroCard({
-        headline: 'Grow Your Revenue Without Growing Your Headcount',
-        subline: 'Done-with-you coaching for founder-led B2B companies, $3M to $50M',
+        headline: 'More Leads, More Booked Calls, Less Busywork',
+        subline: 'Foundation first, published fixed prices, your team owns everything we build',
       }),
   },
+  // Subline read "Helping founder-led B2B companies build revenue engines that
+  // grow without headcount" until 2026-08-12, which is the retired positioning
+  // and no longer describes the page. It now echoes the About H1 and the
+  // opening of the approved positioning paragraph.
   about: {
     changed: false,
     element: () =>
       aboutCard({
-        subline: 'Helping founder-led B2B companies build revenue engines that grow without headcount',
+        subline: 'Over a decade in the executor seat, now building the automation',
       }),
   },
+  // Slug stays `scorecard` because the route and the og:image path do; the
+  // card is the AI Revenue Scan, the free first rung of the ladder. "Free" is
+  // carried by the FREE pill above the headline, so the headline does not
+  // repeat it, which is what keeps it on one line at the default 60px.
   scorecard: {
     changed: false,
     element: () =>
       scorecardCard({
-        headline: 'Get Your Free Revenue Maturity Score',
+        headline: 'Get Your AI Revenue Scan',
         chips: [
           'CRM Architecture', 'Lead Qualification', 'Pipeline Design', 'Forecasting',
           'Revenue Cadence', 'Retention & Expansion', 'Leading Indicators',
@@ -419,8 +448,8 @@ const CARDS = {
     changed: false,
     element: () =>
       heroCard({
-        headline: 'The Revenue Operations Maturity Model',
-        subline: 'Four stages. 44 competencies. From revenue that runs on you to revenue you can predict.',
+        headline: 'The GTM Maturity Framework',
+        subline: 'Four stages. 51 competencies. From revenue that runs on you to revenue you can predict.',
         headlineSize: 58,
       }),
   },
@@ -579,7 +608,7 @@ const CARDS = {
   // Headline = each page's on-page dek (title-tag hook), sized to fit the 650px
   // column the way the earlier learn cards are.
   'learn-customer-retention-strategy': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'CUSTOMER RETENTION STRATEGY',
@@ -588,7 +617,7 @@ const CARDS = {
       }),
   },
   'learn-reduce-customer-churn': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'REDUCE CUSTOMER CHURN',
@@ -597,7 +626,7 @@ const CARDS = {
       }),
   },
   'learn-payment-recovery': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'PAYMENT RECOVERY',
@@ -606,7 +635,7 @@ const CARDS = {
       }),
   },
   'learn-customer-lifecycle-marketing': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'CUSTOMER LIFECYCLE MARKETING',
@@ -615,12 +644,67 @@ const CARDS = {
       }),
   },
   'learn-conversion-rate-optimization': {
-    changed: true,
+    changed: false,
     element: () =>
       learnCard({
         kicker: 'CONVERSION RATE OPTIMIZATION',
         headline: 'Fix the Funnel, Not the Button',
         headlineSize: 60,
+      }),
+  },
+  // The August 2026 refit: the four offer pages and the /learn index. Their
+  // og:image paths were written into lib/offerPages.js and lib/learnIndex.js
+  // before any card existed, so every share of those five pages rendered with
+  // no card at all. The four offer pages use the hero template, matching the
+  // other primary pages (revenue-operations-consulting, service-ai-consulting);
+  // the /learn index uses the kicker card, because it is the front door to the
+  // pages that already carry that design.
+  //
+  // No card here states a price. A PNG cannot track lib/offers.js, so a number
+  // baked into one is a number that goes stale the first time a price moves.
+  'ai-readiness-assessment': {
+    changed: false,
+    element: () =>
+      heroCard({
+        headline: 'The AI Revenue Audit',
+        subline: 'The honest diagnosis before you spend more on AI',
+        headlineSize: 62,
+      }),
+  },
+  'ai-automation-services': {
+    changed: false,
+    element: () =>
+      heroCard({
+        headline: 'Revenue Automation Builds',
+        subline: 'Twelve named systems, published fixed prices, a clock on every one',
+        headlineSize: 58,
+      }),
+  },
+  pricing: {
+    changed: false,
+    element: () =>
+      heroCard({
+        headline: 'Every Price We Charge, on One Page',
+        subline: 'The full ladder, with no call needed to get a number',
+        headlineSize: 58,
+      }),
+  },
+  'founding-clients': {
+    changed: false,
+    element: () =>
+      heroCard({
+        headline: 'Be the First in Your Industry',
+        subline: 'One founding client in each of six industries',
+        headlineSize: 58,
+      }),
+  },
+  'learn-index': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'LEARNING LIBRARY',
+        headline: 'Every Guide We Have Published, in One Place',
+        headlineSize: 52,
       }),
   },
 };

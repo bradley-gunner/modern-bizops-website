@@ -26,7 +26,7 @@ export default function ResultView({ result }) {
 
       {showRoi && (
         <section>
-          <h2 className="font-display text-2xl md:text-3xl text-navy mb-5 text-center">How I got there</h2>
+          <h2 className="font-display text-2xl md:text-3xl text-navy mb-5 text-center">How we got there</h2>
           <div>
             {result.roiLines.map((line) => (
               <RoiLine key={line.key} line={line} modelLabel={result.modelLabel} />
@@ -59,7 +59,7 @@ export default function ResultView({ result }) {
       )}
 
       <section>
-        <h2 className="font-display text-2xl md:text-3xl text-navy mb-5 text-center">What this scorecard can and cannot tell you</h2>
+        <h2 className="font-display text-2xl md:text-3xl text-navy mb-5 text-center">What this Scan can and cannot tell you</h2>
         <div className="bg-cream rounded-[14px] border border-border p-6 md:p-8">
           <p className="font-body text-text-mid leading-relaxed">{result.disclosure}</p>
         </div>

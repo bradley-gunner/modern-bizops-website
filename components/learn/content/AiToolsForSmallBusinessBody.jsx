@@ -59,14 +59,14 @@ export default function AiToolsForSmallBusinessBody() {
         the named tool is what keeps it paid.
       </p>
       <p>
-        I score this order of operations with the Revenue Operations Maturity Model,
+        I score this order of operations with the GTM Maturity Framework,
         a method I built for measuring the revenue competencies of a business across
         four stages: Reactive, Repeatable, Predictable, and Compounding. The tools
         below live at Predictable and Compounding. You cannot skip to them. If you
         want to see which stage each of your competencies is actually at before you
         spend a dollar, the{" "}
         <Link href="/scorecard" className={link}>
-          Revenue Maturity Score
+          AI Revenue Scan
         </Link>{" "}
         is free.
       </p>
@@ -320,8 +320,8 @@ export default function AiToolsForSmallBusinessBody() {
       <CtaCallout
         eyebrow="Before you buy a tool"
         heading="Which of your competencies are actually ready?"
-        body="Every job above rests on a competency in the Revenue Operations Maturity Model. The free Revenue Maturity Score measures where each of yours stands today, so you know which fundamentals are solid enough for a tool to accelerate and which would just scale the mess. A few minutes, fifteen questions."
-        buttonLabel="Get your Revenue Maturity Score"
+        body="Every job above rests on a competency in the GTM Maturity Framework. The free AI Revenue Scan measures where each of yours stands today, so you know which fundamentals are solid enough for a tool to accelerate and which would just scale the mess. A few minutes, fifteen questions."
+        buttonLabel="Get the Free Scan"
         href="/scorecard"
         ctaLocation="learn_ai_tools_scorecard"
       />
@@ -364,7 +364,7 @@ export default function AiToolsForSmallBusinessBody() {
         around it. My audit engine is software I had built that connects to a
         business&rsquo;s real systems through their APIs, pulls the actual data
         instead of asking anyone to fill out a survey, and uses AI to score where the
-        revenue operation truly stands against the maturity model. It drafts the
+        revenue operation truly stands against the maturity framework. It drafts the
         findings. I review and approve every one before it reaches a client, because
         AI reading real data is powerful and AI left unchecked is a liability. That
         is the same order I am teaching you here: connect to the real data, let AI do

@@ -69,18 +69,18 @@ export default function WhatIsRevOpsBody() {
         people who want that job.
       </p>
       <p>
-        You run a founder-led company. Your version of the question is different: at $3M
-        to $50M in revenue, do you need a RevOps hire at all? The honest answer is that
+        You run a founder-led company. Your version of the question is different: at
+        your size, do you need a RevOps hire at all? The honest answer is that
         you need the discipline before you need the headcount. The definitions, the
         lifecycle, the data hygiene, and the operating cadence are buildable with the
-        team you already have. Many companies in this band get there by promoting someone
+        team you already have. Many companies at this size get there by promoting someone
         internal who already knows the business and giving that person the{" "}
         <Link href="/revenue-operations-consulting" className="text-navy underline">
           structure and guidance to build it
         </Link>
         , rather than adding a $150K+ specialist to interpret a
-        system that does not exist yet. I have spent 15 years doing this work from the
-        inside, carrying a number while architecting the systems that made the number
+        system that does not exist yet. I have spent over a decade doing this work from
+        the inside, carrying a number while architecting the systems that made the number
         easier to hit, at VC-backed startups and as the COO of an agency. The pattern I
         have seen repeatedly: the companies that hire the title before building the
         discipline end up paying a salary to document their chaos.
@@ -96,8 +96,8 @@ export default function WhatIsRevOpsBody() {
       </p>
       <p>
         Two or three misses means your revenue depends on your personal effort and
-        judgment rather than on a system. In the Revenue Operations Maturity Model, a
-        method I built for measuring the RevOps competencies of a business, that is
+        judgment rather than on a system. In the GTM Maturity Framework, a
+        method I built for measuring the go-to-market competencies of a business, that is
         called{" "}
         <Link
           href="/learn/revenue-operations-maturity-stage-1-reactive"

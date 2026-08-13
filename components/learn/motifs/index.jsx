@@ -39,7 +39,7 @@ export function StageChevrons({ highlightStage = null }) {
   return (
     <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img">
       <title>
-        The four stages of the Revenue Operations Maturity Model as a forward
+        The four stages of the GTM Maturity Framework as a forward
         progression
       </title>
       <Defs id="motif-stages" from="#244E88" to="#2468A8" />

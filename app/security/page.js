@@ -6,6 +6,7 @@ export const metadata = {
   title: "Security and Data Handling Overview",
   description:
     "How Modern BizOps accesses, protects, and handles your data.",
+  alternates: { canonical: "https://modernbizops.com/security" },
   robots: "noindex, nofollow",
 };
 
@@ -52,28 +53,28 @@ export default function SecurityPage() {
                 confidentiality duties for attorneys and accountants) require
                 you to vet any vendor that touches your clients&apos; data
                 before you connect it. This document is built to make that
-                vetting fast. It tells you what I access, where it goes, who
+                vetting fast. It tells you what we access, where it goes, who
                 else touches it, and what happens if something goes wrong.
               </p>
 
               <h2>The short version</h2>
               <p>
-                I connect to your business systems on a{" "}
+                We connect to your business systems on a{" "}
                 <strong>read-only</strong> basis wherever the integration
-                allows. I use what I pull to build your audit and
-                recommendations, and nothing else. I do not sell it, I do not
-                use it to train AI models, and I delete or return it when we are
+                allows. We use what we pull to build your audit and
+                recommendations, and nothing else. We do not sell it, we do not
+                use it to train AI models, and we delete or return it when we are
                 done. Everything below is the detail behind those four
                 sentences.
               </p>
 
-              <h2>1. How I access your systems</h2>
+              <h2>1. How we access your systems</h2>
               <p>
                 When you connect a tool, you authorize access through that
-                provider&apos;s standard OAuth flow. I never see or store your
+                provider&apos;s standard OAuth flow. We never see or store your
                 passwords for those systems. Where the provider offers read-only
-                scopes, I request read-only, so I can analyze your data but
-                cannot change anything in your systems. You can revoke my access
+                scopes, we request read-only, so we can analyze your data but
+                cannot change anything in your systems. You can revoke our access
                 at any time from your own account with that provider, or by
                 disconnecting the integration in the portal.
               </p>
@@ -83,9 +84,9 @@ export default function SecurityPage() {
                 used only for your audit, stored securely, deleted on request.
               </p>
 
-              <h2>2. What data I actually pull</h2>
+              <h2>2. What data we actually pull</h2>
               <p>
-                I pull only what the audit needs. The exact fields depend on
+                We pull only what the audit needs. The exact fields depend on
                 which systems you connect. As a guide:
               </p>
               <div className="mb-6 overflow-x-auto">
@@ -93,8 +94,8 @@ export default function SecurityPage() {
                   <thead>
                     <tr>
                       <th className={th}>System type</th>
-                      <th className={th}>What I read</th>
-                      <th className={th}>What I never touch</th>
+                      <th className={th}>What we read</th>
+                      <th className={th}>What we never touch</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -128,7 +129,7 @@ export default function SecurityPage() {
                         Revenue, invoice, and margin figures
                       </td>
                       <td className={td}>
-                        Bank credentials; I see reports, not your bank login
+                        Bank credentials; we see reports, not your bank login
                       </td>
                     </tr>
                     <tr>
@@ -146,7 +147,7 @@ export default function SecurityPage() {
               <p>
                 If a system would expose your own clients&apos; nonpublic
                 personal information, you can scope the connection down, use a
-                limited account, or skip that integration for a trial. I would
+                limited account, or skip that integration for a trial. We would
                 rather analyze less than hold data you are not comfortable
                 sharing.
               </p>
@@ -164,8 +165,8 @@ export default function SecurityPage() {
                   Platform runs on Render, which encrypts stored data at rest.
                 </li>
                 <li>
-                  <strong>Access control:</strong> On my side, access is limited
-                  to me. I do not have a team browsing your data. Access to
+                  <strong>Access control:</strong> On our side, access is limited
+                  to our founder. Nobody else browses your data. Access to
                   credentials and connected-system tokens is restricted and
                   stored securely.
                 </li>
@@ -182,8 +183,8 @@ export default function SecurityPage() {
 
               <h2>4. Subprocessors (who else touches the data)</h2>
               <p>
-                I use a small set of vendors to run the Platform. Each is bound
-                by terms at least as protective as the commitments in my DPA.
+                We use a small set of vendors to run the Platform. Each is bound
+                by terms at least as protective as the commitments in our DPA.
               </p>
               <div className="mb-6 overflow-x-auto">
                 <table className="w-full border-collapse text-sm">
@@ -235,52 +236,52 @@ export default function SecurityPage() {
                       <td className={td}>Stripe</td>
                       <td className={td}>Payment processing</td>
                       <td className={td}>
-                        Handles card payments; I do not store full card numbers
+                        Handles card payments; we do not store full card numbers
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <p>
-                I keep this list current and give notice before adding a new
+                We keep this list current and give notice before adding a new
                 subprocessor that would process your data.
               </p>
 
               <h2>5. Artificial intelligence</h2>
               <p>
                 Part of the audit uses AI to analyze your data and draft
-                recommendations. I send data to the AI providers above through
+                recommendations. We send data to the AI providers above through
                 their <strong>business or enterprise API tiers</strong>. Under
                 those tiers&apos; terms, your data is{" "}
                 <strong>not used to train their models</strong>, and they may
-                use it only to return results to me. I do not feed your data
-                into consumer AI tools, and I do not use it to improve any
+                use it only to return results to us. We do not feed your data
+                into consumer AI tools, and we do not use it to improve any
                 model.
               </p>
 
               <h2>6. Data retention and deletion</h2>
               <p>
-                I keep your data only as long as I need it to deliver your
-                engagement. When we finish, or earlier if you ask, I return or
+                We keep your data only as long as we need it to deliver your
+                engagement. When we finish, or earlier if you ask, we return or
                 delete your data within 30 days, your choice. The only
                 exceptions are routine backups (which roll off on their normal
-                cycle) and anything I am legally required to keep. I will
+                cycle) and anything we are legally required to keep. We will
                 confirm deletion in writing if you want it.
               </p>
 
               <h2>7. If something goes wrong</h2>
               <p>
-                If I ever discover a security incident affecting your data, I
+                If we ever discover a security incident affecting your data, we
                 will tell you{" "}
-                <strong>without undue delay after I become aware of it</strong>.
-                I will tell you what happened, what data was involved, and what
-                I am doing about it, and I will cooperate with your response. I
-                aim to notify you quickly enough to help you meet your own
+                <strong>without undue delay after we become aware of it</strong>.
+                We will tell you what happened, what data was involved, and what
+                we are doing about it, and we will cooperate with your response.
+                We aim to notify you quickly enough to help you meet your own
                 notification deadlines, including the customer-notification
                 clock under SEC Regulation S-P.
               </p>
 
-              <h2>8. What I commit to in writing</h2>
+              <h2>8. What we commit to in writing</h2>
               <p>
                 These practices are not just marketing. The binding versions
                 live in:
@@ -298,7 +299,7 @@ export default function SecurityPage() {
                   <a href="/dpa" className="text-amber hover:underline">
                     https://modernbizops.com/dpa
                   </a>
-                  ). How I handle data that contains personal information, with
+                  ). How we handle data that contains personal information, with
                   the GLBA/Reg S-P, CCPA/CPRA, and confidentiality commitments
                   spelled out.
                 </li>
@@ -307,12 +308,12 @@ export default function SecurityPage() {
                   <a href="/privacy" className="text-amber hover:underline">
                     https://modernbizops.com/privacy
                   </a>
-                  ). How I handle personal information generally.
+                  ). How we handle personal information generally.
                 </li>
               </ul>
               <p>
                 If your compliance team has a security questionnaire, send it
-                over. I would rather answer twenty questions up front than have
+                over. We would rather answer twenty questions up front than have
                 you hesitate to connect the systems that make the audit worth
                 doing.
               </p>

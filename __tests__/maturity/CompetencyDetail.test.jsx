@@ -9,7 +9,7 @@ describe("CompetencyDetail", () => {
   it("renders the data tools, data points, and questions", () => {
     render(<CompetencyDetail competency={c} />);
     expect(screen.getByText("The data")).toBeInTheDocument();
-    expect(screen.getByText("The questions I ask")).toBeInTheDocument();
+    expect(screen.getByText("The questions we ask")).toBeInTheDocument();
     expect(screen.getByText(/HubSpot/)).toBeInTheDocument();
     expect(screen.getByText(c.questions.listenFor)).toBeInTheDocument();
   });

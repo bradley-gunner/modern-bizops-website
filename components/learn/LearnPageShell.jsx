@@ -39,8 +39,10 @@ export default function LearnPageShell({ entry, children }) {
           <nav aria-label="Breadcrumb" className="mb-5 text-[13px] text-white/50">
             {entry.breadcrumb.map((b, i) => {
               const isLast = i === entry.breadcrumb.length - 1;
-              // noLink crumbs (e.g. "Learn", which has no index route yet)
-              // render as plain text so the trail never links to a 404.
+              // noLink crumbs render as plain text so the trail never links to
+              // a 404. No entry sets the flag today (the Learn crumb dropped it
+              // when /learn shipped), but the escape hatch stays for the next
+              // schema-only path that has no route behind it.
               return (
                 <span key={b.url}>
                   {i > 0 && <span className="mx-1.5">/</span>}

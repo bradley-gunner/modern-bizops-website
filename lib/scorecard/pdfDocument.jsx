@@ -439,7 +439,7 @@ function ResultDocument({ result, meta, questions }) {
 
         {result.roiLines.map((line, i) => (
           <View key={line.key} wrap={false}>
-            {i === 0 && <Text style={styles.h2}>How I got there</Text>}
+            {i === 0 && <Text style={styles.h2}>How we got there</Text>}
             <View style={styles.card}>
               <Text style={styles.roiTitle}>{line.title}</Text>
               <Text style={styles.meta}>Your number: {line.clientValue.display}</Text>
@@ -497,7 +497,7 @@ function ResultDocument({ result, meta, questions }) {
         )}
 
         <View wrap={false}>
-          <Text style={styles.h2}>What this scorecard can and cannot tell you</Text>
+          <Text style={styles.h2}>What this Scan can and cannot tell you</Text>
           <Text style={styles.p}>{result.disclosure}</Text>
         </View>
 
@@ -519,7 +519,7 @@ function ResultDocument({ result, meta, questions }) {
         <QASection questions={questions} />
 
         <View style={styles.footer} fixed>
-          <Text style={styles.footerText}>Modern BizOps Revenue Maturity Scorecard</Text>
+          <Text style={styles.footerText}>Modern BizOps AI Revenue Scan</Text>
           <Text style={styles.footerText}>{result.generatedAt.slice(0, 10)}</Text>
         </View>
       </Page>

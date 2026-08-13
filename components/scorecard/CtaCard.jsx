@@ -1,5 +1,8 @@
-import Link from 'next/link';
+import Button from '@/components/ui/Button';
 
+// The results-screen bridge to the paid next rung. It goes through Button (not a
+// bare Link) so the click fires cta_click: Button only tracks hrefs that are
+// keys in its own CTA_DESTINATIONS map, and /ai-readiness-assessment is one.
 export default function CtaCard({ cta }) {
   return (
     <div className="bg-navy text-cream rounded-[16px] p-8 md:p-10">
@@ -16,12 +19,9 @@ export default function CtaCard({ cta }) {
       {cta.focusLine && (
         <p className="font-body text-cream/90 mb-6">{cta.focusLine}</p>
       )}
-      <Link
-        href={cta.destination}
-        className="inline-flex items-center justify-center font-body font-semibold bg-amber text-white hover:bg-amber-light transition-colors duration-200 rounded-full px-8 py-3"
-      >
+      <Button href={cta.destination} ctaLocation="scorecard_result_foot">
         {cta.buttonLabel}
-      </Link>
+      </Button>
     </div>
   );
 }

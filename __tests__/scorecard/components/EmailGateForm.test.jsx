@@ -29,12 +29,12 @@ describe('EmailGateForm', () => {
   it('body does not promise an emailed PDF', () => {
     render(<EmailGateForm onSubmit={() => {}} />);
     expect(screen.queryByText(/PDF copy/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/full scorecard is on screen the moment you submit/i)).toBeInTheDocument();
+    expect(screen.getByText(/full Scan result is on screen the moment you submit/i)).toBeInTheDocument();
   });
 
   it('trust footer renders with no em-dash and references data deletion', () => {
     render(<EmailGateForm onSubmit={() => {}} />);
-    const footer = screen.getByText(/I will follow up with one personal note/i);
+    const footer = screen.getByText(/We will follow up with one personal note/i);
     expect(footer).toBeInTheDocument();
     expect(footer.textContent).not.toMatch(/—/);
     expect(footer.textContent).toMatch(/deleted at any time/i);

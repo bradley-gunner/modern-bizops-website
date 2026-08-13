@@ -23,36 +23,43 @@ const jost = Jost({
   preload: true,
 });
 
+// The site-wide fallbacks. `default` and the three descriptions below are what
+// a page inherits when it sets none of its own, and they described the retired
+// offer until 2026-08-12: "Revenue Operations Consulting and Coaching", "RevOps
+// coaching", and the "$3M to $50M" band that moved into ICP qualification and
+// off the public surfaces. The template is untouched. Every page that renders
+// its own title still gets " | Modern BizOps" appended unless it opts out.
+const SITE_TITLE = "Modern BizOps | AI Automation for B2B Go-to-Market";
+const SITE_DESCRIPTION =
+  "The AI automation partner for B2B go-to-market: more leads, more booked calls, more closed deals, and a team with less busywork. Fixed published prices.";
+
 export const metadata = {
   title: {
-    default: "Modern BizOps | Revenue Operations Consulting and Coaching for Founder-Led B2B",
+    default: SITE_TITLE,
     template: "%s | Modern BizOps",
   },
-  description:
-    "Making marketing, sales, and service one machine. Software-assisted RevOps coaching for founder-led B2B companies from $3M to $50M. More money, less chaos.",
+  description: SITE_DESCRIPTION,
   metadataBase: new URL("https://modernbizops.com"),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://modernbizops.com",
     siteName: "Modern BizOps",
-    title: "Modern BizOps | Revenue Operations Consulting and Coaching for Founder-Led B2B",
-    description:
-      "Making marketing, sales, and service one machine. Software-assisted RevOps coaching for founder-led B2B companies from $3M to $50M. More money, less chaos.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: [
       {
         url: "https://modernbizops.com/og/og-homepage.png",
         width: 1200,
         height: 630,
-        alt: "Modern BizOps - Grow Your Revenue Without Growing Your Headcount",
+        alt: "Modern BizOps, the AI automation partner for B2B go-to-market",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Modern BizOps | Revenue Operations Consulting and Coaching for Founder-Led B2B",
-    description:
-      "Making marketing, sales, and service one machine. Software-assisted RevOps coaching for founder-led B2B companies from $3M to $50M.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: ["https://modernbizops.com/og/og-homepage.png"],
   },
   robots: {

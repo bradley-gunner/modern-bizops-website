@@ -55,7 +55,7 @@ export default function CustomerLifecycleMarketingBody() {
         Cart-abandonment emails, loyalty points, birthday discounts, win-back flows for
         shoppers who have not bought in ninety days. That is a real discipline, and it is
         built for a direct-to-consumer brand with thousands of transactions. It is not
-        built for you. A founder-led B2B company between $3M and $50M does not have a
+        built for you. A founder-led B2B company does not have a
         lifecycle of shoppers. It has a small number of high-value accounts, each one worth
         real money, each one moving through a longer and more human relationship than any
         email flow can carry. Lifecycle marketing absolutely applies to your business. The
@@ -181,7 +181,7 @@ export default function CustomerLifecycleMarketingBody() {
 
       <h2 className={h2}>Where lifecycle marketing sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, a method I built for measuring the RevOps
+        In the GTM Maturity Framework, a method I built for measuring the go-to-market
         competencies of a business, the customer lifecycle is a design problem before it is
         a marketing problem. At the bottom, there is no defined lifecycle: the sale happens,
         and what comes after is improvised per account. The first real step is mapping the
@@ -205,7 +205,7 @@ export default function CustomerLifecycleMarketingBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          Stage 1 of the maturity model
+          Stage 1 of the maturity framework
         </Link>
         , and the retention system that lives inside the later stages is your{" "}
         <Link href="/learn/customer-retention-strategy" className="text-navy underline">

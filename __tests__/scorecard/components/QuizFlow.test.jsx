@@ -118,3 +118,108 @@ describe('QuizFlow sessionStorage persistence', () => {
     expect(screen.getByText(/Which best describes how your business sells/)).toBeInTheDocument();
   });
 });
+
+// The revenue bands were realigned to the /book set, retiring 3m_7m, 7m_15m and
+// over_15m. A session persisted before that deploy holds a q1 value no option
+// matches, and every ROI generator guards on `if (!revenue) return null`, so
+// resuming onto it would hand the visitor a no-gap result with nothing logged
+// anywhere. These cover the discard path that prevents it.
+describe('QuizFlow restore discards answers on retired option values', () => {
+  const RETIRED_BAND = '7m_15m';
+
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  it('restarts an in-progress session whose stored revenue band was retired', () => {
+    sessionStorage.setItem(
+      'scorecard:state',
+      JSON.stringify({
+        answers: { q1: { value: RETIRED_BAND }, q2: { value: 'B2B_SAAS' } },
+        step: 'questions',
+        currentIndex: 2,
+      })
+    );
+    render(<QuizFlow utms={{}} />);
+    // Back at q1, not resumed at index 2, and nothing is pre-selected.
+    expect(screen.getByText('Annual revenue')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /next/i })).toBeDisabled();
+    for (const radio of screen.getAllByRole('radio')) {
+      expect(radio).not.toBeChecked();
+    }
+  });
+
+  it('does not offer the retired band as an option after the restart', () => {
+    sessionStorage.setItem(
+      'scorecard:state',
+      JSON.stringify({
+        answers: { q1: { value: RETIRED_BAND } },
+        step: 'questions',
+        currentIndex: 0,
+      })
+    );
+    render(<QuizFlow utms={{}} />);
+    const values = screen.getAllByRole('radio').map((r) => r.getAttribute('value'));
+    expect(values).not.toContain(RETIRED_BAND);
+    expect(values).toEqual(['under_1m', '1m_3m', '3m_5m', '5m_15m', '15m_50m', '50m_plus']);
+  });
+
+  it('keeps an already-computed result, which does not depend on the stale answer', () => {
+    const result = {
+      headline: { lead: 'Your operating system is leaving between $1M and $2M on the table this year.', subline: 'subline', floorDollars: 1_000_000, medianDollars: 2_000_000, modelLabel: 'B2B SaaS' },
+      roiLines: [],
+      comparisons: [],
+      placement: { stage: 1, name: 'Reactive', descriptor: 'desc' },
+      nextStage: null,
+      competencyScores: [],
+      binding: null,
+      brightSpots: [],
+      disclosure: 'disclosure',
+      cta: {
+        destination: '/ai-readiness-assessment',
+        heading: 'The AI Revenue Audit',
+        cardLines: ['a', 'b', 'c', 'd'],
+        buttonLabel: 'See the AI Revenue Audit',
+      },
+      modelLabel: 'B2B SaaS',
+      benchmarkVersion: '1.2',
+      generatedAt: 'now',
+    };
+    sessionStorage.setItem(
+      'scorecard:state',
+      JSON.stringify({ answers: { q1: { value: RETIRED_BAND } }, step: 'result', currentIndex: 14, result })
+    );
+    render(<QuizFlow utms={{}} />);
+    expect(screen.getByText(/leaving between \$1M and \$2M/i)).toBeInTheDocument();
+    expect(screen.queryByText('Annual revenue')).not.toBeInTheDocument();
+  });
+
+  it('still drops an answer to a question the current answers hide', () => {
+    // q15 (churn) is hidden for B2B_PRODUCT. The pre-existing prune behaviour
+    // has to survive the widening to option values.
+    sessionStorage.setItem(
+      'scorecard:state',
+      JSON.stringify({
+        answers: { q1: { value: 'under_1m' }, q2: { value: 'B2B_PRODUCT' }, q15: { value: 'over_30' } },
+        step: 'questions',
+        currentIndex: 2,
+      })
+    );
+    render(<QuizFlow utms={{}} />);
+    // q15 was dropped, so this counts as a discard and the quiz restarts.
+    expect(screen.getByText('Annual revenue')).toBeInTheDocument();
+  });
+
+  it('resumes untouched when every stored answer is still live', () => {
+    sessionStorage.setItem(
+      'scorecard:state',
+      JSON.stringify({
+        answers: { q1: { value: '5m_15m' }, q2: { value: 'B2B_SAAS' } },
+        step: 'questions',
+        currentIndex: 2,
+      })
+    );
+    render(<QuizFlow utms={{}} />);
+    expect(screen.getByText('Total team size')).toBeInTheDocument();
+  });
+});

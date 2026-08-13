@@ -5,7 +5,9 @@ import { buildResult } from '@/lib/scorecard/resultRender';
 
 function ans(overrides = {}) {
   return {
-    q1: { value: '7m_15m' }, q2: { value: 'PROFESSIONAL_SERVICES' }, q3: { value: '51_75' },
+    // q3 is 38, so revenue per employee ($10M / 38 = $263K) clears the
+    // professional-services median and the no-gap fixtures stay no-gap.
+    q1: { value: '5m_15m' }, q2: { value: 'PROFESSIONAL_SERVICES' }, q3: { value: '26_50' },
     q4:  { value: 'A', score: 1 }, q5: { value: 'B', score: 2 }, q6: { value: 'A', score: 1 },
     q7:  { value: 'B', score: 2 }, q8: { value: 'B', score: 2 }, q9: { value: 'B', score: 2 },
     q10: { value: 'B', score: 2 }, q11: { value: 'A', score: 1 }, q12: { value: 'A', score: 1 },
@@ -21,10 +23,10 @@ describe('ResultView', () => {
     const headings = Array.from(container.querySelectorAll('h2')).map((h) => h.textContent);
     expect(headings).toEqual([
       'How you stack up',
-      'How I got there',
+      'How we got there',
       'Why this is happening',
       'Your competency map',
-      'What this scorecard can and cannot tell you',
+      'What this Scan can and cannot tell you',
     ]);
   });
 
@@ -67,10 +69,12 @@ describe('ResultView', () => {
     expect(screen.getByText(/hold up against/)).toBeInTheDocument();
   });
 
-  it('CTA link points to /watch', () => {
+  it('CTA link points to the paid next rung, the AI Revenue Audit', () => {
     const result = buildResult(ans());
     render(<ResultView result={result} />);
-    expect(screen.getByRole('link', { name: /schedule the call/i }).getAttribute('href')).toBe('/watch');
+    expect(
+      screen.getByRole('link', { name: /see the ai revenue audit/i }).getAttribute('href')
+    ).toBe('/ai-readiness-assessment');
   });
 
   it('renders the loss headline lead when there are dollar gaps', () => {

@@ -135,7 +135,7 @@ export default function NetRevenueRetentionBody() {
 
       <h2 className={h2}>Where NRR sits in revenue operations maturity</h2>
       <p>
-        In the Revenue Operations Maturity Model, NRR management is a Stage 3
+        In the GTM Maturity Framework, NRR management is a Stage 3
         competency, which tells you something in itself: most founder-led businesses
         are not there yet, and that is normal. The progression looks like this. At the
         bottom, NRR is simply not calculated; existing-customer revenue is not even
@@ -146,7 +146,7 @@ export default function NetRevenueRetentionBody() {
         year over year without a single new logo. You do not need the top today. You
         need to know your number and which driver is dragging it.
       </p>
-      {/* This link points at the Stage 1 hub as the maturity model's entry
+      {/* This link points at the Stage 1 hub as the maturity framework's entry
           point: no Stage 3 hub exists yet. Re-point it if a Stage 3 hub ships,
           per the internal-links summary. */}
       <p>
@@ -158,7 +158,7 @@ export default function NetRevenueRetentionBody() {
           href="/learn/revenue-operations-maturity-stage-1-reactive"
           className="text-navy underline"
         >
-          maturity model overview
+          maturity framework overview
         </Link>{" "}
         shows where that foundation starts.
       </p>

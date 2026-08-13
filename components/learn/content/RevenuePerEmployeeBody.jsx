@@ -139,8 +139,8 @@ export default function RevenuePerEmployeeBody() {
           Lever three: hire against expected revenue, not against workload feel.
         </strong>{" "}
         Mature operators decide headcount by asking what revenue the next hire should
-        produce and how they will know. In the Revenue Operations Maturity Model, a
-        method I built for measuring a business&rsquo;s RevOps competencies, this is a
+        produce and how they will know. In the GTM Maturity Framework, a
+        method I built for measuring a business&rsquo;s go-to-market competencies, this is a
         Stage 3 competency: revenue per employee tracked monthly, reviewed by function,
         and used as the lens for every headcount decision. Most founder-led companies are
         not there yet, and that is normal. The entry point is simply calculating the
@@ -158,7 +158,7 @@ export default function RevenuePerEmployeeBody() {
         The dollar version of this analysis is the one worth having. Your revenue per
         employee, against your business model&rsquo;s benchmark, converts to a dollar
         gap: the revenue your current team would produce at peer efficiency. Finding that
-        gap is exactly what the Revenue Growth Scorecard computes, against the named
+        gap is exactly what the AI Revenue Scan puts in front of you, against the named
         public benchmarks above, keyed to your business model rather than a generic
         average.
       </p>

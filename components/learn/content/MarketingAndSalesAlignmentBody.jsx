@@ -143,8 +143,8 @@ export default function MarketingAndSalesAlignmentBody() {
         The SLA works when violations are visible. Response time is a CRM report, not
         an opinion. Both sides review the same dashboard on a regular cadence, and the
         meeting produces changes: marketing adjusts targeting from reason-code data,
-        sales adjusts criteria from what marketing is seeing upstream. In the Revenue
-        Operations Maturity Model this is the marketing-sales feedback loop, and the
+        sales adjusts criteria from what marketing is seeing upstream. In the GTM
+        Maturity Framework this is the marketing-sales feedback loop, and the
         test for whether yours exists is one question: when did marketing last change
         something specific because of what sales reported? If the answer is
         &ldquo;never&rdquo; or &ldquo;at the offsite,&rdquo; you have meetings, not a
@@ -153,7 +153,7 @@ export default function MarketingAndSalesAlignmentBody() {
 
       <h2 className={h2}>Where alignment sits in revenue operations maturity</h2>
       <p>
-        These three pieces are Stage 2 competencies in the maturity model: shared
+        These three pieces are Stage 2 competencies in the maturity framework: shared
         revenue definitions and SLAs, the lead handoff process, and the marketing-sales
         feedback loop. That placement is worth noticing. Alignment is not an advanced
         capability for companies with a RevOps team, and it is also not step one. It

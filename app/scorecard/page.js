@@ -2,32 +2,38 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ScorecardExperience from '@/components/scorecard/ScorecardExperience';
 
+// The offer name only. The route stays /scorecard because the page has link
+// equity and inbound links, and the Scan is a brand surface, not a search one.
+const TITLE = 'AI Revenue Scan: Free 5-Minute Diagnostic';
+const DESCRIPTION =
+  'Fifteen questions, about five minutes, no call. Get a directional read on where your revenue engine stands and the one gap to close first.';
+
 export const metadata = {
-  // The root layout appends "| Modern BizOps" via its title template.
-  title: 'Free Revenue Maturity Score: Benchmark Your Revenue Per Employee',
-  description:
-    'In five minutes, see the dollar gap between you and peers in your business model on revenue per employee, sales cycle velocity, and retention. Fifteen questions, benchmarked against published industry data.',
+  // The root layout appends "| Modern BizOps" via its title template, so the
+  // bare 41 characters here render at 57.
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: 'https://modernbizops.com/scorecard',
   },
   openGraph: {
-    title: 'Free Revenue Maturity Score: Benchmark Your Revenue Per Employee',
+    title: TITLE,
     description:
-      'Find the dollar amount your operating system is leaving on the table this year. Peer-anchored against your business model.',
+      'The free first rung: a directional read on where your revenue engine stands, benchmarked against peers in your business model.',
     url: 'https://modernbizops.com/scorecard',
     images: [
       {
         url: 'https://modernbizops.com/og/og-scorecard.png',
         width: 1200,
         height: 630,
-        alt: 'Modern BizOps Maturity Scorecard',
+        alt: 'Modern BizOps AI Revenue Scan',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Revenue Maturity Score: Benchmark Your Revenue Per Employee',
-    description: 'Fifteen questions. Peer-anchored ROI. The one gap I would fix first.',
+    title: TITLE,
+    description: 'Fifteen questions. Peer-anchored benchmarks. The one gap we would close first.',
     images: ['https://modernbizops.com/og/og-scorecard.png'],
   },
 };

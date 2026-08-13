@@ -133,7 +133,7 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
                 Thanks{form.firstName ? `, ${form.firstName}` : ""}!
               </p>
               <p className="font-body text-text-mid mt-1">
-                That helps me walk into our call with real context on your business.
+                That helps us walk into our call with real context on your business.
               </p>
             </div>
           </div>
@@ -175,10 +175,10 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
         </div>
         <div>
           <h2 className="font-display text-2xl font-semibold text-navy mb-2">
-            Help me tailor your call
+            Help us tailor your call
           </h2>
           <p className="font-body text-text-mid mb-6">
-            A few quick questions so I come prepared with insights specific to
+            A few quick questions so we come prepared with insights specific to
             your business. Takes about 2 minutes.
           </p>
         </div>
@@ -241,7 +241,7 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
               onChange={handleChange}
               required
               rows={3}
-              placeholder="In 2\u20133 sentences, tell me what\u2019s holding your growth back..."
+              placeholder="In 2\u20133 sentences, tell us what\u2019s holding your growth back..."
               className={`${inputClasses} resize-none`}
             />
           </div>

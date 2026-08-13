@@ -5,7 +5,7 @@ import { getQuestionsFor } from '@/lib/scorecard/questions';
 
 function answers() {
   return {
-    q1: { value: '7m_15m' },
+    q1: { value: '5m_15m' },
     q2: { value: 'PROFESSIONAL_SERVICES' },
     q3: { value: '51_75' },
     q4: { value: 'A', score: 1 }, q5: { value: 'B', score: 2 }, q6: { value: 'A', score: 1 },
@@ -48,7 +48,7 @@ describe('buildScorecardExport', () => {
     expect(exp.businessModel).toEqual({ key: 'PROFESSIONAL_SERVICES', label: 'professional services' });
 
     // Profile bands.
-    expect(exp.profile.revenueBand).toEqual({ value: '7m_15m', label: '$7M to $15M' });
+    expect(exp.profile.revenueBand).toEqual({ value: '5m_15m', label: '$5M to $15M' });
     expect(exp.profile.teamSize.label).toBe('51 to 75');
     expect(exp.profile.averageDealValue.label).toBe('$25K to $100K');
 

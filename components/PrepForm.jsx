@@ -218,7 +218,7 @@ function PrepFormInner() {
                 {form.firstName ? `Thanks, ${form.firstName}.` : "Thanks."}
               </h1>
               <p className="font-body text-text-primary text-lg leading-relaxed">
-                Your responses are in. I&apos;ll review them before our call
+                Your responses are in. We will review them before our call
                 so we can spend the 45 minutes on the real conversation. Not
                 on catching up.
               </p>
@@ -256,7 +256,7 @@ function PrepFormInner() {
                   In the meantime
                 </h2>
                 <p>
-                  If you want to see how I think about operational problems,
+                  If you want to see how our founder thinks about operational problems,
                   there&apos;s more on{" "}
                   <a
                     href="https://www.linkedin.com/in/bradleydewet"
@@ -289,9 +289,9 @@ function PrepFormInner() {
           </h1>
           <p className="font-body text-text-mid text-lg mb-2">
             {form.firstName && <>Hi {form.firstName}. </>}
-            Eleven questions, about five minutes. These help me walk into our
+            Eleven questions, about five minutes. These help us walk into our
             call with a real point of view on your business. So we spend the
-            time on the conversation, not on me catching up.
+            time on the conversation, not on us catching up.
           </p>
           <p className="font-body text-text-mid text-base mb-10">
             Be as specific as you can. If a question doesn&apos;t apply, or
@@ -453,7 +453,7 @@ function PrepFormInner() {
             <SectionHeader
               num="02"
               title="Your Team and Systems"
-              subtitle="Tells me what we'd actually be working with."
+              subtitle="Tells us what we'd actually be working with."
             />
 
             <div>
@@ -488,7 +488,7 @@ function PrepFormInner() {
                 required
                 hint="Who owns sales, marketing, customer success today? Where are the gaps?"
               >
-                Who owns revenue-related functions? Give me the rough org.
+                Who owns revenue-related functions? Give us the rough org.
               </FieldLabel>
               <textarea
                 name="revenueTeamStructure"
@@ -547,7 +547,7 @@ function PrepFormInner() {
             <div>
               <FieldLabel hint="What was the best part of it? What got in the way of it sticking?">
                 If you&apos;ve worked with a consultant or coach before on
-                this, tell me more about that experience.
+                this, tell us more about that experience.
               </FieldLabel>
               <textarea
                 name="priorConsultantDetail"
@@ -583,7 +583,7 @@ function PrepFormInner() {
             <SectionHeader
               num="04"
               title="About Our Call"
-              subtitle="Two quick things so I arrive prepared."
+              subtitle="Two quick things so we arrive prepared."
             />
 
             <div>
@@ -600,8 +600,8 @@ function PrepFormInner() {
             </div>
 
             <div>
-              <FieldLabel hint="Context, constraints, things you'd rather I hear from you than stumble into on the call.">
-                Anything else I should know before we talk?
+              <FieldLabel hint="Context, constraints, things you'd rather we hear from you than stumble into on the call.">
+                Anything else we should know before we talk?
               </FieldLabel>
               <textarea
                 name="prepOther"

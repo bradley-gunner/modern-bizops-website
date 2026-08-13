@@ -7,7 +7,7 @@ export default function CompetencyDetail({ competency: c }) {
         {c.definition}
       </p>
       <p className="mt-4 text-sm text-text-mid">
-        I score every competency 1 to 5, and here is exactly what I look at.
+        We score every competency 1 to 5, and here is exactly what we look at.
       </p>
       <div className="mt-6 grid md:grid-cols-2 gap-5">
         <div className="bg-cream border border-border rounded-2xl p-6">
@@ -15,7 +15,7 @@ export default function CompetencyDetail({ competency: c }) {
             The data
           </h4>
           <p className="text-sm text-text-mid mb-3">
-            The tools I connect to, and what I read inside them:
+            The tools we connect to, and what we read inside them:
           </p>
           <div className="flex flex-wrap items-center gap-2 mb-4">
             {c.data.tools.map((t) => (
@@ -41,7 +41,7 @@ export default function CompetencyDetail({ competency: c }) {
         </div>
         <div className="bg-cream border border-border rounded-2xl p-6">
           <h4 className="font-body font-semibold text-amber text-sm tracking-wide uppercase mb-3">
-            The questions I ask
+            The questions we ask
           </h4>
           <ul className="space-y-3">
             {c.questions.ask.map((q, i) => (
@@ -51,7 +51,7 @@ export default function CompetencyDetail({ competency: c }) {
             ))}
           </ul>
           <p className="mt-4 text-sm text-text-mid bg-white border-l-[3px] border-amber-light rounded-r-lg px-3 py-2">
-            <span className="font-semibold text-navy">What I listen for: </span>
+            <span className="font-semibold text-navy">What we listen for: </span>
             {c.questions.listenFor}
           </p>
         </div>

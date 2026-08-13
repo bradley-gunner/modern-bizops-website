@@ -3,26 +3,26 @@ import { render, screen } from '@testing-library/react';
 import CtaCard from '@/components/scorecard/CtaCard';
 
 const cta = {
-  destination: '/watch',
-  heading: 'The Modern BizOps Maturity Assessment',
+  destination: '/ai-readiness-assessment',
+  heading: 'The AI Revenue Audit',
   cardLines: [
-    'Automated analysis of your CRM and revenue tools',
-    'All 44 competencies scored, not just nine',
-    'A 90-minute working session with me to walk you through it',
-    'A 12-week operational roadmap mapped to your stated business outcome',
+    'A connected read of your CRM and revenue tools, computed rather than self-reported',
+    'More than fifty competencies scored, against the nine this Scan asked you about',
+    'A ranked list of what to automate first',
+    '$2,500, and it credits 100 percent toward your first build',
   ],
-  buttonLabel: 'Schedule the call',
+  buttonLabel: 'See the AI Revenue Audit',
 };
 
 describe('CtaCard', () => {
-  it('renders heading, four bullet lines, and a link to /watch with no UTMs', () => {
+  it('renders heading, four bullet lines, and a link to the Audit with no UTMs', () => {
     render(<CtaCard cta={cta} />);
     expect(screen.getByText(cta.heading)).toBeInTheDocument();
     for (const line of cta.cardLines) {
       expect(screen.getByText(line)).toBeInTheDocument();
     }
-    const link = screen.getByRole('link', { name: /schedule the call/i });
-    expect(link.getAttribute('href')).toBe('/watch');
+    const link = screen.getByRole('link', { name: /see the ai revenue audit/i });
+    expect(link.getAttribute('href')).toBe('/ai-readiness-assessment');
   });
 });
 
@@ -31,7 +31,7 @@ describe('CtaCard focus line', () => {
     const ctaWithFocus = {
       ...cta,
       focus: 'lead qualification',
-      focusLine: 'Book 30 minutes. I will have read your results before the call. I will walk you through your lead qualification gap and what the first 90 days of fixing it looks like.',
+      focusLine: 'The AI Revenue Audit starts where this Scan stopped guessing. It goes into your systems, measures your lead qualification gap for real, and comes back with what to automate first and what it costs.',
     };
     render(<CtaCard cta={ctaWithFocus} />);
     expect(screen.getByText(/lead qualification gap/)).toBeInTheDocument();
@@ -41,18 +41,18 @@ describe('CtaCard focus line', () => {
     const ctaNoFocus = {
       ...cta,
       focus: null,
-      focusLine: 'Book 30 minutes. I will have read your results before the call. I will walk you through where to put the first 90 days of work.',
+      focusLine: 'The AI Revenue Audit starts where this Scan stopped guessing. It goes into your systems, measures the real picture, and comes back with what to automate first and what it costs.',
     };
     render(<CtaCard cta={ctaNoFocus} />);
-    expect(screen.getByText(/Book 30 minutes/)).toBeInTheDocument();
-    expect(screen.getByText(/first 90 days of work/)).toBeInTheDocument();
+    expect(screen.getByText(/AI Revenue Audit starts where this Scan/)).toBeInTheDocument();
+    expect(screen.getByText(/measures the real picture/)).toBeInTheDocument();
   });
 
   it('does not render the old fit-call line', () => {
     const ctaWithFocus = {
       ...cta,
       focus: 'lead qualification',
-      focusLine: 'Book 30 minutes. I will walk you through your lead qualification gap.',
+      focusLine: 'The AI Revenue Audit measures your lead qualification gap for real.',
     };
     render(<CtaCard cta={ctaWithFocus} />);
     expect(screen.queryByText(/20-minute fit call/i)).not.toBeInTheDocument();

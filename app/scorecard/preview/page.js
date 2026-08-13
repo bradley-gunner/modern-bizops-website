@@ -2,12 +2,13 @@ import ResultView from '@/components/scorecard/ResultView';
 import { buildResult } from '@/lib/scorecard/resultRender';
 
 export const metadata = {
-  title: 'Scorecard preview',
+  title: 'AI Revenue Scan preview',
+  alternates: { canonical: "https://modernbizops.com/scorecard/preview" },
   robots: { index: false, follow: false },
 };
 
 const SAMPLE_ANSWERS = {
-  q1: { value: '7m_15m' },
+  q1: { value: '5m_15m' },
   q2: { value: 'PROFESSIONAL_SERVICES' },
   q3: { value: '51_75' },
   q4: { value: 'A', score: 1 }, q5: { value: 'B', score: 2 }, q6: { value: 'A', score: 1 },
@@ -17,9 +18,11 @@ const SAMPLE_ANSWERS = {
 };
 
 const NO_GAP_ANSWERS = {
-  q1: { value: '7m_15m' },
+  q1: { value: '5m_15m' },
   q2: { value: 'PROFESSIONAL_SERVICES' },
-  q3: { value: '51_75' },
+  // 38 employees, so revenue per employee clears the peer median and this
+  // fixture stays a genuine no-gap preview under the current revenue bands.
+  q3: { value: '26_50' },
   q4: { value: 'D', score: 4 }, q5: { value: 'D', score: 4 }, q6: { value: 'D', score: 4 },
   q7: { value: 'A', score: 1 }, q8: { value: 'B', score: 2 }, q9: { value: 'B', score: 2 },
   q10: { value: 'B', score: 2 }, q11: { value: 'A', score: 1 }, q12: { value: 'A', score: 1 },

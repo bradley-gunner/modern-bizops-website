@@ -6,7 +6,7 @@ import LearnHero from "@/components/learn/LearnHero";
 import AuthorCard from "@/components/learn/AuthorCard";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
 import AiConsultingBody from "@/components/ai-consulting/AiConsultingBody";
-import { AUTHOR_CREDENTIAL } from "@/lib/learn/registry";
+import { AUTHOR_CREDENTIAL, BYLINE } from "@/lib/learn/registry";
 
 // Root-level, OFF-NAV BOFU service page: the AI-accelerant framing of the same
 // coaching offer at /revenue-operations-consulting. Built as a standalone page
@@ -14,27 +14,26 @@ import { AUTHOR_CREDENTIAL } from "@/lib/learn/registry";
 // footer navigation; it exists for organic search and future paid ads.
 const URL = "https://modernbizops.com/ai-consulting-for-small-business";
 const OG_IMAGE = "https://modernbizops.com/og/og-service-ai-consulting.png";
-const TITLE =
-  "AI Consulting for Small Business: Foundations First, Then the Acceleration";
+// Title, dek and meta below are the strings approved in the step-16 retarget
+// handoff. The old title ran 73 characters bare and 89 rendered, so it was
+// truncated in results; the old meta promised coaching, which is retired.
+const TITLE = "AI Consulting for Small Business: Foundations First";
+const DEK = "Foundations first.";
 const DESCRIPTION =
-  "Most AI consulting for small business sells tools. I coach your team to fix the revenue fundamentals first, then apply AI where it actually accelerates.";
+  "Most AI consulting for small business sells tools on a broken foundation. Fix the foundation first, then build the automation, at published fixed prices.";
 const LAST_UPDATED = "2026-07-22";
 
-// Locked byline, verbatim from the approved spec (matches lib/learn/registry's
-// BYLINE). Do not name the agency.
-const BYLINE =
-  "By Bradley de Wet, founder of Modern BizOps. 15 years in revenue operations, including building revenue systems at Contactually (VC-backed SaaS), founding Tasting Club, and serving as COO and leader of account management at a boutique digital marketing agency.";
 
 // FAQ, verbatim from the spec's "Frequently asked questions" section. Single
 // source of truth for both the rendered accordion and the FAQPage JSON-LD.
 const FAQ = [
   {
     q: "What does an AI business consultant do?",
-    a: "Most AI business consultants assess your workflows, pick high-return areas, and implement tools: chatbots, automations, forecasting models. That is useful when the process underneath is already sound. I work differently. I coach your own team to fix the revenue fundamentals first, then apply AI only where it accelerates a competency you have already made solid. The goal is a system your team runs without me, not a tool you rent from me.",
+    a: "Most AI business consultants assess your workflows, pick high-return areas, and implement tools: chatbots, automations, forecasting models. That is useful when the process underneath is already sound. We work differently. We coach your own team to fix the revenue fundamentals first, then apply AI only where it accelerates a competency you have already made solid. The goal is a system your team runs without us, not a tool you rent from us.",
   },
   {
     q: "How much does an AI consultant cost?",
-    a: "In this category, readiness assessments commonly run from about $2,500 to $10,000, and project builds from roughly $10,000 to $50,000, with retainers on top. Those are implementation prices. My engagement is coaching, priced against the capability your team keeps rather than a one-time build they cannot maintain. The honest way to compare is not the invoice. It is whether the value stays in your business after the work is done.",
+    a: "In this category, readiness assessments commonly run from about $2,500 to $10,000, and project builds from roughly $10,000 to $50,000, with retainers on top. Those are implementation prices. Our engagement is coaching, priced against the capability your team keeps rather than a one-time build they cannot maintain. The honest way to compare is not the invoice. It is whether the value stays in your business after the work is done.",
   },
   {
     q: "How much does AI cost for a small business?",
@@ -47,9 +46,15 @@ const FAQ = [
 ];
 
 export const metadata = {
-  // Root layout applies a "%s | Modern BizOps" template, so this is the bare
-  // title tag; the brand suffix is added once by the template.
-  title: TITLE,
+  // OPTS OUT OF THE BRAND SUFFIX, the way /learn/[slug] and the offer pages do.
+  //
+  // The step-16 handoff flagged this exact decision and left it open: the
+  // approved title is 51 characters, this page is root-level rather than under
+  // /learn, and the root layout's "%s | Modern BizOps" template would render it
+  // at 67, past the roughly 60 characters Google shows. The handoff's own
+  // instruction was to check the RENDERED length, not the bare one. Approved
+  // copy is not ours to rewrite, so the suffix is what gives way.
+  title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: URL },
   openGraph: {
@@ -137,13 +142,16 @@ export default function AiConsultingForSmallBusinessPage() {
   };
 
   // Page-specific Service schema, per the build spec's recommended addition for
-  // this BOFU service page. It describes the actual offer: the AI-accelerated
-  // framing of the revenue operations coaching engagement.
+  // this BOFU service page. serviceType read "Revenue operations coaching
+  // (AI-accelerated)" until 2026-08-12, which named a retired offer in machine
+  // readable form. The page prose still argues the coaching model and is owed a
+  // rewrite against approved copy; this task only had authority over its
+  // metadata and schema.
   const serviceLd = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: "AI Consulting for Small Business",
-    serviceType: "Revenue operations coaching (AI-accelerated)",
+    serviceType: "AI consulting for small business",
     url: URL,
     description: DESCRIPTION,
     provider: {
@@ -155,7 +163,7 @@ export default function AiConsultingForSmallBusinessPage() {
     areaServed: { "@type": "Country", name: "United States" },
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Founder-led B2B companies from $3M to $50M in revenue",
+      audienceType: "Founder-led B2B companies",
     },
   };
 
@@ -168,7 +176,7 @@ export default function AiConsultingForSmallBusinessPage() {
         <LearnHero
           h1="AI Consulting for Small Business"
           accentWord="Consulting"
-          dek="Foundations first, then the acceleration."
+          dek={DEK}
           byline={`${BYLINE} Last updated ${formatLastUpdated(LAST_UPDATED)}.`}
           motif="amplifier"
           theme="navy"
@@ -178,7 +186,7 @@ export default function AiConsultingForSmallBusinessPage() {
                 Book a call
               </Button>
               <span className="max-w-[42ch] text-[13px] leading-snug text-text-light">
-                A free call. I will tell you honestly whether this is a fit,
+                A free call. We will tell you honestly whether this is a fit,
                 including if the answer is not yet.
               </span>
             </div>

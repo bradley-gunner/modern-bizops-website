@@ -3,13 +3,18 @@
 // manually when a page's content actually changes.
 
 const LAST_MODIFIED = {
-  home: "2026-04-21",
+  home: "2026-08-11",
   watch: "2026-04-24",
   scorecard: "2026-04-24",
   about: "2026-04-24",
   playbook: "2026-06-03",
   maturityModel: "2026-07-02",
+  aiReadinessAssessment: "2026-08-11",
+  aiAutomationServices: "2026-08-11",
+  pricing: "2026-08-11",
+  foundingClients: "2026-08-11",
   revenueOperationsConsulting: "2026-07-21",
+  learnIndex: "2026-08-11",
   privacy: "2026-04-06",
   terms: "2026-04-06",
   learnStage1Reactive: "2026-07-14",
@@ -62,6 +67,35 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
+      // The money door. Every other surface walks a buyer here, so it outranks
+      // the two pages that support it.
+      url: `${baseUrl}/ai-readiness-assessment`,
+      lastModified: new Date(LAST_MODIFIED.aiReadinessAssessment),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/ai-automation-services`,
+      lastModified: new Date(LAST_MODIFIED.aiAutomationServices),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified: new Date(LAST_MODIFIED.pricing),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      // The founding client hand-raise. Below the three offer pages because it
+      // converts a reader who has already priced the work, and it is the
+      // destination for build-in-public content rather than a search entry.
+      url: `${baseUrl}/founding-clients`,
+      lastModified: new Date(LAST_MODIFIED.foundingClients),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/about`,
       lastModified: new Date(LAST_MODIFIED.about),
       changeFrequency: "monthly",
@@ -85,6 +119,15 @@ export default function sitemap() {
       // sitemap. A notch below the primary consulting page.
       url: `${baseUrl}/ai-consulting-for-small-business`,
       lastModified: new Date(LAST_MODIFIED.aiConsultingForSmallBusiness),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      // The library index. It ships with the nav restructure that gave "Learn"
+      // a real destination, and it is the internal hub the twenty-four pages
+      // below now hang off.
+      url: `${baseUrl}/learn`,
+      lastModified: new Date(LAST_MODIFIED.learnIndex),
       changeFrequency: "monthly",
       priority: 0.8,
     },

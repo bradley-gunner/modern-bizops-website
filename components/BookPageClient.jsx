@@ -208,8 +208,8 @@ export default function BookPageClient() {
             Let&apos;s Talk About Your Revenue Engine
           </h1>
           <p className="font-body text-text-mid text-lg mb-8">
-            {step === 1 && "Answer a few quick questions so I can prepare for our conversation."}
-            {step === 2 && "Great. Now tell me how to reach you."}
+            {step === 1 && "Answer a few quick questions so we can prepare for our conversation."}
+            {step === 2 && "Great. Now tell us how to reach you."}
             {step === 3 && "Last step. Pick a time that works for you."}
           </p>
 
@@ -267,7 +267,7 @@ export default function BookPageClient() {
                   value={form.bottleneck}
                   onChange={handleChange}
                   rows={3}
-                  placeholder="In 2–3 sentences, tell me what's holding your growth back..."
+                  placeholder="In 2–3 sentences, tell us what's holding your growth back..."
                   className="w-full border border-border rounded-[6px] px-4 py-3 font-body text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-navy-mid focus:border-transparent resize-none"
                 />
               </div>

@@ -5,6 +5,7 @@ import Section from "@/components/ui/Section";
 export const metadata = {
   title: "Terms of Service",
   description: "Terms of Service for Modern BizOps LLC.",
+  alternates: { canonical: "https://modernbizops.com/terms" },
   robots: "noindex, nofollow",
 };
 

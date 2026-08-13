@@ -1,79 +1,87 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCtaBar from "@/components/MobileCtaBar";
-import Hero from "@/components/sections/Hero";
-import TrustBar from "@/components/sections/TrustBar";
-import Problem from "@/components/sections/Problem";
-import PullQuote from "@/components/sections/PullQuote";
-import CostOfInaction from "@/components/sections/CostOfInaction";
-import Solution from "@/components/sections/Solution";
-import HowItWorks from "@/components/sections/HowItWorks";
-import Results from "@/components/sections/Results";
-import ScorecardCTA from "@/components/sections/ScorecardCTA";
-import AboutCoach from "@/components/sections/AboutCoach";
-import FAQ from "@/components/sections/FAQ";
-import FinalCTA from "@/components/sections/FinalCTA";
+import Hero from "@/components/home/Hero";
+import TrustStrip from "@/components/home/TrustStrip";
+import OperationsDebt from "@/components/home/OperationsDebt";
+import BuildsPreview from "@/components/home/BuildsPreview";
+import TheLadder from "@/components/home/TheLadder";
+import Mechanism from "@/components/home/Mechanism";
+import FounderNote from "@/components/home/FounderNote";
+import HomeFaq from "@/components/home/HomeFaq";
+import FinalCta from "@/components/home/FinalCta";
 import { getFAQSchema } from "./schema";
 
+const URL = "https://modernbizops.com";
+const OG_IMAGE = "https://modernbizops.com/og/og-homepage.png";
+const TITLE = "AI Automation Partner for B2B Go-to-Market";
+const DESCRIPTION =
+  "The AI automation partner for B2B go-to-market: more leads, more booked calls, more closed deals, and a team with less busywork. Fixed published prices.";
+
+// The homepage keeps the brand suffix: 42 characters plus the 16-character
+// " | Modern BizOps" renders at 58, inside Google's truncation point, and this
+// is the one page where the brand is worth paying for.
+//
+// It has to be written out rather than left to the root template. Next applies
+// title.template to CHILD segments only, never to the segment that declares
+// it, and app/page.js is the root layout's own segment. A bare title string
+// here renders as 42 characters with no brand at all. Verified by building and
+// reading .next/server/app/index.html, which is the only way to check a title
+// on this site: the source string is never the rendered tag.
+const RENDERED_TITLE = `${TITLE} | Modern BizOps`;
+
 export const metadata = {
-  // The approved title carries the validated "revenue per employee" term, so
-  // it must ship exactly as written: absolute keeps the root layout's
-  // "%s | Modern BizOps" template from appending a second suffix.
-  title: {
-    absolute:
-      "Grow Revenue Without Growing Headcount | Revenue Per Employee Coaching for $3M-$50M B2B",
-  },
-  description:
-    "Software-assisted RevOps coaching for founder-led B2B companies from $3M to $50M. I benchmark your revenue per employee, find the operational gap costing you the most, and coach your team to close it.",
+  title: { absolute: RENDERED_TITLE },
+  description: DESCRIPTION,
   alternates: {
-    canonical: "https://modernbizops.com",
+    canonical: URL,
   },
   openGraph: {
-    title:
-      "Grow Revenue Without Growing Headcount | Revenue Per Employee Coaching for $3M-$50M B2B",
-    description:
-      "Done-with-you coaching that builds the sales, marketing, and delivery systems that turn growth into profit.",
-    url: "https://modernbizops.com",
+    title: RENDERED_TITLE,
+    description: DESCRIPTION,
+    url: URL,
     images: [
       {
-        url: "https://modernbizops.com/og/og-homepage.png",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Modern BizOps - Grow Your Revenue Without Growing Your Headcount",
+        alt: "Modern BizOps, the AI automation partner for B2B go-to-market",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Grow Revenue Without Growing Headcount | Revenue Per Employee Coaching for $3M-$50M B2B",
-    description:
-      "Done-with-you coaching for founder-led B2B companies from $3M to $50M.",
-    images: ["https://modernbizops.com/og/og-homepage.png"],
+    title: RENDERED_TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
 };
 
+// The nine-section anatomy, in order. Every section is load-bearing and the
+// order is the deliverable: hero, then trust immediately (never later), then
+// the honest diagnosis, then what you can buy at what price, then the ladder
+// that gets you there, then the mechanism behind the claims, then the person,
+// then the objections, then the close.
 export default function Home() {
   return (
     <>
       <Header />
       <main id="main-content">
         <Hero />
-        <TrustBar />
-        <Problem />
-        <PullQuote />
-        <CostOfInaction />
-        <Solution />
-        <HowItWorks />
-        <Results />
-        <ScorecardCTA />
-        <AboutCoach />
-        <FAQ />
-        <FinalCTA />
+        <TrustStrip />
+        <OperationsDebt />
+        <BuildsPreview />
+        <TheLadder />
+        <Mechanism />
+        <FounderNote />
+        <HomeFaq />
+        <FinalCta />
       </main>
       {/* FAQPage schema lives with the page that shows these Q&As, matching the
-          <FAQ /> above. It used to be emitted site-wide from the root layout,
-          which put it on pages that never render this FAQ. */}
+          <HomeFaq /> above. Both read the same array (lib/homeFaq.js), so the
+          structured data cannot drift from what a visitor can see. It used to
+          be emitted site-wide from the root layout, which put it on pages that
+          never render this FAQ. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQSchema()) }}

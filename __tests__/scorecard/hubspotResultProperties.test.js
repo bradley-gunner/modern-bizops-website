@@ -5,7 +5,7 @@ import { mapResultToHubSpotProperties } from '@/lib/scorecard/hubspotResultPrope
 // A low-maturity professional-services submission that surfaces dollar gaps.
 function answers() {
   return {
-    q1: { value: '7m_15m' },
+    q1: { value: '5m_15m' },
     q2: { value: 'PROFESSIONAL_SERVICES' },
     q3: { value: '51_75' },
     q4: { value: 'A', score: 1 }, q5: { value: 'B', score: 2 }, q6: { value: 'A', score: 1 },
@@ -81,7 +81,7 @@ describe('mapResultToHubSpotProperties', () => {
   it('sets per-line gaps to 0 and top_gap to "None" when no dollar gap surfaces', () => {
     // A top-maturity SaaS shop that meets every benchmark: no ROI lines.
     const a = {
-      q1: { value: '7m_15m' },
+      q1: { value: '5m_15m' },
       q2: { value: 'B2B_SAAS' },
       q3: { value: '1_10' }, // tiny team -> very high revenue/employee, meets benchmark
       q4: { value: 'D', score: 4 }, q5: { value: 'D', score: 4 }, q6: { value: 'D', score: 4 },

@@ -5,6 +5,28 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "./ui/Button";
 
+// The boutique pattern: a radically shallow nav, with the depth pushed into the
+// footer. Five destinations plus one CTA, and nothing that only exists as a
+// homepage anchor.
+//
+// ONE ARRAY, RENDERED TWICE. The desktop and mobile menus used to be two
+// hand-maintained copies of the same six links, which is how "Results" survived
+// in both after the homepage section carrying its anchor was deleted, leaving a
+// nav item that scrolled to nothing. They now map the same source, so the two
+// menus cannot disagree.
+const NAV_LINKS = [
+  { label: "Services", href: "/ai-automation-services" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "The Audit", href: "/ai-readiness-assessment" },
+  { label: "Learn", href: "/learn" },
+  { label: "About", href: "/about" },
+];
+
+// One primary CTA site-wide, and it is the free Scan. It stays a <Button> so
+// the click is tracked: Button fires cta_click only for hrefs in its own
+// CTA_DESTINATIONS map, and /scorecard is in it.
+const NAV_CTA = { label: "Get the Free Scan", href: "/scorecard" };
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -25,45 +47,23 @@ export default function Header() {
 
         {/* Desktop nav */}
         <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
-          <Link
-            href="/revenue-operations-consulting"
-            className="font-body text-sm text-text-mid hover:text-navy transition-colors"
-          >
-            How It Works
-          </Link>
-          <Link
-            href="/#results"
-            className="font-body text-sm text-text-mid hover:text-navy transition-colors"
-          >
-            Results
-          </Link>
-          <Link
-            href="/predictable-revenue-engine"
-            className="font-body text-sm text-text-mid hover:text-navy transition-colors"
-          >
-            The Model
-          </Link>
-          <Link
-            href="/about"
-            className="font-body text-sm text-text-mid hover:text-navy transition-colors"
-          >
-            About
-          </Link>
-          <Link
-            href="/#faq"
-            className="font-body text-sm text-text-mid hover:text-navy transition-colors"
-          >
-            FAQ
-          </Link>
-          <a
-            href="https://app.modernbizops.com"
-            rel="noopener"
-            className="font-body text-sm text-text-mid hover:text-navy transition-colors"
-          >
-            Client Login
-          </a>
-          <Button href="/book" size="small">
-            Book a Discovery Call
+          {NAV_LINKS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="font-body text-sm text-text-mid hover:text-navy transition-colors"
+            >
+              {item.label}
+            </Link>
+          ))}
+          {/* ctaLocation follows the site-wide <cluster>_<position> shape so
+              cta_location splits the same way in GA4 everywhere: the cluster is
+              everything before the last underscore, the position is the last
+              segment. The nav sits at the top of every page, so its position is
+              hero. These read "nav" and "nav_mobile" until 2026-08-11; a GA4
+              filter written against the old values needs updating. */}
+          <Button href={NAV_CTA.href} size="small" ctaLocation="nav_hero">
+            {NAV_CTA.label}
           </Button>
         </nav>
 
@@ -72,6 +72,7 @@ export default function Header() {
           className="md:hidden p-2"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
         >
           <svg
             className="h-6 w-6 text-navy"
@@ -100,51 +101,24 @@ export default function Header() {
       {/* Mobile menu */}
       {mobileOpen && (
         <nav aria-label="Mobile navigation" className="md:hidden border-t border-border bg-cream px-6 py-4 space-y-4">
-          <Link
-            href="/revenue-operations-consulting"
-            className="block font-body text-text-mid hover:text-navy"
+          {NAV_LINKS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block font-body text-text-mid hover:text-navy"
+              onClick={() => setMobileOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <Button
+            href={NAV_CTA.href}
+            size="small"
+            className="w-full"
+            ctaLocation="nav_mobile_hero"
             onClick={() => setMobileOpen(false)}
           >
-            How It Works
-          </Link>
-          <Link
-            href="/#results"
-            className="block font-body text-text-mid hover:text-navy"
-            onClick={() => setMobileOpen(false)}
-          >
-            Results
-          </Link>
-          <Link
-            href="/predictable-revenue-engine"
-            className="block font-body text-text-mid hover:text-navy"
-            onClick={() => setMobileOpen(false)}
-          >
-            The Model
-          </Link>
-          <Link
-            href="/about"
-            className="block font-body text-text-mid hover:text-navy"
-            onClick={() => setMobileOpen(false)}
-          >
-            About
-          </Link>
-          <Link
-            href="/#faq"
-            className="block font-body text-text-mid hover:text-navy"
-            onClick={() => setMobileOpen(false)}
-          >
-            FAQ
-          </Link>
-          <a
-            href="https://app.modernbizops.com"
-            rel="noopener"
-            className="block font-body text-text-mid hover:text-navy"
-            onClick={() => setMobileOpen(false)}
-          >
-            Client Login
-          </a>
-          <Button href="/book" size="small" className="w-full">
-            Book a Discovery Call
+            {NAV_CTA.label}
           </Button>
         </nav>
       )}
