@@ -39,10 +39,15 @@ const IEXCEL_CLIENTS = [
   "Jenni.ai",
 ];
 
+// 2026-08-12: the strip was white, sitting between a cream hero and a white
+// problem section, so two full-height sections ran together with only a hairline
+// between them. Banding it in cream-dark gives the page an alternating rhythm
+// from the first scroll and makes the strip read as a strip. Not one word here
+// changed, and the attribution label above is still the load-bearing part.
 export default function TrustStrip() {
   return (
-    <section className="bg-white border-y border-border">
-      <div className="mx-auto max-w-[1200px] px-6 md:px-8 py-7">
+    <section className="bg-cream-dark border-y border-border">
+      <div className="mx-auto max-w-[1200px] px-6 md:px-8 py-8 md:py-10">
         <ul className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
           {METRICS.map((metric, i) => (
             <li

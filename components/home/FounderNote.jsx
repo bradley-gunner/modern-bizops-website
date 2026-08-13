@@ -12,16 +12,26 @@ import Section from "../ui/Section";
 export default function FounderNote() {
   return (
     <Section bg="white" narrow={false}>
-      <div className="flex flex-col md:flex-row gap-10 md:gap-12 items-start max-w-[900px]">
-        <div className="flex-shrink-0">
-          <div className="w-48 h-48 md:w-56 md:h-56 rounded-[14px] overflow-hidden">
+      <div className="flex flex-col md:flex-row gap-10 md:gap-14 items-start max-w-[980px]">
+        {/* The photograph was cropped to a 224px square, which is a thumbnail on
+            a page whose only proof asset is the person in it. The source file is
+            600x800, so the portrait now runs at its native 3:4 with no crop, and
+            an amber block sits behind the corner to stop it reading as a stock
+            headshot dropped into a text column. The accent is md and up only,
+            because at 375px it would have to bleed through the gutter. */}
+        <div className="w-full max-w-[300px] shrink-0 md:w-[300px]">
+          <div className="relative isolate">
+            <div
+              aria-hidden="true"
+              className="hidden md:block absolute -bottom-6 -left-6 w-2/3 h-2/3 rounded-[14px] bg-amber-pale"
+            />
             <Image
               src="/images/bradley-desk.jpg"
               alt="Bradley de Wet, founder of Modern BizOps"
-              width={224}
-              height={224}
-              sizes="(max-width: 768px) 192px, 224px"
-              className="w-full h-full object-cover"
+              width={600}
+              height={800}
+              sizes="(max-width: 768px) 300px, 300px"
+              className="relative w-full h-auto rounded-[14px]"
             />
           </div>
         </div>

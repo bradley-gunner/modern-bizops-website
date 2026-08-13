@@ -23,11 +23,19 @@ const rung = Object.fromEntries(LADDER.map((r) => [r.id, r]));
 // put two prices under one product name while /pricing sold the second one as a
 // separately named rung. Nothing on this page states a rung total any more
 // either, because the page shows four cards and /pricing lists five.
+//
+// 2026-08-12: four priced rungs is a sequence, and it rendered as four
+// identical text cards, so nothing on screen said "ladder" except the heading.
+// Three things fix that without touching a word: a four-segment meter that
+// fills one more notch per card, a staircase offset at lg so the row climbs
+// left to right, and the free first rung tinted so the entry point is visible
+// before anyone reads a price. The offsets are written out as literal class
+// strings because Tailwind reads the source, not the runtime value.
 const RUNGS = [
-  { id: "scan" },
-  { id: "audit" },
-  { id: "builds" },
-  { id: "partner", also: "partner-plus" },
+  { id: "scan", offset: "lg:mt-12" },
+  { id: "audit", offset: "lg:mt-8" },
+  { id: "builds", offset: "lg:mt-4" },
+  { id: "partner", also: "partner-plus", offset: "lg:mt-0" },
 ];
 
 export default function TheLadder() {
@@ -43,22 +51,34 @@ export default function TheLadder() {
         </p>
       </div>
 
-      <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4 lg:items-start">
         {RUNGS.map((step, i) => {
           const offer = rung[step.id];
           const also = step.also ? rung[step.also] : null;
           return (
             <li
               key={step.id}
-              className="bg-cream rounded-[14px] p-6 flex flex-col"
+              className={`${step.offset} ${
+                i === 0 ? "bg-amber-pale" : "bg-cream"
+              } rounded-[14px] p-6 flex flex-col`}
             >
+              <span aria-hidden="true" className="flex gap-1.5 mb-5">
+                {RUNGS.map((_, seg) => (
+                  <span
+                    key={seg}
+                    className={`h-1.5 flex-1 rounded-full ${
+                      seg <= i ? "bg-amber" : "bg-border"
+                    }`}
+                  />
+                ))}
+              </span>
               <span className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-text-light mb-3">
                 Step {i + 1}
               </span>
               <p className="font-display text-xl font-semibold text-navy mb-1">
                 {offer.name}
               </p>
-              <p className="font-body text-sm font-semibold text-amber mb-3">
+              <p className="font-display text-[26px] leading-[1.15] font-semibold text-amber mb-4">
                 {offer.price}
               </p>
               <p className="font-body text-[15px] text-text-mid leading-relaxed">
