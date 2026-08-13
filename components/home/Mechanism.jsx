@@ -303,7 +303,7 @@ const STEPS = [
   },
   {
     label: "It scores 51 competencies",
-    body: "The same four-stage model behind the free Scan, run across the whole revenue engine. The Scan asks you fifteen questions. This one reads the answers off your systems.",
+    body: "The same four-stage model behind the free Scan, run across the whole revenue engine. The Scan asks you fifteen questions. This one reads 44 of the answers off your systems and scores the newest seven with you on the call.",
     art: ScoreGlyph,
   },
   {

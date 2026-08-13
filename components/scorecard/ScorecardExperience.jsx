@@ -48,7 +48,7 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What this is not</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              Every number here comes from your own estimate of your own business, so the read is only as good as those estimates. The {AUDIT.name} is the paid version. It connects to your CRM and revenue tools and scores more than fifty competencies off your live data. Then it ranks what to automate first. If the numbers here look about right to you, that is the point to go get the real ones.
+              Every number here comes from your own estimate of your own business, so the read is only as good as those estimates. The {AUDIT.name} is the paid version. It connects to your CRM and revenue tools and scores fifty-one competencies, forty-four of them off your live data and the newest seven with you on the call. Then it ranks what to automate first. If the numbers here look about right to you, that is the point to go get the real ones.
             </p>
           </div>
         </div>
