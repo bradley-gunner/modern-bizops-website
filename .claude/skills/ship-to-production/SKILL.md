@@ -23,6 +23,32 @@ verification ends; the local one catches build breaks before they reach a
 deploy, and the live one is the only proof the thing founders see is actually
 correct.
 
+## A passing check proves nothing until you have proved it can fail (added 2026-08-12)
+
+This governs every verification step below. A check that has never been seen to
+fail is not evidence, it is a habit. Three of them passed on broken work in a
+single session:
+
+- An OG share card carried a retired tagline through five task reviews and a
+  scoped re-review that verified byte sizes, path resolution, and presence in
+  the built HTML. All of it passed. The words were baked into the PNG, and only
+  opening it as an image found them.
+- A "zero hits sitewide" grep returned zero because it was a case-sensitive
+  `grep -F` run against a sentence-initial "Fifteen years". Zero hits read as a
+  clean sweep and meant the pattern had never matched anything.
+- Worst: a test helper stripped block comments before line comments, so a
+  `*.jsx` glob sitting inside a line comment opened an unterminated block
+  comment that swallowed the rest of the file. The assertion received **2,985 of
+  `lib/learn/registry.js`'s 93,817 characters, 3 percent of it**. The guard
+  written to stop a banned claim regressing across 26 pages was scanning three
+  percent of its target and reporting green.
+
+**Rule. When you add a guard, or lean on one that already exists, introduce a
+real violation, watch the guard fail and name the offending file, then revert
+the violation.** Do this for CI tests, for greps you run by hand, and for any
+assertion you plan to make about the whole site. The cost is under a minute; the
+failure mode is shipping with a green check that was never looking at anything.
+
 ## Facts you'll need
 
 - **Production URLs:** the apex `modernbizops.com` **is** the canonical serving
@@ -76,6 +102,27 @@ Then drive a real browser against it. Navigate the Chrome MCP to
 scroll, read console for page-origin errors). Ignore console errors whose stack
 frames are `chrome-extension://…` - those are the user's browser extensions, not
 the page. Stop the server when done: `pkill -f "next dev -p 3005"`.
+
+**Reviewing rendered output: build, do not run a dev server (added 2026-08-12).**
+The dev server compiles each route on demand, so a sweep that touches many
+routes crawls. Two agents stalled doing exactly that in one session and one was
+killed by a 600-second watchdog. When what you need is the rendered text or
+markup rather than a live interaction, build once and grep the HTML:
+
+```bash
+npm run build
+grep -rn '<pattern>' .next/server/app --include='*.html'
+```
+
+Recurse with `--include` rather than globbing `.next/server/app/*.html`: the
+`/learn` pages build into a `learn/` subdirectory, so the top-level glob skips
+every one of them and hands you a clean zero. That is the section above in
+miniature.
+
+Keep the dev server for the thing it is actually good at: a single route you
+need to click through. And for a title tag, prefer the live check in step 7,
+since this repo's rule is that a title is confirmed on the live page and never
+from the source string.
 
 **Permission gotcha:** `curl` invocations that use a `-w "%{http_code}"`-style
 format string tend to get denied in this environment. Prefer driving the page
@@ -133,6 +180,25 @@ no visible error. Before merging, confirm `modernbizops.com` is still registered
 in HubSpot's site domains and verify the change end-to-end against HubSpot (a
 browser success screen does NOT prove a contact was created). **REQUIRED
 SUB-SKILL:** Use verify-lead-capture.
+
+**When a live test submission is not authorized, fall back to a read-only proxy
+and label it honestly (added 2026-08-12).** Query HubSpot for recent contacts
+carrying `lead_magnet` and confirm the path produced them with
+`lifecyclestage: lead`, `hs_lead_status: NEW`, and the no-deal invariant
+holding. Then say plainly what that does and does not establish: **it proves the
+path worked when those contacts were created. It does NOT prove the
+site-domain registration is correct today**, which is the failure this gate
+exists to catch, and which is silent. The proxy is sufficient only when the
+change touches none of the form payload, the form id, or the domain. If it
+touches any of the three, ask for authorization to submit a real test rather
+than merging on the proxy.
+
+**Stacked PRs: merge the child into the parent first (added 2026-08-12).** When
+a second PR is based on the first, merging the parent to `main` first puts an
+intermediate state live, because the merge is the deploy. Merge the child into
+the parent branch, then squash-merge the parent to `main`, so the whole change
+reaches production as ONE deploy. This session shipped both refit PRs that way
+deliberately.
 
 ```bash
 gh pr merge <PR#> --squash
