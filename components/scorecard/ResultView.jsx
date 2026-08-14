@@ -53,9 +53,9 @@ function DimensionBars({ dimensions }) {
           <div key={d.key} data-dimension={d.key} className="mb-6 last:mb-0">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="font-body font-semibold text-text-primary">{d.label}</h3>
-              <span className="font-body text-sm text-text-light">{d.mean} of 5 &middot; {d.levelWord}</span>
+              <span className="font-body text-sm text-text-light">{d.meanDisplay} of 5 &middot; {d.levelWord}</span>
             </div>
-            <div className="h-2.5 rounded-full bg-cream-dark my-2 overflow-hidden" role="img" aria-label={`${d.label}: ${d.mean} of 5, ${d.levelWord}`}>
+            <div className="h-2.5 rounded-full bg-cream-dark my-2 overflow-hidden" role="img" aria-label={`${d.label}: ${d.meanDisplay} of 5, ${d.levelWord}`}>
               <div className="h-full rounded-full bg-amber" style={{ width: `${(d.mean / 5) * 100}%` }} />
             </div>
             <p className="font-body text-sm text-text-mid leading-relaxed">{d.read}</p>

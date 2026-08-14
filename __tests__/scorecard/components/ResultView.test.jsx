@@ -160,8 +160,8 @@ describe('ResultView opportunity map', () => {
     const result = buildResult(noGapAns(), { generatedAt: AT });
     const { container } = render(<ResultView result={result} />);
     expect(screen.getByText(/Your numbers hold up against professional services peers/)).toBeInTheDocument();
-    expect(container.querySelectorAll('[data-area]').length).toBe(6);
-    expect(container.querySelectorAll('[data-verdict]').length).toBe(6);
+    expect(container.querySelectorAll('[data-area]').length).toBe(5);
+    expect(container.querySelectorAll('[data-verdict]').length).toBe(5);
     expect(container.querySelector('h1').textContent).toBe('Ready to Build');
   });
 });

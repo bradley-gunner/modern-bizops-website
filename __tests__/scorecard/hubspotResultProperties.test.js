@@ -60,10 +60,11 @@ describe('mapResultToHubSpotProperties', () => {
     expect(props.scorecard_dollar_gap_total).toBeGreaterThan(0);
     expect(props.scorecard_gap_high).toBe(props.scorecard_dollar_gap_total);
     expect(props.scorecard_gap_low).toBeLessThanOrEqual(props.scorecard_gap_high);
-    expect(props.scorecard_sales_cycle_gap).toBeGreaterThan(0);
     expect(props.scorecard_retention_gap).toBeGreaterThan(0);
     expect(props.scorecard_rpe_gap).toBeGreaterThan(0);
-    expect(props.scorecard_top_gap).toBe('Sales cycle');
+    // The sales-cycle dollar model was retired, so its gap is always 0 now.
+    expect(props.scorecard_sales_cycle_gap).toBe(0);
+    expect(props.scorecard_top_gap).toBe('Gross revenue retention');
   });
 
   it('no longer writes the retired maturity stage', () => {

@@ -335,7 +335,6 @@ describe('the opportunity map copy', () => {
     });
     expect(line).toMatch(/The math: \$10\.0M annual revenue \(your exact figure\)/);
     expect(line).toMatch(/\$170K peer median/);
-    expect(MATH_LINES.salesCycle({ cycleDisplay: '240 days', cycleProv: 'x', medianDisplay: '103 days', revenueDisplay: '$10.0M', revenueProv: 'x' })).toMatch(/^The math:/);
     expect(MATH_LINES.retention({ grrDisplay: '60%', churnProv: 'x', medianDisplay: '82%', revenueDisplay: '$10.0M', revenueProv: 'x' })).toMatch(/^The math:/);
     expect(CAP_NOTE).toMatch(/capped/);
   });

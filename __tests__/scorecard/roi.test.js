@@ -29,29 +29,39 @@ function gapAnswers(overrides = {}) {
   };
 }
 
+// The sales-cycle DOLLAR generator was retired 2026-08-14. It computed
+// (clientDays / peerMedian - 1) * revenue, a throughput model claiming annual
+// revenue scales linearly with pipeline turnover: on this fixture it produced
+// $13.3M of "uncaptured revenue" on a $10M business, which the caps then hid.
+// The row survives as an evidence row and in the comparison table.
+describe('the retired sales-cycle dollar model', () => {
+  it('no longer exists as a generator', () => {
+    expect(generators.salesCycle).toBeUndefined();
+    expect(Object.keys(generators).sort()).toEqual(['retention', 'revenuePerEmployee']);
+  });
+
+  it('never produces a dollar line, however slow the cycle', () => {
+    const lines = generateRoiLines(gapAnswers({ q15: { value: 'over_180' } }), PS);
+    expect(lines.find((l) => l.key === 'salesCycle')).toBeUndefined();
+  });
+
+  it('would have claimed revenue was 2.33x achievable, which is the reason it went', () => {
+    // Documents the defect so a future pass cannot reintroduce it by accident.
+    const clientDays = 240, peerMedian = PS.metrics.salesCycleDays.median;
+    expect(Math.round((clientDays / peerMedian) * 100) / 100).toBe(2.33);
+    const wouldHaveClaimed = (clientDays / peerMedian - 1) * 10_000_000;
+    expect(wouldHaveClaimed).toBeGreaterThan(10_000_000); // more than the whole business
+  });
+
+  it('keeps the honest days-against-days benchmark in the comparison table', () => {
+    const row = generateComparisons(gapAnswers(), PS).find((c) => c.key === 'salesCycle');
+    expect(row).toBeDefined();
+    expect(row.peerMedianDisplay).toBe('103 days');
+    expect(row.comparison).toBe('fails');
+  });
+});
+
 describe('generators', () => {
-  it('salesCycle surfaces a loss-framed gap for a slower-than-peer cycle', () => {
-    const line = generators.salesCycle(gapAnswers(), PS);
-    expect(line).not.toBeNull();
-    expect(line.key).toBe('salesCycle');
-    expect(line.medianDollars).toBeGreaterThan(0);
-    expect(line.body).toMatch(/not capturing this year/);
-    expect(line.source).toMatch(/^Source:/);
-  });
-
-  it('salesCycle returns null at or under the peer median (meets)', () => {
-    expect(generators.salesCycle(gapAnswers({ q15: { value: 'under_30' } }), PS)).toBeNull();
-  });
-
-  it('salesCycle returns null when the input is not tracked', () => {
-    expect(generators.salesCycle(gapAnswers({ q15: { value: 'not_tracked' } }), PS)).toBeNull();
-  });
-
-  it('salesCycle returns null for sub-resolvable cycles (e-commerce)', () => {
-    expect(ECOM.metrics.salesCycleDays.median).toBeLessThan(MIN_RESOLVABLE_CYCLE_DAYS);
-    expect(generators.salesCycle(gapAnswers({ q2: { value: 'ECOMMERCE' } }), ECOM)).toBeNull();
-  });
-
   it('retention surfaces a gap from heavy churn and null when q16 is absent', () => {
     const line = generators.retention(gapAnswers(), PS);
     expect(line).not.toBeNull();
@@ -69,18 +79,26 @@ describe('generators', () => {
 });
 
 describe('exact figures in the math (Bradley 2026-08-14)', () => {
-  it('an exact cycle replaces the band midpoint and changes the dollars', () => {
-    const banded = generators.salesCycle(gapAnswers(), PS);
-    const exact = generators.salesCycle(gapAnswers({ q15: { value: 'over_180', exact: 200 } }), PS);
-    expect(exact.clientValue.raw).toBe(200);
+  it('an exact churn figure replaces the band midpoint and changes the dollars', () => {
+    const banded = generators.retention(gapAnswers(), PS);
+    const exact = generators.retention(gapAnswers({ q16: { value: 'over_30', exact: 0.33 } }), PS);
+    expect(exact.clientValue.raw).toBeCloseTo(0.67, 2);
     expect(exact.medianDollars).toBeLessThan(banded.medianDollars);
   });
 
   it('the shown-arithmetic line names which input the math used', () => {
-    const banded = generators.salesCycle(gapAnswers(), PS);
+    const banded = generators.retention(gapAnswers(), PS);
     expect(banded.mathLine).toMatch(/the middle of the band you picked/);
-    const exact = generators.salesCycle(gapAnswers({ q15: { value: 'over_180', exact: 200 } }), PS);
-    expect(exact.mathLine).toMatch(/your 200 days cycle \(your exact figure\)/);
+    const exact = generators.retention(gapAnswers({ q16: { value: 'over_30', exact: 0.33 } }), PS);
+    expect(exact.mathLine).toMatch(/\(your exact figure\)/);
+  });
+
+  it('an exact cycle still drives the evidence row and the comparison table', () => {
+    const map = buildOpportunityMap(gapAnswers({ q15: { value: 'over_180', exact: 200 } }), PS, null);
+    const row = map.rows.find((r) => r.area === 'followupPipeline');
+    expect(row.kind).toBe('evidence');
+    expect(row.body).toMatch(/about 200 days/);
+    expect(row.line).toBeUndefined();
   });
 
   it('every computed line carries a math line', () => {
@@ -96,7 +114,7 @@ describe('exact figures in the math (Bradley 2026-08-14)', () => {
   });
 });
 
-describe('caps', () => {
+describe('caps (a backstop, not a shaping tool)', () => {
   it('caps any single line at 50% of revenue and the total at 75%', () => {
     const lines = generateRoiLines(gapAnswers(), PS);
     const revenue = 10_000_000;
@@ -107,11 +125,16 @@ describe('caps', () => {
     expect(total).toBeLessThanOrEqual(revenue * 0.75 + lines.length); // rounding slack
   });
 
-  it('marks capped lines so the row can disclose the cap', () => {
+  // The point of retiring the throughput model: on an ordinary profile the
+  // caps should now do nothing. If this test starts failing, a generator has
+  // gone wrong; do not raise the caps to make it pass.
+  it('does NOT bite on an ordinary profile, and the total is believable', () => {
     const lines = generateRoiLines(gapAnswers(), PS);
-    const salesCycle = lines.find((l) => l.key === 'salesCycle');
-    // 240 vs 103 days is a >2x throughput claim on $10M; the cap must bite.
-    expect(salesCycle.capped).toBe(true);
+    for (const line of lines) {
+      expect(line.capped, line.key).toBe(false);
+    }
+    const total = lines.reduce((s, l) => s + l.medianDollars, 0);
+    expect(total).toBeLessThan(10_000_000 * 0.35);
   });
 
   it('re-renders body copy from the final capped figures', () => {
@@ -200,16 +223,38 @@ describe('the verdict rule table', () => {
 });
 
 describe('buildOpportunityMap (the menu-shaped map)', () => {
-  it('produces six rows for a recurring model: three computed areas plus three evidence rows', () => {
+  it('produces six rows: two computed areas then four evidence rows', () => {
     const map = buildOpportunityMap(gapAnswers(), PS, null);
     expect(map.rows.map((r) => r.area)).toEqual([
       // dollar rows sorted largest first for this fixture
-      'followupPipeline', 'onboardingCs', 'busywork',
-      // evidence rows in fixed order
-      'deadLead', 'speedToLead', 'invoiceCollection',
+      'onboardingCs', 'busywork',
+      // evidence rows, follow-up and pipeline leading
+      'followupPipeline', 'deadLead', 'speedToLead', 'invoiceCollection',
     ]);
     expect(map.hasDollarGap).toBe(true);
     expect(map.medianDollars).toBeGreaterThan(0);
+  });
+
+  it('the follow-up row states days and hands the dollar figure to the audit', () => {
+    const map = buildOpportunityMap(gapAnswers(), PS, null);
+    const row = map.rows.find((r) => r.area === 'followupPipeline');
+    expect(row.kind).toBe('evidence');
+    expect(row.body).toMatch(/about 240 days against a 103 days median/);
+    expect(row.body).toMatch(/not going to put a dollar figure on that/);
+    expect(row.body).toMatch(/audit takes it from your CRM/);
+    expect(row.source).toMatch(/^Source:/);
+    expect(row.fix).toMatch(/Cycle time compresses/);
+  });
+
+  it('drops the follow-up row when the cycle meets peer, is untracked, or is sub-resolvable', () => {
+    const meets = buildOpportunityMap(gapAnswers({ q15: { value: 'under_30' } }), PS, null);
+    expect(meets.rows.find((r) => r.area === 'followupPipeline')).toBeUndefined();
+    const untracked = buildOpportunityMap(gapAnswers({ q15: { value: 'not_tracked' } }), PS, null);
+    expect(untracked.rows.find((r) => r.area === 'followupPipeline')).toBeUndefined();
+    expect(ECOM.metrics.salesCycleDays.median).toBeLessThan(MIN_RESOLVABLE_CYCLE_DAYS);
+    const ecom = gapAnswers({ q2: { value: 'ECOMMERCE' } });
+    delete ecom.q16;
+    expect(buildOpportunityMap(ecom, ECOM, null).rows.find((r) => r.area === 'followupPipeline')).toBeUndefined();
   });
 
   it('drops hidden metric rows for e-commerce but keeps the evidence rows (never empty)', () => {
@@ -224,8 +269,8 @@ describe('buildOpportunityMap (the menu-shaped map)', () => {
   });
 
   it('a metric that meets its benchmark still gets a row, a verdict and the holds-up line', () => {
-    const map = buildOpportunityMap(gapAnswers({ q15: { value: 'under_30' } }), PS, null);
-    const row = map.rows.find((r) => r.area === 'followupPipeline');
+    const map = buildOpportunityMap(gapAnswers({ q16: { value: 'under_5' } }), PS, null);
+    const row = map.rows.find((r) => r.area === 'onboardingCs');
     expect(row.line).toBeNull();
     expect(row.status).toBe('holds');
     expect(row.statusLine).toMatch(/holds? up/);
@@ -233,8 +278,8 @@ describe('buildOpportunityMap (the menu-shaped map)', () => {
   });
 
   it('a not-tracked input gets the honest not-tracked line instead of invented dollars', () => {
-    const map = buildOpportunityMap(gapAnswers({ q15: { value: 'not_tracked' } }), PS, null);
-    const row = map.rows.find((r) => r.area === 'followupPipeline');
+    const map = buildOpportunityMap(gapAnswers({ q16: { value: 'not_tracked' } }), PS, null);
+    const row = map.rows.find((r) => r.area === 'onboardingCs');
     expect(row.status).toBe('not_tracked');
     expect(row.statusLine).toMatch(/we will not invent one/);
   });
@@ -256,12 +301,6 @@ describe('buildOpportunityMap (the menu-shaped map)', () => {
     expect(row.body).toMatch(/audit counts from your CRM/);
   });
 
-  it('the capped sales-cycle row carries the cap note', () => {
-    const map = buildOpportunityMap(gapAnswers(), PS, null);
-    const row = map.rows.find((r) => r.area === 'followupPipeline');
-    expect(row.capNote).toMatch(/capped/);
-  });
-
   it('a fully strong no-gap respondent still gets a full map with verdicts', () => {
     const a = gapAnswers({
       q3: { value: '26_50' },
@@ -272,7 +311,12 @@ describe('buildOpportunityMap (the menu-shaped map)', () => {
     });
     const map = buildOpportunityMap(a, PS, null);
     expect(map.hasDollarGap).toBe(false);
-    expect(map.rows.length).toBe(6);
+    // Both computed rows hold up, and the follow-up row drops out because the
+    // cycle meets peer: five rows, every one carrying a verdict.
+    // With no dollar lines the two computed rows tie and keep insertion order.
+    expect(map.rows.map((r) => r.area)).toEqual([
+      'busywork', 'onboardingCs', 'deadLead', 'speedToLead', 'invoiceCollection',
+    ]);
     for (const row of map.rows) {
       expect(row.verdict, row.area).toBeTruthy();
     }
