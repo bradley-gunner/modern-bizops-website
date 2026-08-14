@@ -79,18 +79,36 @@ export default function QuizFlow({ utms = {} }) {
 
   function recordAnswer(option) {
     setAnswers((prev) => {
+      const kept = prev[currentQuestion.id];
       const next = {
         ...prev,
         [currentQuestion.id]: {
           value: option.value,
           ...(typeof option.score === 'number' ? { score: option.score } : {}),
+          // An exact figure the taker already typed survives a band change;
+          // their real number is their real number.
+          ...(typeof kept?.exact === 'number' && !option.notTracked ? { exact: kept.exact } : {}),
         },
       };
-      // q2 change can hide q15; prune so stale answers cannot leak to submit.
+      // q2 change can hide q16; prune so stale answers cannot leak to submit.
       if (currentQuestion.id === 'q2') {
         return pruneStaleAnswers(next);
       }
       return next;
+    });
+  }
+
+  // The optional exact figure on a banded financial input. Stored beside the
+  // band; resolveInput() prefers it in the ROI math when it passes bounds.
+  function recordExact(exact) {
+    setAnswers((prev) => {
+      const current = prev[currentQuestion.id];
+      if (!current) return prev;
+      const { exact: _dropped, ...rest } = current;
+      return {
+        ...prev,
+        [currentQuestion.id]: typeof exact === 'number' ? { ...rest, exact } : rest,
+      };
     });
   }
 
@@ -106,7 +124,7 @@ export default function QuizFlow({ utms = {} }) {
     if (safeIndex > 0) setCurrentIndex(safeIndex - 1);
   }
 
-  async function submit({ firstName, email, company }) {
+  async function submit({ firstName, email, company, website }) {
     setStep('submitting');
     try {
       const res = await fetch('/api/scorecard/submit', {
@@ -116,6 +134,7 @@ export default function QuizFlow({ utms = {} }) {
           firstName,
           email,
           company,
+          website,
           utms,
           answers,
           hutk: getHubspotutk(),
@@ -135,6 +154,7 @@ export default function QuizFlow({ utms = {} }) {
       trackFormSubmit('scorecard', {
         lead_magnet: 'scorecard',
         has_company: Boolean(company),
+        has_website: Boolean(website),
       });
       trackLeadGenerated('scorecard');
       identifyLead(email);
@@ -181,7 +201,7 @@ export default function QuizFlow({ utms = {} }) {
   return (
     <div className="mx-auto max-w-2xl px-6 md:px-8 py-12">
       <SectionHeader section={currentQuestion.section} />
-      <QuestionCard question={currentQuestion} answers={answers} selected={selected} onSelect={recordAnswer} />
+      <QuestionCard question={currentQuestion} selected={selected} onSelect={recordAnswer} onExact={recordExact} />
       <div className="flex items-center justify-between mt-6">
         <button
           onClick={back}

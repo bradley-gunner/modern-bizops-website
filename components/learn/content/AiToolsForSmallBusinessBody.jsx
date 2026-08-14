@@ -320,7 +320,7 @@ export default function AiToolsForSmallBusinessBody() {
       <CtaCallout
         eyebrow="Before you buy a tool"
         heading="Which of your competencies are actually ready?"
-        body="Every job above rests on a competency in the GTM Maturity Framework. The free AI Revenue Scan measures where each of yours stands today, so you know which fundamentals are solid enough for a tool to accelerate and which would just scale the mess. A few minutes, fifteen questions."
+        body="Every job above rests on a competency in the GTM Maturity Framework. The free AI Revenue Scan measures where each of yours stands today, so you know which fundamentals are solid enough for a tool to accelerate and which would just scale the mess. A few minutes, sixteen questions."
         buttonLabel="Get the Free Scan"
         href="/scorecard"
         ctaLocation="learn_ai_tools_scorecard"

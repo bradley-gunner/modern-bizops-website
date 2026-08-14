@@ -4,9 +4,10 @@ import {
   SCORECARD_RESULT_PROPERTIES,
 } from '@/lib/hubspot';
 import { BUSINESS_MODEL_OPTIONS } from '@/lib/scorecard/questions';
+import { READINESS_BANDS } from '@/lib/scorecard/scoring';
 
 describe('scorecard result property definitions', () => {
-  it('defines exactly the twelve expected properties in the scorecard group', () => {
+  it('defines the expected properties in the scorecard group', () => {
     expect(SCORECARD_PROPERTY_GROUP.name).toBe('scorecard');
     const names = SCORECARD_RESULT_PROPERTIES.map((p) => p.name);
     expect(names).toEqual([
@@ -16,7 +17,15 @@ describe('scorecard result property definitions', () => {
       'scorecard_rpe_gap',
       'scorecard_sales_cycle_gap',
       'scorecard_retention_gap',
-      'scorecard_maturity_stage',
+      'scorecard_readiness_band',
+      'scorecard_composite',
+      'scorecard_dim_strategy',
+      'scorecard_dim_people',
+      'scorecard_dim_governance',
+      'scorecard_belief_confidence',
+      'scorecard_connect_comfort',
+      'scorecard_burned_attempt',
+      'scorecard_url_given',
       'scorecard_top_gap',
       'scorecard_business_model',
       'scorecard_completed_at',
@@ -28,32 +37,47 @@ describe('scorecard result property definitions', () => {
     }
   });
 
+  it('retires the maturity stage property with the stage placement', () => {
+    const names = SCORECARD_RESULT_PROPERTIES.map((p) => p.name);
+    expect(names).not.toContain('scorecard_maturity_stage');
+  });
+
   it('types each property as specified', () => {
     const byName = Object.fromEntries(SCORECARD_RESULT_PROPERTIES.map((p) => [p.name, p]));
-    expect(byName.scorecard_dollar_gap_total.type).toBe('number');
-    expect(byName.scorecard_gap_low.type).toBe('number');
-    expect(byName.scorecard_gap_high.type).toBe('number');
-    expect(byName.scorecard_rpe_gap.type).toBe('number');
-    expect(byName.scorecard_sales_cycle_gap.type).toBe('number');
-    expect(byName.scorecard_retention_gap.type).toBe('number');
-    expect(byName.scorecard_maturity_stage.type).toBe('enumeration');
+    for (const n of [
+      'scorecard_dollar_gap_total', 'scorecard_gap_low', 'scorecard_gap_high',
+      'scorecard_rpe_gap', 'scorecard_sales_cycle_gap', 'scorecard_retention_gap',
+      'scorecard_composite', 'scorecard_dim_strategy', 'scorecard_dim_people',
+      'scorecard_dim_governance', 'scorecard_belief_confidence', 'scorecard_connect_comfort',
+    ]) {
+      expect(byName[n].type, n).toBe('number');
+    }
+    expect(byName.scorecard_readiness_band.type).toBe('enumeration');
+    expect(byName.scorecard_burned_attempt.type).toBe('bool');
+    expect(byName.scorecard_burned_attempt.fieldType).toBe('booleancheckbox');
+    expect(byName.scorecard_url_given.type).toBe('bool');
     expect(byName.scorecard_top_gap.type).toBe('string');
     expect(byName.scorecard_business_model.type).toBe('enumeration');
     expect(byName.scorecard_completed_at.type).toBe('datetime');
-    expect(byName.scorecard_result_json.type).toBe('string');
     expect(byName.scorecard_result_json.fieldType).toBe('textarea');
-    expect(byName.scorecard_pdf_url.type).toBe('string');
     expect(byName.scorecard_pdf_url.fieldType).toBe('text');
   });
 
-  it('maturity_stage options are the four maturity stages', () => {
-    const stage = SCORECARD_RESULT_PROPERTIES.find((p) => p.name === 'scorecard_maturity_stage');
-    expect(stage.options.map((o) => o.value)).toEqual([
-      'Reactive',
-      'Repeatable',
-      'Predictable',
-      'Compounding',
+  it('readiness_band options stay in lockstep with the scoring bands', () => {
+    const band = SCORECARD_RESULT_PROPERTIES.find((p) => p.name === 'scorecard_readiness_band');
+    expect(band.options.map((o) => o.value)).toEqual([
+      'Not Ready Yet', 'Foundations First', 'Ready in Parts', 'Ready to Build',
     ]);
+    // Same set as the code that computes them, regardless of ordering.
+    expect(band.options.map((o) => o.value).sort()).toEqual(
+      READINESS_BANDS.map((b) => b.name).sort()
+    );
+  });
+
+  it('the burned-attempt property describes why it is the priority segment', () => {
+    const burned = SCORECARD_RESULT_PROPERTIES.find((p) => p.name === 'scorecard_burned_attempt');
+    expect(burned.description).toMatch(/did not stick/);
+    expect(burned.description).toMatch(/priority segment/);
   });
 
   it('business_model option values stay in lockstep with the quiz q2 options', () => {

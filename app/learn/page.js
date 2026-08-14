@@ -242,7 +242,7 @@ export default function LearnIndexPage() {
           <CtaCallout
             eyebrow="Before you read all of it"
             heading="Find out which of these actually applies to you."
-            body="The free Scan is fifteen questions and about five minutes. It gives you a directional read on where your revenue engine stands, so you know which of these guides is worth your afternoon."
+            body="The free Scan is sixteen questions and about five minutes. It tells you why AI has or has not stuck in your business and where you are ready to start, so you know which of these guides is worth your afternoon."
             buttonLabel="Get the Free Scan"
             href="/scorecard"
             ctaLocation="learn_index_foot"

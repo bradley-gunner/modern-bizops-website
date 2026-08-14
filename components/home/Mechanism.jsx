@@ -302,8 +302,8 @@ const STEPS = [
     art: RecordsGlyph,
   },
   {
-    label: "It scores 51 competencies",
-    body: "The same four-stage model behind the free Scan, run across the whole revenue engine. The Scan asks you fifteen questions. This one reads 44 of the answers off your systems and scores the newest seven with you on the call.",
+    label: "It scores 60 competencies",
+    body: "The same four-stage model behind the free Scan, run across the whole revenue engine. The Scan asks you sixteen questions. This one computes 44 competencies straight from your systems and scores the rest with you on the call.",
     art: ScoreGlyph,
   },
   {

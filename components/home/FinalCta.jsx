@@ -15,7 +15,7 @@ export default function FinalCta() {
           busywork.
         </h2>
         <p className="font-body text-white/80 text-base md:text-lg leading-relaxed mb-9">
-          Start with the free Scan. Fifteen questions, about five minutes, and
+          Start with the free Scan. Sixteen questions, about five minutes, and
           no call required.
         </p>
         <Button href="/scorecard" size="large" ctaLocation="home_closing">

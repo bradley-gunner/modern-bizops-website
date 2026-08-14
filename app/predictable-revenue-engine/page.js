@@ -16,12 +16,12 @@ export const metadata = {
   // not repeat the brand or the tab reads "... | Modern BizOps | Modern BizOps".
   title: "Revenue Operations: The Four Stages From Founder-Led to Predictable",
   description:
-    "The four stages and 51 competencies that move a founder-led business from revenue that depends on you to revenue you can predict. See exactly how each one is measured.",
+    "The four stages and 60 competencies that move a founder-led business from revenue that depends on you to revenue you can predict. See exactly how each one is measured.",
   alternates: { canonical: URL },
   openGraph: {
     title: "Revenue Operations: The Four Stages From Founder-Led to Predictable",
     description:
-      "From revenue that runs on you to revenue you can predict. Four stages, 51 competencies.",
+      "From revenue that runs on you to revenue you can predict. Four stages, 60 competencies.",
     url: URL,
     images: [
       {
@@ -36,7 +36,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Revenue Operations: The Four Stages From Founder-Led to Predictable",
     description:
-      "Four stages, 51 competencies, from revenue that runs on you to revenue you can predict.",
+      "Four stages, 60 competencies, from revenue that runs on you to revenue you can predict.",
     images: ["https://modernbizops.com/og/og-maturity-model.png"],
   },
 };
@@ -89,8 +89,8 @@ export default function MaturityModelPage() {
               &ldquo;where am I, and what is the next right thing to build?&rdquo;
             </p>
             <p className="text-lg text-text-mid mt-6">
-              The GTM Maturity Framework has a total of fifty-one competencies,
-              broken into four maturity stages. You do not need all fifty-one.
+              The GTM Maturity Framework has a total of sixty competencies,
+              broken into four maturity stages. You do not need all sixty.
               You need to improve in the{" "}
               <span className="text-amber font-semibold italic">three or four</span>{" "}
               that matter for where you are right now.
@@ -122,16 +122,17 @@ export default function MaturityModelPage() {
               <div className="text-xs tracking-widest uppercase text-amber font-semibold">
                 For the operators who want to look under the hood
               </div>
-              {/* NO COUNT IN THIS CAPTION, ON PURPOSE (2026-08-12). It read
-                  "four stages, 51 competencies" for a few hours, sitting one
-                  click above <MaturityExperience />, which renders the 44
-                  competencies lib/maturity/competencies/ actually holds. A
-                  visitor could count the list and catch the caption in five
-                  seconds. The 51 is a knowing forward claim elsewhere on this
-                  page (doc 13 approved 45 to 51; the instrument has not shipped
-                  them yet), and it stays there. It does not belong on the label
-                  of the list that disproves it. Put a number back here only
-                  when competenciesForStage() returns that many. */}
+              {/* NO COUNT IN THIS CAPTION, ON PURPOSE (2026-08-12; counts
+                  refreshed 2026-08-14 to the certified v1.2 inventory of 60).
+                  It read "four stages, 51 competencies" for a few hours,
+                  sitting one click above <MaturityExperience />, which renders
+                  the 44 competencies lib/maturity/competencies/ actually
+                  holds. A visitor could count the list and catch the caption
+                  in five seconds. The 60 is a knowing forward claim elsewhere
+                  on this page (45 to 60 are call-assessed until Phase 2
+                  rubrics land), and it stays there. It does not belong on the
+                  label of the list that disproves it. Put a number back here
+                  only when competenciesForStage() returns that many. */}
               <div className="font-display font-semibold text-navy text-2xl md:text-3xl mt-1">
                 The full map{" "}
                 <span className="text-amber font-normal">
