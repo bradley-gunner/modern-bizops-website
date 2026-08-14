@@ -20,12 +20,26 @@ export default function PrivacyPage() {
               Privacy Policy
             </h1>
             <p className="text-text-light text-sm mb-1">
-              Last updated February 18, 2026
+              Last updated August 14, 2026
             </p>
-            {/* VERSION COUPLING: privacy-2026-02-18 matches the app's clickwrap
+            {/* VERSION COUPLING: privacy-2026-08-14 matches the app's clickwrap
                 registry (server/src/lib/legalDocs.js). Do NOT bump this string
                 unless you also change the content and update the app in the same
                 change window. A separate Privacy Policy audit is pending.
+
+                BUMPED 2026-08-14 from privacy-2026-02-18, in the same change
+                window as the app registry entry, for the two disclosures added
+                below in section 4: HubSpot named as the CRM that receives form
+                data (it was previously disclosed only as a payment processor),
+                and the public-surface read the AI Revenue Scan performs on a
+                website address the visitor chooses to give. PRIVACY is
+                `gated: false` in that registry, so this bump records the change
+                without forcing any re-acceptance interstitial. It is recorded
+                `material: false` (DECIDED BY BRADLEY 2026-08-14): both
+                disclosures name processing rather than widening it, and
+                marking a clarification material is how that signal stops
+                meaning anything. Reserve material for a change that actually
+                widens what is collected or who receives it.
                 Note: the Microsoft Clarity disclosure in section 4 was added on
                 2026-06-27 as a minor clarifying update; the version string and
                 date are intentionally left unchanged, with the full bump
@@ -38,7 +52,7 @@ export default function PrivacyPage() {
                 repo's /update-legal-doc process, which owns the clickwrap
                 registry. */}
             <p className="text-text-light text-xs mb-10">
-              Version: privacy-2026-02-18 (effective February 18, 2026)
+              Version: privacy-2026-08-14 (effective August 14, 2026)
             </p>
 
             <p>
