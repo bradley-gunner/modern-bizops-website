@@ -49,6 +49,33 @@ the violation.** Do this for CI tests, for greps you run by hand, and for any
 assertion you plan to make about the whole site. The cost is under a minute; the
 failure mode is shipping with a green check that was never looking at anything.
 
+**Check that your injected violation actually landed (added 2026-08-14.)** A
+session proving a voice guard ran a `str.replace()` whose search string did not
+match the file, so nothing changed, the guard passed, and the pass was briefly
+read as "the guard does not bite." The fix is one line: `assert new != old` on
+the injection, or grep the file for the violation before running the guard. A
+no-op injection produces exactly the same green as a broken guard.
+
+**A scoped test passing is not the change being verified (added 2026-08-14.)**
+A privacy version bump was "verified" by running `legalDocs.test.js` alone, 6/6
+green. A second suite, `routes.legal.test.js`, asserted the same version through
+an API response and was still pinned to the old string; the branch would have
+failed the moment anything ran the full suite. **Before merging, grep the whole
+repo for the literal value you changed** and run the full suite, not the file
+you were looking at. Values that appear in more than one place are exactly the
+ones worth grepping: version strings, counts, enum values, prices.
+
+**When a guardrail is doing visible work on ordinary inputs, suspect the model,
+not the guardrail (added 2026-08-14.)** The Scan shipped telling a $10M business
+it was leaving $7,499,999 on the table, which was exactly the 75 percent
+aggregate cap. The instinct to tighten the cap was wrong: one dollar generator
+used a throughput model claiming annual revenue scales linearly with pipeline
+turnover, and it alone produced 65 percent of the total. Retiring it dropped the
+figure to 29 percent of revenue with no cap firing. Caps, clamps and `Math.min`
+guards that bind on a normal profile are evidence of a broken computation
+upstream. Bradley's framing, worth keeping: **a cap is an artificial
+corner-cutting move rather than a fix for the actual problem.**
+
 ## Facts you'll need
 
 - **Production URLs:** the apex `modernbizops.com` **is** the canonical serving
@@ -374,8 +401,22 @@ cp "$INBOX/_TEMPLATE.md" "$INBOX/$(date +%F)-site-<PR#>.md"
 
 Fill every field. Three matter most for this repo:
 
-- **`board:`** the item ids from `state/board.yaml` this closes, advances or unblocks. Read the
-  board first, do not guess ids. If nothing matches, say so under `new:`.
+- **`board:`** the item ids this closes, advances or unblocks. **Read `state/board.db`, NOT
+  `state/board.yaml` (corrected 2026-08-14).** The yaml is stale and a session grepping it
+  reported three ids as non-existent when all three were in the db. That turns a lookup miss
+  into a confidently wrong claim, and a receipt saying "no item covers this" proposes a
+  duplicate. Do not guess ids; if nothing matches after querying the db, say so under `new:`.
+
+  ```bash
+  cd "$HOME/Documents/Claude/Projects/Modern BizOps/state" && python3 -c "
+  import sqlite3; c=sqlite3.connect('board.db'); c.row_factory=sqlite3.Row
+  for r in c.execute('select id,title,stage,next_action,done_when from items where id=?',('<item-id>',)):
+      print(dict(r))"
+  ```
+
+  **Check the item's `done_when` before writing `closes:`.** Most items that a PR seems to
+  finish have a second clause the merge does not satisfy (an observation in a third-party
+  system, a change in another repo). Write `advances:` and say precisely which half is done.
 - **`verify:`** the URL, command or connector query a later session runs to confirm this
   independently. **A receipt is a lead, not a proof.** The dreaming pass re-checks before it
   proposes anything, and if the probe disagrees the probe wins.
@@ -384,8 +425,15 @@ Fill every field. Three matter most for this repo:
   fetch is the cheapest verify line there is:
   `curl -s https://modernbizops.com/sitemap.xml | grep -c '<loc>'`
 
-**Do NOT edit `board.yaml` or the board artifact from this repo.** One writer owns the board, and
-that is the dreaming pass with Bradley approving.
+**Do NOT edit `board.db`, `board.yaml` or the board artifact from this repo.** One writer owns
+the board, and that is the dreaming pass with Bradley approving. Reading the db to find the
+right ids is correct and expected; writing to it is not.
+
+**Write the receipt even when the PR is not merged yet**, marking `merged:` and `commit:`
+honestly (`not-yet`, the branch head) with a line at the top saying nothing is live. The inbox
+exists because work finishes somewhere else and never comes back; a receipt written at merge
+time is one interrupted session away from never existing. Update the front matter when it
+merges.
 
 If the Modern BizOps folder is unreachable, say so in your report-back rather than skipping
 silently.
