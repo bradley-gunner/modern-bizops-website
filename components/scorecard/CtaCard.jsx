@@ -1,8 +1,11 @@
+import Link from 'next/link';
 import Button from '@/components/ui/Button';
 
 // The results-screen bridge to the paid next rung. It goes through Button (not a
 // bare Link) so the click fires cta_click: Button only tracks hrefs that are
 // keys in its own CTA_DESTINATIONS map, and /ai-readiness-assessment is one.
+// The founding sentence renders while the founding window is open; its terms
+// come from lib/offers.js via the voice module, never hardcoded here.
 export default function CtaCard({ cta }) {
   return (
     <div className="bg-navy text-cream rounded-[16px] p-8 md:p-10">
@@ -16,8 +19,13 @@ export default function CtaCard({ cta }) {
           </li>
         ))}
       </ul>
-      {cta.focusLine && (
-        <p className="font-body text-cream/90 mb-6">{cta.focusLine}</p>
+      {cta.foundingLine && (
+        <p className="font-body text-cream/85 text-sm border-t border-cream/20 pt-4 mb-6">
+          {cta.foundingLine}{' '}
+          <Link href={cta.foundingHref} className="text-amber-light underline underline-offset-2">
+            {cta.foundingLinkLabel}
+          </Link>
+        </p>
       )}
       <Button href={cta.destination} ctaLocation="scorecard_result_foot">
         {cta.buttonLabel}

@@ -50,7 +50,12 @@ const FIRST_PERSON_OTHER = /\b(my|me|mine|myself)\b(?!-)/i;
 // file covered. scripts/lint-scorecard-voice.mjs skips lib/scorecard/questions.js
 // whole for the same reason this exempts two line shapes, and every marketer
 // authored prompt in that file is inside the guard here as a result.
-const READER_VOICE_LINE = /^\s*(q:|\{\s*value:)/;
+// The exemption reads a KEY at the start of the line, never a quoted string,
+// so prose in the same file stays covered. `label:` joined `value:` on
+// 2026-08-14 when the Scan rebuild moved diagnostic options to
+// `{ label: '...' }` lines; both are option keys, and the respondent-voice
+// answers ("Me, on top of everything else.") live on them.
+const READER_VOICE_LINE = /^\s*(q:|\{\s*(value|label):)/;
 
 function firstPersonViolations(src) {
   const hits = [];
@@ -147,8 +152,12 @@ describe("brand surfaces speak as we", () => {
     // covered no matter what it says.
     expect(READER_VOICE_LINE.test('  q: "How do I avoid getting locked in?",')).toBe(true);
     expect(READER_VOICE_LINE.test("  { value: 'A', label: 'I do not track this' },")).toBe(true);
+    expect(READER_VOICE_LINE.test("  { label: 'Me, on top of everything else.' },")).toBe(true);
     expect(READER_VOICE_LINE.test('  a: "I coach one of your own people.",')).toBe(false);
     expect(READER_VOICE_LINE.test("        My audit engine connects to your CRM.")).toBe(false);
+    // A bare quoted string is NOT exempt, so respondent copy has to sit on an
+    // option key to earn the exemption.
+    expect(READER_VOICE_LINE.test("        'Me, on top of everything else.',")).toBe(false);
   });
 
   it("bites on the brand-voice regression, in the forms it actually took", () => {

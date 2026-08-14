@@ -442,7 +442,7 @@ export default function AboutPage() {
               Want to know what is worth automating first?
             </h2>
             <p className="font-body text-cream/80 text-lg mb-8 leading-relaxed">
-              Start with the free Scan. Fifteen questions, about five minutes,
+              Start with the free Scan. Sixteen questions, about five minutes,
               and no call required. If you would rather talk it through, the
               call confirms your fit and your price.
             </p>

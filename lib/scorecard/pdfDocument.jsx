@@ -1,6 +1,6 @@
 import { Document, Page, Text, View, Image, StyleSheet, Font, renderToBuffer } from '@react-pdf/renderer';
 import path from 'node:path';
-import { BLOCK_NAMES, LEVEL_WORDS } from './voice';
+import { LEVEL_WORDS } from './voice';
 
 const FONT_DIR = path.join(process.cwd(), 'public', 'fonts');
 const LOGO_PATH = path.join(process.cwd(), 'public', 'logos', 'horizontal-full-color-light.png');
@@ -42,12 +42,13 @@ const BRAND = {
   white: '#FFFFFF',
 };
 
-// Mirrors the web's DOT_FILL_BY_SCORE for the 4-dot competency scale.
-const DOT_FILL_BY_SCORE = {
+// Score colors for the 1..5 scale (screen keeps its own copy in the bar fill).
+const SCORE_FILL = {
   1: '#B45309',
   2: '#E8873A',
-  3: '#14B8A6',
-  4: '#059669',
+  3: '#D8A03A',
+  4: '#14B8A6',
+  5: '#059669',
 };
 
 const styles = StyleSheet.create({
@@ -66,13 +67,22 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   logo: { width: 140 },
+  eyebrow: {
+    fontFamily: 'Jost',
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    letterSpacing: 1.5,
+    fontSize: 9,
+    color: BRAND.amber,
+    marginBottom: 6,
+  },
   h1: {
     fontFamily: 'Cormorant Garamond',
     fontWeight: 700,
-    fontSize: 24,
+    fontSize: 30,
     color: BRAND.navy,
-    lineHeight: 1.2,
-    marginBottom: 8,
+    lineHeight: 1.15,
+    marginBottom: 6,
   },
   h2: {
     fontFamily: 'Cormorant Garamond',
@@ -109,14 +119,42 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 10,
   },
-  roiTitle: {
+  marker: {
+    fontFamily: 'Jost',
+    fontWeight: 600,
+    fontSize: 7,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+    color: BRAND.cream,
+    backgroundColor: BRAND.navy,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+    marginBottom: 6,
+  },
+  markerSelf: {
+    color: BRAND.textMid,
+    backgroundColor: BRAND.creamDark,
+  },
+  rowTitle: {
     fontFamily: 'Jost',
     fontWeight: 600,
     fontSize: 11,
     color: BRAND.textPrimary,
+    marginBottom: 2,
+  },
+  rowMetric: {
+    fontFamily: 'Jost',
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    letterSpacing: 0.6,
+    fontSize: 7,
+    color: BRAND.textLight,
     marginBottom: 4,
   },
   meta: { fontSize: 10, color: BRAND.textMid, marginBottom: 3 },
+  mathLine: { fontSize: 8.5, color: BRAND.textLight, lineHeight: 1.45, marginTop: 2, marginBottom: 2 },
   fixLabel: {
     fontFamily: 'Jost',
     fontWeight: 600,
@@ -140,6 +178,7 @@ const styles = StyleSheet.create({
   badgeMeets: { backgroundColor: BRAND.greenPale, color: BRAND.green },
   badgePartial: { backgroundColor: BRAND.amberPale, color: BRAND.amber },
   badgeFails: { backgroundColor: BRAND.redPale, color: BRAND.red },
+  badgeAudit: { backgroundColor: BRAND.creamDark, color: BRAND.navyMid },
   tableHeaderRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -174,34 +213,20 @@ const styles = StyleSheet.create({
   },
   metricSource: { fontSize: 7, color: BRAND.textLight, marginTop: 2 },
   cellValue: { fontSize: 9, color: BRAND.textMid },
-  heatBlockHeader: {
-    fontFamily: 'Jost',
-    fontWeight: 600,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-    fontSize: 9,
-    color: BRAND.navy,
-    marginTop: 8,
-    marginBottom: 4,
-  },
-  heatRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 3,
-    borderBottomWidth: 0.5,
-    borderBottomColor: BRAND.border,
-  },
-  heatLabel: { fontSize: 9, color: BRAND.textPrimary },
-  heatScale: { flexDirection: 'row', alignItems: 'center' },
-  dot: { width: 6, height: 6, borderRadius: 3, marginLeft: 3 },
-  levelWord: {
-    fontSize: 8,
-    color: BRAND.textMid,
-    width: 50,
-    textAlign: 'right',
-    marginLeft: 6,
-  },
+  dimRow: { marginBottom: 8 },
+  dimHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 3 },
+  dimLabel: { fontFamily: 'Jost', fontWeight: 600, fontSize: 10, color: BRAND.textPrimary },
+  dimLevel: { fontSize: 8, color: BRAND.textLight },
+  barTrack: { height: 6, borderRadius: 3, backgroundColor: BRAND.creamDark, marginBottom: 4 },
+  barFill: { height: 6, borderRadius: 3 },
+  dimRead: { fontSize: 8.5, color: BRAND.textMid, lineHeight: 1.4 },
+  obsRow: { flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 3, borderBottomWidth: 0.5, borderBottomColor: BRAND.creamDark },
+  obsDot: { width: 5, height: 5, borderRadius: 2.5, marginTop: 4, marginRight: 6 },
+  obsText: { flex: 1, fontSize: 9, color: BRAND.textMid, lineHeight: 1.4 },
+  greyDim: { flexDirection: 'row', paddingVertical: 4, borderBottomWidth: 0.5, borderBottomColor: BRAND.creamDark, opacity: 0.8 },
+  greyDimBody: { flex: 1 },
+  greyDimName: { fontFamily: 'Jost', fontWeight: 600, fontSize: 9.5, color: BRAND.textPrimary, marginBottom: 1 },
+  greyDimLine: { fontSize: 8.5, color: BRAND.textMid, lineHeight: 1.4 },
   ctaBox: {
     backgroundColor: BRAND.navy,
     borderRadius: 8,
@@ -216,7 +241,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   ctaLine: { fontSize: 9, color: '#E3E0D9', lineHeight: 1.5, marginBottom: 3 },
-  ctaFocus: { fontSize: 9, color: BRAND.cream, lineHeight: 1.5, marginTop: 6, marginBottom: 6 },
+  ctaFounding: { fontSize: 9, color: BRAND.cream, lineHeight: 1.5, marginTop: 6, marginBottom: 6 },
   ctaButton: {
     backgroundColor: BRAND.amber,
     borderRadius: 12,
@@ -245,6 +270,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginTop: 10,
+    marginBottom: 8,
   },
   metaName: {
     fontFamily: 'Cormorant Garamond',
@@ -288,14 +314,22 @@ const styles = StyleSheet.create({
 
 const SECTION_LABELS = {
   1: 'Your business',
-  2: 'How you operate',
+  2: 'Your AI readiness',
   3: 'Your numbers',
 };
 
-function badgeStyle(comparison) {
+const OBS_DOT_COLOR = { good: BRAND.green, gap: BRAND.red, info: BRAND.navyMid };
+
+function comparisonBadgeStyle(comparison) {
   if (comparison === 'meets') return [styles.badge, styles.badgeMeets];
   if (comparison === 'partial') return [styles.badge, styles.badgePartial];
   return [styles.badge, styles.badgeFails];
+}
+
+function verdictBadgeStyle(state) {
+  if (state === 'ready') return [styles.badge, styles.badgeMeets];
+  if (state === 'blocked') return [styles.badge, styles.badgeFails];
+  return [styles.badge, styles.badgeAudit];
 }
 
 function ComparisonTable({ comparisons }) {
@@ -318,49 +352,10 @@ function ComparisonTable({ comparisons }) {
             {row.peerMedianDisplay} (range {row.peerRangeDisplay})
           </Text>
           <View style={styles.colBadge}>
-            <Text style={[...badgeStyle(row.comparison), { marginBottom: 0 }]}>
+            <Text style={[...comparisonBadgeStyle(row.comparison), { marginBottom: 0 }]}>
               {row.comparisonCopy.toUpperCase()}
             </Text>
           </View>
-        </View>
-      ))}
-    </View>
-  );
-}
-
-function DotScale({ score }) {
-  return (
-    <View style={styles.heatScale}>
-      {[1, 2, 3, 4].map((step) => (
-        <View
-          key={step}
-          style={[
-            styles.dot,
-            { backgroundColor: step <= score ? DOT_FILL_BY_SCORE[score] : BRAND.border },
-          ]}
-        />
-      ))}
-      <Text style={styles.levelWord}>{LEVEL_WORDS[score]}</Text>
-    </View>
-  );
-}
-
-function HeatMapRows({ scores }) {
-  const byBlock = { A: [], B: [], C: [] };
-  for (const s of scores) {
-    if (byBlock[s.block]) byBlock[s.block].push(s);
-  }
-  return (
-    <View style={styles.card} wrap={false}>
-      {['A', 'B', 'C'].map((block) => (
-        <View key={block}>
-          <Text style={styles.heatBlockHeader}>{BLOCK_NAMES[block]}</Text>
-          {byBlock[block].map((s) => (
-            <View key={s.id} style={styles.heatRow} wrap={false}>
-              <Text style={styles.heatLabel}>{s.competencyLabel}</Text>
-              <DotScale score={s.score} />
-            </View>
-          ))}
         </View>
       ))}
     </View>
@@ -377,6 +372,40 @@ function MetaBlock({ meta }) {
         {meta.company ? <Text style={styles.metaSub}>{meta.company}</Text> : null}
       </View>
       {dateStr ? <Text style={styles.metaDate}>Prepared {dateStr}</Text> : null}
+    </View>
+  );
+}
+
+function OpportunityRowPdf({ row, modelLabel }) {
+  const line = row.line;
+  return (
+    <View style={styles.card} wrap={false}>
+      <Text style={styles.rowTitle}>{row.areaTitle}</Text>
+      {row.metricTitle && <Text style={styles.rowMetric}>{row.metricTitle}</Text>}
+      {line && (
+        <>
+          <Text style={styles.meta}>Your number: {line.clientValue.display}</Text>
+          <Text style={styles.meta}>
+            Typical {modelLabel} peer: {line.peerMedian.display} (range {line.peerRange.displayLow} to {line.peerRange.displayHigh})
+          </Text>
+          <Text style={comparisonBadgeStyle(line.comparison)}>{line.comparisonCopy.toUpperCase()}</Text>
+          <Text style={styles.p}>{line.body}</Text>
+          <Text style={styles.mathLine}>{line.mathLine}</Text>
+          {row.capNote && <Text style={styles.mathLine}>{row.capNote}</Text>}
+        </>
+      )}
+      {!line && row.kind === 'computed' && row.statusLine && <Text style={styles.p}>{row.statusLine}</Text>}
+      {row.kind === 'evidence' && <Text style={styles.p}>{row.body}</Text>}
+      <Text style={verdictBadgeStyle(row.verdict.state)}>{row.verdict.label.toUpperCase()}</Text>
+      {row.verdict.gap && <Text style={styles.meta}>Blocked by: {row.verdict.gap}.</Text>}
+      <Text style={styles.mathLine}>Basis: {row.verdict.basis}.</Text>
+      {row.fix && (
+        <>
+          <Text style={styles.fixLabel}>HOW TO CLOSE THIS</Text>
+          <Text style={styles.p}>{row.fix}</Text>
+        </>
+      )}
+      {row.source && <Text style={styles.small}>{row.source}</Text>}
     </View>
   );
 }
@@ -403,8 +432,8 @@ function QASection({ questions }) {
                     <Text style={styles.qaAnswer}>{q.answer || 'No answer'}</Text>
                   </View>
                   {typeof q.score === 'number' ? (
-                    <Text style={[styles.qaScorePill, { backgroundColor: DOT_FILL_BY_SCORE[q.score] || BRAND.textLight }]}>
-                      {q.score}/4 {LEVEL_WORDS[q.score]}
+                    <Text style={[styles.qaScorePill, { backgroundColor: SCORE_FILL[q.score] || BRAND.textLight }]}>
+                      {q.score}/5 {LEVEL_WORDS[q.score]}
                     </Text>
                   ) : null}
                 </View>
@@ -417,6 +446,9 @@ function QASection({ questions }) {
   );
 }
 
+/** Mirrors the on-screen section order exactly (doc 15 Part 5): band, why it
+ *  did not stick, belief contrast, observed, dimensions, opportunity map,
+ *  first move, computed dimensions into the CTA. Same markers throughout. */
 function ResultDocument({ result, meta, questions }) {
   return (
     <Document>
@@ -427,74 +459,126 @@ function ResultDocument({ result, meta, questions }) {
 
         <MetaBlock meta={meta} />
 
-        <Text style={styles.h1}>{result.headline.lead}</Text>
-        <Text style={styles.p}>{result.headline.subline}</Text>
+        {/* 1. The readiness band */}
+        <Text style={styles.eyebrow}>{result.band.eyebrow}</Text>
+        <Text style={styles.h1}>{result.band.name}</Text>
+        <Text style={styles.small}>{result.band.marker}</Text>
+        <Text style={[styles.p, { marginTop: 8 }]}>{result.band.descriptor}</Text>
 
-        {result.comparisons && result.comparisons.length > 0 && (
+        {/* 2. Why it did not stick */}
+        {result.whyItDidNotStick && (
           <View wrap={false}>
-            <Text style={styles.h2}>How you stack up</Text>
-            <ComparisonTable comparisons={result.comparisons} />
+            <Text style={styles.h2}>{result.whyItDidNotStick.heading}</Text>
+            <View style={styles.card}>
+              <Text style={styles.p}>{result.whyItDidNotStick.text}</Text>
+            </View>
           </View>
         )}
 
-        {result.roiLines.map((line, i) => (
-          <View key={line.key} wrap={false}>
-            {i === 0 && <Text style={styles.h2}>How we got there</Text>}
+        {/* 3. The belief contrast */}
+        {result.belief && (
+          <View wrap={false}>
+            <Text style={styles.h2}>{result.belief.heading}</Text>
             <View style={styles.card}>
-              <Text style={styles.roiTitle}>{line.title}</Text>
-              <Text style={styles.meta}>Your number: {line.clientValue.display}</Text>
-              <Text style={styles.meta}>
-                Typical {result.modelLabel} peer: {line.peerMedian.display} (range {line.peerRange.displayLow} to {line.peerRange.displayHigh})
-              </Text>
-              <Text style={badgeStyle(line.comparison)}>{line.comparisonCopy.toUpperCase()}</Text>
-              <Text style={styles.p}>{line.body}</Text>
-              {line.fix && (
-                <>
-                  <Text style={styles.fixLabel}>HOW TO CLOSE THIS</Text>
-                  <Text style={styles.p}>{line.fix}</Text>
-                </>
-              )}
-              <Text style={styles.small}>{line.source}</Text>
+              <Text style={styles.p}>{result.belief.text}</Text>
             </View>
           </View>
-        ))}
+        )}
 
+        {/* 4. Observed from public surfaces */}
+        {result.observedFindings && (
+          <View wrap={false}>
+            <Text style={styles.h2}>{result.observedFindings.heading}</Text>
+            <View style={styles.card}>
+              <Text style={styles.marker}>{result.observedFindings.marker}</Text>
+              {result.observedFindings.unreachable ? (
+                <Text style={styles.p}>{result.observedFindings.text}</Text>
+              ) : (
+                <>
+                  {result.observedFindings.lines.map((line) => (
+                    <View key={line.key} style={styles.obsRow} wrap={false}>
+                      <View style={[styles.obsDot, { backgroundColor: OBS_DOT_COLOR[line.tone] || BRAND.navyMid }]} />
+                      <Text style={styles.obsText}>{line.text}</Text>
+                    </View>
+                  ))}
+                  <Text style={[styles.small, { marginTop: 6 }]}>{result.observedFindings.boundary}</Text>
+                </>
+              )}
+            </View>
+          </View>
+        )}
+
+        {/* 5. The three askable dimensions */}
         <View wrap={false}>
-          <Text style={styles.h2}>Why this is happening</Text>
+          <Text style={styles.h2}>{result.dimensions.heading}</Text>
           <View style={styles.card}>
-            <Text style={styles.p}>
-              You are at Stage {result.placement.stage}: {result.placement.name}.
-            </Text>
-            <Text style={styles.p}>{result.placement.descriptor}</Text>
-            {result.binding && (
-              <Text style={styles.p}>{result.binding.translation}</Text>
-            )}
-            {result.nextStage && (
-              <>
-                <Text style={styles.h3}>What crossing into {result.nextStage.name} looks like</Text>
-                {result.nextStage.criteria.map((c, i) => (
-                  <Text key={i} style={styles.p}>- {c}</Text>
-                ))}
-              </>
-            )}
+            <Text style={[styles.marker, styles.markerSelf]}>{result.dimensions.marker}</Text>
+            {result.dimensions.items.map((d) => (
+              <View key={d.key} style={styles.dimRow} wrap={false}>
+                <View style={styles.dimHead}>
+                  <Text style={styles.dimLabel}>{d.label}</Text>
+                  <Text style={styles.dimLevel}>{d.mean} of 5 · {d.levelWord}</Text>
+                </View>
+                <View style={styles.barTrack}>
+                  <View
+                    style={[
+                      styles.barFill,
+                      { width: `${Math.round((d.mean / 5) * 100)}%`, backgroundColor: SCORE_FILL[d.level] || BRAND.amber },
+                    ]}
+                  />
+                </View>
+                <Text style={styles.dimRead}>{d.read}</Text>
+              </View>
+            ))}
           </View>
         </View>
 
-        {result.competencyScores && result.competencyScores.length > 0 && (
+        {/* 6. The opportunity map */}
+        <Text style={styles.h2}>{result.opportunity.heading}</Text>
+        {result.opportunity.noGap ? (
+          <>
+            <Text style={styles.p}>{result.opportunity.noGap.lead}</Text>
+            <Text style={styles.p}>{result.opportunity.noGap.subline}</Text>
+          </>
+        ) : (
+          <Text style={styles.p}>{result.opportunity.intro}</Text>
+        )}
+        {result.opportunity.rows.map((row) => (
+          <OpportunityRowPdf key={row.area} row={row} modelLabel={result.modelLabel} />
+        ))}
+        {result.opportunity.comparisons && result.opportunity.comparisons.length > 0 && (
           <View wrap={false}>
-            <Text style={styles.h2}>Your competency map</Text>
-            <HeatMapRows scores={result.competencyScores} />
+            <Text style={styles.h3}>{result.opportunity.comparisonsHeading}</Text>
+            <ComparisonTable comparisons={result.opportunity.comparisons} />
           </View>
         )}
 
-        {result.brightSpots && result.brightSpots.length > 0 && (
+        {/* 7. The first move */}
+        {result.firstMove && (
           <View wrap={false}>
-            <Text style={styles.h2}>What you are doing right</Text>
-            <Text style={styles.p}>
-              You scored above your placement on {result.brightSpots.map((s) => s.competencyLabel).join(' and ')}. That is foundation for the work ahead.
-            </Text>
+            <Text style={styles.h2}>{result.firstMove.heading}</Text>
+            <View style={styles.card}>
+              <Text style={styles.fixLabel}>FROM YOUR WEAKEST DIMENSION: {result.firstMove.dimensionLabel.toUpperCase()}</Text>
+              <Text style={styles.p}>{result.firstMove.text}</Text>
+            </View>
           </View>
         )}
+
+        {/* 8. What we could not measure: the CTA block */}
+        <View wrap={false}>
+          <Text style={styles.h2}>{result.computedDimensions.heading}</Text>
+          <Text style={styles.p}>{result.computedDimensions.intro}</Text>
+          <View style={styles.card}>
+            {result.computedDimensions.items.map((item) => (
+              <View key={item.key} style={styles.greyDim} wrap={false}>
+                <View style={styles.greyDimBody}>
+                  <Text style={styles.greyDimName}>{item.name}</Text>
+                  <Text style={styles.greyDimLine}>{item.line}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
 
         <View wrap={false}>
           <Text style={styles.h2}>What this Scan can and cannot tell you</Text>
@@ -506,8 +590,10 @@ function ResultDocument({ result, meta, questions }) {
           {result.cta.cardLines.map((line, i) => (
             <Text key={i} style={styles.ctaLine}>- {line}</Text>
           ))}
-          {result.cta.focusLine && (
-            <Text style={styles.ctaFocus}>{result.cta.focusLine}</Text>
+          {result.cta.foundingLine && (
+            <Text style={styles.ctaFounding}>
+              {result.cta.foundingLine} modernbizops.com{result.cta.foundingHref}
+            </Text>
           )}
           <View style={styles.ctaButton}>
             <Text style={styles.ctaButtonText}>

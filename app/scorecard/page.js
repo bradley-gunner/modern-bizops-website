@@ -6,7 +6,7 @@ import ScorecardExperience from '@/components/scorecard/ScorecardExperience';
 // equity and inbound links, and the Scan is a brand surface, not a search one.
 const TITLE = 'AI Revenue Scan: Free 5-Minute Diagnostic';
 const DESCRIPTION =
-  'Fifteen questions, about five minutes, no call. Get a directional read on where your revenue engine stands and the one gap to close first.';
+  'Sixteen questions, about five minutes, no call. Find out why AI has not stuck in your business yet, what it is costing you, and where you are ready to start.';
 
 export const metadata = {
   // The root layout appends "| Modern BizOps" via its title template, so the
@@ -19,7 +19,7 @@ export const metadata = {
   openGraph: {
     title: TITLE,
     description:
-      'The free first rung: a directional read on where your revenue engine stands, benchmarked against peers in your business model.',
+      'The free first rung: why AI has or has not worked for you, the dollar value of the gaps, and which automations you are ready to start on now.',
     url: 'https://modernbizops.com/scorecard',
     images: [
       {
@@ -33,7 +33,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: TITLE,
-    description: 'Fifteen questions. Peer-anchored benchmarks. The one gap we would close first.',
+    description: 'Sixteen questions. Peer-anchored benchmarks. The first move we would make in your seat.',
     images: ['https://modernbizops.com/og/og-scorecard.png'],
   },
 };

@@ -94,7 +94,7 @@ export default function SelfLocate() {
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Button href="/scorecard">Get your exact score</Button>
-            <span className="text-[13px] text-text-light">Five minutes. Fifteen questions.</span>
+            <span className="text-[13px] text-text-light">Five minutes. Sixteen questions.</span>
           </div>
         </div>
       )}

@@ -433,23 +433,32 @@ const CARDS = {
   // carried by the FREE pill above the headline, so the headline does not
   // repeat it, which is what keeps it on one line at the default 60px.
   scorecard: {
+    // Re-rendered 2026-08-14 with the Scan rebuild. The chips were the seven
+    // RETIRED RevOps competencies (CRM Architecture, Pipeline Design and
+    // friends), which the instrument stopped asking about, and the footnote
+    // said 15 questions. Artwork survives every text search, so a stale claim
+    // baked in here is the historical worst case. PNG regenerated; flag reset
+    // to false per the committed-state rule.
     changed: false,
     element: () =>
       scorecardCard({
         headline: 'Get Your AI Revenue Scan',
         chips: [
-          'CRM Architecture', 'Lead Qualification', 'Pipeline Design', 'Forecasting',
-          'Revenue Cadence', 'Retention & Expansion', 'Leading Indicators',
+          'AI Strategy', 'People & Adoption', 'Governance & Trust',
+          'What we see from the outside', 'What it is costing you',
         ],
-        footnote: 'Peer-anchored to your business model · 15 questions · about 5 minutes',
+        footnote: 'Peer-anchored to your business model · 16 questions · about 5 minutes',
       }),
   },
   'maturity-model': {
+    // Re-rendered 2026-08-14: the card said 51 competencies, which the v1.2
+    // certified inventory (60) retired. Same hidden-surface class as the
+    // scorecard card above. PNG regenerated; flag reset to false.
     changed: false,
     element: () =>
       heroCard({
         headline: 'The GTM Maturity Framework',
-        subline: 'Four stages. 51 competencies. From revenue that runs on you to revenue you can predict.',
+        subline: 'Four stages. 60 competencies. From revenue that runs on you to revenue you can predict.',
         headlineSize: 58,
       }),
   },

@@ -16,9 +16,15 @@ import {
   LEAD_MAGNET_PROPERTY,
 } from '@/lib/hubspot';
 import { buildResult } from '@/lib/scorecard/resultRender';
+import { observeWebsite } from '@/lib/scorecard/observed';
 import { mapResultToHubSpotProperties } from '@/lib/scorecard/hubspotResultProperties';
 import { answeredQuestions } from '@/lib/scorecard/scorecardExport';
 import { renderResultPdf } from '@/lib/scorecard/pdfDocument';
+
+// The observed pass (lib/scorecard/observed.js) budgets ~9s and runs in
+// parallel with the HubSpot form submit below; give the function room for
+// both plus the enrichment writes so Vercel does not cut the response off.
+export const maxDuration = 30;
 
 let propertiesEnsured = false;
 
@@ -61,7 +67,9 @@ function safeFileName(parts) {
   return `${base || 'scorecard-result'}.pdf`;
 }
 
-const REQUIRED_ANSWER_IDS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14'];
+// q16 (churn) is conditional by business model, so it is not in the required
+// set; everything else the quiz always shows is.
+const REQUIRED_ANSWER_IDS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15'];
 
 function validateAnswers(answers) {
   if (!answers || typeof answers !== 'object') return false;
@@ -76,7 +84,7 @@ export async function POST(request) {
     assertHubSpotConfigured();
 
     const body = await request.json();
-    const { firstName, email, company, utms, answers, hutk, pageUri, pageName } = body || {};
+    const { firstName, email, company, website, utms, answers, hutk, pageUri, pageName } = body || {};
 
     if (!email || typeof email !== 'string') {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
@@ -94,10 +102,21 @@ export async function POST(request) {
       propertiesEnsured = true;
     }
 
+    // The observed pass reads the prospect's public surfaces (page source,
+    // DNS, sitemap) under its own hard budget. It runs in parallel with the
+    // HubSpot form submit so a slow site costs as little wall-clock as
+    // possible, and it never rejects: an unreadable site produces the
+    // graceful-absence block, not an error. Nothing it reads is stored
+    // anywhere except the result payload built below.
+    const observedPromise = website ? observeWebsite(website) : Promise.resolve(null);
+
     // Submit through the HubSpot form so the hutk cookie attaches the visitor
     // session and HubSpot sets a real Original Source. This creates/updates the
     // contact; we do NOT create a deal (deals are made manually after Bradley
     // qualifies the lead).
+    // `website` is deliberately NOT in the form fields: the v3 form API
+    // rejects fields the form definition does not carry. It lands on the
+    // contact through the enrichment PATCH below instead.
     const submission = await submitHubSpotForm({
       properties: {
         email,
@@ -113,7 +132,8 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Failed to submit lead' }, { status: 502 });
     }
 
-    const result = buildResult(answers);
+    const observed = await observedPromise;
+    const result = buildResult(answers, { observed });
 
     // Look up the contact the form just created/updated so we can flag it for
     // the manual qualification queue and notify Bradley. Retry past HubSpot's
@@ -134,14 +154,18 @@ export async function POST(request) {
       // is a PATCH, so it does not re-stamp Original Source and leaves the
       // form-sourced raw inputs / UTM attribution untouched. Includes the
       // dollar-gap range and the full scorecard_result_json. Non-fatal.
-      await writeScorecardResultProperties(
-        contactId,
-        mapResultToHubSpotProperties(result, answers, meta)
-      );
+      await writeScorecardResultProperties(contactId, {
+        ...mapResultToHubSpotProperties(result, answers, meta),
+        // The standard HubSpot `website` property, written via PATCH because
+        // the attribution form's field set does not include it.
+        ...(website ? { website } : {}),
+      });
+      // The burned-attempt flag leads the subject on purpose: it marks the
+      // priority segment on the record before any call happens.
       await createContactTask({
         contactId,
-        subject: `New lead to qualify: ${firstName || email} (Stage ${result.placement.stage})`,
-        body: `New AI Revenue Scan submission. Stage ${result.placement.stage} (${result.placement.name}). Model: ${result.modelLabel}. Headline gap: ${result.headline.lead}`,
+        subject: `New lead to qualify: ${firstName || email} (${result.burnedAttempt ? 'BURNED ATTEMPT, ' : ''}${result.band.name})`,
+        body: `New AI Revenue Scan submission. Readiness band: ${result.band.name} (composite ${result.band.composite} of 5). Model: ${result.modelLabel}. Burned attempt: ${result.burnedAttempt ? 'yes' : 'no'}. Website given: ${website ? 'yes' : 'no'}. Connect comfort (q13): ${answers.q13?.score ?? 'n/a'} of 5.`,
         ownerId: BRADLEY_OWNER_ID,
         priority: 'HIGH',
         dueInHours: 24,
@@ -172,7 +196,7 @@ export async function POST(request) {
           });
           await createContactNote({
             contactId,
-            body: `AI Revenue Scan result PDF for ${firstName || email}${company ? ` (${company})` : ''}. Stage ${result.placement.stage} ${result.placement.name}. Dollar gap ${result.headline.floorDollars} to ${result.headline.medianDollars}. Model ${result.modelLabel}.`,
+            body: `AI Revenue Scan result PDF for ${firstName || email}${company ? ` (${company})` : ''}. Band ${result.band.name} (composite ${result.band.composite}). Dollar gap ${result.opportunity.floorDollars} to ${result.opportunity.medianDollars}. Model ${result.modelLabel}.${result.burnedAttempt ? ' Burned attempt.' : ''}`,
             attachmentIds: file.id,
           });
         } catch (bgErr) {

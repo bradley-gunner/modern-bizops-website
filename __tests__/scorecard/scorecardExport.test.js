@@ -1,93 +1,91 @@
 import { describe, it, expect } from 'vitest';
 import { buildResult } from '@/lib/scorecard/resultRender';
 import { buildScorecardExport, answeredQuestions } from '@/lib/scorecard/scorecardExport';
-import { getQuestionsFor } from '@/lib/scorecard/questions';
 
 function answers() {
   return {
-    q1: { value: '5m_15m' },
+    q1: { value: '5m_15m', exact: 8_000_000 },
     q2: { value: 'PROFESSIONAL_SERVICES' },
     q3: { value: '51_75' },
-    q4: { value: 'A', score: 1 }, q5: { value: 'B', score: 2 }, q6: { value: 'A', score: 1 },
-    q7: { value: 'B', score: 2 }, q8: { value: 'B', score: 2 }, q9: { value: 'B', score: 2 },
-    q10: { value: 'B', score: 2 }, q11: { value: 'A', score: 1 }, q12: { value: 'A', score: 1 },
-    q13: { value: '25k_100k' }, q14: { value: 'over_180' }, q15: { value: 'over_30' },
+    q4: { value: 'D', score: 4 },
+    q5: { value: 'B', score: 2 }, q6: { value: 'A', score: 1 }, q7: { value: 'B', score: 2 },
+    q8: { value: 'B', score: 2 }, q9: { value: 'B', score: 2 }, q10: { value: 'C', score: 3 },
+    q11: { value: 'A', score: 1 }, q12: { value: 'B', score: 2 }, q13: { value: 'C', score: 3 },
+    q14: { value: '25k_100k' }, q15: { value: 'over_180' }, q16: { value: 'over_30' },
   };
 }
 
+const GENERATED_AT = '2026-08-14T12:00:00.000Z';
+
 describe('answeredQuestions', () => {
-  it('returns every visible question in order with chosen label + score', () => {
-    const a = answers();
-    const qs = answeredQuestions(a);
-    expect(qs.map((q) => q.id)).toEqual(getQuestionsFor(a).map((q) => q.id));
-    // q2 is a segmentation question: label resolved, no score.
-    const q2 = qs.find((q) => q.id === 'q2');
-    expect(q2.answer).toBe('Professional services');
-    expect(q2.score).toBeNull();
-    // q4 is a maturity question: chosen label + 1..4 score + competency.
-    const q4 = qs.find((q) => q.id === 'q4');
-    expect(q4.score).toBe(1);
-    expect(q4.competencyLabel).toBe('CRM architecture');
-    expect(q4.answer).toMatch(/no CRM/i);
+  it('serializes the questions the prospect saw, with 1..5 scores and exact figures', () => {
+    const qs = answeredQuestions(answers());
+    expect(qs).toHaveLength(16);
+    const q5 = qs.find((q) => q.id === 'q5');
+    expect(q5.answer).toBe('We tried a tool or two, but they did not stick.');
+    expect(q5.score).toBe(2);
+    expect(q5.dimension).toBe('strategy');
+    const q1 = qs.find((q) => q.id === 'q1');
+    expect(q1.exact).toBe(8_000_000);
   });
 
-  it('excludes q15 for models where churn is hidden', () => {
+  it('excludes the churn question for models where it is hidden', () => {
     const a = { ...answers(), q2: { value: 'ECOMMERCE' } };
-    delete a.q15;
-    expect(answeredQuestions(a).some((q) => q.id === 'q15')).toBe(false);
+    expect(answeredQuestions(a).find((q) => q.id === 'q16')).toBeUndefined();
   });
 });
 
 describe('buildScorecardExport', () => {
-  it('assembles the complete result with all spec-required sections', () => {
-    const a = answers();
-    const result = buildResult(a, { generatedAt: '2026-07-24T12:00:00.000Z' });
-    const exp = buildScorecardExport(result, a, { firstName: 'Jane', company: 'Acme' });
+  const result = buildResult(answers(), { generatedAt: GENERATED_AT });
+  const exported = buildScorecardExport(result, answers(), { firstName: 'Jane', company: 'Acme' });
 
-    expect(exp.meta).toEqual({ firstName: 'Jane', company: 'Acme', generatedAt: '2026-07-24T12:00:00.000Z' });
-    expect(exp.businessModel).toEqual({ key: 'PROFESSIONAL_SERVICES', label: 'professional services' });
+  it('carries the readiness read: band, composite, dimensions, flags', () => {
+    expect(exported.readiness.band).toBe('Foundations First');
+    expect(exported.readiness.composite).toBe(2.0);
+    expect(exported.readiness.dimensions.map((d) => d.key)).toEqual(['strategy', 'people', 'governance']);
+    expect(exported.readiness.burnedAttempt).toBe(true);
+    expect(exported.readiness.beliefConfidence).toBe(4);
+    expect(exported.readiness.connectComfort).toBe(3);
+  });
 
-    // Profile bands.
-    expect(exp.profile.revenueBand).toEqual({ value: '5m_15m', label: '$5M to $15M' });
-    expect(exp.profile.teamSize.label).toBe('51 to 75');
-    expect(exp.profile.averageDealValue.label).toBe('$25K to $100K');
+  it('serializes the menu-shaped opportunity map with verdicts and bases', () => {
+    expect(exported.opportunityMap.length).toBe(6);
+    for (const row of exported.opportunityMap) {
+      expect(row.verdict.state, row.area).toMatch(/^(ready|blocked|audit)$/);
+      expect(row.verdict.basis, row.area).toBeTruthy();
+    }
+    const speedToLead = exported.opportunityMap.find((r) => r.area === 'speedToLead');
+    expect(speedToLead.dollarImpact).toBeNull();
+    expect(speedToLead.kind).toBe('evidence');
+  });
 
-    // 15 Q&A.
-    expect(exp.questions.length).toBe(getQuestionsFor(a).length);
+  it('keeps the dollar-gap range, the sections, and the survivable JSON round trip', () => {
+    expect(exported.dollarGap.high).toBeGreaterThan(0);
+    expect(exported.whyItDidNotStick).toMatch(/You told us/);
+    expect(exported.beliefContrast).toMatch(/That is a belief/);
+    expect(exported.firstMove.text).toBeTruthy();
+    expect(exported.meta.firstName).toBe('Jane');
+    expect(exported.businessModel.key).toBe('PROFESSIONAL_SERVICES');
+    expect(exported.benchmarkVersion).toBe('1.2');
+    expect(() => JSON.parse(JSON.stringify(exported))).not.toThrow();
+  });
 
-    // Dollar-gap range with conservative + peer-median reads.
-    expect(exp.dollarGap.low).toBe(Math.round(result.headline.floorDollars));
-    expect(exp.dollarGap.high).toBe(Math.round(result.headline.medianDollars));
-    expect(exp.dollarGap.conservativeRead).toMatch(/^\$/);
-    expect(exp.dollarGap.peerMedianRead).toMatch(/^\$/);
-
-    // Maturity stage detail.
-    expect(exp.maturityStage.number).toBe(result.placement.stage);
-    expect(exp.maturityStage.label).toBe(result.placement.name);
-    expect(exp.maturityStage.description).toBe(result.placement.descriptor);
-    expect(Array.isArray(exp.maturityStage.crossingIntoNext.criteria)).toBe(true);
-
-    // Metrics: your number / peer median / peer range / read / dollar impact /
-    // how-to-close / source. At least one surfaced metric carries a dollar
-    // impact and how-to-close prose.
-    expect(exp.metrics.length).toBeGreaterThan(0);
-    const withImpact = exp.metrics.find((m) => m.dollarImpact);
-    expect(withImpact.yourNumber).toBeTruthy();
-    expect(withImpact.peerMedian).toBeTruthy();
-    expect(withImpact.peerRange).toBeTruthy();
-    expect(withImpact.read).toBeTruthy();
-    expect(withImpact.source).toBeTruthy();
-    expect(typeof withImpact.howToClose).toBe('string');
-    expect(withImpact.howToClose.length).toBeGreaterThan(0);
-
-    // Top gap + competency map.
-    expect(typeof exp.topGap).toBe('string');
-    expect(exp.competencyMap.length).toBe(9);
-    expect(exp.competencyMap[0]).toHaveProperty('score');
-
-    // The "how to close" string in the export matches the on-screen ROI fix.
-    const topRoi = result.roiLines[0];
-    const matching = exp.metrics.find((m) => m.key === topRoi.key);
-    expect(matching.howToClose).toBe(topRoi.fix);
+  it('serializes observed findings when a URL was given, null otherwise', () => {
+    expect(exported.observed).toBeNull();
+    const withObserved = buildResult(answers(), {
+      generatedAt: GENERATED_AT,
+      observed: {
+        url: 'https://example.com/', host: 'example.com', status: 'ok', pageRead: true,
+        analytics: { checked: true, ga4: true, gtm: false },
+        adPixels: { checked: true, names: [] },
+        social: { checked: true, platforms: [] },
+        schema: { checked: true, types: ['Organization'] },
+        emailAuth: { checked: true, domain: 'example.com', spf: true, dmarc: false, dkim: null, missing: ['no DMARC record'] },
+        freshness: { checked: false, lastPublished: null, source: null },
+      },
+    });
+    const exp2 = buildScorecardExport(withObserved, answers(), {});
+    expect(exp2.observed.host).toBe('example.com');
+    expect(exp2.observed.findings.length).toBeGreaterThan(0);
   });
 });

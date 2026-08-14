@@ -29,7 +29,14 @@ export default function PrivacyPage() {
                 Note: the Microsoft Clarity disclosure in section 4 was added on
                 2026-06-27 as a minor clarifying update; the version string and
                 date are intentionally left unchanged, with the full bump
-                deferred to that pending audit. */}
+                deferred to that pending audit. The HubSpot CRM and
+                public-surface-read disclosures in section 4 were added
+                2026-08-14 on the same basis: both describe processing that was
+                already covered by the existing general disclosures, named
+                explicitly so a reader does not have to infer them. The version
+                bump for all three stays with the pending audit and the app
+                repo's /update-legal-doc process, which owns the clickwrap
+                registry. */}
             <p className="text-text-light text-xs mb-10">
               Version: privacy-2026-02-18 (effective February 18, 2026)
             </p>
@@ -279,6 +286,41 @@ export default function PrivacyPage() {
                 https://privacy.microsoft.com/privacystatement
               </a>
               .
+            </p>
+            <p>
+              <strong>HubSpot.</strong> We use HubSpot as our customer
+              relationship management system. When you submit a form on this
+              site, such as the AI Revenue Scan, a discovery-call booking, or a
+              guide download, the details you provide and the result computed
+              from your answers are stored on your contact record in HubSpot so
+              we can follow up with you. HubSpot also sets a cookie that lets us
+              see which page or campaign a submission came from. HubSpot
+              processes this data as our service provider. You may find their
+              privacy notice at{" "}
+              <a
+                href="https://legal.hubspot.com/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber hover:underline"
+              >
+                https://legal.hubspot.com/privacy-policy
+              </a>
+              .
+            </p>
+            <p>
+              <strong>Reading a website address you give us.</strong> If you
+              choose to give us your company website in the AI Revenue Scan, we
+              read a small number of signals from your publicly available
+              surfaces so the result can tell you what an outside view shows:
+              which analytics or advertising tags your pages carry, whether your
+              sending domain publishes SPF and DMARC records, whether your pages
+              carry schema markup, when your content was last published, and
+              which social profiles your site links to. We read only what any
+              visitor or search engine can already see, we never sign in to
+              anything, and we store nothing from that read beyond the result
+              shown to you and saved on your contact record. The field is
+              optional, and leaving it blank changes nothing else about your
+              result.
             </p>
 
             <h2 className="font-display text-2xl font-semibold text-navy mt-10 mb-4">

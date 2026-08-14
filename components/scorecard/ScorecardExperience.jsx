@@ -17,18 +17,18 @@ function Landing({ onStart }) {
           Free AI Revenue Scan
         </p>
         <h1 className="font-display text-[32px] md:text-[48px] leading-tight font-semibold text-navy mb-6">
-          Find the dollar amount your operating system is leaving on the table this year.
+          Find out why AI has not stuck in your business yet, and what it is costing you.
         </h1>
         <p className="font-body text-lg md:text-xl text-text-mid max-w-[620px] mx-auto mb-6">
-          Built for founders who feel like every dollar of revenue growth requires another hire.
+          Built for leaders who keep hearing what AI should be doing for them, and have the abandoned tools to show for it.
         </p>
         <button
           onClick={onStart}
           className="inline-flex items-center justify-center font-body font-semibold bg-amber text-white hover:bg-amber-light transition-colors duration-200 rounded-full px-10 py-4 text-lg"
         >
-          Find your number
+          Start the Scan
         </button>
-        <p className="font-body text-sm text-text-light mt-3">Fifteen questions. About five minutes. No call.</p>
+        <p className="font-body text-sm text-text-light mt-3">Sixteen questions. About five minutes. No call.</p>
       </section>
 
       <section className="bg-white">
@@ -36,7 +36,7 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What you will get back</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              Your stage on the GTM Maturity Framework, a method we built for scoring how a revenue engine actually runs. The dollar gap between you and peers in your business model on revenue per employee, sales cycle velocity and retention. And the one operational gap we would close first.
+              Why AI has or has not worked for you so far. The dollar value of the gaps at your size, peer-benchmarked, with sources cited. Which automations you are ready to start on now, and which need a connected read to call. What we could see from your public surfaces if you give us your URL. And the first move we would make in your seat.
             </p>
           </div>
           <div>
@@ -48,7 +48,7 @@ function Landing({ onStart }) {
           <div>
             <h2 className="font-display text-xl md:text-2xl font-semibold text-navy mb-3">What this is not</h2>
             <p className="font-body text-text-mid leading-relaxed">
-              Every number here comes from your own estimate of your own business, so the read is only as good as those estimates. The {AUDIT.name} is the paid version. It connects to your CRM and revenue tools and scores fifty-one competencies, forty-four of them off your live data and the newest seven with you on the call. Then it ranks what to automate first. If the numbers here look about right to you, that is the point to go get the real ones.
+              Every score here is self-reported plus observed from your public surfaces, so the read is as good as your answers and what your website gives away. The {AUDIT.name} is the connected version. It computes maturity and readiness from your actual records against the certified framework, then ranks what to automate first. If this result looks about right to you, that is the point to go get the computed one.
             </p>
           </div>
         </div>

@@ -1,378 +1,301 @@
 import { describe, it, expect } from 'vitest';
-import { generateRoiLines, generateComparisons, generators, MIN_RESOLVABLE_CYCLE_DAYS } from '@/lib/scorecard/roi';
+import {
+  generators,
+  generateRoiLines,
+  generateComparisons,
+  verdictFor,
+  buildOpportunityMap,
+  AREA_BY_METRIC,
+  MIN_RESOLVABLE_CYCLE_DAYS,
+} from '@/lib/scorecard/roi';
 import { getBusinessModelBenchmark } from '@/lib/scorecard/businessModelBenchmarks';
-import { formatUsd } from '@/lib/scorecard/voice';
 
-function baseAnswers(overrides = {}) {
+const PS = getBusinessModelBenchmark('PROFESSIONAL_SERVICES');
+const ECOM = getBusinessModelBenchmark('ECOMMERCE');
+
+// Professional services, $5M-15M, 63 people, slow cycle, heavy churn: every
+// generator surfaces a gap.
+function gapAnswers(overrides = {}) {
   return {
-    q1: { value: '3m_5m' },         // $4M midpoint
+    q1: { value: '5m_15m' },
     q2: { value: 'PROFESSIONAL_SERVICES' },
-    q3: { value: '11_25' },         // 18 midpoint
-    q13: { value: '25k_100k' },
-    q14: { value: '90_180' },       // 135-day midpoint
-    q15: { value: '15_30' },        // NRR 0.775
+    q3: { value: '51_75' },
+    q4: { value: 'D', score: 4 },
+    q5: { value: 'B', score: 2 }, q6: { value: 'A', score: 1 }, q7: { value: 'B', score: 2 },
+    q8: { value: 'B', score: 2 }, q9: { value: 'B', score: 2 }, q10: { value: 'C', score: 3 },
+    q11: { value: 'A', score: 1 }, q12: { value: 'B', score: 2 }, q13: { value: 'C', score: 3 },
+    q14: { value: '25k_100k' }, q15: { value: 'over_180' }, q16: { value: 'over_30' },
     ...overrides,
   };
 }
 
-describe('revenuePerEmployee generator', () => {
-  it('fires when client revenue/employee is below the peer band low', () => {
-    // PS: revenuePerEmployee median 170K, range [150K, 300K]. Client 4M/18 = 222K, above the median.
-    // floor_diff = 150K - 222K < 0 -> floor = 0. median_diff = 170K - 222K < 0 -> median = 0. Line returns null.
-    const a = baseAnswers();
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const line = generators.revenuePerEmployee(a, benchmark);
-    expect(line).toBeNull();
-  });
-
-  it('fires with positive dollars when client is well below median', () => {
-    // q1 under_1m ($750K) / q3 2_10 (6) = 125K per employee. PS median 170K, low 150K. Both diffs positive.
-    const a = baseAnswers({ q1: { value: 'under_1m' }, q3: { value: '2_10' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const line = generators.revenuePerEmployee(a, benchmark);
-    expect(line).not.toBeNull();
-    expect(line.key).toBe('revenuePerEmployee');
-    expect(line.medianDollars).toBeGreaterThan(0);
-    expect(line.floorDollars).toBeGreaterThan(0);
-    expect(line.comparison).toBe('fails');
-    expect(line.comparisonCopy).toBe('below peer');
-    expect(line.source).toMatch(/^Source: .+\.$/);
-    expect(line.body).not.toMatch(/—/);
-  });
-
-  it('partial band (floor=0, median>0) uses "as much as" copy, not "between $0 and"', () => {
-    // PS revenuePerEmployee: median 170K, range [150K, 300K]. Client at 160K/employee = partial.
-    // q1 1m_3m ($2M) / q3 11_25 (18) = ~111K/employee. Actually that's below low (150K), which is fails.
-    // Need: client BETWEEN low and median. q1 3m_5m ($4M) / q3 26_50 (38) = ~105K -> still below 150K (fails).
-    // q1 5m_15m ($10M) / q3 75_plus (90) = ~111K -> still below 150K (fails).
-    // Need a client higher than 150K but below 170K. q1 15m_50m ($32.5M) / q3 75_plus (90) = ~361K -> above median (meets, null).
-    // Hard to hit partial naturally with the band midpoints. Use a direct lossRangePhrase check instead:
-
-    // Verify the partial-band behavior on salesCycle, where it IS reachable:
-    // PS salesCycleDays: median 103, range [60, 130]. q14 90_180 -> 135. Above high (lagging, fails).
-    // q14 30_90 -> 60 (at low, meets -> null).
-    // No natural partial-band fixture with the canonical PS table because the cycle bands jump past the [60,130] window.
-    //
-    // So test the helper directly via a generator that exposes it. Use B2B_SAAS where revenuePerEmployee range is [100K, 200K], median 130K.
-    // q1 under_1m / q3 just_me = 750K/1 = 750K -> way above median (meets, null).
-    // q1 under_1m / q3 2_10 = 125K/employee -> BETWEEN low 100K and median 130K? Yes. partial band.
-    // Expected: floor = max(0, 100K - 125K) * 6 = 0. median = max(0, 130K - 125K) * 6 = 30K. Line fires with floor=0.
-    const a = { q1: { value: 'under_1m' }, q2: { value: 'B2B_SAAS' }, q3: { value: '2_10' } };
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const line = generators.revenuePerEmployee(a, benchmark);
-    expect(line).not.toBeNull();
-    expect(line.floorDollars).toBe(0);
-    expect(line.medianDollars).toBeGreaterThan(0);
-    expect(line.body).toMatch(/as much as/);
-    expect(line.body).not.toMatch(/between \$0/);
-  });
-});
-
-describe('salesCycle generator', () => {
-  it('returns null when q14 is not_tracked', () => {
-    const a = baseAnswers({ q14: { value: 'not_tracked' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.salesCycle(a, benchmark)).toBeNull();
-  });
-
-  it('returns null when client cycle is at or under peer median (meets)', () => {
-    // PS median 103. q14 under_30 -> 20 days. Strong/meets. Return null.
-    const a = baseAnswers({ q14: { value: 'under_30' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.salesCycle(a, benchmark)).toBeNull();
-  });
-
-  it('fires with dollar gap when client cycle is well above median', () => {
-    // q14 over_180 -> 240 days. PS range [60, 130]. Lagging/fails.
-    // floor = (240/130 - 1) * 4M ~ 3.4M, median = (240/103 - 1) * 4M ~ 5.3M
-    const a = baseAnswers({ q14: { value: 'over_180' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const line = generators.salesCycle(a, benchmark);
+describe('generators', () => {
+  it('salesCycle surfaces a loss-framed gap for a slower-than-peer cycle', () => {
+    const line = generators.salesCycle(gapAnswers(), PS);
     expect(line).not.toBeNull();
     expect(line.key).toBe('salesCycle');
-    expect(line.medianDollars).toBeGreaterThan(line.floorDollars);
-    expect(line.comparison).toBe('fails');
-    expect(line.comparisonCopy).toBe('slower than peer');
-  });
-});
-
-describe('retention generator', () => {
-  it('returns null when q15 is absent (hidden) on the answer set', () => {
-    const a = baseAnswers();
-    delete a.q15;
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.retention(a, benchmark)).toBeNull();
+    expect(line.medianDollars).toBeGreaterThan(0);
+    expect(line.body).toMatch(/not capturing this year/);
+    expect(line.source).toMatch(/^Source:/);
   });
 
-  it('returns null when q15 is not_tracked', () => {
-    const a = baseAnswers({ q15: { value: 'not_tracked' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.retention(a, benchmark)).toBeNull();
+  it('salesCycle returns null at or under the peer median (meets)', () => {
+    expect(generators.salesCycle(gapAnswers({ q15: { value: 'under_30' } }), PS)).toBeNull();
   });
 
-  it('SaaS best-churn answer now classifies as meets (grr 0.975 vs grr median 0.90)', () => {
-    // q15 under_5 -> 0.025 churn -> grr proxy 0.975. SaaS grr median 0.90. 0.975 >= 0.90 -> meets -> null.
-    const a = baseAnswers({ q2: { value: 'B2B_SAAS' }, q15: { value: 'under_5' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.retention(a, benchmark)).toBeNull();
+  it('salesCycle returns null when the input is not tracked', () => {
+    expect(generators.salesCycle(gapAnswers({ q15: { value: 'not_tracked' } }), PS)).toBeNull();
   });
 
-  it('fires with dollar gap when client GRR proxy is below the peer range', () => {
-    // PS grr median 0.82, range [0.75, 0.90]. q15 over_30 -> grr proxy 0.60.
-    // floor = (0.75 - 0.60) * 4M = 600K. median = (0.82 - 0.60) * 4M = 880K.
-    const a = baseAnswers({ q15: { value: 'over_30' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const line = generators.retention(a, benchmark);
+  it('salesCycle returns null for sub-resolvable cycles (e-commerce)', () => {
+    expect(ECOM.metrics.salesCycleDays.median).toBeLessThan(MIN_RESOLVABLE_CYCLE_DAYS);
+    expect(generators.salesCycle(gapAnswers({ q2: { value: 'ECOMMERCE' } }), ECOM)).toBeNull();
+  });
+
+  it('retention surfaces a gap from heavy churn and null when q16 is absent', () => {
+    const line = generators.retention(gapAnswers(), PS);
     expect(line).not.toBeNull();
-    expect(line.key).toBe('retention');
-    expect(line.title).toBe('Retention gap');
-    expect(line.body).toMatch(/gross revenue retention/);
-    expect(line.floorDollars).toBeGreaterThan(0);
-    expect(line.medianDollars).toBeGreaterThan(line.floorDollars);
-    expect(line.comparison).toBe('fails');
+    expect(line.medianDollars).toBeGreaterThan(0);
+    const noQ16 = gapAnswers();
+    delete noQ16.q16;
+    expect(generators.retention(noQ16, PS)).toBeNull();
+  });
+
+  it('revenuePerEmployee surfaces a gap below the peer median and null above it', () => {
+    expect(generators.revenuePerEmployee(gapAnswers(), PS)).not.toBeNull();
+    // 38 people on $10M = $263K per employee, above the $170K median.
+    expect(generators.revenuePerEmployee(gapAnswers({ q3: { value: '26_50' } }), PS)).toBeNull();
   });
 });
 
-describe('salesCycle cycle guard', () => {
-  it('exports MIN_RESOLVABLE_CYCLE_DAYS as 20', () => {
-    expect(MIN_RESOLVABLE_CYCLE_DAYS).toBe(20);
+describe('exact figures in the math (Bradley 2026-08-14)', () => {
+  it('an exact cycle replaces the band midpoint and changes the dollars', () => {
+    const banded = generators.salesCycle(gapAnswers(), PS);
+    const exact = generators.salesCycle(gapAnswers({ q15: { value: 'over_180', exact: 200 } }), PS);
+    expect(exact.clientValue.raw).toBe(200);
+    expect(exact.medianDollars).toBeLessThan(banded.medianDollars);
   });
 
-  it('returns null for ECOMMERCE (median 2 < 20)', () => {
-    const a = baseAnswers({ q2: { value: 'ECOMMERCE' }, q14: { value: 'over_180' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.salesCycle(a, benchmark)).toBeNull();
+  it('the shown-arithmetic line names which input the math used', () => {
+    const banded = generators.salesCycle(gapAnswers(), PS);
+    expect(banded.mathLine).toMatch(/the middle of the band you picked/);
+    const exact = generators.salesCycle(gapAnswers({ q15: { value: 'over_180', exact: 200 } }), PS);
+    expect(exact.mathLine).toMatch(/your 200 days cycle \(your exact figure\)/);
   });
 
-  it('returns null for B2C_SUBSCRIPTION (median 3 < 20)', () => {
-    const a = baseAnswers({ q2: { value: 'B2C_SUBSCRIPTION' }, q14: { value: 'over_180' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.salesCycle(a, benchmark)).toBeNull();
-  });
-
-  it('still fires for PS (median 103 >= 20) when cycle is well above', () => {
-    const a = baseAnswers({ q14: { value: 'over_180' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.salesCycle(a, benchmark)).not.toBeNull();
-  });
-});
-
-describe('source citations cite named sources, not the filename', () => {
-  it('every ROI line carries the metric.source string (named report)', () => {
-    const a = baseAnswers({ q1: { value: 'under_1m' }, q3: { value: 'just_me' }, q14: { value: 'over_180' }, q15: { value: 'over_30' } });
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    for (const line of lines) {
-      expect(line.source).not.toMatch(/businessModelBenchmarks v1\./);
-      expect(line.source).toMatch(/^Source: .+\.$/);
+  it('every computed line carries a math line', () => {
+    for (const line of generateRoiLines(gapAnswers(), PS)) {
+      expect(line.mathLine, line.key).toMatch(/^The math:/);
     }
   });
-});
 
-describe('leadResponse generator', () => {
-  it('returns null in v1 (no quiz input wired)', () => {
-    const a = baseAnswers();
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    expect(generators.leadResponse(a, benchmark)).toBeNull();
+  it('an exact revenue flows into every generator that uses revenue', () => {
+    const lines = generateRoiLines(gapAnswers({ q1: { value: '5m_15m', exact: 8_000_000 } }), PS);
+    const rpe = lines.find((l) => l.key === 'revenuePerEmployee');
+    expect(rpe.mathLine).toMatch(/\$8\.0M annual revenue \(your exact figure\)/);
   });
 });
 
-describe('sanity caps', () => {
-  function answersWithForcedHugeGaps() {
-    // Force the engine to produce uncapped totals well above 75% of revenue.
-    // q1 under_1m ($750K), q3 75_plus (90 employees). PS revPerEmp median 170K, low 150K.
-    // floor = (150K - 750K/90) * 90 = (150K - 8333) * 90 = ~12.7M. median similar order.
-    // That alone is many multiples of revenue -> caps will bind.
-    return {
-      q1: { value: 'under_1m' },
-      q2: { value: 'PROFESSIONAL_SERVICES' },
-      q3: { value: '75_plus' },
-      q13: { value: '25k_100k' },
-      q14: { value: 'over_180' },
-      q15: { value: 'over_30' },
-    };
-  }
-
-  it('caps each line median at 50 percent of revenue', () => {
-    const a = answersWithForcedHugeGaps();
-    const revenue = 750_000;
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    expect(lines.length).toBeGreaterThan(0);
+describe('caps', () => {
+  it('caps any single line at 50% of revenue and the total at 75%', () => {
+    const lines = generateRoiLines(gapAnswers(), PS);
+    const revenue = 10_000_000;
     for (const line of lines) {
       expect(line.medianDollars).toBeLessThanOrEqual(revenue * 0.5);
     }
+    const total = lines.reduce((s, l) => s + l.medianDollars, 0);
+    expect(total).toBeLessThanOrEqual(revenue * 0.75 + lines.length); // rounding slack
   });
 
-  it('caps aggregate medians at 75 percent of revenue (with 1 dollar rounding slack)', () => {
-    const a = answersWithForcedHugeGaps();
-    const revenue = 750_000;
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    const sumMedians = lines.reduce((s, l) => s + l.medianDollars, 0);
-    expect(sumMedians).toBeLessThanOrEqual(Math.round(revenue * 0.75) + 1);
+  it('marks capped lines so the row can disclose the cap', () => {
+    const lines = generateRoiLines(gapAnswers(), PS);
+    const salesCycle = lines.find((l) => l.key === 'salesCycle');
+    // 240 vs 103 days is a >2x throughput claim on $10M; the cap must bite.
+    expect(salesCycle.capped).toBe(true);
   });
 
-  it('caps preserve descending ordering by medianDollars', () => {
-    const a = answersWithForcedHugeGaps();
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    for (let i = 1; i < lines.length; i++) {
-      expect(lines[i - 1].medianDollars).toBeGreaterThanOrEqual(lines[i].medianDollars);
-    }
-  });
-
-  it('floor never exceeds the capped median', () => {
-    const a = answersWithForcedHugeGaps();
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
+  it('re-renders body copy from the final capped figures', () => {
+    const lines = generateRoiLines(gapAnswers(), PS);
     for (const line of lines) {
-      expect(line.floorDollars).toBeLessThanOrEqual(line.medianDollars);
-    }
-  });
-
-  it('caps do not bind when uncapped totals are within budget', () => {
-    // Mild gap case: q1 5m_15m ($10M), q3 51_75 (63), q14 over_180, q15 over_30.
-    const a = {
-      q1: { value: '5m_15m' },
-      q2: { value: 'PROFESSIONAL_SERVICES' },
-      q3: { value: '51_75' },
-      q13: { value: '25k_100k' },
-      q14: { value: 'over_180' },
-      q15: { value: 'over_30' },
-    };
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    // Every line stays inside the 50 percent per-line ceiling on $10M.
-    for (const line of lines) {
-      expect(line.medianDollars).toBeLessThanOrEqual(10_000_000 * 0.5);
+      // No body may quote a figure above the per-line cap.
+      const millions = [...line.body.matchAll(/\$(\d+(?:\.\d+)?)M/g)].map((m) => Number(m[1]));
+      for (const m of millions) {
+        expect(m).toBeLessThanOrEqual(5.1);
+      }
     }
   });
 });
 
-describe('capped body copy consistency', () => {
-  it('body dollar amounts match the capped floor/median on every line', () => {
-    // Forced huge-gap case where caps bind hard (see answersWithForcedHugeGaps).
-    const a = {
-      q1: { value: 'under_1m' },
-      q2: { value: 'PROFESSIONAL_SERVICES' },
-      q3: { value: '75_plus' },
-      q13: { value: '25k_100k' },
-      q14: { value: 'over_180' },
-      q15: { value: 'over_30' },
-    };
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    expect(lines.length).toBeGreaterThan(0);
-    for (const line of lines) {
-      // The body must reference the CAPPED median, not the raw one.
-      expect(line.body).toContain(formatUsd(line.medianDollars));
-      if (line.floorDollars > 0) {
-        expect(line.body).toContain(formatUsd(line.floorDollars));
-      } else {
-        expect(line.body).toMatch(/as much as/);
-      }
+describe('the verdict rule table', () => {
+  const noObserved = null;
+  const authedObserved = { emailAuth: { checked: true, spf: true, dmarc: true, dkim: null, missing: [] } };
+  const unauthedObserved = { emailAuth: { checked: true, spf: true, dmarc: false, dkim: null, missing: ['no DMARC record'] } };
+  const uncheckedObserved = { emailAuth: { checked: false } };
+
+  it('rule 1: no named owner (q8 = 1) blocks every area', () => {
+    const a = gapAnswers({ q8: { value: 'A', score: 1 } });
+    for (const area of ['followupPipeline', 'busywork', 'onboardingCs', 'deadLead', 'speedToLead', 'invoiceCollection']) {
+      const v = verdictFor(area, a, noObserved);
+      expect(v.state, area).toBe('blocked');
+      expect(v.gap, area).toMatch(/nobody owns AI and automation/);
+      expect(v.basis, area).toMatch(/self-reported/);
     }
   });
 
-  it('mild case (caps not binding) body still matches the line numbers', () => {
-    const a = {
-      q1: { value: '5m_15m' },
-      q2: { value: 'PROFESSIONAL_SERVICES' },
-      q3: { value: '51_75' },
-      q13: { value: '25k_100k' },
-      q14: { value: 'over_180' },
-      q15: { value: 'over_30' },
-    };
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    for (const line of lines) {
-      expect(line.body).toContain(formatUsd(line.medianDollars));
+  it('rule 1 negative control: q8 = 2 (the founder owns it) does NOT block', () => {
+    const v = verdictFor('busywork', gapAnswers({ q8: { value: 'B', score: 2 } }), noObserved);
+    expect(v.state).toBe('audit');
+  });
+
+  it('rule 2: an observed unauthenticated domain blocks the email-sequence areas only', () => {
+    const a = gapAnswers();
+    expect(verdictFor('followupPipeline', a, unauthedObserved).state).toBe('blocked');
+    expect(verdictFor('followupPipeline', a, unauthedObserved).gap).toMatch(/no DMARC record/);
+    expect(verdictFor('followupPipeline', a, unauthedObserved).basis).toMatch(/observed from your public surfaces/);
+    expect(verdictFor('deadLead', a, unauthedObserved).state).toBe('blocked');
+    // Busywork automation sends nothing; the rule must not reach it.
+    expect(verdictFor('busywork', a, unauthedObserved).state).toBe('audit');
+  });
+
+  it('rule 2 negative control: an UNCHECKED domain never blocks (absence of evidence)', () => {
+    expect(verdictFor('followupPipeline', gapAnswers(), uncheckedObserved).state).toBe('audit');
+    expect(verdictFor('followupPipeline', gapAnswers(), noObserved).state).toBe('audit');
+  });
+
+  it('rule 3: governance absent (q11 = 1) blocks customer-facing sends only', () => {
+    const a = gapAnswers({ q11: { value: 'A', score: 1 } });
+    const v = verdictFor('onboardingCs', a, noObserved);
+    expect(v.state).toBe('blocked');
+    expect(v.gap).toMatch(/customer data/);
+    expect(verdictFor('followupPipeline', a, noObserved).state).toBe('audit');
+  });
+
+  it('rule 3 negative control: informal rules (q11 = 3) do not block', () => {
+    const v = verdictFor('onboardingCs', gapAnswers({ q11: { value: 'C', score: 3 } }), noObserved);
+    expect(v.state).toBe('audit');
+  });
+
+  it('the one ready rule: named owner plus observed authenticated domain', () => {
+    const a = gapAnswers({ q8: { value: 'D', score: 4 } });
+    const v = verdictFor('followupPipeline', a, authedObserved);
+    expect(v.state).toBe('ready');
+    expect(v.label).toBe('Ready, as far as we can see');
+    expect(v.basis).toMatch(/named owner with protected time \(self-reported\)/);
+    expect(v.basis).toMatch(/authenticated sending domain \(observed from your public surfaces\)/);
+  });
+
+  it('ready negative controls: unreachable without a URL, without a strong owner, or on other areas', () => {
+    const strongOwner = gapAnswers({ q8: { value: 'D', score: 4 } });
+    expect(verdictFor('followupPipeline', strongOwner, noObserved).state).toBe('audit');
+    expect(verdictFor('followupPipeline', gapAnswers({ q8: { value: 'C', score: 3 } }), authedObserved).state).toBe('audit');
+    expect(verdictFor('busywork', strongOwner, authedObserved).state).toBe('audit');
+  });
+
+  it('every verdict states its basis', () => {
+    for (const area of Object.keys(AREA_BY_METRIC).map((k) => AREA_BY_METRIC[k]).concat(['deadLead', 'speedToLead', 'invoiceCollection'])) {
+      const v = verdictFor(area, gapAnswers(), noObserved);
+      expect(v.basis, area).toBeTruthy();
+    }
+  });
+});
+
+describe('buildOpportunityMap (the menu-shaped map)', () => {
+  it('produces six rows for a recurring model: three computed areas plus three evidence rows', () => {
+    const map = buildOpportunityMap(gapAnswers(), PS, null);
+    expect(map.rows.map((r) => r.area)).toEqual([
+      // dollar rows sorted largest first for this fixture
+      'followupPipeline', 'onboardingCs', 'busywork',
+      // evidence rows in fixed order
+      'deadLead', 'speedToLead', 'invoiceCollection',
+    ]);
+    expect(map.hasDollarGap).toBe(true);
+    expect(map.medianDollars).toBeGreaterThan(0);
+  });
+
+  it('drops hidden metric rows for e-commerce but keeps the evidence rows (never empty)', () => {
+    const a = gapAnswers({ q2: { value: 'ECOMMERCE' } });
+    delete a.q16; // churn hidden for this model
+    const map = buildOpportunityMap(a, ECOM, null);
+    const areas = map.rows.map((r) => r.area);
+    expect(areas).not.toContain('onboardingCs');
+    expect(areas).not.toContain('followupPipeline'); // sub-resolvable cycle
+    expect(areas).toEqual(expect.arrayContaining(['deadLead', 'speedToLead', 'invoiceCollection']));
+    expect(map.rows.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it('a metric that meets its benchmark still gets a row, a verdict and the holds-up line', () => {
+    const map = buildOpportunityMap(gapAnswers({ q15: { value: 'under_30' } }), PS, null);
+    const row = map.rows.find((r) => r.area === 'followupPipeline');
+    expect(row.line).toBeNull();
+    expect(row.status).toBe('holds');
+    expect(row.statusLine).toMatch(/holds? up/);
+    expect(row.verdict).toBeTruthy();
+  });
+
+  it('a not-tracked input gets the honest not-tracked line instead of invented dollars', () => {
+    const map = buildOpportunityMap(gapAnswers({ q15: { value: 'not_tracked' } }), PS, null);
+    const row = map.rows.find((r) => r.area === 'followupPipeline');
+    expect(row.status).toBe('not_tracked');
+    expect(row.statusLine).toMatch(/we will not invent one/);
+  });
+
+  it('the speed-to-lead row cites market evidence and is audit-computed', () => {
+    const map = buildOpportunityMap(gapAnswers(), PS, null);
+    const row = map.rows.find((r) => r.area === 'speedToLead');
+    expect(row.kind).toBe('evidence');
+    expect(row.body).toMatch(/We did not ask your lead response time/);
+    expect(row.source).toMatch(/^Source:/);
+    expect(row.verdict.state).toBe('audit');
+    expect(row.fix).toMatch(/Start by timing it/);
+  });
+
+  it('the dead-lead row uses their own deal value, never a benchmark', () => {
+    const map = buildOpportunityMap(gapAnswers(), PS, null);
+    const row = map.rows.find((r) => r.area === 'deadLead');
+    expect(row.body).toMatch(/\$62K|\$63K/);
+    expect(row.body).toMatch(/audit counts from your CRM/);
+  });
+
+  it('the capped sales-cycle row carries the cap note', () => {
+    const map = buildOpportunityMap(gapAnswers(), PS, null);
+    const row = map.rows.find((r) => r.area === 'followupPipeline');
+    expect(row.capNote).toMatch(/capped/);
+  });
+
+  it('a fully strong no-gap respondent still gets a full map with verdicts', () => {
+    const a = gapAnswers({
+      q3: { value: '26_50' },
+      q8: { value: 'D', score: 4 },
+      q11: { value: 'D', score: 4 },
+      q15: { value: 'under_30' },
+      q16: { value: 'under_5' },
+    });
+    const map = buildOpportunityMap(a, PS, null);
+    expect(map.hasDollarGap).toBe(false);
+    expect(map.rows.length).toBe(6);
+    for (const row of map.rows) {
+      expect(row.verdict, row.area).toBeTruthy();
     }
   });
 
-  it('never reads "between $X and $X" when caps collapse floor onto median', () => {
-    // The forced case scales floor and median to identical display values.
-    const a = {
-      q1: { value: 'under_1m' },
-      q2: { value: 'PROFESSIONAL_SERVICES' },
-      q3: { value: '75_plus' },
-      q13: { value: '25k_100k' },
-      q14: { value: 'over_180' },
-      q15: { value: 'over_30' },
-    };
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    for (const line of lines) {
-      expect(line.body).not.toMatch(/between (\$[\d.]+[KM]?) and \1\b/);
-      if (line.floorDollars > 0 && formatUsd(line.floorDollars) === formatUsd(line.medianDollars)) {
-        expect(line.body).toMatch(/on the order of/);
-      }
-    }
+  it('comparisons survive inside the map', () => {
+    const map = buildOpportunityMap(gapAnswers(), PS, null);
+    expect(map.comparisons.map((c) => c.key)).toEqual(['revenuePerEmployee', 'salesCycle', 'retention']);
   });
 });
 
 describe('generateComparisons', () => {
-  it('returns a row even when the dollar line meets (no gap)', () => {
-    const a = baseAnswers({ q14: { value: 'under_30' } }); // PS meets at 20 vs median 103
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const rows = generateComparisons(a, benchmark);
-    const cycleRow = rows.find((r) => r.key === 'salesCycle');
-    expect(cycleRow).toBeDefined();
-    expect(cycleRow.comparison).toBe('meets');
-    expect(cycleRow.clientDisplay).toBe('Under 30 days'); // band label, not "20 days"
+  it('shows the band label for a banded cycle and the exact days when typed', () => {
+    const banded = generateComparisons(gapAnswers(), PS).find((c) => c.key === 'salesCycle');
+    expect(banded.clientDisplay).toBe('Over 180 days');
+    const exact = generateComparisons(gapAnswers({ q15: { value: 'over_180', exact: 200 } }), PS)
+      .find((c) => c.key === 'salesCycle');
+    expect(exact.clientDisplay).toBe('200 days');
   });
 
-  it('uses the chosen band label (not the midpoint) for sales cycle', () => {
-    const a = baseAnswers({ q14: { value: '30_90' } });
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const rows = generateComparisons(a, benchmark);
-    const cycleRow = rows.find((r) => r.key === 'salesCycle');
-    expect(cycleRow.clientDisplay).toBe('30 to 90 days');
-  });
-
-  it('omits the salesCycle row when the cycle guard kills it (ECOMMERCE)', () => {
-    const a = baseAnswers({ q2: { value: 'ECOMMERCE' }, q14: { value: 'over_180' } });
-    delete a.q15;
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const rows = generateComparisons(a, benchmark);
-    expect(rows.find((r) => r.key === 'salesCycle')).toBeUndefined();
-  });
-
-  it('omits retention row when q15 is absent', () => {
-    const a = baseAnswers();
-    delete a.q15;
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const rows = generateComparisons(a, benchmark);
-    expect(rows.find((r) => r.key === 'retention')).toBeUndefined();
-  });
-
-  it('every row carries peerMedianDisplay, peerRangeDisplay, comparison, comparisonCopy, source', () => {
-    const a = baseAnswers();
-    const benchmark = getBusinessModelBenchmark(a.q2.value);
-    const rows = generateComparisons(a, benchmark);
-    expect(rows.length).toBeGreaterThan(0);
-    for (const row of rows) {
-      expect(row.label).toBeTypeOf('string');
-      expect(row.clientDisplay).toBeTypeOf('string');
-      expect(row.peerMedianDisplay).toBeTypeOf('string');
-      expect(row.peerRangeDisplay).toBeTypeOf('string');
-      expect(['meets', 'partial', 'fails']).toContain(row.comparison);
-      expect(row.comparisonCopy).toBeTypeOf('string');
-      expect(row.source).toMatch(/^Source: .+\.$/);
-      expect(row.source).not.toMatch(/businessModelBenchmarks v1\./);
+  it('cites a source on every row', () => {
+    for (const c of generateComparisons(gapAnswers(), PS)) {
+      expect(c.source).toMatch(/^Source:/);
     }
-  });
-});
-
-describe('generateRoiLines (the public API)', () => {
-  it('ranks by medianDollars descending and takes top 3', () => {
-    // Worst case to fire all three with dollars:
-    // q1 5m_15m ($10M), q3 51_75 (63 employees), q14 over_180, q15 over_30
-    const a = baseAnswers({ q1: { value: '5m_15m' }, q3: { value: '51_75' }, q14: { value: 'over_180' }, q15: { value: 'over_30' } });
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    expect(lines.length).toBeLessThanOrEqual(3);
-    for (let i = 1; i < lines.length; i++) {
-      expect(lines[i - 1].medianDollars).toBeGreaterThanOrEqual(lines[i].medianDollars);
-    }
-  });
-
-  it('omits null lines (meets/notTracked)', () => {
-    // All three dollar-bearing generators fire null:
-    // q14 under_30 -> meets, q15 under_5 -> meets, q1+q3 -> partial (zero dollars per the first test)
-    const a = baseAnswers({ q14: { value: 'under_30' }, q15: { value: 'under_5' } });
-    const lines = generateRoiLines(a, getBusinessModelBenchmark(a.q2.value));
-    expect(lines).toEqual([]);
   });
 });
