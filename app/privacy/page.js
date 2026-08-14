@@ -35,10 +35,11 @@ export default function PrivacyPage() {
                 website address the visitor chooses to give. PRIVACY is
                 `gated: false` in that registry, so this bump records the change
                 without forcing any re-acceptance interstitial. It is recorded
-                `material: true`, which is the conservative call and is worth
-                Bradley's confirmation: the HubSpot line clarifies processing
-                that was already happening, while the public-surface read is a
-                genuinely new (though non-storing) activity.
+                `material: false` (DECIDED BY BRADLEY 2026-08-14): both
+                disclosures name processing rather than widening it, and
+                marking a clarification material is how that signal stops
+                meaning anything. Reserve material for a change that actually
+                widens what is collected or who receives it.
                 Note: the Microsoft Clarity disclosure in section 4 was added on
                 2026-06-27 as a minor clarifying update; the version string and
                 date are intentionally left unchanged, with the full bump
