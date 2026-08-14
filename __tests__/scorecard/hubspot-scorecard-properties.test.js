@@ -74,6 +74,21 @@ describe('scorecard result property definitions', () => {
     );
   });
 
+  // Every scorecard property goes up in ONE PATCH, so a property HubSpot
+  // refused to create takes the whole write down with it, silently, including
+  // the band and the result JSON. HubSpot's own bool properties carry explicit
+  // true/false options (verified against hs_email_optout), and the create call
+  // is not reliably accepted without them.
+  it('every boolean property ships explicit true/false options', () => {
+    const bools = SCORECARD_RESULT_PROPERTIES.filter((p) => p.type === 'bool');
+    expect(bools.length).toBeGreaterThan(0);
+    for (const p of bools) {
+      expect(p.fieldType, p.name).toBe('booleancheckbox');
+      expect(Array.isArray(p.options), p.name).toBe(true);
+      expect(p.options.map((o) => o.value), p.name).toEqual(['true', 'false']);
+    }
+  });
+
   it('the burned-attempt property describes why it is the priority segment', () => {
     const burned = SCORECARD_RESULT_PROPERTIES.find((p) => p.name === 'scorecard_burned_attempt');
     expect(burned.description).toMatch(/did not stick/);
