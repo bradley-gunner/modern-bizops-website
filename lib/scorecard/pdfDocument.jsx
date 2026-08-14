@@ -517,7 +517,7 @@ function ResultDocument({ result, meta, questions }) {
               <View key={d.key} style={styles.dimRow} wrap={false}>
                 <View style={styles.dimHead}>
                   <Text style={styles.dimLabel}>{d.label}</Text>
-                  <Text style={styles.dimLevel}>{d.mean} of 5 · {d.levelWord}</Text>
+                  <Text style={styles.dimLevel}>{d.meanDisplay} of 5 · {d.levelWord}</Text>
                 </View>
                 <View style={styles.barTrack}>
                   <View

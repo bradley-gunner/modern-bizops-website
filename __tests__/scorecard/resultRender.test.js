@@ -203,7 +203,9 @@ describe('the opportunity map (section 6)', () => {
       q16: { value: 'under_5' },
     }), { generatedAt: GENERATED_AT });
     expect(r.opportunity.noGap.lead).toMatch(/professional services peers/);
-    expect(r.opportunity.rows.length).toBe(6);
+    // Five rows: both computed metrics hold up, and the follow-up evidence row
+    // drops out because the cycle meets peer. Never an empty page.
+    expect(r.opportunity.rows.length).toBe(5);
   });
 });
 
