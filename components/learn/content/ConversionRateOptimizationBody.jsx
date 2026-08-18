@@ -43,7 +43,7 @@ export default function ConversionRateOptimizationBody() {
         Almost everything written about conversion rate optimization is about your website.
         A/B testing headlines, moving buttons, changing colors, reducing form fields,
         watching heatmaps. If you sell to consumers off a landing page, that work matters.
-        If you run a founder-led B2B company with a real sales motion,
+        If you run a B2B company with a real sales motion,
         it is not where your money is leaking. Your biggest conversion losses are not on the
         page where someone fills out a form. They are in the pipeline, between the lead
         arriving and the deal closing, where a slow follow-up, an inconsistent process, and
@@ -61,7 +61,7 @@ export default function ConversionRateOptimizationBody() {
 
       <h2 className={h2}>Your funnel has more than one conversion rate</h2>
       <p>
-        The mistake that keeps founder-led businesses optimizing the wrong thing is treating
+        The mistake that keeps B2B businesses optimizing the wrong thing is treating
         conversion as a single number. It is not. Every handoff in your funnel is its own
         conversion rate, and the leak is almost never where you are looking.
       </p>
@@ -122,7 +122,7 @@ export default function ConversionRateOptimizationBody() {
 
       <h2 className={h2}>The other leaks are process, not design</h2>
       <p>
-        Past speed to lead, the remaining conversion leaks in a founder-led business are
+        Past speed to lead, the remaining conversion leaks in a B2B business are
         almost all process problems.
       </p>
       <p>

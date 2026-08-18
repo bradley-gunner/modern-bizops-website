@@ -78,7 +78,7 @@ export default function SmarketingBody() {
         your version is cheaper and faster to build.
       </p>
       <p>
-        At founder-led scale, smarketing is three decisions you can make this month.
+        At your scale, smarketing is three decisions you can make this month.
         Decide, in writing, what a qualified lead is, in observable criteria both teams
         helped define. Decide what happens at handoff: what triggers it, what data must
         be attached, and how sales formally accepts or returns a lead with a reason.

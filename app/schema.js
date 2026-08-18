@@ -29,7 +29,7 @@ const rung = Object.fromEntries(LADDER.map((r) => [r.id, r]));
 
 const AUDIENCE = {
   "@type": "BusinessAudience",
-  audienceType: "Founder-led B2B companies",
+  audienceType: "B2B companies with a real sales motion, $1M to $50M revenue",
 };
 
 const PROVIDER = {
@@ -46,7 +46,7 @@ export function getOrganizationSchema() {
     url: SITE,
     logo: `${SITE}/logos/bdw-horizontal-full-color-light.png`,
     description:
-      "The AI automation partner for B2B go-to-market. We build named revenue automation systems at published fixed prices for founder-led B2B companies, and your team owns everything we build.",
+      "The AI automation partner for B2B go-to-market. We build named revenue automation systems at published fixed prices for B2B companies, and your team owns everything we build.",
     slogan: "More leads, more booked calls, more closed deals, less busywork.",
     founder: {
       "@type": "Person",
@@ -109,7 +109,7 @@ export function getPersonSchema() {
     // Every claim here is in the verified career record and is already visible
     // somewhere on the site. "Over a decade" is deliberate and is the ceiling.
     description:
-      "Over a decade in the executor seat of revenue operations, including building revenue systems at Contactually, a VC-backed SaaS company, founding Tasting Club, and four and a half years as COO of a boutique digital marketing agency. Now builds AI automation for founder-led B2B go-to-market.",
+      "Over a decade in the executor seat of revenue operations, including building revenue systems at Contactually, a VC-backed SaaS company, founding Tasting Club, and four and a half years as COO of a boutique digital marketing agency. Now builds AI automation for B2B go-to-market.",
     knowsAbout: [
       "AI automation",
       "Revenue operations",

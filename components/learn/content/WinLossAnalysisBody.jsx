@@ -38,8 +38,7 @@ export default function WinLossAnalysisBody() {
       <p>
         Almost everything written about win/loss analysis assumes a product-marketing
         team, a research budget, and a neutral third-party interviewer. Useful at
-        enterprise scale, and completely unnecessary at yours. At your size,
-        founder-led, you have an advantage the enterprise version is designed to
+        enterprise scale, and completely unnecessary at yours. You have an advantage the enterprise version is designed to
         simulate: you can personally call the buyer. The founder-sized program is four
         moves.
       </p>
@@ -54,7 +53,7 @@ export default function WinLossAnalysisBody() {
       </p>
       <p>
         <strong>Interview a slice of buyers each quarter, wins included.</strong> Five
-        lost deals and five won deals a quarter is enough to see patterns at founder-led
+        lost deals and five won deals a quarter is enough to see patterns at your
         deal volume. The wins matter as much as the losses: most companies obsess over
         why they lose and never learn why they win, which means they cannot deliberately
         repeat it. Have someone other than the deal&rsquo;s salesperson make the call

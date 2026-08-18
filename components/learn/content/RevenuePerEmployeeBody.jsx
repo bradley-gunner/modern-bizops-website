@@ -69,7 +69,7 @@ export default function RevenuePerEmployeeBody() {
       <p>
         The published cross-industry average is around $350,000, but that figure is
         skewed hard by capital-intensive sectors like energy and financial services, and
-        it is nearly useless as a target for a founder-led company. What matters is your
+        it is nearly useless as a target for a B2B company. What matters is your
         business model&rsquo;s range. The most useful published figures (
         <a
           href="https://www.hrbench.com/resource/learn/revenue-per-employee"
@@ -142,7 +142,7 @@ export default function RevenuePerEmployeeBody() {
         produce and how they will know. In the GTM Maturity Framework, a
         method I built for measuring a business&rsquo;s go-to-market competencies, this is a
         Stage 3 competency: revenue per employee tracked monthly, reviewed by function,
-        and used as the lens for every headcount decision. Most founder-led companies are
+        and used as the lens for every headcount decision. Most B2B companies are
         not there yet, and that is normal. The entry point is simply calculating the
         number quarterly and watching the trend, which costs nothing and changes the
         hiring conversation immediately. Where that foundation starts is{" "}

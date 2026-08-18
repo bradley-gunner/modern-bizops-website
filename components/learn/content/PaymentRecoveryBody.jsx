@@ -24,7 +24,7 @@ export default function PaymentRecoveryBody() {
         Payment recovery is collecting money you already earned but have not been paid. Not
         a new sale, not an upsell. Revenue you already won, sitting uncollected because a
         charge failed or an invoice went unpaid. It is the cheapest revenue in your
-        business to go get, and most founder-led companies leave a meaningful amount of it
+        business to go get, and most B2B companies leave a meaningful amount of it
         on the table because nobody owns the follow-up.
       </p>
       <p>
@@ -36,7 +36,7 @@ export default function PaymentRecoveryBody() {
         debt collection, which is a separate, later, and more adversarial process for money
         that has gone truly delinquent. Getting those three straight is the first move,
         because the software markets for each are completely different, and buying the
-        wrong category is how founder-led businesses waste money solving a problem they
+        wrong category is how B2B businesses waste money solving a problem they
         could have configured away.
       </p>
       <p>
@@ -110,7 +110,7 @@ export default function PaymentRecoveryBody() {
       <h2 className={h2}>When recovery software is actually worth buying</h2>
       <p>
         Once the built-in tools are configured and the invoices are on auto-charge, most
-        founder-led businesses have solved the problem. Software earns its fee in specific
+        B2B businesses have solved the problem. Software earns its fee in specific
         situations, not by default. Here is the honest comparison.
       </p>
 

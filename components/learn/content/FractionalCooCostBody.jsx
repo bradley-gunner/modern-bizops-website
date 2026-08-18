@@ -33,7 +33,7 @@ export default function FractionalCooCostBody() {
         Before you spend that, I want to give you a better question than
         &ldquo;what does a fractional COO cost.&rdquo; The better question is
         which of four options actually fixes your problem. For a lot of
-        founder-led companies at this size, a fractional COO is not the
+        B2B companies at this size, a fractional COO is not the
         cheapest or the most durable answer, and the other places writing about
         this cost will not tell you that, because they are selling the fractional
         COO. I am not, so I can give you the straight version.
@@ -111,7 +111,7 @@ export default function FractionalCooCostBody() {
         they are selling.
       </p>
       <p>
-        For a large share of founder-led companies in this range, the honest
+        For a large share of B2B companies in this range, the honest
         answer is not to rent an executive at all. It is to take someone capable
         you already have, or hire one good operator, and coach them to build the
         operational systems your business needs. This is{" "}
@@ -176,7 +176,7 @@ export default function FractionalCooCostBody() {
         is the honest caveat: a COO&rsquo;s job is broader than revenue
         operations, so no revenue-focused tool can tell you the whole picture.
         What it can tell you is whether the thing driving that out-of-control
-        feeling is your revenue engine, which is what it is for most founder-led
+        feeling is your revenue engine, which is what it is for most B2B
         companies in this range.
       </p>
       <p>

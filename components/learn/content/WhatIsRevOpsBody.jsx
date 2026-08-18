@@ -69,7 +69,7 @@ export default function WhatIsRevOpsBody() {
         people who want that job.
       </p>
       <p>
-        You run a founder-led company. Your version of the question is different: at
+        You run a B2B company. Your version of the question is different: at
         your size, do you need a RevOps hire at all? The honest answer is that
         you need the discipline before you need the headcount. The definitions, the
         lifecycle, the data hygiene, and the operating cadence are buildable with the
@@ -105,7 +105,7 @@ export default function WhatIsRevOpsBody() {
         >
           Stage 1: Reactive
         </Link>
-        , and it is where most founder-led companies honestly sit. The way out is not a
+        , and it is where most B2B companies honestly sit. The way out is not a
         reorganization. It is six specific competencies, built in order, starting with a
         written ideal customer profile and ending with a lead qualification framework
         both marketing and sales actually use. The full{" "}

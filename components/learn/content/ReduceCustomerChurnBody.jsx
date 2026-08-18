@@ -35,7 +35,7 @@ export default function ReduceCustomerChurnBody() {
         offer is a discount that trains your best customers to threaten to leave.
       </p>
       <p>
-        This page is for founder-led B2B companies where post-sale
+        This page is for B2B companies where post-sale
         is not a department. It is the founder, or one account manager, holding every
         relationship in their head. And it is not only for software companies, which is
         where most churn advice is aimed. Any business with recurring or repeat revenue has
@@ -53,7 +53,7 @@ export default function ReduceCustomerChurnBody() {
 
       <h2 className={h2}>Measure churn against revenue, or you will fix the wrong thing</h2>
       <p>
-        Start with the number, because most founder-led businesses measure churn in a way
+        Start with the number, because most B2B businesses measure churn in a way
         that hides the problem. They count customers. Two of forty left, so churn is 5%.
         That treats a tiny account and an anchor account as identical, and they are not.
         Revenue churn (how many dollars walked out, not how many logos) tells you whether

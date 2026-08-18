@@ -50,7 +50,7 @@ export default function MarketingAndSalesAlignmentBody() {
         intent. It is three specific, buildable pieces of infrastructure.
       </p>
       <p>
-        If you run a founder-led company where marketing is two people and you still
+        If you run a B2B company where marketing is two people and you still
         close half the deals yourself, the enterprise version of this advice (RevOps
         referees, ABM platforms, quarterly alignment summits) is overkill. The three
         pieces below are not. They work at any size that has more than one person

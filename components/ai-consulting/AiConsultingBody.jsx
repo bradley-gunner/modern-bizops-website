@@ -36,7 +36,7 @@ export default function AiConsultingBody() {
         will tell you when that is you.
       </p>
       <p>
-        But if you run a founder-led B2B company, and you are
+        But if you run a B2B company, and you are
         asking who should own AI in your revenue operation, the standard version has
         a flaw worth understanding before you spend a dollar.
       </p>
