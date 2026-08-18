@@ -147,18 +147,13 @@ describe("open graph card copy", () => {
   });
 
   it("can regenerate every card a page points at", () => {
-    // Three cards were generated before the CARDS table existed and never got
-    // an entry, so `--all` silently skips them and this test would fail without
-    // saying anything useful. They are listed here rather than hidden: their
-    // copy is clean, but they sit on an older template and cannot be
-    // regenerated. Adding entries means re-rendering them onto the current
-    // template, which is a visual change and an owner's call, not a sweep's.
-    const PRE_TABLE_CARDS = [
-      "og-learn-stage-1-reactive.png",
-      "og-learn-crm-architecture.png",
-      "og-learn-pipeline-stage-design.png",
-    ];
-
+    // Three cards predated the CARDS table and were exempted here, because
+    // giving them entries re-renders them onto the current template and that
+    // was called an owner's decision rather than a sweep's. Bradley made it on
+    // 2026-08-18: the company lockup replaced the personal one on every card,
+    // and a card the script cannot build is a card the sweep cannot reach. All
+    // three now have entries, so the exemption is gone and this check is
+    // absolute. Every card a live page points at must be buildable.
     const referenced = new Set(
       [
         ...Object.values(LEARN_PAGES).map((p) => p.ogImage),
@@ -171,9 +166,7 @@ describe("open graph card copy", () => {
       [...SRC.matchAll(/^ {2}'?([a-z0-9-]+)'?: \{$/gm)].map((m) => `og-${m[1]}.png`)
     );
 
-    const orphans = [...referenced].filter(
-      (f) => !generated.has(f) && !PRE_TABLE_CARDS.includes(f)
-    );
+    const orphans = [...referenced].filter((f) => !generated.has(f));
     expect(orphans, "pages point at cards generate-og.mjs cannot build").toEqual([]);
   });
 });
