@@ -59,7 +59,7 @@ export default function WatchPage() {
         {/* CTA copy */}
         <div className="text-center mb-10">
           <h1 className="font-display text-[28px] md:text-[38px] font-semibold text-navy mb-4">
-            Ready to Grow Your Revenue Without Growing Your Team?
+            Ready to Capture More Revenue and Reduce Expenses with AI Automation?
           </h1>
           <p className="font-body text-text-mid text-lg mb-8">
             Book your free discovery call below.

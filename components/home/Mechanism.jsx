@@ -390,10 +390,7 @@ export default function Mechanism() {
             front of it.
           </p>
         </div>
-        {/* The video is demoted from funnel centerpiece to proof asset here.
-            VSSLPlayer and /watch are deliberately untouched: the poster and the
-            title still carry the pre-pivot positioning, and regenerating them
-            is its own piece of work. */}
+        {/* The video is demoted from funnel centerpiece to proof asset here. */}
         <VSSLPlayer />
       </div>
     </Section>
