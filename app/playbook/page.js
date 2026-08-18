@@ -5,14 +5,14 @@ import PlaybookForm from "./PlaybookForm";
 export const metadata = {
   title: "The Revenue Maturity Playbook: Free Download",
   description:
-    "A stage-by-stage framework to grow revenue without adding headcount. Used by B2B companies from $1M to $50M to build predictable, capital-efficient growth systems.",
+    "A stage-by-stage framework to grow revenue without growing the busywork. Used by B2B companies from $1M to $50M to build predictable, capital-efficient growth systems.",
   alternates: {
     canonical: "https://modernbizops.com/playbook",
   },
   openGraph: {
     title: "The Revenue Maturity Playbook",
     description:
-      "A stage-by-stage framework to grow revenue without adding headcount. Free download.",
+      "A stage-by-stage framework to grow revenue without growing the busywork. Free download.",
     url: "https://modernbizops.com/playbook",
     images: [
       {
@@ -92,8 +92,8 @@ export default function PlaybookPage() {
               </h1>
 
               <p className="font-body text-lg md:text-xl text-text-mid mb-8 leading-relaxed">
-                A stage-by-stage framework to grow revenue without adding
-                headcount. Used by B2B companies from $1M to $50M to
+                A stage-by-stage framework to grow revenue without growing
+                the busywork. Used by B2B companies from $1M to $50M to
                 build predictable, capital-efficient growth systems.
               </p>
 
@@ -165,7 +165,7 @@ export default function PlaybookPage() {
         <section className="bg-navy">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-14 md:py-20 text-center">
             <h2 className="font-display text-[26px] md:text-[36px] font-semibold text-cream mb-5">
-              Every dollar of growth should not require another hire
+              Every dollar of growth should not route through you
             </h2>
             <p className="font-body text-base md:text-lg text-cream/80 leading-relaxed">
               Most B2B founders between $1M and $50M are operating at Stage 1 or Stage 2 of the

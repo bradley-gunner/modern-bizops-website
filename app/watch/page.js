@@ -7,7 +7,7 @@ import VSSLPlayer from "@/components/VSSLPlayer";
 export const metadata = {
   title: "Watch How It Works",
   description:
-    "See how Modern BizOps helps B2B companies from $1M to $50M build revenue engines that grow without proportional headcount growth.",
+    "See how Modern BizOps helps B2B companies from $1M to $50M build revenue engines that grow without the busywork growing with them.",
   alternates: {
     canonical: "https://modernbizops.com/watch",
   },
