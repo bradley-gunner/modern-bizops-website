@@ -50,7 +50,7 @@ function fixtureBody() {
     firstName: 'Marcus',
     lastName: 'Chen',
     phone: '555-1234',
-    revenue: '$5M–15M',
+    revenue: '$5M–$15M',
     teamSize: '6–15',
     bottleneck: 'Pipeline stalls at proposal stage.',
     previousConsultant: 'yes',
@@ -83,8 +83,14 @@ describe('POST /api/qualify-watch-lead', () => {
     expect(dealCalled).toBe(false);
   });
 
+  it('still resolves legacy revenue labels from in-flight submissions', async () => {
+    const res = await callRoute({ ...fixtureBody(), revenue: '$15M–50M' });
+    expect(res.status).toBe(200);
+    expect(contactPatchBody.properties.company_annual_revenue).toBe('15m_50m');
+  });
+
   it('rejects missing email', async () => {
-    const res = await callRoute({ revenue: '$5M–15M' });
+    const res = await callRoute({ revenue: '$5M–$15M' });
     expect(res.status).toBe(400);
   });
 

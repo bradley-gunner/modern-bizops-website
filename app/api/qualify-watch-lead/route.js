@@ -14,12 +14,23 @@ import {
 // logic; amounts are set when Bradley creates the deal manually.
 const REVENUE_OPTIONS = {
   "Under $1M": "under_1m",
+  "$1M–$3M": "1m_3m",
+  "$3M–$5M": "3m_5m",
+  "$5M–$15M": "5m_15m",
+  "$15M–$50M": "15m_50m",
+  "$50M+": "50m_plus",
+  "$15M+": "15m_plus", // legacy band, retained for historical/in-flight submissions
+};
+
+// Superseded display labels (missing the second $), kept so in-flight
+// submissions from the old form still resolve. Not part of REVENUE_OPTIONS
+// because that map also defines the HubSpot enum option set, and these share
+// values with the canonical labels above.
+const LEGACY_REVENUE_LABELS = {
   "$1M–3M": "1m_3m",
   "$3M–5M": "3m_5m",
   "$5M–15M": "5m_15m",
   "$15M–50M": "15m_50m",
-  "$50M+": "50m_plus",
-  "$15M+": "15m_plus", // legacy band, retained for historical/in-flight submissions
 };
 
 const TEAM_SIZE_OPTIONS = {
@@ -121,7 +132,9 @@ export async function POST(request) {
 
     const contactProps = {
       company_annual_revenue:
-        REVENUE_OPTIONS[formData.revenue] || formData.revenue,
+        REVENUE_OPTIONS[formData.revenue] ||
+        LEGACY_REVENUE_LABELS[formData.revenue] ||
+        formData.revenue,
       sales_marketing_team_size:
         TEAM_SIZE_OPTIONS[formData.teamSize] || formData.teamSize,
       growth_bottleneck: formData.bottleneck || "",

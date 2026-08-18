@@ -7,10 +7,10 @@ import { trackFormSubmit, identifyLead } from "@/lib/analytics";
 
 const revenueOptions = [
   "Under $1M",
-  "$1M\u20133M",
-  "$3M\u20135M",
-  "$5M\u201315M",
-  "$15M\u201350M",
+  "$1M\u2013$3M",
+  "$3M\u2013$5M",
+  "$5M\u2013$15M",
+  "$15M\u2013$50M",
   "$50M+",
 ];
 
@@ -241,7 +241,7 @@ export default function WatchQualifyForm({ email: initialEmail = "", firstName: 
               onChange={handleChange}
               required
               rows={3}
-              placeholder="In 2\u20133 sentences, tell us what\u2019s holding your growth back..."
+              placeholder={"In 2\u20133 sentences, tell us what\u2019s holding your growth back..."}
               className={`${inputClasses} resize-none`}
             />
           </div>
