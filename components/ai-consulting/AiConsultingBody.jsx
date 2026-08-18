@@ -11,7 +11,7 @@ const link = "text-navy underline";
 // Verbatim transcription of the approved 4.3 source copy. The only changes are
 // JSX entity escaping (react/no-unescaped-entities), the internal/outbound links
 // from the build spec, and the visual blocks interleaved at their source spots:
-// the governing line as a pull-quote, the 45/24 stat pair, the coach-vs-implement
+// the governing line as a pull-quote, the 45/24 stat pair, the fundamentals-first
 // contrast, and the four-stage maturity strip. This is the root-level, off-nav
 // BOFU page: the AI-accelerant framing of the /revenue-operations-consulting
 // offer. It owns its own /book CTAs (hero, mid, and the page's closing card).
@@ -93,19 +93,20 @@ export default function AiConsultingBody() {
       />
 
       <h2 className={h2}>
-        What we do instead: coach the fundamentals, then accelerate
+        What we do instead: fix the fundamentals, then automate
       </h2>
       <p>
-        We do not walk in, build you a system, and leave. That model puts the
-        capability on our laptops and takes it with us.
+        We do build the system. What we do not do is walk out with the capability
+        still on our laptops, which is the part that leaves you renting an
+        understanding of your own revenue engine.
       </p>
       <p>
-        Instead, we coach one of your own employees to build the revenue systems, so
-        the capability stays in-house. An experienced operator sits beside your
-        person and teaches them to fix the fundamentals: how leads get qualified,
-        how deals move stage to stage, how sales hands off to delivery, how you
-        forecast without guessing. Your team builds it. Your team keeps it. You run
-        it after we are gone.
+        We build one named system at a time, at a fixed price, and every build
+        ships with a runbook and an internal owner we train to run it. The
+        fundamentals come first: how leads get qualified, how deals move stage to
+        stage, how sales hands off to delivery, how you forecast without guessing.
+        Automate those while they are broken and you get faster mess. Your team
+        keeps the system, and the person who owns it is on your payroll.
       </p>
 
       <ContrastTable
@@ -116,13 +117,13 @@ export default function AiConsultingBody() {
             aspect: "The starting point",
             left: "Sells you tools and implementation on top of your RevOps debt, the accumulated mess in a revenue operation.",
             right:
-              "Coaches your team to fix the revenue fundamentals first, then applies AI only where it accelerates a competency you have made solid.",
+              "Fixes the revenue fundamentals first, then applies AI only where it accelerates a competency you have made solid.",
           },
           {
             aspect: "Who owns it afterward",
             left: "The system sits on the consultant's laptop, and the capability leaves with them.",
             right:
-              "Your team builds it, so the capability stays in-house, on your payroll.",
+              "It ships with a runbook and an internal owner we train, so the capability stays in-house, on your payroll.",
           },
           {
             aspect: "What AI ends up doing",
@@ -149,7 +150,7 @@ export default function AiConsultingBody() {
         here. The tools are just the last mile.
       </p>
       <p>
-        This is the same coaching model we detail on our{" "}
+        This is the same model we detail on our{" "}
         <Link href="/revenue-operations-consulting" className={link}>
           revenue operations consulting
         </Link>{" "}
@@ -160,7 +161,7 @@ export default function AiConsultingBody() {
       <CtaCallout
         eyebrow="See if it fits"
         heading="Not sure whether this is you?"
-        body="Book a call and we will give you our honest read on whether coaching the fundamentals first is the right move for your business, including when the answer is an implementation shop and not us."
+        body="Book a call and we will give you our honest read on whether fixing the fundamentals first is the right move for your business, including when the answer is an implementation shop and not us."
         buttonLabel="Book a call"
         href="/book"
         ctaLocation="ai_consulting_mid_page"
@@ -226,8 +227,8 @@ export default function AiConsultingBody() {
       <p>
         Come to us when the real question is not &ldquo;which tool&rdquo; but
         &ldquo;who owns revenue in my company, and how do we make it run without
-        me.&rdquo; That is a coaching problem. AI is one accelerant inside it, not
-        the point of it.
+        me.&rdquo; That is an operations problem. AI is one accelerant inside it,
+        not the point of it.
       </p>
       <p>
         The teams that pulled ahead last year understood this. Sales teams using AI

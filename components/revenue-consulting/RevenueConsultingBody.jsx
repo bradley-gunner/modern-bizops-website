@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import StatCards from "@/components/learn/StatCards";
-import CoachingContrast from "@/components/revenue-consulting/CoachingContrast";
+import DeliveryContrast from "@/components/revenue-consulting/DeliveryContrast";
 import EngagementFlow from "@/components/revenue-consulting/EngagementFlow";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
@@ -11,7 +11,7 @@ const link = "text-navy underline";
 // (9.1-revenue-operations-consulting.md). The only edits are JSX entity
 // escaping (react/no-unescaped-entities) and the internal/outbound links called
 // for in the build spec. The three visual blocks are interleaved where their
-// source section sits: the coaching-vs-consulting contrast under its heading,
+// source section sits: the rent-it-versus-keep-it contrast under its heading,
 // the benchmark cards after both benchmarks are cited in prose, and the
 // engagement flow under "How it works".
 export default function RevenueConsultingBody() {
@@ -37,7 +37,7 @@ export default function RevenueConsultingBody() {
       <p>This is built the opposite way.</p>
 
       <h2 className={h2}>
-        Consulting builds it for you. Coaching builds it into you.
+        Most consulting builds it for you. This builds it into you.
       </h2>
       <p>Here is the distinction that decides whether the results last.</p>
       <p>
@@ -48,13 +48,13 @@ export default function RevenueConsultingBody() {
         decision was made is now working with their next client.
       </p>
       <p>
-        This model is coaching, not consulting in that sense. An experienced
-        operator, someone who has actually run the revenue function, coaches your
-        own employee to build the system. Your team does the work. We provide the
-        roadmap and the guidance. When the engagement ends, the capability stays
-        in the building, because the people who run it every day are the ones who
-        built it. They understand their own system well enough to coach the next
-        hire on it.
+        We build it, and we build it to be handed over. An experienced operator,
+        someone who has actually run the revenue function, builds the system one
+        named piece at a time, and an owner from your own team learns it as it
+        goes in. Every build ships with a runbook and that named owner. When the
+        engagement ends, the capability stays in the building, because the person
+        running it every day was there while it was made and has the documentation
+        to bring the next hire up to speed.
       </p>
       <p>
         That is the whole point. We do not build something you become dependent on
@@ -62,7 +62,7 @@ export default function RevenueConsultingBody() {
         not a vendor you have to keep on retainer to keep the lights on.
       </p>
 
-      <CoachingContrast />
+      <DeliveryContrast />
 
       <p>
         This is not a fringe idea. In 2021, Gartner{" "}
@@ -188,7 +188,7 @@ export default function RevenueConsultingBody() {
         or more are, working harder is not the fix. The system is.
       </p>
 
-      <h2 className={h2}>How it works: the platform plus the coaching</h2>
+      <h2 className={h2}>How it works: the platform plus the build</h2>
       <p>
         This is where the software earns its place. A consultant with a slide
         deck is working from a few interviews and their own opinion. This works
@@ -211,25 +211,26 @@ export default function RevenueConsultingBody() {
         at once.
       </p>
       <p>
-        Second, it structures the coaching. The assessment produces a prioritized
+        Second, it structures the build. The assessment produces a prioritized
         roadmap, the specific competencies holding revenue back, in the order
-        that actually compounds. Every weekly coaching session targets a
-        competency from that roadmap. Your team builds the system, one competency
-        at a time, with our guidance. AI is built into the plan wherever it
-        genuinely accelerates a competency, never bolted on for its own sake.
+        that actually compounds. Each build targets a competency from that
+        roadmap, one named system at a time, at a fixed price, with your internal
+        owner alongside it. AI is built into the plan wherever it genuinely
+        accelerates a competency, never bolted on for its own sake.
       </p>
       <p>
         Third, it proves the results. The platform continuously measures
         improvement from your connected tool data and your call transcripts, so
         progress is something you can see in the numbers, not something you take
-        on faith. That is the difference between coaching that feels good and
-        coaching that shows up in the forecast.
+        on faith. That is the difference between work that feels good and work
+        that shows up in the forecast.
       </p>
       <p>
         The core roadmap runs roughly 12 to 16 weeks. The through line is
-        ownership. You execute the changes yourself with our guidance, so you
-        understand the ins and outs of your own system. When we are done, you own
-        it, and you do not need us.
+        ownership. Your named owner is in it while it is built, and the runbook
+        covers what they were not in the room for, so you understand the ins and
+        outs of your own system. When we are done, you own it, and you do not need
+        us.
       </p>
 
       <EngagementFlow />
@@ -238,17 +239,16 @@ export default function RevenueConsultingBody() {
       <p>
         Our founder has been in the seat, not on the sidelines, and in every
         role he has held he was the person building the revenue system, not the
-        person advising on it from a distance. That is exactly why the coaching
-        model works. He can coach your employee to build it because he has been
-        that employee.
+        person advising on it from a distance. That is exactly why this model
+        works. He knows where a handover actually sticks, and where it dies,
+        because he has been the employee on the receiving end of one.
       </p>
       <p>
         At Contactually, a VC-backed SaaS company, he was an inside sales AE,
         then the company&rsquo;s first customer onboarding manager, and then took
         a premium coaching-and-software subscription product to market. In every
         one of those roles he was an individual executor and a builder of the
-        revenue process, not a delegator. That last product, coaching paired with
-        software, is close to what Modern BizOps is now.
+        revenue process, not a delegator.
       </p>
       <p>
         He then started his own company, Tasting Club, and built its revenue
@@ -264,8 +264,8 @@ export default function RevenueConsultingBody() {
       <p>
         Over a decade of doing the work, in the seat, is what he brings to your
         team. We are not going to hand you best practices from a blog. We are
-        going to show you what we have built, and then coach your people to build
-        it inside your business.
+        going to build the systems inside your business and leave your people able
+        to run them.
       </p>
 
       {/* Mid-page CTA. Floats in a navy card so it reads as its own moment.

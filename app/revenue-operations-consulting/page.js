@@ -30,11 +30,11 @@ const LAST_UPDATED = "2026-07-21";
 const FAQ = [
   {
     q: "What does a revenue operations consultant do?",
-    a: "A revenue operations consultant aligns your marketing, sales, and customer success into one system so revenue becomes predictable instead of dependent on individual heroics. In practice that means fixing CRM and pipeline architecture, defining how marketing and sales hand off and hold each other accountable, operationalizing onboarding and retention, and making the numbers that run the business visible. The important distinction is whether the consultant builds it for you and leaves, or coaches your team to build it so the capability lasts.",
+    a: "A revenue operations consultant aligns your marketing, sales, and customer success into one system so revenue becomes predictable instead of dependent on individual heroics. In practice that means fixing CRM and pipeline architecture, defining how marketing and sales hand off and hold each other accountable, operationalizing onboarding and retention, and making the numbers that run the business visible. The important distinction is whether the consultant builds it for you and leaves, or builds it and hands it over with a runbook and a trained internal owner so the capability lasts.",
   },
   {
     q: "How is this different from traditional revenue operations consulting?",
-    a: "Traditional consulting delivers the system, or a report, and moves on, which means the expertise leaves when the engagement ends and the process tends to drift back over time. This is a coaching model. An experienced operator coaches your own employee to build the system, using a platform that assesses the business from your real tool data, a questionnaire, and a working call, then measures the results. You own the capability afterward instead of renting it, and your team can coach the next hire on a system they built themselves.",
+    a: "Traditional consulting delivers the system, or a report, and moves on, which means the expertise leaves when the engagement ends and the process tends to drift back over time. This is built to be handed over. An experienced operator builds the system one named piece at a time, using a platform that assesses the business from your real tool data, a questionnaire, and a working call, then measures the results. Every build ships with a runbook and an internal owner we train, so you own the capability afterward instead of renting it.",
   },
   {
     q: "What do revenue operations include?",

@@ -549,7 +549,8 @@ export function TwoIntoOne() {
 
 // 17 fractional-coo-cost: four ways to fix operations. Three columns lift away
 // when the money stops (fractional, full-time, project); the fourth stays
-// rooted in amber (promote and coach). The page's whole argument in one image.
+// rooted in amber (build it and name an internal owner). The page's whole
+// argument in one image.
 export function FourPaths() {
   const leaving = [30, 126, 222];
   return (

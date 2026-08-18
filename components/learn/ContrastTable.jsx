@@ -1,5 +1,5 @@
-// A generic two-column contrast, left (the market's default) versus right (the
-// coaching model), with one labeled aspect per row. Every cell is a real DOM
+// A generic two-column contrast, left (the market's default) versus right (how
+// we work), with one labeled aspect per row. Every cell is a real DOM
 // text node condensed from the page's own prose, so the distinction stays
 // crawlable and never lives only in an image. Light treatment to sit on the
 // cream article. Used by the 4.3 page for "most AI consulting" vs "how we work".
