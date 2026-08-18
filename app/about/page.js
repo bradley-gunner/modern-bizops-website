@@ -44,7 +44,17 @@ import Button from "@/components/ui/Button";
 const POSITIONING = [
   "I spent over a decade building revenue engines at high-growth startups, as the person doing the work. At Contactually I carried an inside sales quota and closed $318,000 in churn-adjusted ARR. I built the onboarding program that cut first-90-day churn in half, which saved about a million dollars in revenue over six quarters. I was the company's first recruiter and stood up the applicant tracking system. And I taught realtors, our customers, how to generate real business from their networks with CRM technology. At FiscalNote I was a client success manager with a portfolio that included Fortune 500 companies. I founded Tasting Club, a virtual tastings marketplace, and ran it for three years. Then I spent four and a half years as COO of iExcel, a digital marketing agency, where I doubled revenue, ran delivery, invoicing, hiring, and payroll, and executed marketing and sales operations for clients like Dapper Labs, Tock, and SalesIntel while I was there.",
   "In January I left and gave myself one rule: build everything with AI, or do not build it at all. I was not setting out to start an AI automation company. I tested company ideas, field-operations systems for HVAC companies, a RevOps coaching business, and built every system AI-first. Teaching myself to build was not new: I built Tasting Club's product myself on Bubble, a no-code tool. What was new was how far AI took it. I built my marketing website from scratch with AI coding tools. I built a working diagnostic web app the same way, the one that runs my audits: it connects to more than twenty tools through their APIs and computes a maturity heat map from a client's actual stack. I wired my own operations to APIs and MCP servers for analytics, search, CRM, and publishing. Six months of doing nothing but building with AI later, an AI automation company stopped being an idea and became the obvious thing to build. That is how I became an AI guy: not by rebranding, by shipping. And because I have sat in the executor seat and rolled out new process to real teams, I know where adoption sticks and where it dies. So every automation I build ships with the adoption work on the other side.",
-  "Most AI automation fails for a boring reason: it is built on a broken operations foundation. The debt you could tolerate for years, dirty data, duct-tape process, fields nobody fills in, now decides whether AI works for you at all. I fix the foundation and build the automation on top of it, one named system at a time, at a published price, with your team owning it when I leave.",
+  "Most AI automation fails for a boring reason: it is built on a broken operations foundation. The debt you could tolerate for years, dirty data, duct-tape process, fields nobody fills in, now decides whether AI works for you at all.",
+  // RE-DERIVED 2026-08-18 (doc 08 Why amendment, section 1). This paragraph is
+  // new and is the join between the operations-debt pillar and the Why: the debt
+  // is not only why automation fails, it is the mechanism by which the gains
+  // concentrate. A company that can buy the repair gets the outcome; a company
+  // that cannot gets the demo.
+  "That is also the mechanism that decides who gets the gains. A company with a transformation budget pays somebody to fix the foundation and moves on. A company with forty people gets sold the tool and none of the repair. The tool does not work, and the conclusion everybody draws is that AI is not for businesses that size. The gap was never technical. It is who gets sold the repair.",
+  // "I fix" became "We fix" for the we-voice, and "when I leave" became "when the
+  // engagement ends" because Partner and Care Plan are ongoing rungs where nobody
+  // leaves. Both per the same amendment.
+  "We fix the foundation and build the automation on top of it, one named system at a time, at a published price, with your team owning it when the engagement ends.",
 ];
 
 export const metadata = {
@@ -315,40 +325,110 @@ export default function AboutPage() {
           </section>
         ))}
 
-        {/* ── WHY I BUILT MODERN BIZOPS ─────────────────────────────────────── */}
+        {/* ── THE WHY ───────────────────────────────────────────────────────── */}
+        {/* Doc 08 Messaging Architecture, the unnumbered "The Why" section
+            (added and APPROVED 2026-08-18). Per its demonstrated-Why rule, the
+            Why is stated IN FULL in exactly two places: this page and the VSL.
+            Everywhere else it appears only as consequence, and the Learn pages
+            and the three AEO assets are excluded outright. The homepage does
+            not state it either; it carries it by embedding the VSL.
+
+            THE VOICE SHIFT IS DELIBERATE: "I believes, we builds." Layers 1 and
+            2 are first person because nobody believes a company has
+            convictions; layer 3 turns to "we" because the practices belong to
+            the business. This does not reopen the 2026-08-12 decision retiring
+            first person as the general brand voice, it applies that decision's
+            own carve-out for authored-by-a-person surfaces.
+
+            This replaced the pre-amendment section ("My dad ran a small
+            computer consulting business...", headed "The systems that make a
+            venture-backed company run should not cost a
+            two-hundred-thousand-dollar hire to get"). That version was not
+            wrong, it argued a different thing: a gap in who can afford systems,
+            rather than a distribution problem in who gets sold the repair.
+
+            DO NOT LABEL THIS. Section 3 fences "mission", "our mission" and
+            "purpose-driven" to internal use, and bans democratize, abundance,
+            benevolent, "here to help", "your guide", empower, unlock and "level
+            the playing field" outright. The Why is shown, never announced. */}
         <section className="bg-navy">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-16 md:py-24">
             <p className="font-body text-sm font-semibold tracking-widest uppercase text-amber mb-4">
               The reason behind the company
             </p>
             <h2 className="font-display text-[28px] md:text-[38px] font-semibold text-cream mb-8 leading-tight">
-              The systems that make a venture-backed company run should not cost a two-hundred-thousand-dollar hire to get
+              AI is about to make a small number of companies enormously more productive, and most of them are already the biggest
             </h2>
 
+            {/* Layer 1, the belief. First person: the conviction is Bradley's. */}
             <div className="space-y-5 font-body text-cream/80 text-base leading-relaxed">
               <p>
-                My dad ran a small computer consulting business when I was growing up. I watched what it
-                takes to be the person who is responsible for everything: the sales, the delivery, the
-                operations, the people. There was nobody else to hand any of it to.
+                The largest companies in every market have the budget for the
+                transformation, the staff to run the pilot, and data that is
+                already in decent shape. They are going to be fine.
               </p>
               <p>
-                Then I spent four and a half years as COO of a digital marketing agency,
-                running the operation while also carrying an account manager&rsquo;s book
-                and executing marketing and sales operations inside client companies. I have
-                sat on both sides of that table.
+                The businesses that employ{" "}
+                <a
+                  href="https://advocacy.sba.gov/2026/02/03/frequently-asked-questions-about-small-business-2026/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-amber-light underline underline-offset-4 hover:text-amber"
+                >
+                  nearly half the private workforce
+                </a>{" "}
+                in this country are getting pitched left, right and center on
+                the promise of AI, and are buying services and implementation
+                that often do not produce the value they were promised. That is
+                not because the technology does not work at their size. It is
+                because nobody will sell them the unglamorous part of fixing
+                their underlying systems, and that unglamorous part is the
+                biggest part of the job.
               </p>
               <p>
-                Owners were running the whole business on gut feel and a spreadsheet, while the
-                competitor three times their size had a team whose only job was keeping those same
-                questions answered every Monday morning. The owners worked at least as hard. Nobody
-                had ever built them the definitions, the reporting and the handoffs the bigger
-                company took for granted.
+                If this holds, the productivity gains from this decade land
+                almost entirely on people who were already ahead. I do not think
+                that is inevitable. I think it is a distribution problem, and
+                distribution problems get solved when somebody decides to do the
+                boring work at a price a small or medium size business can
+                actually pay.
+              </p>
+              <p className="text-cream font-semibold">
+                That is what Modern BizOps is built for.
+              </p>
+
+              {/* Layer 2, the where. Still first person. */}
+              <p className="pt-4">
+                The businesses I am talking about are not abstractions. They are
+                the companies on the commercial strip outside your office. A
+                staffing firm with forty people. A field services company
+                running eleven trucks. A CPA firm that has done the same three
+                things well for twenty years.
               </p>
               <p>
-                I started Modern BizOps to close that gap, and AI is what finally makes it
-                closable at this size. We build the systems one at a time, at a published
-                price, and hand over the runbook, so what you are paying for is a machine you
-                own.
+                When one of them gets meaningfully cheaper to run, the money
+                does not leave town. It turns into a raise, or a hire, or a
+                price that holds while the competition raises theirs.
+              </p>
+
+              {/* Layer 3, the commercial expression. Voice turns to "we": the
+                  practices belong to the business. All four predate the Why and
+                  were chosen commercially, which is why they are named as
+                  structural necessity and never as policy or generosity. */}
+              <p className="pt-4">
+                This is why the company is built the way it is. We publish
+                prices, so you can decide without sitting through a sales
+                process. We work on one named system at a time, so the bill is
+                never a transformation. Your team owns what we build, and gets
+                the training, so the capability stays in the building when we
+                are no longer working together. We run audits that tell you what
+                not to buy. And if there is nothing there worth building, you
+                get your money back.
+              </p>
+              <p>
+                None of this is generosity in our minds. It is what the work has
+                to look like if small and medium size businesses are ever going
+                to capture any of the value from AI.
               </p>
             </div>
           </div>
