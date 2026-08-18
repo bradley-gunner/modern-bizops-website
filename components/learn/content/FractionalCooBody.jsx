@@ -42,7 +42,7 @@ export default function FractionalCooBody() {
         That is the definition. The more useful question is what the person actually
         does all week, because most of what ranks for this term is written by
         marketplaces selling you a directory listing, not by anyone who has held the
-        job. I have held the job twice. Here is what it looks like from the inside.
+        job. I have held the job twice. Here is what it actually looks like.
       </p>
 
       <h2 className={h2}>The job, from the operator&rsquo;s seat</h2>
