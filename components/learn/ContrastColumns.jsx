@@ -1,7 +1,7 @@
 import VizBlock from "@/components/learn/VizBlock";
 
 // Two-column contrast for the retention cluster: the market's default on the
-// left, the founder-led B2B system on the right. Each column is a real <ul> of
+// left, the B2B system on the right. Each column is a real <ul> of
 // DOM text nodes (never an image), condensed from the page's own prose, so the
 // distinction stays crawlable and AI-extractable. Navy like every data block;
 // the right column is picked out in amber because it is the model the page

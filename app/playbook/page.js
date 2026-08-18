@@ -5,7 +5,7 @@ import PlaybookForm from "./PlaybookForm";
 export const metadata = {
   title: "The Revenue Maturity Playbook: Free Download",
   description:
-    "A stage-by-stage framework to grow revenue without adding headcount. Used by founder-led B2B companies from $3M to $50M to build predictable, capital-efficient growth systems.",
+    "A stage-by-stage framework to grow revenue without adding headcount. Used by B2B companies from $1M to $50M to build predictable, capital-efficient growth systems.",
   alternates: {
     canonical: "https://modernbizops.com/playbook",
   },
@@ -27,7 +27,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "The Revenue Maturity Playbook",
     description:
-      "A stage-by-stage framework for founder-led B2B companies from $3M to $50M. Free download.",
+      "A stage-by-stage framework for B2B companies from $1M to $50M. Free download.",
     images: ["https://modernbizops.com/og/og-playbook.png"],
   },
 };
@@ -93,7 +93,7 @@ export default function PlaybookPage() {
 
               <p className="font-body text-lg md:text-xl text-text-mid mb-8 leading-relaxed">
                 A stage-by-stage framework to grow revenue without adding
-                headcount. Used by founder-led B2B companies from $3M to $50M to
+                headcount. Used by B2B companies from $1M to $50M to
                 build predictable, capital-efficient growth systems.
               </p>
 
@@ -168,7 +168,7 @@ export default function PlaybookPage() {
               Every dollar of growth should not require another hire
             </h2>
             <p className="font-body text-base md:text-lg text-cream/80 leading-relaxed">
-              Most B2B founders between $3M and $50M are operating at Stage 1 or Stage 2 of the
+              Most B2B founders between $1M and $50M are operating at Stage 1 or Stage 2 of the
               GTM Maturity Framework without knowing it. This playbook maps
               exactly where you are and what to build next to reach predictable,
               capital-efficient growth.

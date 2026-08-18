@@ -136,7 +136,7 @@ export default function NetRevenueRetentionBody() {
       <h2 className={h2}>Where NRR sits in revenue operations maturity</h2>
       <p>
         In the GTM Maturity Framework, NRR management is a Stage 3
-        competency, which tells you something in itself: most founder-led businesses
+        competency, which tells you something in itself: most B2B businesses
         are not there yet, and that is normal. The progression looks like this. At the
         bottom, NRR is simply not calculated; existing-customer revenue is not even
         separated from new-logo revenue in reporting. The first real step is

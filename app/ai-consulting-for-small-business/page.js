@@ -163,7 +163,7 @@ export default function AiConsultingForSmallBusinessPage() {
     areaServed: { "@type": "Country", name: "United States" },
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Founder-led B2B companies",
+      audienceType: "B2B companies with a real sales motion, $1M to $50M revenue",
     },
   };
 

@@ -1,6 +1,6 @@
 import VizBlock from "@/components/learn/VizBlock";
 
-// The 5.2 page's signature block: the three software categories founder-led
+// The 5.2 page's signature block: the three software categories B2B
 // businesses confuse, side by side. Every category, purpose, and buy-signal is
 // a real DOM text node (never an image), verbatim from the page's own prose, so
 // the comparison stays crawlable and AI-extractable. Desktop renders one
@@ -36,7 +36,7 @@ export default function PaymentRecoveryTable() {
   return (
     <VizBlock
       label="The honest comparison"
-      title="Three categories founder-led businesses confuse"
+      title="Three categories B2B businesses confuse"
     >
       {/* Desktop: one semantic table. */}
       <table className="hidden w-full border-collapse text-left align-top md:table">

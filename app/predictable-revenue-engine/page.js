@@ -14,12 +14,12 @@ const URL = "https://modernbizops.com/predictable-revenue-engine";
 export const metadata = {
   // The root layout applies a "%s | Modern BizOps" title template, so this must
   // not repeat the brand or the tab reads "... | Modern BizOps | Modern BizOps".
-  title: "Revenue Operations: The Four Stages From Founder-Led to Predictable",
+  title: "Revenue Operations: The Four Stages From Reactive to Predictable",
   description:
-    "The four stages and 60 competencies that move a founder-led business from revenue that depends on you to revenue you can predict. See exactly how each one is measured.",
+    "The four stages and 60 competencies that move a business from revenue that depends on you to revenue you can predict. See exactly how each one is measured.",
   alternates: { canonical: URL },
   openGraph: {
-    title: "Revenue Operations: The Four Stages From Founder-Led to Predictable",
+    title: "Revenue Operations: The Four Stages From Reactive to Predictable",
     description:
       "From revenue that runs on you to revenue you can predict. Four stages, 60 competencies.",
     url: URL,
@@ -34,7 +34,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Revenue Operations: The Four Stages From Founder-Led to Predictable",
+    title: "Revenue Operations: The Four Stages From Reactive to Predictable",
     description:
       "Four stages, 60 competencies, from revenue that runs on you to revenue you can predict.",
     images: ["https://modernbizops.com/og/og-maturity-model.png"],

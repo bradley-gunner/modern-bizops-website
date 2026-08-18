@@ -75,7 +75,7 @@ export default function RevenueConsultingBody() {
           predicted that by 2025, 75 percent of the highest-growth companies in
           the world would deploy a revenue operations model
         </a>
-        . The best companies already run on this. The question for a founder-led
+        . The best companies already run on this. The question for a B2B
         business is how to get there without a{" "}
         <Link href="/learn/fractional-coo" className={link}>
           six-figure hire

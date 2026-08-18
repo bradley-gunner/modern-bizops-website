@@ -12,7 +12,7 @@ const STATS = [
   },
   {
     big: "3 leaks",
-    desc: "Where founder-led B2B retention actually breaks: onboarding to value, silent at-risk accounts, and flat revenue.",
+    desc: "Where B2B retention actually breaks: onboarding to value, silent at-risk accounts, and flat revenue.",
     source: "Modern BizOps",
   },
 ];
@@ -31,7 +31,7 @@ export default function CustomerRetentionStrategyBody() {
         Almost everything written about customer retention assumes you sell to consumers.
         The advice is loyalty points, birthday emails, punch cards, and omnichannel
         support desks. That is a real discipline, and it is not yours. If you run a
-        founder-led B2B company, your retention problem is a
+        B2B company, your retention problem is a
         revenue-operations problem: a handful of accounts that each represent real money,
         a post-sale process that lives in your head or your best account manager&rsquo;s,
         and a churn number nobody has actually decomposed. The strategy that fixes that
@@ -69,7 +69,7 @@ export default function CustomerRetentionStrategyBody() {
 
       <h2 className={h2}>Measure retention as revenue, not logos</h2>
       <p>
-        Most founder-led businesses count churn as a number of customers. Two clients left
+        Most B2B businesses count churn as a number of customers. Two clients left
         this quarter out of forty, so churn is 5%. That number hides the thing that
         matters, because your customers are not worth the same amount. Lose two small
         accounts and you have a rounding error. Lose one anchor account and you have a bad
@@ -113,7 +113,7 @@ export default function CustomerRetentionStrategyBody() {
 
       <h2 className={h2}>Fix the three places revenue actually leaks</h2>
       <p>
-        For a founder-led B2B company, retention leaks in three predictable spots, and
+        For a B2B company, retention leaks in three predictable spots, and
         each one has a specific fix.
       </p>
       <p>
@@ -159,7 +159,7 @@ export default function CustomerRetentionStrategyBody() {
           "Birthday emails",
           "One playbook for every customer",
         ]}
-        rightTitle="Retention system (founder-led B2B)"
+        rightTitle="Retention system (B2B)"
         rightItems={[
           "Retention measured in dollars, not logos",
           "Accounts segmented by value",

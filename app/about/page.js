@@ -52,14 +52,14 @@ export const metadata = {
   // renders at 36.
   title: "About Bradley de Wet",
   description:
-    "Bradley de Wet spent over a decade in the executor seat at high-growth startups, and now builds AI automation for founder-led B2B go-to-market.",
+    "Bradley de Wet spent over a decade in the executor seat at high-growth startups, and now builds AI automation for B2B go-to-market.",
   alternates: {
     canonical: "https://modernbizops.com/about",
   },
   openGraph: {
     title: "About Bradley de Wet | Modern BizOps",
     description:
-      "Bradley de Wet spent over a decade in the executor seat at high-growth startups, and now builds AI automation for founder-led B2B go-to-market.",
+      "Bradley de Wet spent over a decade in the executor seat at high-growth startups, and now builds AI automation for B2B go-to-market.",
     url: "https://modernbizops.com/about",
     siteName: "Modern BizOps",
     images: [

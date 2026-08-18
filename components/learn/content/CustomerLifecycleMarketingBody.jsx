@@ -55,7 +55,7 @@ export default function CustomerLifecycleMarketingBody() {
         Cart-abandonment emails, loyalty points, birthday discounts, win-back flows for
         shoppers who have not bought in ninety days. That is a real discipline, and it is
         built for a direct-to-consumer brand with thousands of transactions. It is not
-        built for you. A founder-led B2B company does not have a
+        built for you. A B2B company does not have a
         lifecycle of shoppers. It has a small number of high-value accounts, each one worth
         real money, each one moving through a longer and more human relationship than any
         email flow can carry. Lifecycle marketing absolutely applies to your business. The
@@ -154,7 +154,7 @@ export default function CustomerLifecycleMarketingBody() {
 
       <h2 className={h2}>Build the post-sale engine, not the email flows</h2>
       <p>
-        For a founder-led B2B company, the lifecycle work that pays off is operational, and
+        For a B2B company, the lifecycle work that pays off is operational, and
         it is a short list.
       </p>
       <p>
@@ -193,7 +193,7 @@ export default function CustomerLifecycleMarketingBody() {
           net revenue retention
         </Link>{" "}
         above 100%. You do not need the top this quarter. You need a defined lifecycle with
-        owners, which most founder-led businesses have never actually drawn.
+        owners, which most B2B businesses have never actually drawn.
       </p>
       <p>
         A note on tools. The lifecycle-marketing software market is enormous and mostly

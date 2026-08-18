@@ -95,7 +95,7 @@ export default function InvoluntaryChurnBody() {
       <p>
         <strong>First, measure it separately.</strong> Split your churn into voluntary
         (customer decided) and involuntary (payment failed) before touching anything
-        else. Most founder-led businesses have never made this split; churn is churn,
+        else. Most B2B businesses have never made this split; churn is churn,
         calculated from whoever stopped paying. The two numbers demand opposite
         responses: voluntary churn is a product, service, or fit problem, while
         involuntary churn is an operations problem. Fixing your onboarding because failed
@@ -124,7 +124,7 @@ export default function InvoluntaryChurnBody() {
       </p>
       <p>
         Before you buy anything to do this, check what you already pay for. Stripe,
-        Chargebee, Recurly, and most billing platforms a founder-led business already
+        Chargebee, Recurly, and most billing platforms a B2B business already
         runs include retry logic, dunning emails, and card updaters that are configurable
         rather than purchasable. The dedicated recovery vendors selling against this
         problem earn their fees at enterprise transaction volume; at your size,

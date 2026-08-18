@@ -42,7 +42,7 @@ const FAQ = [
   },
   {
     q: "Is my company big enough to need revenue operations consulting?",
-    a: "If you are a founder-led B2B company and your growth has started to depend on adding headcount, you are in the range where this pays for itself. Below that, the systems problem is usually not expensive enough yet to justify the work. Above it, you likely already have an internal team. The sweet spot is the company with real revenue and a real team but no shared operating system underneath them.",
+    a: "If you are a B2B company and your growth has started to depend on adding headcount, you are in the range where this pays for itself. Below that, the systems problem is usually not expensive enough yet to justify the work. Above it, you likely already have an internal team. The sweet spot is the company with real revenue and a real team but no shared operating system underneath them.",
   },
 ];
 
@@ -146,7 +146,7 @@ export default function RevenueOperationsConsultingPage() {
     areaServed: { "@type": "Country", name: "United States" },
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Founder-led B2B companies",
+      audienceType: "B2B companies with a real sales motion, $1M to $50M revenue",
     },
   };
 
