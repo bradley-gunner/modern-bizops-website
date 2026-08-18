@@ -7,9 +7,15 @@ import AuthorCard from "@/components/learn/AuthorCard";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
 import AiConsultingBody from "@/components/ai-consulting/AiConsultingBody";
 import { AUTHOR_CREDENTIAL, BYLINE } from "@/lib/learn/registry";
+import { LADDER } from "@/lib/offers";
+
+// Prices in the FAQ come from the ladder rather than being typed here, so a
+// price can never disagree with itself across surfaces. Published prices are
+// the differentiation, so a stale number on this page is a real defect.
+const rung = (id) => LADDER.find((r) => r.id === id);
 
 // Root-level, OFF-NAV BOFU service page: the AI-accelerant framing of the same
-// coaching offer at /revenue-operations-consulting. Built as a standalone page
+// offer as /revenue-operations-consulting. Built as a standalone page
 // (not through the /learn registry) and deliberately kept out of the primary and
 // footer navigation; it exists for organic search and future paid ads.
 const URL = "https://modernbizops.com/ai-consulting-for-small-business";
@@ -29,11 +35,11 @@ const LAST_UPDATED = "2026-07-22";
 const FAQ = [
   {
     q: "What does an AI business consultant do?",
-    a: "Most AI business consultants assess your workflows, pick high-return areas, and implement tools: chatbots, automations, forecasting models. That is useful when the process underneath is already sound. We work differently. We coach your own team to fix the revenue fundamentals first, then apply AI only where it accelerates a competency you have already made solid. The goal is a system your team runs without us, not a tool you rent from us.",
+    a: "Most AI business consultants assess your workflows, pick high-return areas, and implement tools: chatbots, automations, forecasting models. That is useful when the process underneath is already sound. We work differently. We fix the revenue fundamentals first, then apply AI only where it accelerates a competency you have already made solid. Every build ships with a runbook and an internal owner we train, so the goal is a system your team runs without us, not a tool you rent from us.",
   },
   {
     q: "How much does an AI consultant cost?",
-    a: "In this category, readiness assessments commonly run from about $2,500 to $10,000, and project builds from roughly $10,000 to $50,000, with retainers on top. Those are implementation prices. Our engagement is coaching, priced against the capability your team keeps rather than a one-time build they cannot maintain. The honest way to compare is not the invoice. It is whether the value stays in your business after the work is done.",
+    a: `In this category, readiness assessments commonly run from about $2,500 to $10,000, and project builds from roughly $10,000 to $50,000, with retainers on top. Those are implementation prices. Ours are published: a free ${rung("scan").name}, a ${rung("audit").price} ${rung("audit").name}, and ${rung("builds").name} at ${rung("builds").price} for one named system at a time. The honest way to compare is not the invoice. It is whether the value stays in your business after the work is done, which is what the runbook and the trained internal owner are for.`,
   },
   {
     q: "How much does AI cost for a small business?",
@@ -144,9 +150,8 @@ export default function AiConsultingForSmallBusinessPage() {
   // Page-specific Service schema, per the build spec's recommended addition for
   // this BOFU service page. serviceType read "Revenue operations coaching
   // (AI-accelerated)" until 2026-08-12, which named a retired offer in machine
-  // readable form. The page prose still argues the coaching model and is owed a
-  // rewrite against approved copy; this task only had authority over its
-  // metadata and schema.
+  // readable form. The page prose was rewritten off the coaching model on
+  // 2026-08-18, so the schema and the copy now describe the same offer.
   const serviceLd = {
     "@context": "https://schema.org",
     "@type": "Service",

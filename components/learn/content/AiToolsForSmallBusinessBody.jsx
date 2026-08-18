@@ -327,12 +327,12 @@ export default function AiToolsForSmallBusinessBody() {
       />
 
       <h2 className={h2}>
-        The honest part: where the tools stop and the coaching starts
+        The honest part: where the tools stop and the build starts
       </h2>
       <p>
         Read back over the five jobs. Every DIY move above is real. You could do all
-        of it yourself with an assistant you already pay for. So let me be straight
-        about what I actually sell, because it is not the tools.
+        of it yourself with an assistant you already pay for. So here is the straight
+        version of what we actually sell, because it is not the tools.
       </p>
       <p>
         The gap is not &ldquo;can I technically do this.&rdquo; You can. The gap is
@@ -354,22 +354,22 @@ export default function AiToolsForSmallBusinessBody() {
       <p>
         Most consultants close it by building the system for you and leaving. Then
         the capability leaves with them, and you are renting understanding of your
-        own revenue engine. I work differently. I coach one of your own employees to
-        build these systems inside your business, so the capability stays in-house
-        after I am gone. You end up with a person on your payroll who owns it, not a
-        dependency on me.
+        own revenue engine. We work differently. We build one named system at a time,
+        at a fixed price, and hand it over with a runbook and an internal owner we
+        train to run it. You end up with a person on your payroll who owns it, not a
+        dependency on us.
       </p>
       <p>
-        I did not just decide AI belongs on top of clean fundamentals. I built a tool
-        around it. My audit engine is software I had built that connects to a
+        We did not just decide AI belongs on top of clean fundamentals. We built a
+        tool around it. The audit engine behind the AI Revenue Audit connects to a
         business&rsquo;s real systems through their APIs, pulls the actual data
         instead of asking anyone to fill out a survey, and uses AI to score where the
         revenue operation truly stands against the maturity framework. It drafts the
-        findings. I review and approve every one before it reaches a client, because
-        AI reading real data is powerful and AI left unchecked is a liability. That
-        is the same order I am teaching you here: connect to the real data, let AI do
-        the heavy reading, keep a human on the judgment. The tool only works because
-        the method underneath it was defined first.
+        findings. A human reviews and approves every one before it reaches a client,
+        because AI reading real data is powerful and AI left unchecked is a
+        liability. That is the same order we are teaching you here: connect to the
+        real data, let AI do the heavy reading, keep a human on the judgment. The
+        tool only works because the method underneath it was defined first.
       </p>
       <p>
         If you are earlier in the journey and still deciding where AI fits at all,
@@ -378,7 +378,7 @@ export default function AiToolsForSmallBusinessBody() {
           AI for small business
         </Link>
         , which covers the strategy before the stack. If you already know you want a
-        hand building this and want to talk about the coaching model directly,{" "}
+        hand building this and want to talk about how the work actually runs,{" "}
         <Link href="/ai-consulting-for-small-business" className={link}>
           AI consulting for small business
         </Link>{" "}
