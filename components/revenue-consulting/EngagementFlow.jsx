@@ -1,6 +1,6 @@
-// Block 2 of the Revenue Operations Consulting page: the platform-plus-coaching
+// Block 2 of the Revenue Operations Consulting page: the platform-plus-build
 // flow. Four numbered steps, pulled from the page's "How it works: the platform
-// plus the coaching" section. Reuses the homepage HowItWorks timeline treatment
+// plus the build" section. Reuses the homepage HowItWorks timeline treatment
 // (amber numbered nodes, horizontal on desktop, vertical stack on mobile) so the
 // page reads as part of the same system. All text is real HTML, never an image.
 const steps = [
@@ -15,9 +15,9 @@ const steps = [
       "The assessment produces a prioritized roadmap: the specific competencies holding revenue back, in the order that actually compounds.",
   },
   {
-    title: "Weekly coaching",
+    title: "The build",
     description:
-      "Every weekly coaching session targets a competency from that roadmap. Your team builds the system, one competency at a time, with our guidance.",
+      "Each build targets a competency from that roadmap, one named system at a time, at a fixed price, with your internal owner alongside it.",
   },
   {
     title: "Continuous measurement",

@@ -123,7 +123,7 @@ export default function FractionalCooBody() {
         supervising them.
       </p>
 
-      <h2 className={h2}>The third option: promote someone internally and coach them</h2>
+      <h2 className={h2}>The third option: promote someone internally and build around them</h2>
       <p>
         Before you hire anyone, fractional or full time, look at your own team. Many
         companies in this situation already employ the answer: the account manager
@@ -186,7 +186,8 @@ export default function FractionalCooBody() {
           as the deliberate TOFU-to-MOFU step in the cluster. */}
       <p>
         A deeper cost breakdown comparing all four paths (fractional COO, full-time
-        COO, project consultant, and promoting someone internally with coaching),
+        COO, project consultant, and promoting someone internally and building
+        around them),
         including when each one genuinely wins, is in a companion piece:{" "}
         <Link
           href="/learn/fractional-coo-cost"

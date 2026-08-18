@@ -103,7 +103,7 @@ export default function FractionalCooCostBody() {
       </p>
 
       <h2 className={h2}>
-        The option the other cost guides leave out: promote and coach
+        The option the other cost guides leave out: build it and name an owner
       </h2>
       <p>
         Here is the fourth option, and it is the one you will not find on the
@@ -113,13 +113,14 @@ export default function FractionalCooCostBody() {
       <p>
         For a large share of B2B companies in this range, the honest
         answer is not to rent an executive at all. It is to take someone capable
-        you already have, or hire one good operator, and coach them to build the
-        operational systems your business needs. This is{" "}
+        you already have, or hire one good operator, and put them in charge of the
+        operational systems your business needs, built and handed over with a
+        runbook. This is{" "}
         <Link
           href="/revenue-operations-consulting"
           className="text-navy underline"
         >
-          the model I built Modern BizOps around
+          the model we built Modern BizOps around
         </Link>
         , and it exists because it is the right answer more often than the market
         admits.
@@ -148,8 +149,9 @@ export default function FractionalCooCostBody() {
         </Link>
         , your sales process, or your customer success motion, that is not a
         COO-sized problem. That is a focused, buildable piece of systems work, and
-        it is exactly the kind of thing an internal owner can be coached through
-        without you ever hiring an executive.
+        it is exactly the kind of thing an internal owner can take on, with the
+        system built for them and the training to run it, without you ever hiring
+        an executive.
       </p>
       <p>
         I am not going to pretend this is the right answer for every company,
@@ -163,8 +165,9 @@ export default function FractionalCooCostBody() {
       <p>
         But when you do have someone worth developing, and what you actually need
         is durable systems rather than a temporary set of executive hands,
-        promoting and coaching is the only one of these four options where the
-        capability stays in the building after the money stops.
+        building the systems and naming an internal owner is the only one of these
+        four options where the capability stays in the building after the money
+        stops.
       </p>
 
       <CostAtAGlance />
@@ -190,7 +193,8 @@ export default function FractionalCooCostBody() {
         </Link>
         , a method I built for measuring the revenue competencies of a business
         across four stages. If it surfaces the real problem, you likely do not
-        need a COO at all, you need an internal owner coached to fix it. If your
+        need a COO at all, you need the systems built and an internal owner
+        trained to run them. If your
         revenue operations come back healthy and the pain is somewhere else
         entirely, that is a useful signal too, because then you may genuinely need
         broader operational leadership.
@@ -203,10 +207,10 @@ export default function FractionalCooCostBody() {
 
       <h2 className={h2}>Want a straight answer for your situation?</h2>
       <p>
-        If you would rather talk it through, book a call. I will give you my honest
-        read on which of these four options fits your business, including when the
-        answer is a fractional COO or a full-time hire and not me. That candor is
-        the whole point.
+        If you would rather talk it through, book a call. We will give you our
+        honest read on which of these four options fits your business, including
+        when the answer is a fractional COO or a full-time hire and not us. That
+        candor is the whole point.
       </p>
       <div className="mt-6">
         <Button href="/book" ctaLocation="learn_foot">
