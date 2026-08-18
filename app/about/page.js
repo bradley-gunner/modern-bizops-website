@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Button from "@/components/ui/Button";
+import CtaCallout from "@/components/learn/CtaCallout";
 
 // THE ABOUT PAGE IS FOUNDER PROOF, and after the AI pivot it is one of only
 // five nav destinations on a site selling AI automation. So it opens with the
@@ -516,8 +517,13 @@ export default function AboutPage() {
 
         {/* ── BOTTOM CTA ───────────────────────────────────────────────────── */}
         {/* Both of these were bare <Link>s, which fire no cta_click at all. */}
-        <section className="bg-navy">
-          <div className="mx-auto max-w-[600px] px-6 md:px-8 py-16 md:py-24 text-center">
+        {/* A navy card on a light band, not a full-bleed navy section: the
+            footer is bg-navy too, so the old treatment ran the close and the
+            sitemap together into one field with only a hairline between them.
+            Plain band rather than a <Section> for the reason CtaCallout's other
+            callers give: it carries its own max-width, centering and margin. */}
+        <div className="bg-cream px-6 py-6 md:px-8 md:py-10">
+          <CtaCallout>
             <h2 className="font-display text-[28px] md:text-[40px] font-semibold text-cream mb-5 leading-tight">
               Want to know what is worth automating first?
             </h2>
@@ -539,8 +545,8 @@ export default function AboutPage() {
             <p className="font-body text-sm text-cream/50 mt-6">
               Five minutes · No call required · HubSpot Solutions Partner
             </p>
-          </div>
-        </section>
+          </CtaCallout>
+        </div>
 
       </main>
       <Footer />
