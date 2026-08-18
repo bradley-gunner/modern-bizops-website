@@ -1,9 +1,9 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/ui/Section";
-import Button from "@/components/ui/Button";
 import LearnHero from "@/components/learn/LearnHero";
 import AuthorCard from "@/components/learn/AuthorCard";
+import CtaCallout from "@/components/learn/CtaCallout";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
 import RevenueConsultingBody from "@/components/revenue-consulting/RevenueConsultingBody";
 import { AUTHOR_CREDENTIAL, BYLINE } from "@/lib/learn/registry";
@@ -182,21 +182,23 @@ export default function RevenueOperationsConsultingPage() {
         </Section>
 
         {/* Closing CTA. Same destination as the mid-page CTA; a distinct
-            cta_location so the two can be compared in GA4. */}
-        <Section bg="navy" narrow>
-          <div className="text-center">
-            <h2 className="mb-2 font-display text-3xl font-semibold text-white">
-              See where your revenue engine stands
-            </h2>
-            <p className="mx-auto mb-6 max-w-[52ch] text-white/80">
-              Book a call and we will give you our honest assessment of whether this
-              work is a fit, including if the answer is not yet.
-            </p>
-            <Button href="/book" ctaLocation="how_it_works_foot">
-              Book a call
-            </Button>
-          </div>
-        </Section>
+            cta_location so the two can be compared in GA4.
+
+            A navy card on a light band, not a full-bleed navy section: the
+            footer is bg-navy too, so the old treatment ran the close and the
+            sitemap together into one field. This now matches the card
+            RevenueConsultingBody already renders mid-page. Plain band rather
+            than a <Section> because CtaCallout carries its own max-width,
+            centering and margin. */}
+        <div className="bg-cream px-6 py-6 md:px-8 md:py-10">
+          <CtaCallout
+            heading="See where your revenue engine stands"
+            body="Book a call and we will give you our honest assessment of whether this work is a fit, including if the answer is not yet."
+            buttonLabel="Book a call"
+            href="/book"
+            ctaLocation="how_it_works_foot"
+          />
+        </div>
       </main>
       <Footer />
       {schemas.map((ld, i) => (

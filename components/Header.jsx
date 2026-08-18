@@ -32,15 +32,23 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-border">
-      <div className="mx-auto max-w-[1200px] px-6 md:px-8 flex items-center justify-between py-0">
-        <Link href="/" className="-ml-3">
+      {/* The logo is the company lockup, not the personal one. It is also a
+          TRIMMED crop of /logos/horizontal-full-color-light.png, because the
+          official asset is 72 percent empty canvas: dropped in untrimmed it
+          renders the artwork at under half the size of what it replaced, and
+          its padding pushed the mark about 40px right of where the rest of the
+          page starts. Trimmed, it aligns with the container edge, so -ml-3 is
+          gone and the padding that used to come baked into the PNG now lives
+          on this div, which keeps the header the same height it always was. */}
+      <div className="mx-auto max-w-[1200px] px-6 md:px-8 flex items-center justify-between py-4 md:py-[22px]">
+        <Link href="/">
           <Image
-            src="/logos/bdw-horizontal-full-color-light.png"
-            alt="Bradley de Wet, Modern BizOps"
-            width={480}
-            height={145}
-            sizes="(max-width: 768px) 180px, 300px"
-            className="h-18 md:h-24 w-auto"
+            src="/logos/horizontal-full-color-light-trimmed.png"
+            alt="Modern BizOps"
+            width={697}
+            height={251}
+            sizes="(max-width: 768px) 110px, 145px"
+            className="h-[39px] md:h-[52px] w-auto"
             priority
           />
         </Link>

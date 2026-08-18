@@ -1,4 +1,4 @@
-import Section from "../ui/Section";
+import CtaCallout from "../learn/CtaCallout";
 import Button from "../ui/Button";
 
 // Section 9: restate the hero and close.
@@ -6,10 +6,15 @@ import Button from "../ui/Button";
 // The secondary line is only possible because the prices are published: when a
 // buyer already knows the numbers, the call stops being a price negotiation
 // and becomes a fit check, which is a much smaller thing to agree to.
+//
+// The card is load-bearing, not decoration. This was a full-bleed navy Section
+// sitting directly on the navy footer, so the close and the sitemap read as one
+// continuous field and the last thing the page says had no edge. Every other
+// closing CTA on the site is a navy card on a light band; this one now matches.
 export default function FinalCta() {
   return (
-    <Section bg="navy" narrow={false} className="text-center">
-      <div className="max-w-[760px] mx-auto">
+    <div className="bg-white px-6 py-6 md:px-8 md:py-10">
+      <CtaCallout>
         <h2 className="font-display text-[32px] md:text-[40px] font-semibold text-white leading-[1.12] mb-6">
           More leads, more booked calls, more closed deals, and a team with less
           busywork.
@@ -27,7 +32,7 @@ export default function FinalCta() {
         <Button href="/book" variant="secondary" ctaLocation="home_closing">
           Book a call
         </Button>
-      </div>
-    </Section>
+      </CtaCallout>
+    </div>
   );
 }
