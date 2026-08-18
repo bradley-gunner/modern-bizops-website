@@ -192,12 +192,12 @@ export default function BookPageClient() {
       <div className="px-6 md:px-8 py-5">
         <Link href="/">
           <Image
-            src="/logos/bdw-horizontal-full-color-light.png"
-            alt="Bradley de Wet, Modern BizOps"
-            width={480}
-            height={145}
-            sizes="(max-width: 768px) 180px, 300px"
-            className="h-14 md:h-[88px] w-auto"
+            src="/logos/horizontal-full-color-light-trimmed.png"
+            alt="Modern BizOps"
+            width={697}
+            height={251}
+            sizes="(max-width: 768px) 110px, 145px"
+            className="h-[31px] md:h-12 w-auto"
             priority
           />
         </Link>

@@ -70,13 +70,17 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-10">
           <div>
             <Link href="/" aria-label="Modern BizOps home">
+              {/* Company lockup, trimmed, for the same reasons as the header.
+                  The untrimmed asset carried about 49px of baked-in left
+                  padding at this size, which is why the logo used to sit
+                  indented from the tagline directly beneath it. */}
               <Image
-                src="/logos/bdw-horizontal-one-color-white.png"
-                alt="Bradley de Wet, Modern BizOps"
-                width={480}
-                height={145}
-                sizes="(max-width: 768px) 150px, 200px"
-                className="h-14 md:h-[88px] w-auto mb-2"
+                src="/logos/horizontal-one-color-white-trimmed.png"
+                alt="Modern BizOps"
+                width={698}
+                height={251}
+                sizes="(max-width: 768px) 90px, 135px"
+                className="h-[31px] md:h-12 w-auto mb-3"
               />
             </Link>
             <p className="font-body text-text-light text-sm max-w-xs">
