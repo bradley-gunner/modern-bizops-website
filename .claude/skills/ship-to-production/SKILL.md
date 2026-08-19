@@ -92,6 +92,39 @@ guards that bind on a normal profile are evidence of a broken computation
 upstream. Bradley's framing, worth keeping: **a cap is an artificial
 corner-cutting move rather than a fix for the actual problem.**
 
+**A summarizer's count is not a count (added 2026-08-18).** WebFetch reported the live
+sitemap held 41 `<loc>` entries. It held 39. The number went into a board receipt, where page
+counts have already gone stale twice, and was only caught because the receipt rule forces a
+live fetch. **Never take a number from a tool that reads a page on your behalf.** Fetch the
+raw bytes and count them yourself:
+
+```bash
+python3 -c "
+import urllib.request as u
+h=u.urlopen(u.Request('https://modernbizops.com/sitemap.xml',headers={'User-Agent':'Mozilla/5.0'}),timeout=25).read().decode()
+print(h.count('<loc>'))"
+```
+
+**A substring test is not an equality test, and old values are often substrings of new ones
+(added 2026-08-18).** Verifying a booking-slug change, `if "discovery-call" in html` returned
+true on a page carrying only the OLD `revops-coaching-discovery-call`, because the new value
+is a substring of the old one. The check could not have failed. **Extract the whole token
+with a regex and compare that**, and prove it by running the regex against a known-positive
+control containing the old value:
+
+```bash
+re.findall(r'bradley-de-wet/[a-z-]+', html)   # returns the full slug, so old != new
+```
+
+Renames, version bumps and slug changes are exactly where this bites, because the two values
+usually share a stem.
+
+**Some pages hold the value in the CLIENT BUNDLE, not the server HTML (added 2026-08-18).**
+`/book` renders its booking embed only after the qualifying form, so grepping the page source
+for the slug found nothing and looked like a regression. The value was in
+`/_next/static/*.js`. When a server-HTML grep comes back empty for something you know shipped,
+pull the page's script `src`s and grep those before concluding anything.
+
 ## Facts you'll need
 
 - **Production URLs:** the apex `modernbizops.com` **is** the canonical serving
