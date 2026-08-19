@@ -1,16 +1,26 @@
 /**
  * Modern BizOps - Nurture Sender (Apps Script)
- * Sequencer + sender for the TEMPLATED nurture emails (Emails 2-6) of both the
- * scorecard and playbook spines. Sends as Bradley via GmailApp, BCC the free
- * HubSpot logging address, advances state in HubSpot, and stops anyone who has
- * replied / booked / unsubscribed.
+ * Sequencer + sender for the TEMPLATED nurture emails (Emails 2-6) of the AI
+ * Revenue Scan track. Sends as Bradley via GmailApp, BCC the free HubSpot
+ * logging address, advances state in HubSpot, and stops anyone who has replied /
+ * booked / unsubscribed.
  *
- * HARD GUARDRAIL: this script NEVER sends Email 1 of either spine. Both E1s are
- * personalized Gmail drafts-for-approval owned by Bradley + the Cowork skills.
- * The TEMPLATES table has no step-1 entry, so E1 cannot be sent here.
+ * HARD GUARDRAIL: this script NEVER sends Email 1. E1 is a personalized Gmail
+ * draft-for-approval owned by Bradley + the Cowork skill. The TEMPLATES table
+ * has no step-1 entry, so E1 cannot be sent here.
+ *
+ * SPINE B (the /playbook track) WAS DELETED 2026-08-18 with the /playbook lead
+ * magnet itself. Verified in HubSpot the same day: all 8 contacts carrying a
+ * lead_magnet value were Bradley's own test rows, the single playbook one was
+ * bradley+pbtest@, and every nurture_* field was empty or test-only. The sender
+ * had never run on a real person, so nothing was stranded and no migration was
+ * needed. The B-spine copy lives in git history and in the Pivot Copy Pass v2
+ * doc. The lm_welcome_playbook UTM registry row is RETIRED IN PLACE, not
+ * deleted, because historical links keep firing it.
  *
  * Design: docs/superpowers/specs/2026-07-27-apps-script-nurture-sender-design.md
- * Approved copy: Marketing Systems/Email Loop - Sequence Plan and Drafts.md (Rev 4).
+ * Approved copy: Marketing Systems/Email Loop - Sequence Plan and Drafts.md (Rev 5,
+ * approved 2026-08-18; record in Email Loop - Pivot Copy Pass v2 (2026-08-18).md).
  *
  * SETUP (see README.md):
  *   1. Script Properties: HUBSPOT_TOKEN, HUBSPOT_BCC, SEND_MODE (start "dry_run").
@@ -109,25 +119,48 @@ function htmlToText_(html) {
 }
 
 /** Build the /book link for E5/E6, carrying the nurture-email UTM (Sequence Plan section 7).
- *  Apex host (canonical) to avoid the www 308 redirect hop. */
+ *  Apex host (canonical) to avoid the www 308 redirect hop.
+ *
+ *  2026-08-18 (Rev 5): the campaign becomes lm_welcome_scan. Sequence Plan section 7
+ *  retires lm_welcome_scorecard and lm_welcome_playbook IN PLACE (registry rows are
+ *  never deleted, because historical links keep firing them). The sender has never
+ *  sent a live email, so no historical link of ours carries the old campaign.
+ *
+ *  KNOWN DISCREPANCY, left as the approved doc has it: section 7 changed the CAMPAIGN
+ *  to lm_welcome_scan but left the utm_content list reading welcome_scorecard_0X_v1.
+ *  Content is kept on the track identifier, which deliberately stayed "scorecard" (same
+ *  reason /scorecard and lead_magnet=scorecard did). Flagged to Bradley rather than
+ *  resolved here; it is a one-line change either way and nothing has shipped on it.
+ *
+ *  Both values still need registering in UTM Campaign Registry - Content.csv and the
+ *  dashboard REGISTERED_CONTENT allowlist before switch-on.
+ */
 function bookLink(track, step) {
   return 'https://modernbizops.com/book' +
     '?utm_source=email&utm_medium=nurture' +
-    '&utm_campaign=lm_welcome_' + track +
+    '&utm_campaign=lm_welcome_scan' +
     '&utm_content=welcome_' + track + '_0' + step + '_v1';
 }
 
-// --- Approved templated copy (Rev 4, E2-6 both spines). No em dashes. ---------
+// --- Approved templated copy (Rev 5, E2-6). No em dashes. --------------------
 // Backtick literals so straight apostrophes render verbatim in the sent email.
+//
+// Rev 5 (2026-08-18) rewrote E2, E3 and E6 onto the operations-debt pillar and
+// merged the E4 delivery-model revision. Rev 4 contained no mention of AI across
+// all six emails, because it was written for the retired RevOps coaching business
+// and survived review by not contradicting anything. E2's old opening ("Another
+// hire, a new tool...") also broke doc 08 tone rule 3, which forbids implying
+// headcount reduction; PR #72 rephrased the same claim off the website.
 
 var SPINE_A = {
   2: {
     subject: `the fix you've probably already tried`,
     body: [
 `Hey {{firstName}},`,
-`Been thinking about your scorecard result since it came through. The biggest gap on it was {{topGap}}, and if you're like most founders I talk to, you've already thrown something at that. Another hire, a new tool, a push to just follow up faster. And it helped for a month, then drifted back to where it was.`,
-`Am I close? Because if that's how it went, the problem was never effort. It's that the thing underneath, how the work actually gets done and handed off, still lives in people's heads instead of in a system anyone can run.`,
-`That's the part we'd fix together. Not more activity, just a clear, repeatable way that {{topGap}} gets handled, so it stops depending on you noticing and chasing. When that clicks, the first thing most founders feel isn't the revenue. It's that they've stopped being the bottleneck the whole thing waits on.`,
+`Been thinking about your Scan result since it came through. Your weakest area was {{topGap}}, and if you're like most people I talk to, you've already thrown something at that. A new tool, probably an AI one, and it helped for about a month before drifting back to where it was.`,
+`Am I close? Because if that's how it went, the problem was never effort. It probably wasn't the tool either.`,
+`Here's what I find most of the time. The tool was fine. What it was reading was not. Half the records missing a field, a process that lives in two people's heads, a handoff that only works because someone remembers to chase it. AI doesn't fix any of that. It inherits it.`,
+`That's the part we'd fix first. Not more activity, and not another tool stacked on top. The unglamorous work underneath {{topGap}}, so that whatever you automate on top of it actually holds.`,
 `Does that match what you've already tried? Reply and tell me, I read every one.`,
 `Talk soon,\nBradley`
     ].join('\n\n')
@@ -136,49 +169,26 @@ var SPINE_A = {
     subject: `it's probably deeper than that`,
     body: [
 `Hey {{firstName}},`,
-`Quick follow-up to the last one. I said we'd fix the system under {{topGap}}, but I want to be honest about what I usually find once I'm actually in there.`,
-`The gap the scorecard flagged is real, but it's almost never the root. It's a symptom. The real thing is usually that too much of the business still runs through you. The deals you personally have to touch, the accounts that only stay because you check in, the stuff that quietly wobbles the week you take time off. My guess is you could name the two or three things right now that only work because you're the one doing them.`,
-`Am I wrong? If I'm not, that's the actual work. We find those two or three places and build the system that runs them without you, one at a time. I did a version of this years ago at a software company where the numbers were soft. Instead of hiring, we fixed how leads got scored and followed up, and doubled conversion with the same team. Same idea, different building.`,
-`So what's the one thing in your business that only works because you're the one doing it? Hit reply, I'd genuinely like to know.`,
+`Quick follow-up to the last one. I said we'd fix what sits under {{topGap}}, and I want to be honest about what that usually turns out to be.`,
+`The gap your Scan flagged is real, but it's rarely the root. Most of the time the root is debt you've been carrying for years and reasonably ignoring. Fields nobody fills in. Two systems that disagree about the same customer. A process that works because one specific person remembers it.`,
+`None of that mattered much while it was merely annoying. It matters now, because it decides whether anything you automate on top of it works at all. And it's the part nobody wants to sell you, which is most of the reason it never gets done.`,
+`I've done this in the seat, not from a slide. At Contactually I built the onboarding program that cut first-90-day churn in half, and the win wasn't a clever idea. It was fixing how the work actually got handed off.`,
+`So what's the thing in your business that only works because one specific person remembers it? Hit reply, I'd genuinely like to know.`,
 `Talk soon,\nBradley`
     ].join('\n\n')
   }
 };
 
-var SPINE_B = {
-  2: {
-    subject: `the fix you've probably already tried`,
-    body: [
-`Hey {{firstName}},`,
-`Been thinking about you since you grabbed the playbook. If you're like most founders who pick it up, you're somewhere in Stage 1 or 2, which just means the business still runs mostly through you and a couple of key people. And my guess is you've already tried to fix that by hiring, another person to take things off your plate, hoping it'd free you up.`,
-`Am I close? Because if it went the way it usually does, the new hire helped for a bit, but the important stuff still routes back to you, because it was never written down anywhere they could actually run it themselves.`,
-`That's the part we'd fix together. Not another hire, just taking the two or three things that only work because you do them and building the systems that run them without you. When that lands, the thing founders tell me they notice first is the quiet. The business stops pinging them for every small decision.`,
-`Does that match where you are? Reply and tell me, I read every one.`,
-`Talk soon,\nBradley`
-    ].join('\n\n')
-  },
-  3: {
-    subject: `where's your version of chasing invoices?`,
-    body: [
-`Hey {{firstName}},`,
-`Wanted to tell you about the job that taught me this, because it wasn't from a book.`,
-`I was COO of a marketing agency once. Good business, real clients. But every single month I was personally chasing people to pay their invoices. Following up, resending, waiting around. The fix was boring: we moved the retainer clients to auto-charge on a card, and the chasing just stopped. What got me wasn't the cash flow, it was how much weight came off my head. This thing I quietly dreaded every month just went away, because a system finally did what I'd been doing by hand.`,
-`My guess is you've got a version of that. Some task you do every week, maybe every day, that a system should really be handling instead, and you just haven't had the time to build it. If that's true, that's exactly the work we'd do together, one of those off your plate at a time, until the business runs on something other than your attention.`,
-`So what's your version of chasing invoices? Reply and tell me, I'd genuinely like to know.`,
-`Talk soon,\nBradley`
-    ].join('\n\n')
-  }
-};
-
-/** Shared, spine-neutral E4/E5/E6. */
+/** E4/E5/E6. "Shared" is historical: they were written spine-neutral when there
+ *  were two spines. Kept as their own table so the E2/E3 rewrites stay separable. */
 var SHARED = {
   4: {
     subject: `you've probably done this before`,
     body: [
 `Hey {{firstName}},`,
 `If you've been at this a while, my guess is you've already paid someone once to fix exactly this. A consultant, an agency, a CRM person. And what you got was a deck or a report that looked great and then sat in a drive nobody opened again.`,
-`Tell me if I'm off, but that's the pattern for most founders I meet, and it's why a little skepticism about me is fair. So let me be clear about what this isn't. I don't hand you a strategy doc and disappear, and I don't build things you need me around to keep running. Your team does the building. I bring the roadmap and sit with you while you put it in, so your people can run it and train the next hire on it after I'm gone.`,
-`The whole point is that you stop needing me. That's the difference between paying for advice and ending up with something that actually keeps working on its own. If that's the kind of help that'd be worth it to you, reply and tell me, and I'll show you what the first 90 days would look like.`,
+`Tell me if I'm off, but that's the pattern for most people I meet, and it's why a little skepticism about me is fair. So let me be clear about what this isn't. I don't hand you a strategy doc and disappear. I build one named system at a time, at a fixed price you see before we start, and I don't build things you need me around to keep running. Someone on your team owns each system, the runbook is written before I ship it, and I stay until it sticks.`,
+`The whole point is that you stop needing me. That's the difference between paying for advice and ending up with something that actually keeps working on its own. If that's the kind of help that'd be worth it to you, reply and tell me, and I'll show you what the first system would be.`,
 `Best,\nBradley`
     ].join('\n\n')
   },
@@ -186,7 +196,7 @@ var SHARED = {
     subject: `worth 45 minutes?`,
     body: [
 `Hey {{firstName}},`,
-`It's been a week and a half or so since you first took a hard look at where the business is leaking. My guess is the takeaway is still in the back of your mind but hasn't made it onto the list yet, because there's always something more urgent than the thing that's only costing you slowly.`,
+`It's been a week and a half or so since you took the Scan. My guess is the takeaway is still in the back of your mind but hasn't made it onto the list yet, because there's always something more urgent than the thing that's only costing you slowly.`,
 `If that's about right, the next step is just to talk. I do a free 45-minute call, and it's not a pitch. We get into what's actually going on, and I give you my honest read on whether there's real value in us working together. If there isn't, I'll tell you on the call and save us both the time.`,
 `Either way you'd walk away with a clearer picture of which gap to close first and what it'd take. That alone is usually worth the 45 minutes.`,
 `If you want to grab a time: {{book_link}}`,
@@ -199,18 +209,31 @@ var SHARED = {
     body: [
 `Hey {{firstName}},`,
 `Last one from me for a while, so I'll keep it short.`,
-`Here's what I think is true for you, and tell me if I'm off. What's really capping your growth isn't how hard you're working. It's that too much of the business still runs on you instead of on systems you can trust. And closing that isn't some big transformation, it's picking the one place you're most in the middle of and building the thing that takes you out of it. You can absolutely start that on your own.`,
-`If you'd rather have someone who's built these do it alongside you, so it happens in weeks instead of someday, I'm around. Reply here anytime, or grab a time whenever it makes sense: {{book_link}}`,
+`Here's what I think is true for you, and tell me if I'm off. The thing capping what AI can actually do for your business probably isn't the AI. It's what sits underneath it. And fixing that isn't a transformation project. It's picking the one place the mess costs you most and doing the boring work there first.`,
+`You can absolutely do that yourself. Most of what I know about how is sitting on the site for free.`,
+`If you'd rather have someone who's built these do it with you, so it happens in weeks instead of someday, I'm around. Reply here anytime, or grab a time whenever it makes sense: {{book_link}}`,
 `Either way, I'll still send something worth reading now and then. Thanks for letting me into your inbox.`,
 `Best,\nBradley`
     ].join('\n\n')
   }
 };
 
-/** track -> step (2..6) -> {subject, body}. Note: NO step 1. */
+/** track -> step (2..6) -> {subject, body}. Note: NO step 1.
+ *
+ *  ROUTING DECISION (2026-08-18): the track branch is KEPT with a single track
+ *  rather than collapsed away. Three reasons. (1) The E1 gate reads
+ *  {track}_email1_status, so removing the track only moves that string somewhere
+ *  else. (2) deriveTrack_ is what stops a contact with a missing or unknown
+ *  lead_magnet being enrolled; collapsing would make Scan copy the default for
+ *  anything the enrollment query returns. (3) lead_magnet is a live HubSpot
+ *  enumeration and a second magnet is a copy table away, not a refactor.
+ *
+ *  The track identifier stays "scorecard" deliberately, matching what the site
+ *  writes (app/api/scorecard/submit/route.js) and the scorecard_top_gap /
+ *  scorecard_email1_status properties that already exist. The product was renamed;
+ *  the route and the attribution identifiers were not. */
 var TEMPLATES = {
-  scorecard: { 2: SPINE_A[2], 3: SPINE_A[3], 4: SHARED[4], 5: SHARED[5], 6: SHARED[6] },
-  playbook:  { 2: SPINE_B[2], 3: SPINE_B[3], 4: SHARED[4], 5: SHARED[5], 6: SHARED[6] }
+  scorecard: { 2: SPINE_A[2], 3: SPINE_A[3], 4: SHARED[4], 5: SHARED[5], 6: SHARED[6] }
 };
 
 var LAST_STEP = 6;
@@ -221,7 +244,7 @@ var FETCH_PROPS = [
   'email', 'firstname', 'createdate', 'lead_magnet', 'engagement_status',
   'nurture_track', 'nurture_step', 'nurture_status',
   'nurture_last_sent_at', 'nurture_started_at',
-  'scorecard_top_gap', 'scorecard_email1_status', 'playbook_email1_status'
+  'scorecard_top_gap', 'scorecard_email1_status'
 ];
 
 var DAY_MS = 24 * 60 * 60 * 1000;
@@ -435,7 +458,9 @@ function escapeHtml_(s) {
 function deriveTrack_(leadMagnet) {
   var lm = (leadMagnet || '').trim().toLowerCase();
   if (lm === 'scorecard') return 'scorecard';
-  if (lm === 'playbook') return 'playbook';
+  // 'playbook' deliberately returns '' since 2026-08-18: the magnet is retired and
+  // its spine is deleted, so a playbook contact is skipped rather than mis-routed
+  // into Scan copy. Only Bradley's own test row carries that value.
   return '';
 }
 
@@ -516,7 +541,7 @@ function fetchActiveContacts_() {
         { filters: [{ propertyName: 'nurture_status', operator: 'EQ', value: 'active' }] },
         { filters: [
             { propertyName: 'nurture_status', operator: 'NOT_HAS_PROPERTY' },
-            { propertyName: 'lead_magnet', operator: 'IN', values: ['scorecard', 'playbook'] }
+            { propertyName: 'lead_magnet', operator: 'IN', values: ['scorecard'] }
         ] }
       ],
       properties: FETCH_PROPS,
@@ -573,7 +598,7 @@ function toMillis_(value) {
 function bootstrapProperties() {
   var defs = [
     { name: 'nurture_track', label: 'Nurture Track', type: 'enumeration', fieldType: 'select',
-      options: [{ label: 'Scorecard', value: 'scorecard' }, { label: 'Playbook', value: 'playbook' }] },
+      options: [{ label: 'Scorecard', value: 'scorecard' }] },
     { name: 'nurture_step', label: 'Nurture Step', type: 'number', fieldType: 'number' },
     { name: 'nurture_last_sent_at', label: 'Nurture Last Sent At', type: 'datetime', fieldType: 'date' },
     { name: 'nurture_status', label: 'Nurture Status', type: 'enumeration', fieldType: 'select',
@@ -582,8 +607,7 @@ function bootstrapProperties() {
       }) },
     { name: 'nurture_started_at', label: 'Nurture Started At', type: 'datetime', fieldType: 'date' },
     // E1 gate fields (string, so any writer can set 'sent'; the sender only reads === 'sent').
-    { name: 'scorecard_email1_status', label: 'Scorecard Email 1 Status', type: 'string', fieldType: 'text' },
-    { name: 'playbook_email1_status', label: 'Playbook Email 1 Status', type: 'string', fieldType: 'text' }
+    { name: 'scorecard_email1_status', label: 'Scorecard Email 1 Status', type: 'string', fieldType: 'text' }
   ];
 
   defs.forEach(function (def) {
