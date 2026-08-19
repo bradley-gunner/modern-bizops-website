@@ -56,6 +56,22 @@ read as "the guard does not bite." The fix is one line: `assert new != old` on
 the injection, or grep the file for the violation before running the guard. A
 no-op injection produces exactly the same green as a broken guard.
 
+**Read the exit code you think you are reading (added 2026-08-18.)** `grep -rl X . | head`
+reports `head`'s status, not `grep`'s, so `echo "exit=$?"` after it prints 0 whether or not
+anything matched. A sweep "proving" a retired string was gone read clean this way. **Count
+the matches instead of testing an exit code**, and make the count the assertion:
+
+```bash
+grep -rl "bdw-horizontal" .next/server/app --include='*.html' | wc -l
+```
+
+**Revert an injected violation surgically, not with `git checkout -- <file>` (added
+2026-08-18.)** Proving a guard bites means editing a file you are usually already working
+in. A whole-file checkout to undo the injection silently threw away five real edits in the
+generator this session and they had to be reapplied from scratch. Inject into a BUILD
+artifact where possible (`.next/server/app/*.html`, thrown away by the next build), or
+`git stash push -- <paths>` first, or reverse the exact string you inserted.
+
 **A scoped test passing is not the change being verified (added 2026-08-14.)**
 A privacy version bump was "verified" by running `legalDocs.test.js` alone, 6/6
 green. A second suite, `routes.legal.test.js`, asserted the same version through
@@ -150,6 +166,34 @@ Keep the dev server for the thing it is actually good at: a single route you
 need to click through. And for a title tag, prefer the live check in step 7,
 since this repo's rule is that a title is confirmed on the live page and never
 from the source string.
+
+**The in-app browser only paints the TOP of a long page (added 2026-08-18).** Screenshots
+of anything below the fold on `/` or `/about` come back as a blank cream rectangle, on
+production as well as locally, and `read_page` confirms it: the accessibility tree stops
+after the header. Scrolling by JS, by `End`, or by `computer` scroll does not fix it
+reliably. This is a tool limitation, not a broken page, and it is easy to lose twenty
+minutes to.
+
+Three ways through, cheapest first:
+
+1. **Measure in the DOM instead of looking.** `javascript_tool` reads the real geometry even
+   when the pane will not paint it: element rects, computed styles, `currentSrc`. Enough for
+   "does the button clear the text", "is the header still 97px", "which image loaded".
+2. **Render the component alone on a throwaway route.** A short page paints fine. This is
+   the only way to actually SEE a below-the-fold component:
+
+   ```jsx
+   // app/zz-preview/page.js. DELETE before committing.
+   import FinalCta from "@/components/home/FinalCta";
+   import Footer from "@/components/Footer";
+   export default function P() { return (<><main><FinalCta /></main><Footer /></>); }
+   ```
+
+   Include the neighbours the change is ABOUT (here the footer, because the bug was the CTA
+   blending into it). Delete the route before staging; it is a harness, not a deliverable.
+3. **Short pages render normally.** `/watch` and `/revenue-operations-consulting` paint to
+   the bottom, so a component used on both a long and a short page can be checked on the
+   short one.
 
 **Permission gotcha:** `curl` invocations that use a `-w "%{http_code}"`-style
 format string tend to get denied in this environment. Prefer driving the page
@@ -315,6 +359,39 @@ shows a gray placeholder for a beat before the real image paints - give it a
 few seconds and re-screenshot), and confirm the specific thing you changed is
 present. For an interactive change, exercise it (click play, submit a form).
 This screenshot is the proof you report back, not "the deploy succeeded".
+
+**Poll for the TRANSITION, not for the presence of the new thing (added 2026-08-18).** Fetch
+in a short loop and print old-count and new-count each pass. Seeing the old value once and
+the new value on a later pass is strictly stronger evidence than one fetch that happens to
+show the new value: it proves the check discriminates, it proves you were looking at the
+right string, and it dates the deploy. Every live verification this session used this shape
+and one of them caught that the first two fetches were still the previous build.
+
+```bash
+python3 - <<'EOF'
+import urllib.request as u, time
+for i in range(8):
+    h = u.urlopen(u.Request('https://modernbizops.com/?cb=%d' % i,
+        headers={'User-Agent':'Mozilla/5.0'}), timeout=30).read().decode('utf-8','replace')
+    old, new = h.count("<the string being replaced>"), h.count("<the new string>")
+    print(f"attempt {i+1}: old={old} new={new}")
+    if new and not old: break
+    time.sleep(20)
+EOF
+```
+
+**A binary asset is verified by its BYTES, not by a 200 (added 2026-08-18).** OG cards,
+posters and logos keep serving the old file for a while after a deploy, and they 200 the
+whole time. Hash the deployed file against the local one:
+
+```bash
+curl -s https://modernbizops.com/og/og-homepage.png | md5
+```
+
+Compare to `md5 -q public/og/og-homepage.png`. Equal means that exact artwork is live.
+And when the asset carries WORDS, hashing is still not enough: open it and read it. Baked-in
+text is invisible to every grep in this repo, which is how a share card claimed 51
+competencies and another said "REVENUE MATURITY MODEL" months after the rename.
 
 **Head-level checks need the browser or a raw fetch, not WebFetch.** WebFetch
 converts the page to markdown and strips the `<head>`, so it cannot see the
