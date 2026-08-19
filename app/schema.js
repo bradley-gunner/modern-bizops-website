@@ -44,10 +44,17 @@ export function getOrganizationSchema() {
     "@type": "Organization",
     name: "Modern BizOps",
     url: SITE,
-    logo: `${SITE}/logos/bdw-horizontal-full-color-light.png`,
+    // Company lockup, trimmed, matching the site header and footer since
+    // PR #75. This was the personal "Bradley de Wet / Modern BizOps" lockup
+    // until 2026-08-18, which made it the last place on the site still
+    // handing Google the personal mark as the ORGANISATION's logo.
+    logo: `${SITE}/logos/horizontal-full-color-light-trimmed.png`,
     description:
       "The AI automation partner for B2B go-to-market. We build named revenue automation systems at published fixed prices for B2B companies, and your team owns everything we build.",
-    slogan: "More leads, more booked calls, more closed deals, less busywork.",
+    // Verbatim from the homepage H1, which is the relationship this field has
+    // always had. Updated with it on 2026-08-18 (PR #76 changed the H1).
+    slogan:
+      "We implement AI automation that generates more leads, more sales, and less busywork for your B2B business.",
     founder: {
       "@type": "Person",
       name: "Bradley de Wet",
