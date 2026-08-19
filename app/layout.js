@@ -31,7 +31,7 @@ const jost = Jost({
 // its own title still gets " | Modern BizOps" appended unless it opts out.
 const SITE_TITLE = "Modern BizOps | AI Automation for B2B Go-to-Market";
 const SITE_DESCRIPTION =
-  "The AI automation partner for B2B go-to-market: more leads, more booked calls, more closed deals, and a team with less busywork. Fixed published prices.";
+  "The AI automation partner for B2B go-to-market: more leads, more sales, and less busywork. Fixed published prices.";
 
 export const metadata = {
   title: {
