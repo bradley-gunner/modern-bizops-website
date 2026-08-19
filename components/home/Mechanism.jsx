@@ -391,7 +391,7 @@ export default function Mechanism() {
           </p>
         </div>
         {/* The video is demoted from funnel centerpiece to proof asset here. */}
-        <VSSLPlayer />
+        <VSSLPlayer ctaLocation="home_mid_page" />
       </div>
     </Section>
   );

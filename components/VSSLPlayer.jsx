@@ -2,11 +2,36 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { trackEvent } from "@/lib/analytics";
 
 const VIDEO_ID = "M241NEC30D4";
 
-export default function VSSLPlayer() {
+export default function VSSLPlayer({ ctaLocation = "watch_hero" }) {
   const [playing, setPlaying] = useState(false);
+
+  // The facade click is the only play signal this component can see. Once the
+  // iframe mounts the video belongs to YouTube and reports nothing back without
+  // the IFrame Player API. So this measures intent to watch, not watch time.
+  // Retention for this video already lives in YouTube Studio, which has the
+  // real drop-off curve; shipping a worse copy of it here would be the wrong
+  // trade.
+  //
+  // It cannot double-count: the button unmounts the moment `playing` flips, so
+  // there is no guard to write.
+  //
+  // The param is `cta_location` rather than a new `video_*` param, deliberately.
+  // cta_location is already registered as a GA4 custom dimension, and an
+  // UNREGISTERED event param is not queryable through the GA4 Data API (only
+  // DebugView and Realtime) — which is exactly what the dashboard and the
+  // weekly brief pull from. A `video_location` param would look correct in
+  // DebugView and come back empty in every report. Event NAMES need no
+  // registration, so `video_start` itself is queryable straight away. If a
+  // second video is ever added, register a `video_id` dimension in GA4 BEFORE
+  // emitting it, for the same reason.
+  function handlePlay() {
+    trackEvent("video_start", { cta_location: ctaLocation });
+    setPlaying(true);
+  }
 
   if (playing) {
     return (
@@ -25,7 +50,7 @@ export default function VSSLPlayer() {
 
   return (
     <button
-      onClick={() => setPlaying(true)}
+      onClick={handlePlay}
       className="relative w-full aspect-video rounded-[14px] overflow-hidden mb-10 shadow-lg cursor-pointer group block"
       aria-label="Play: Why AI Automation Fails for Small and Mid-Sized Businesses"
     >
