@@ -32,9 +32,9 @@ close-out at all. Shipped detail belongs in the receipt and the git log, not her
 **Last updated:** 2026-07-30. **Last shipped:** 2026-07-28 ([#55](https://github.com/bradley-gunner/modern-bizops-website/pull/55), board receipt step + repo conventions).
 
 - **Live inventory:** 34 URLs in the sitemap, **24 of them `/learn` pages**. Verified against the live sitemap on 2026-07-28. This file does not track the page list — the sitemap and GSC do. See "Where page counts come from" below.
-- **In flight:** `learn-pages-ctr` — rewriting titles and metas on the four `/learn` pages that already rank.
+- **In flight:** nothing. `learn-pages-ctr` was killed on the board; the title/meta rewrite is not in flight.
 - **Next:** `learn-pages-rank`, then the two never-indexed pages.
-- **One decision owed from Bradley:** what to do with PR #10 (below).
+- **PR #10: closed 2026-08-19** as obsolete (repo-cleanup pass; see below).
 
 ---
 
@@ -42,7 +42,7 @@ close-out at all. Shipped detail belongs in the receipt and the git log, not her
 
 ### Fix titles and metas on the ranking /learn pages
 
-Board: `learn-pages-ctr` (in flight, `leads` loop).
+Board: `learn-pages-ctr` — **killed on the board**; section kept as written pending the roadmap refresh.
 
 Rewrite title and meta for `stage-1-reactive`, `what-is-revops`,
 `pipeline-stage-design` and `ideal-customer-profile`. Done when all four have
@@ -97,7 +97,11 @@ Nothing is currently queued against it. It is written down because the ownership
 transfer happened across two repos over six weeks and appeared in neither one's
 plan.
 
-### Site PR #10 needs a decision, not a merge
+### Site PR #10 — closed 2026-08-19 as obsolete
+
+**Resolved.** Closed in the repo-cleanup pass (Bradley, 2026-08-19); the
+companion `docs/handoff/scorecard-handoff.md` was deleted in the same PR. The
+record below stands as written.
 
 [PR #10](https://github.com/bradley-gunner/modern-bizops-website/pull/10),
 `docs(scorecard): v1.2 handoff`, opened **2026-06-11**, +181 lines, untouched

@@ -23,7 +23,7 @@ release step, so a merge goes straight to the site founders land on.
 ## Work that ships must report back (added 2026-07-28)
 
 This repo is invisible to the Modern BizOps operating board at
-`~/Documents/Claude/Projects/Modern BizOps/state/board.yaml`. That board is where Bradley decides
+`~/Documents/Claude/Projects/Modern BizOps/state/board.db`. That board is where Bradley decides
 what to work on, and it has been wrong because of it. On 2026-07-28 it carried "26 /learn pages"
 when the live sitemap had 24, and it had no record of a ten-page pSEO batch that shipped from here
 days earlier.
@@ -32,8 +32,9 @@ days earlier.
 `~/Documents/Claude/Projects/Modern BizOps/state/inbox/`. Use `_TEMPLATE.md` there; the contract is
 in the `README.md` beside it. `ship-to-production` step 9 does this for you.
 
-**Never edit `board.yaml` or the board artifact from this repo.** One writer owns the board, and
-that is the weekly dreaming pass with Bradley approving. Drop evidence, not edits.
+**Never edit `board.db` or the board artifact from this repo.** One writer owns the board:
+`board.py` in the Modern BizOps folder, session-triggered since 2026-08-13, with Bradley
+approving in session. Drop evidence, not edits.
 
 **A receipt is a lead, not a proof.** Always fill the `verify:` line with a URL, command or query
 that lets a later session confirm the claim without trusting the receipt.
@@ -42,7 +43,7 @@ that lets a later session confirm the claim without trusting the receipt.
 gone stale twice. The cheapest verify line there is:
 
 ```bash
-curl -s https://www.modernbizops.com/sitemap.xml | grep -c '<loc>'
+curl -s https://modernbizops.com/sitemap.xml | grep -c '<loc>'
 ```
 
 ## Where plans live (added 2026-07-30)
@@ -50,7 +51,7 @@ curl -s https://www.modernbizops.com/sitemap.xml | grep -c '<loc>'
 | File | Holds | Never holds |
 |---|---|---|
 | [ROADMAP.md](ROADMAP.md) | The forward plan for **this repo**: what is next, the backlog | Anything already shipped |
-| `Modern BizOps/state/board.yaml` | Business priorities, which loop, what is worth doing | Engineering detail |
+| `Modern BizOps/state/board.db` | Business priorities, which loop, what is worth doing | Engineering detail |
 | `~/RevOps Coaching App/ROADMAP.md` | The forward plan for the client-facing app | Anything about this repo |
 
 **Linkage.** A board item concerning this repo carries a `roadmap:` reference
@@ -85,7 +86,7 @@ seeing it. **Check a title tag by fetching the live page, never by reading the s
 `/learn/[slug]` now opts out with `title: { absolute: ... }`; the rest of the site keeps the
 template deliberately, because the homepage is where the brand suffix might pay.
 
-**Internal links never carry UTM parameters.** A UTM answers "which outside effort sent this
-person here", so tagging an internal link ends the GA4 session and steals attribution from the
-channel that earned the visit. Internal CTAs are plain links tracked with the `cta_click` event.
-A CI test enforces this (PR #53); do not work around it.
+**Internal links never carry UTM parameters, and internal CTAs get ZERO registry rows.** They
+ship as plain links tracked with the `cta_click` event plus page path. The full rule and why it
+exists: `UTM/UTM Taxonomy Standard.md` §2 in the Modern BizOps folder; do not re-derive it here.
+A CI test enforces the no-UTM half (PR #53); do not work around it.

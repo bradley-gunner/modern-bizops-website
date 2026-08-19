@@ -14,9 +14,17 @@ description: >-
 ## Overview
 
 This site's content is a keyword-research-driven, pillar-first topic cluster for
-founder-led B2B companies ($3M to $50M). The domain has low organic authority, so
-the guiding rule is **concentrate, do not spread**: one strong cornerstone at a
-time, spokes grow under it.
+B2B companies with a real sales motion, $1M to $50M revenue (the bounding
+document is `Coaching Service/ICP/Ideal Customer Profile v2.md` in the Modern
+BizOps folder; "founder-led" and "owner-led" are retired as ICP vocabulary). The
+domain has low organic authority, so the guiding rule is **concentrate, do not
+spread**: one strong cornerstone at a time, spokes grow under it.
+
+**Nouns are not chosen here.** Every noun a page leads with comes from
+`Business Design/AI Pivot 2026/08 Messaging Architecture.md` §3 in the Modern
+BizOps folder (banned and fenced nouns, the validated category terms and their
+volumes). Read it before writing a headline or slug; do not work from memory of
+it.
 
 ## When to use
 
@@ -45,24 +53,27 @@ conversion surfaces, not SEO content.
 
 ## Rules that keep resurfacing
 
-- **Buyer language, not category language.** Founders do NOT search "revenue
-  operations." Lead headlines and target spokes with founder problem-language:
-  "grow revenue without adding headcount" (rational, already has SEO equity,
-  protect it), "make my business run without you" (emotional, in test),
-  "predictable sales pipeline." "Revenue Operations" and "Revenue Operations
-  Maturity Model" are a brand/framework NAME for branded search and credibility,
-  NOT an acquisition keyword. Do not chase the head term for traffic: wrong
-  persona, unwinnable for a new domain.
+- **The search-ladder law: buyers search the category noun, never their
+  problem.** Four independent tracks failed identically (the emotional/burnout
+  track, raw founder-pain phrases, the ops-hiring trigger stage, the
+  pre-category AI phrasings). People search "ai automation agency" (4,400/mo),
+  the ai consultant cluster (8,100/mo), "ai readiness assessment" (720/mo), not
+  a description of their pain. Content is what gives a buyer the category word;
+  search surfaces lead with the validated category noun. The current validated
+  terms and their volumes live in doc 08 §3, not here.
+- **Read vs search surfaces.** Read surfaces (LinkedIn, email, the About page)
+  lead with the transformation; search surfaces (titles, slugs, H1s on pages
+  meant to rank) lead with the validated category noun. They never contradict:
+  the noun is the mechanism, the transformation is the outcome. Consistency
+  means the same audience, transformation, mechanism and proof, not the same
+  string of words.
 - **Pillar vs spoke jobs.** A pillar earns credibility, branded search, internal
-  linking, and conversion to the scorecard; its cold-traffic SEO is modest. The
-  winnable long-tail lives on spokes. Both live now: the pillar-cluster
-  structure is `/predictable-revenue-engine` (model overview, conversion
-  intent) over `/learn` stage hubs and competency pages (informational
-  intent), connected by breadcrumbs, DefinedTermSet/DefinedTerm schema, and
-  the pillar's "See how I score it" cards linking to live competency pages.
-  Batch 1 targets validated founder problem-language ("CRM not working for my
-  team", "why is my sales cycle so long"), which is the model for future
-  spoke keyword picks.
+  linking, and conversion; its cold-traffic SEO is modest. The winnable
+  long-tail lives on spokes. Both live now: the pillar-cluster structure is
+  `/predictable-revenue-engine` (model overview, conversion intent) over
+  `/learn` stage hubs and competency pages (informational intent), connected by
+  breadcrumbs, DefinedTermSet/DefinedTerm schema, and the pillar's competency
+  cards linking to live competency pages.
 - **Hero built variant-ready.** Hooks live in a config array with variant-tagged
   GA4/Clarity events. Test the message upstream (LinkedIn organic, optional small
   paid) before any on-site A/B, which cannot reach significance at current
@@ -72,19 +83,23 @@ conversion surfaces, not SEO content.
   diagrams, category icons) over stock photos: on-brand, CSP-safe, no licensing.
   Never a busy background behind text.
 
+<!-- TODO: channel strategy: point at Content Marketing Strategy.md when it
+lands (in progress 2026-08-19). -->
+
 ## Reference implementations
 
-- **Pillar:** `/predictable-revenue-engine` (the Revenue Operations Maturity
-  Model). Data in `lib/maturity/`, components in `components/maturity/`, spec
-  and plan in `docs/superpowers/`.
-- **Spokes:** the `/learn/[slug]` hub (batch 1: Stage 1 Reactive hub + CRM
-  Architecture and Governance + Pipeline Stage Design, PR #33). Registry in
-  `lib/learn/registry.js`, shell in `components/learn/`, schema builders in
-  `lib/learn/schema.js`. REQUIRED to publish a new spoke: publish-learn-page.
+- **Pillar:** `/predictable-revenue-engine` (the GTM Maturity Framework;
+  instrument doc: `Coaching Service/App/Modern BizOps GTM Maturity Framework.md`
+  v1.1 in the Modern BizOps folder). Data in `lib/maturity/`, components in
+  `components/maturity/`, spec and plan in `docs/superpowers/`. The page's
+  metadata title deliberately retains the older "Revenue Operations" term
+  because it ranks on it; that is a tracked SEO retention, not an oversight.
+- **Spokes:** the `/learn/[slug]` hub. Registry in `lib/learn/registry.js`,
+  shell in `components/learn/`, schema builders in `lib/learn/schema.js`.
+  REQUIRED to publish a new spoke: publish-learn-page.
 
 ## Related
 
-Check the `positioning` and `product-naming` project memories before writing copy
-(locked audience, the two message tracks, canonical names). REQUIRED voice skill:
-write-like-bradley. Screen copy with modern-bizops-copy-audit. Full strategy
-rationale: project memory `content_seo_strategy.md`. No em dashes anywhere.
+Nouns and banned terms: doc 08 §3 (above). Audience: ICP v2 (above). REQUIRED
+voice skill: write-like-bradley. Screen copy with modern-bizops-copy-audit.
+No em dashes anywhere.
