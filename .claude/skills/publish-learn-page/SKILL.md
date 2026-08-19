@@ -45,15 +45,15 @@ which is where a batch moves on publish). Each file:
    proposed slug but no live page render as plain text (usually `<strong>` +
    an italic "(page forthcoming)" note per the source). This applies to
    SCHEMA too: `DefinedTermSet.hasDefinedTerm` lists only live URLs.
-3. **Never UTM-tag an internal link.** CTA destinations ship as plain
-   root-relative links (`/scorecard`, `/playbook`), no query string, even if
-   the spec writes them with UTM params (strip them and flag it back). A UTM
-   answers "which outside effort sent this person here"; on an internal hop it
-   instead resets the GA4 session and steals conversion credit from the
-   channel that actually acquired the visitor (this burned batch 1, fixed in
-   PR #36). Per-page CTA attribution comes from the `cta_click` event: the
-   shell passes `ctaLocation="learn_mid_page"` to Button, and root-relative
-   hrefs hit Button's CTA_DESTINATIONS lookup automatically.
+3. **Never UTM-tag an internal link, and internal CTAs get zero registry
+   rows.** CTA destinations ship as plain root-relative links (`/scorecard`),
+   no query string, even if the spec writes them with UTM params (strip them
+   and flag it back). Full rule and rationale:
+   `UTM/UTM Taxonomy Standard.md` §2 in the Modern BizOps folder (this burned
+   batch 1, fixed in PR #36). Per-page CTA attribution comes from the
+   `cta_click` event: the shell passes `ctaLocation="learn_mid_page"` to
+   Button, and root-relative hrefs hit Button's CTA_DESTINATIONS lookup
+   automatically.
 4. **Outbound citations** (already markdown links in the body) become
    `<a target="_blank" rel="noopener noreferrer">`.
 5. **Slug mismatch gotcha:** competency-data slugs in

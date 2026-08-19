@@ -21,7 +21,7 @@ just the UI.
 
 | Path | Contact created by | Subject to form spam filter? |
 |---|---|---|
-| `/scorecard`, `/playbook` | HubSpot **Forms API** (`submitHubSpotForm`, with `hutk`) | **Yes** |
+| `/scorecard` (`/playbook` is retired and 301s here) | HubSpot **Forms API** (`submitHubSpotForm`, with `hutk`) | **Yes** |
 | `/book` qualifying form | HubSpot **Forms API** (identity+utm), then a Contacts PATCH for qualifying answers | **Yes** |
 | `/watch` booking + self-qualify | HubSpot **Meetings** tool + Contacts API | No |
 
