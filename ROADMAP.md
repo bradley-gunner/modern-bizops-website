@@ -34,7 +34,7 @@ close-out at all. Shipped detail belongs in the receipt and the git log, not her
 - **Live inventory:** 34 URLs in the sitemap, **24 of them `/learn` pages**. Verified against the live sitemap on 2026-07-28. This file does not track the page list — the sitemap and GSC do. See "Where page counts come from" below.
 - **In flight:** nothing. `learn-pages-ctr` was killed on the board; the title/meta rewrite is not in flight.
 - **Next:** `learn-pages-rank`, then the two never-indexed pages.
-- **PR #10: closed 2026-08-19** as obsolete (repo-cleanup pass; see below).
+- **PR #10: closed 2026-08-02** by Bradley as obsolete (see below).
 
 ---
 
@@ -97,11 +97,11 @@ Nothing is currently queued against it. It is written down because the ownership
 transfer happened across two repos over six weeks and appeared in neither one's
 plan.
 
-### Site PR #10 — closed 2026-08-19 as obsolete
+### Site PR #10 — closed 2026-08-02 as obsolete
 
-**Resolved.** Closed in the repo-cleanup pass (Bradley, 2026-08-19); the
-companion `docs/handoff/scorecard-handoff.md` was deleted in the same PR. The
-record below stands as written.
+**Resolved.** Bradley closed it on 2026-08-02 with a closing comment on the PR;
+the companion `docs/handoff/scorecard-handoff.md` was deleted in the 2026-08-19
+repo-cleanup PR (#85). The record below stands as written.
 
 [PR #10](https://github.com/bradley-gunner/modern-bizops-website/pull/10),
 `docs(scorecard): v1.2 handoff`, opened **2026-06-11**, +181 lines, untouched
