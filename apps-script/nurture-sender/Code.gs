@@ -196,7 +196,7 @@ var SHARED = {
     subject: `worth 45 minutes?`,
     body: [
 `Hey {{firstName}},`,
-`It's been a week and a half or so since you took the Scan. My guess is the takeaway is still in the back of your mind but hasn't made it onto the list yet, because there's always something more urgent than the thing that's only costing you slowly.`,
+`It's been a couple of weeks or so since you took the Scan. My guess is the takeaway is still in the back of your mind but hasn't made it onto the list yet, because there's always something more urgent than the thing that's only costing you slowly.`,
 `If that's about right, the next step is just to talk. I do a free 45-minute call, and it's not a pitch. We get into what's actually going on, and I give you my honest read on whether there's real value in us working together. If there isn't, I'll tell you on the call and save us both the time.`,
 `Either way you'd walk away with a clearer picture of which gap to close first and what it'd take. That alone is usually worth the 45 minutes.`,
 `If you want to grab a time: {{book_link}}`,
@@ -237,7 +237,44 @@ var TEMPLATES = {
 };
 
 var LAST_STEP = 6;
-var UNSUBSCRIBE_PATTERNS = [/\bunsubscribe\b/i, /\bremove me\b/i, /\bstop\b/i];
+
+/** Opt-out phrases. A bare /\bstop\b/i used to be in here and was removed 2026-08-18:
+ *  "stop" is an ordinary English word, and a warm reply like "I want to stop wasting
+ *  money on tools" would have matched it. That matters more than it looks, because ANY
+ *  reply already halts the sequence. The only thing this scan decides is `replied`
+ *  (Bradley takes the thread over) versus `unsubscribed` (permanent, never re-enroll).
+ *  So a false positive here does not stop an email, it silently and permanently buries
+ *  an engaged lead. These patterns require actual opt-out intent instead. */
+var UNSUBSCRIBE_PATTERNS = [
+  /\bunsubscribe\b/i,
+  /\bremove me\b/i,
+  /\btake me off\b/i,
+  /\bopt\s*-?\s*out\b/i,
+  /\bstop\s+(emailing|email|sending|contacting|messaging)\b/i,
+  /^\s*stop[.!]?\s*$/i   // the whole reply is the single word, the SMS convention
+];
+
+/** Strip the quoted original from a reply before scanning it.
+ *
+ *  Load-bearing, and not merely tidy. GmailApp's getPlainBody() returns the WHOLE body,
+ *  including the quoted copy of the email we sent. The Sequence Plan defers a CAN-SPAM
+ *  footer reading "Not for you? Just reply 'unsubscribe'" and says it goes in at scale.
+ *  The day that footer ships, every ordinary reply would quote it, match
+ *  /\bunsubscribe\b/, and permanently suppress the lead who just answered. Cutting the
+ *  quote out means the scan only ever reads what the person actually typed. */
+function stripQuoted_(text) {
+  var lines = String(text || '').split('\n');
+  var out = [];
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    if (line.charAt(0) === '>') break;                       // quoted block
+    if (/^\s*On .+ wrote:\s*$/.test(line)) break;             // Gmail attribution
+    if (/^\s*-{2,}\s*Original Message\s*-{2,}/i.test(line)) break;
+    if (/^\s*From:\s.+/.test(line) && i > 0) break;          // Outlook header block
+    out.push(line);
+  }
+  return out.join('\n');
+}
 
 /** HubSpot contact properties the run needs. */
 var FETCH_PROPS = [
@@ -246,6 +283,14 @@ var FETCH_PROPS = [
   'nurture_last_sent_at', 'nurture_started_at',
   'scorecard_top_gap', 'scorecard_email1_status'
 ];
+
+/** Properties we want but can survive without. Kept separate from FETCH_PROPS so
+ *  fetchActiveContacts_ can retry without them if this portal does not expose one.
+ *
+ *  engagements_last_meeting_booked is a standard HubSpot property, set when a meeting
+ *  is booked through the Meetings tool, which is exactly how /book works. It is the
+ *  booked-exit signal (see BOOKED EXIT below). */
+var OPTIONAL_FETCH_PROPS = ['engagements_last_meeting_booked'];
 
 var DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -357,6 +402,26 @@ function processContact_(contact, live) {
     return 'skipped';
   }
 
+  // Exit check 2b: BOOKED EXIT.
+  //
+  // Added 2026-08-18. The design doc said "booked is set by the calendar/booking side"
+  // and the sender only honored it, but NOTHING anywhere ever set it: a repo-wide grep
+  // for nurture_status outside this file returns only the design doc. So a lead who
+  // booked a discovery call stayed 'active' and kept receiving the rest of the
+  // sequence, including E5 "worth 45 minutes?" asking them to book the call they had
+  // already booked, and then E6. That is the single worst thing this sender could do
+  // to a lead who just converted.
+  //
+  // HubSpot stamps engagements_last_meeting_booked when a meeting is booked through
+  // the Meetings tool. Only a booking at or after the nurture anchor counts, so an
+  // older unrelated meeting cannot suppress a fresh sequence.
+  var meetingBooked = toMillis_(p.engagements_last_meeting_booked);
+  if (meetingBooked && meetingBooked >= startedAt) {
+    if (live) patchContact_(contact.id, { nurture_status: 'booked' });
+    log_('STOP ' + label + ': meeting booked (engagements_last_meeting_booked), now in the sales motion.');
+    return 'stopped';
+  }
+
   // Exit check 3 + 4: reply / unsubscribe detection via Gmail.
   var reference = toMillis_(p.nurture_last_sent_at) || startedAt;
   var replyOutcome = detectReply_(email, reference);
@@ -425,7 +490,7 @@ function renderTemplate_(track, step, p) {
   if (!t) return null;
 
   var firstName = (p.firstname || '').trim() || 'there';
-  var topGap = (p.scorecard_top_gap || '').trim() || 'the gap it flagged';
+  var topGap = topGapLabel_(p.scorecard_top_gap);
   var link = bookLink(track, step);
   var sigHtml = getSignatureHtml_();
   var sigText = htmlToText_(sigHtml) || SIGNATURE_TEXT;
@@ -453,6 +518,33 @@ function renderTemplate_(track, step, p) {
 
 function escapeHtml_(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/**
+ * Normalize scorecard_top_gap into something that reads correctly mid-sentence.
+ *
+ * Two real defects this fixes, both found 2026-08-18 before the first live send.
+ *
+ * 1. THE LITERAL STRING 'None'. When the Scan surfaces no dollar line it writes
+ *    scorecard_top_gap = 'None' (lib/scorecard/hubspotResultProperties.js, the
+ *    hasDollarGap === false branch). 'None' is truthy, so the old
+ *    `(p.scorecard_top_gap || '').trim() || fallback` passed it straight through and
+ *    E2 read "Your weakest area was None." E3 read "I said we'd fix what sits under
+ *    None." The E1 skill already treats 'None' as a real case, so this was a known
+ *    sentinel that the sender simply did not know about.
+ *
+ * 2. TITLE CASE. The labels arrive as 'Revenue per employee', 'Sales cycle',
+ *    'Gross revenue retention'. Every {{topGap}} slot in the approved copy is
+ *    mid-sentence ("the unglamorous work underneath {{topGap}}"), so the capital is
+ *    wrong. Only the first letter is lowered, and only when the rest of the label has
+ *    no capitals of its own, so a future acronym label stays intact.
+ */
+function topGapLabel_(raw) {
+  var v = String(raw == null ? '' : raw).trim();
+  if (!v || v.toLowerCase() === 'none') return 'the gap it flagged';
+  var rest = v.slice(1);
+  if (rest === rest.toLowerCase()) return v.charAt(0).toLowerCase() + rest;
+  return v;
 }
 
 function deriveTrack_(leadMagnet) {
@@ -485,7 +577,7 @@ function detectReply_(email, sinceMillis) {
     if (!isFrom_(last, email)) continue; // newest message must be inbound
 
     found = 'replied';
-    var text = (last.getPlainBody() || '');
+    var text = stripQuoted_(last.getPlainBody() || '');
     for (var k = 0; k < UNSUBSCRIBE_PATTERNS.length; k++) {
       if (UNSUBSCRIBE_PATTERNS[k].test(text)) return 'unsubscribed';
     }
@@ -532,7 +624,26 @@ function getMyEmail_() {
 // HUBSPOT API
 // ---------------------------------------------------------------------------
 
+/** True once a run has decided the optional properties are not fetchable here. */
+var OPTIONAL_PROPS_OK = true;
+
 function fetchActiveContacts_() {
+  // Try with the optional properties; fall back to the required set if the portal
+  // rejects one. A missing booked-exit signal degrades the sequence. A 400 that takes
+  // the whole run down would stop it entirely, so this must never be fatal.
+  try {
+    return fetchContactsWithProps_(FETCH_PROPS.concat(OPTIONAL_FETCH_PROPS));
+  } catch (e) {
+    OPTIONAL_PROPS_OK = false;
+    log_('WARNING: contact search rejected the optional properties (' +
+      OPTIONAL_FETCH_PROPS.join(', ') + '), retrying without them. The BOOKED EXIT is ' +
+      'INACTIVE for this run, so a lead who booked a call can still receive E5/E6. ' +
+      'Check that the property exists in the portal. Error: ' + e);
+    return fetchContactsWithProps_(FETCH_PROPS);
+  }
+}
+
+function fetchContactsWithProps_(propNames) {
   var results = [];
   var after = null;
   do {
@@ -544,7 +655,7 @@ function fetchActiveContacts_() {
             { propertyName: 'lead_magnet', operator: 'IN', values: ['scorecard'] }
         ] }
       ],
-      properties: FETCH_PROPS,
+      properties: propNames,
       limit: 100
     };
     if (after) payload.after = after;

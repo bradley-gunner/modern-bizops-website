@@ -63,8 +63,9 @@ The signature is **read live from your Gmail settings** (`Gmail.Users.Settings.S
 1. **Dry run.** `SEND_MODE=dry_run`, run `run()`. The log should list the right contacts, tracks, and next-due emails, and correctly **skip**: `engagement_status=Test`, `nurture_status` in {replied, booked, unsubscribed, completed}, and any lead whose E1 gate (`scorecard_email1_status`) is not `sent`.
 2. **Test contacts.** Seed a contact with `engagement_status=Test`. Confirm the log shows it skipped, never sent.
 3. **One narrow live send.** Set `SEND_MODE=live`, point a single real/own contact at the track (E1 gate = `sent`, `nurture_started_at` old enough for E2), run `run()`. Confirm: the email arrives **from bradley@**, lands in **Sent**, appears on the **HubSpot contact timeline** (via BCC), and `nurture_step` / `nurture_last_sent_at` advance.
-4. **Reply stop.** Reply to that email from the contact side. Next `run()` should flip `nurture_status=replied` and send nothing further.
-5. **Go live.** Once all pass, keep `SEND_MODE=live` and run `installTrigger()` once to schedule the daily run (~08:00 project time).
+4. **Reply stop.** Reply to that email from the contact side. Next `run()` should flip `nurture_status=replied` and send nothing further. Confirm the log does **not** say the optional properties were rejected (see the booked exit below); if it does, the booked exit is off.
+5. **Booked stop.** Book a meeting as that contact through `/book`. The next `run()` should flip `nurture_status=booked` and send nothing further.
+6. **Go live.** Once all pass, keep `SEND_MODE=live` and run `installTrigger()` once to schedule the daily run (~08:00 project time).
 
 ## Cadence
 
@@ -89,9 +90,31 @@ name, matching `lead_magnet` and the `/scorecard` route), `nurture_step` (number
 
 Reused existing fields: `lead_magnet` (track source), `engagement_status` (skip
 `Test`), `scorecard_email1_status` (the E1 gate),
-`scorecard_top_gap` (the `{{topGap}}` merge value).
+`scorecard_top_gap` (the `{{topGap}}` merge value), and
+`engagements_last_meeting_booked` (the booked exit, below).
 
-`booked` is set by the calendar/booking side; this sender only honors it.
+**`scorecard_top_gap` can be the literal string `None`.** The Scan writes that when no
+dollar line surfaced. `topGapLabel_()` maps it (and empty) to the fallback
+"the gap it flagged", and lowercases a normal label so it reads mid-sentence. Without
+that, E2 went out saying "Your weakest area was None."
+
+### The booked exit (fixed 2026-08-18)
+
+This README used to say "`booked` is set by the calendar/booking side; this sender only
+honors it." **Nothing ever set it.** A repo-wide grep for `nurture_status` outside
+`Code.gs` returns only the design doc, so a lead who booked a discovery call stayed
+`active` and kept receiving the sequence, including E5 asking them to book the call they
+had just booked.
+
+The sender now reads `engagements_last_meeting_booked`, a standard HubSpot property
+stamped when a meeting is booked through the Meetings tool, which is how `/book` works.
+A booking at or after `nurture_started_at` stops the track with `nurture_status = booked`.
+
+- **No new token scope.** It is a contact property, covered by `crm.objects.contacts.read`.
+- **It cannot take the run down.** It is requested via `OPTIONAL_FETCH_PROPS`; if the
+  portal rejects it, `fetchActiveContacts_` retries with the required set and logs a loud
+  warning that the booked exit is inactive for that run. **Check the dry-run log for that
+  warning**, because the degraded mode is exactly the bug this fixed.
 
 ## The E1 gate (how E2 is released)
 
@@ -112,6 +135,7 @@ falsely clearing the gate for a lead who was already a contact.
 ## Not handled here
 
 - **E1** (owned by the Cowork skill).
-- **CAN-SPAM postal/unsubscribe footer** (deferred at current volume; unsubscribe is the reply-"unsubscribe" scan).
+- **CAN-SPAM postal/unsubscribe footer** (deferred at current volume; unsubscribe is the reply-"unsubscribe" scan). **When it is added, keep `stripQuoted_()`**: the planned footer says *reply "unsubscribe"*, and without stripping the quoted original every ordinary reply would quote it, match, and permanently suppress the lead who just answered.
+- **Email authentication for bradleydewet.com** (SPF does not authorize Google and no DKIM record is published; both are DNS changes on Bradley's side). This is the largest real blocker to the sequence landing in inboxes and no code change here can affect it.
 - **Exact dollar-figure / stage restatement and AI-dynamic drafting** (gated on the Persist-Scorecard-Outputs dispatch spec).
 - **UTM registry + dashboard allowlist** entries for `utm_medium=nurture`, the `utm_campaign=lm_welcome_scan` row (new at Rev 5) and the `welcome_scorecard_0{step}_v1` content values (register in `UTM/UTM Campaign Registry - Content.csv` + re-sync the dashboard `REGISTERED_CONTENT` allowlist as a separate step). Sequence Plan section 7 changed the campaign to `lm_welcome_scan` but left its `utm_content` list on `welcome_scorecard_0X_v1`; the code follows the doc literally on both. Flagged for Bradley, one line to change either way.
