@@ -49,26 +49,40 @@ var YOUTUBE_URL = 'https://youtube.com/@BradleydeWetModernBizOps';
 var SITE_URL = 'https://modernbizops.com';
 var SCORECARD_URL = 'https://modernbizops.com/scorecard';
 
-// Plain-text fallback signature. ASCII only, so no client mis-decodes it.
-// 2026-08-12: retired "RevOps Coach" (a title Bradley does not use any more) and
-// the pre-pivot "one machine, more money less chaos" line, and renamed the free
-// diagnostic to the AI Revenue Scan. SCORECARD_URL is unchanged on purpose. The
-// product got a new name. The /scorecard route stayed the same.
+// FALLBACK SIGNATURES ONLY. Normal operation never uses these: getSignatureHtml_()
+// reads the real signature out of Gmail on every run, so whatever Bradley sets there
+// is what ships. These exist for the one case where that fetch fails, and their only
+// job is to be indistinguishable from the live block when it does.
+//
+// 2026-08-19: re-synced against the signature Bradley set in Gmail, read directly from
+// Settings. Two things changed and both were stale here. The tagline is now
+// "Go-to-market AI automation for B2B businesses" (was the longer pre-pivot
+// "More leads, more booked calls, less busywork" line), and the retired "RevOps Coach"
+// role is gone from the live block, which closes the last standing item on it.
+//
+// The live block has NO "--" delimiter, so these do not either. A fallback that adds one
+// would be visibly different from the 99-percent case it stands in for.
+//
+// Deliberate divergence, one item: the live signature links www.modernbizops.com, which
+// 308-redirects to the apex. These use the apex directly, matching bookLink() and this
+// repo's canonical-host rule, so the fallback costs a redirect hop less than the real
+// thing. Flagged to Bradley as an optional tidy-up in Gmail; not worth a mismatch here.
+
+// Plain text. ASCII only, so no client mis-decodes it.
 var SIGNATURE_TEXT = [
-  '--',
   'Bradley de Wet',
   'Founder | Modern BizOps',
-  'AI automation for B2B go-to-market. More leads, more booked calls, less busywork.',
+  'Go-to-market AI automation for B2B businesses',
+  '',
   'Get my free AI Revenue Scan: ' + SCORECARD_URL,
   SITE_URL + ' | ' + LINKEDIN_URL + ' | ' + YOUTUBE_URL
 ].join('\n');
 
-// HTML signature FALLBACK. Used only if the live Gmail-signature fetch fails.
 var SIGNATURE_HTML_FALLBACK = [
-  '--',
   'Bradley de Wet',
   'Founder &middot; Modern BizOps',
-  'AI automation for B2B go-to-market. More leads, more booked calls, less busywork.',
+  'Go-to-market AI automation for B2B businesses',
+  '',
   '<a href="' + SCORECARD_URL + '">Get my free AI Revenue Scan &rarr;</a>',
   '<a href="' + SITE_URL + '">modernbizops.com</a> | ' +
     '<a href="' + LINKEDIN_URL + '">LinkedIn</a> | ' +
@@ -115,6 +129,10 @@ function htmlToText_(html) {
     .replace(/&nbsp;/gi, ' ').replace(/&middot;/gi, '|').replace(/&rarr;/gi, '')
     .replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
     .replace(/&#39;|&rsquo;/gi, "'").replace(/&quot;/gi, '"')
+    // The <a> rewrite runs before entity stripping, so anchor text ending in an arrow
+    // ("Get my free AI Revenue Scan &rarr;") leaves a double space before the URL it
+    // appends. Collapse only that, never the deliberate spacing elsewhere in the block.
+    .replace(/ +\(http/g, ' (http')
     .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 

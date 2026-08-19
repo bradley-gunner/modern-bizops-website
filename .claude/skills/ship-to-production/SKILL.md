@@ -256,6 +256,15 @@ into your commit, making it unrevertible on its own. Pass the explicit paths:
 git add app/learn/[slug]/page.js lib/learn/registry.js
 ```
 
+**`-m` goes BEFORE the `--` pathspec separator (added 2026-08-19).** `git commit -- <paths> -m "msg"`
+fails with `error: pathspec '-m' did not match any file(s)`, because everything after `--` is read as
+a path. Long multi-paragraph messages are also easier to get right from a file than from a shell
+string, which avoids quoting surprises entirely:
+
+```bash
+git commit -F /path/to/msg.txt -- apps-script/nurture-sender/Code.gs
+```
+
 Branching in a worktree also needs the explicit base, since the local checkout
 is usually sitting on an already-merged branch rather than `main`:
 
@@ -425,6 +434,32 @@ Compare to `md5 -q public/og/og-homepage.png`. Equal means that exact artwork is
 And when the asset carries WORDS, hashing is still not enough: open it and read it. Baked-in
 text is invisible to every grep in this repo, which is how a share card claimed 51
 competencies and another said "REVENUE MATURITY MODEL" months after the rename.
+
+**When the change has no visible surface, say so and verify something real instead (added
+2026-08-19).** A PR touching only `apps-script/` changes nothing a visitor can see, because that
+directory is outside the Next.js build and serves no route. Do not invent a page check, and do not
+let "READY" be the whole report. Three things are actually verifiable:
+
+1. **Non-regression.** The apex still returns 200 and the expected `<title>`.
+2. **The content is not accidentally served.** Unsent email copy, internal docs and scripts should
+   404. Check it, and use a known-200 URL in the same run as the control that proves your check
+   discriminates rather than 404ing on everything.
+3. **Page inventory is unchanged**, which follows from touching zero files under `app/`. State that
+   reasoning rather than implying you re-counted the site.
+
+```bash
+python3 -c "
+import urllib.request as u, urllib.error
+for p in ['/', '/apps-script/nurture-sender/Code.gs']:
+    try: print(p, u.urlopen(u.Request('https://modernbizops.com'+p, headers={'User-Agent':'Mozilla/5.0'})).status)
+    except urllib.error.HTTPError as e: print(p, e.code)"
+```
+
+**Generated values get diffed against their registry, never eyeballed (added 2026-08-19).** When
+code emits a URL that a registry, doc or allowlist also records, extract both and compare them as
+strings in one command. A UTM `assembled_url` and the `bookLink()` that builds it agree only if you
+make the machine say so; reading two long query strings side by side is exactly the check that
+passes while wrong.
 
 **Head-level checks need the browser or a raw fetch, not WebFetch.** WebFetch
 converts the page to markdown and strips the `<head>`, so it cannot see the

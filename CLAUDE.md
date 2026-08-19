@@ -10,6 +10,11 @@ release step, so a merge goes straight to the site founders land on.
 - `publish-learn-page` — publishing a `/learn` page.
 - `seo-content-strategy` — page and keyword strategy.
 - `verify-lead-capture` — confirming a form or CTA still writes through to HubSpot.
+- `update-nurture-emails`. Changing the automated nurture sequence (Emails 2-6). The copy is
+  hardcoded inside `apps-script/nurture-sender/Code.gs`, so a copy approval is a code change and
+  no page test or site grep can see it.
+- `verify-email-deliverability`. SPF, DKIM and DMARC for a sending domain. Run it before
+  switching on any automated sending; unauthenticated mail fails silently into spam.
 - `regenerate-og-cards`. Changing the words, logo or artwork on the OG share cards. Their
   text is baked into PNG pixels, so no grep here can see it and no page test can catch it.
 - `update-legal-doc`. Any change to /privacy, /terms, /dpa or /security, which are version
