@@ -48,8 +48,16 @@ function validatePhone(phone) {
 }
 
 function HubSpotCalendar({ email, firstName, lastName, company }) {
+  // This slug is owned by the HubSpot Meetings scheduler, not by us, and HubSpot
+  // does NOT redirect an old slug. Renamed from revops-coaching-discovery-call on
+  // 2026-08-18: "RevOps" is demoted from positioning vocabulary entirely and
+  // "coaching" is retired, and this URL is visible to every prospect who books,
+  // plus in the calendar invite. It names the MEETING rather than an offer rung,
+  // deliberately, so the next ladder rename does not break every live link.
+  // If you change it here, it must change in HubSpot and in app/watch/page.js in
+  // the same window, or booking 404s.
   const baseUrl =
-    "https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true";
+    "https://meetings-na2.hubspot.com/bradley-de-wet/discovery-call?embed=true";
   const params = new URLSearchParams();
   if (email) params.set("email", email);
   if (firstName) params.set("firstName", firstName);

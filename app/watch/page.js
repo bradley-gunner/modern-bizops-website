@@ -69,9 +69,12 @@ export default function WatchPage() {
         {/* HubSpot Meetings Calendar Embed */}
         <HubSpotMeetingRedirect source="watch" />
         <div className="mb-10">
+          {/* Same scheduler as /book. Slug renamed 2026-08-18; see the note in
+              components/BookPageClient.jsx. HubSpot does not redirect the old
+              slug, so this string and the one in /book move together. */}
           <div
             className="meetings-iframe-container"
-            data-src="https://meetings-na2.hubspot.com/bradley-de-wet/revops-coaching-discovery-call?embed=true"
+            data-src="https://meetings-na2.hubspot.com/bradley-de-wet/discovery-call?embed=true"
           ></div>
           <Script
             src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"
