@@ -7,7 +7,6 @@ const LAST_MODIFIED = {
   watch: "2026-04-24",
   scorecard: "2026-04-24",
   about: "2026-04-24",
-  playbook: "2026-06-03",
   maturityModel: "2026-07-02",
   aiReadinessAssessment: "2026-08-11",
   aiAutomationServices: "2026-08-11",
@@ -274,12 +273,6 @@ export default function sitemap() {
       lastModified: new Date(LAST_MODIFIED.learnConversionRateOptimization),
       changeFrequency: "monthly",
       priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/playbook`,
-      lastModified: new Date(LAST_MODIFIED.playbook),
-      changeFrequency: "monthly",
-      priority: 0.8,
     },
     {
       url: `${baseUrl}/privacy`,

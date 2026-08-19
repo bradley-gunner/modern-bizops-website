@@ -1,7 +1,7 @@
 /**
  * One-time setup helper for the shared HubSpot lead-capture form.
  *
- * Routing scorecard/playbook lead capture through a HubSpot form (with the
+ * Routing lead capture through a HubSpot form (with the
  * visitor's hubspotutk cookie) is what makes HubSpot set a real Original Source
  * instead of stamping leads INTEGRATION. The form must contain EVERY field we
  * submit, because HubSpot's submission endpoint rejects fields that are not on
@@ -29,6 +29,12 @@
 
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 const BASE = "https://api.hubapi.com";
+// DO NOT RENAME THIS FORM IN HUBSPOT. The lookup below matches on the exact
+// name string, and one shared form backs every lead path on the site. The
+// name still says "Playbook" because /playbook was retired on 2026-08-18
+// without touching HubSpot: the form was never playbook-specific, so there
+// was nothing to archive. Renaming it for tidiness breaks this script and,
+// with it, the Scan's attribution.
 const FORM_NAME = "Lead Capture (Scorecard + Playbook)";
 
 // The fields the form must contain (mirrors what the lead-capture routes

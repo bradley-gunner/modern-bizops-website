@@ -33,7 +33,7 @@ const UTM_KEY = "utm_(?:source|medium|campaign|content|term)";
 const INTERNAL_UTM_HREF = new RegExp(
   "[\"'`]" +
     "(?:" +
-    "\\/(?!\\/)[^\"'`\\s]*" + // root-relative: /scorecard, /playbook, /book...
+    "\\/(?!\\/)[^\"'`\\s]*" + // root-relative: /scorecard, /book, /pricing...
     "|https?:\\/\\/(?:www\\.)?modernbizops\\.com[^\"'`\\s]*" + // the marketing host
     ")" +
     "[?&]" +
@@ -62,7 +62,7 @@ describe("internal CTA attribution guard", () => {
     expect(
       match,
       `The /learn registry contains a utm_* param ("${match?.[0]}"). Internal ` +
-        `CTAs must be plain links (/scorecard, /playbook, /book) tracked via ` +
+        `CTAs must be plain links (/scorecard, /book) tracked via ` +
         `the cta_click GA4 event, never utm-tagged hrefs.`,
     ).toBeNull();
   });

@@ -154,7 +154,7 @@ export async function POST(request) {
 
     // 1. Submit identity + UTMs through the shared HubSpot form so the hutk
     //    cookie attributes Original Source (FORM instead of INTEGRATION),
-    //    consistent with scorecard/playbook. The /book Meetings booking adds
+    //    consistent with the scorecard. The /book Meetings booking adds
     //    its own engagements_last_meeting_booked_* on top. No deal is created.
     const submission = await submitHubSpotForm({
       properties: {

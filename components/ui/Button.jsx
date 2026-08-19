@@ -38,7 +38,6 @@ export default function Button({
     "/book": "book_call",
     "/watch": "watch",
     "/scorecard": "scorecard",
-    "/playbook": "playbook",
     "/pricing": "pricing",
     "/ai-automation-services": "ai_automation_services",
     "/ai-readiness-assessment": "ai_readiness_assessment",

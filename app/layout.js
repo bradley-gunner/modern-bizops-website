@@ -130,7 +130,7 @@ export default function RootLayout({ children }) {
             this is not optional: it powers HubSpot's buyer intent (which
             companies are visiting), AND it is the only thing that sets the
             `hubspotutk` cookie that lib/hubspot-client.js reads and the
-            scorecard and playbook forms send as context.hutk. Without it those
+            scorecard and book forms send as context.hutk. Without it those
             forms were posting an empty hutk and HubSpot was recording Original
             Source as INTEGRATION.
 
