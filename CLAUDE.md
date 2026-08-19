@@ -10,6 +10,10 @@ release step, so a merge goes straight to the site founders land on.
 - `publish-learn-page` — publishing a `/learn` page.
 - `seo-content-strategy` — page and keyword strategy.
 - `verify-lead-capture` — confirming a form or CTA still writes through to HubSpot.
+- `regenerate-og-cards`. Changing the words, logo or artwork on the OG share cards. Their
+  text is baked into PNG pixels, so no grep here can see it and no page test can catch it.
+- `update-legal-doc`. Any change to /privacy, /terms, /dpa or /security, which are version
+  coupled to a clickwrap registry in the app repo.
 
 ## Work that ships must report back (added 2026-07-28)
 
