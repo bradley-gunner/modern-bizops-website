@@ -12,7 +12,7 @@ const link = "text-navy underline";
 // from the build spec, and the visual blocks interleaved at their source spots:
 // the governing line lifted into a pull-quote, the maturity strip under the model
 // intro, and the five-job table as the page's skimmable spine. This page owns two
-// CTAs (scorecard mid-page, playbook at the foot), so the registry sets inlineCtas
+// CTAs (both to the Scan since /playbook retired), so the registry sets inlineCtas
 // and the shell skips its default card.
 export default function AiToolsForSmallBusinessBody() {
   return (
@@ -386,20 +386,20 @@ export default function AiToolsForSmallBusinessBody() {
       </p>
       <p>
         The{" "}
-        <Link href="/playbook" className={link}>
-          Revenue Growth Playbook
+        <Link href="/scorecard" className={link}>
+          AI Revenue Scan
         </Link>{" "}
-        lays out the whole sequence: which fundamental to fix first, and which tool
-        to point at it once it holds. Start there, and build in the order that
-        actually compounds.
+        tells you which fundamental to fix first, so you know which tool is worth
+        pointing at it and which one is going to land on sand. Start there, and
+        build in the order that actually compounds.
       </p>
 
       <CtaCallout
         eyebrow="Your next step"
         heading="Build the stack in the order that compounds"
-        body="A free, stage-by-stage guide that sequences the work, so every tool you add lands on a fundamental strong enough to hold it."
-        buttonLabel="Get the Revenue Growth Playbook"
-        href="/playbook"
+        body="Five minutes, free, and no call required. Find out which fundamental is your bottleneck, so every tool you add lands on something strong enough to hold it."
+        buttonLabel="Get the Free Scan"
+        href="/scorecard"
         ctaLocation="learn_ai_tools_closing"
       />
     </>

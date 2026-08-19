@@ -150,7 +150,7 @@ export default function QuizFlow({ utms = {} }) {
       }
       // Fire analytics AFTER the API accepts the submission so we never count
       // failed attempts as leads. `generate_lead` is the GA4-recommended
-      // conversion event; `lead_magnet` distinguishes it from the playbook flow.
+      // conversion event; `lead_magnet` records which magnet produced it.
       trackFormSubmit('scorecard', {
         lead_magnet: 'scorecard',
         has_company: Boolean(company),

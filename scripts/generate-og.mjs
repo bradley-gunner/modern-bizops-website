@@ -245,72 +245,6 @@ function watchCard({ headline, subline }) {
   );
 }
 
-function playbookCard() {
-  const chapters = [
-    'Define Your Ideal Customer',
-    'Make Your Pipeline Inspectable',
-    'Build the Operating Rhythm',
-    'Fix the Post-Sale System',
-    'Automate Before You Hire',
-    'Reach Predictable Revenue',
-  ];
-  const outlinePill = (label) =>
-    h('div', {
-      style: {
-        display: 'flex', alignItems: 'center', height: 38, padding: '0 20px', borderRadius: 9999,
-        border: `1px solid ${ORANGE}`, color: ORANGE, fontFamily: 'Jost', fontWeight: 600, fontSize: 18, letterSpacing: 1,
-      },
-    }, label);
-  return h(
-    'div',
-    { style: { width: 1200, height: 630, display: 'flex', position: 'relative', background: NAVY, fontFamily: 'Jost' } },
-    h(TopBar),
-    // right panel
-    h('div', { style: { position: 'absolute', top: 8, left: 640, width: 560, height: 622, background: NAVY_MID } }),
-    h('div', { style: { position: 'absolute', top: 8, left: 636, width: 4, height: 622, background: ORANGE } }),
-    h(Logo),
-    // FREE PLAYBOOK pill
-    h('div', {
-      style: {
-        position: 'absolute', left: 64, top: 134, display: 'flex', alignItems: 'center', height: 30,
-        padding: '0 14px', borderRadius: 6, background: ORANGE, color: '#FFFFFF',
-        fontFamily: 'Jost', fontWeight: 600, fontSize: 16, letterSpacing: 1,
-      },
-    }, 'FREE PLAYBOOK'),
-    // headline
-    h('div', {
-      style: {
-        position: 'absolute', left: 64, top: 184, width: 540, display: 'flex',
-        fontFamily: 'Cormorant', fontWeight: 600, fontSize: 66, lineHeight: 1.04, color: CREAM,
-      },
-    }, 'The Revenue Maturity Playbook'),
-    // subline
-    h('div', {
-      style: {
-        position: 'absolute', left: 64, top: 326, width: 510, display: 'flex',
-        fontFamily: 'Jost', fontWeight: 400, fontSize: 24, lineHeight: 1.35, color: CREAM_DIM,
-      },
-    }, 'A Stage-by-Stage Framework for Growing Revenue Without Adding Headcount'),
-    // bottom pills
-    h('div', { style: { position: 'absolute', left: 64, bottom: 44, display: 'flex', gap: 12 } },
-      outlinePill('FREE'), outlinePill('6 CHAPTERS')),
-    // right panel chapters
-    h('div', { style: { position: 'absolute', left: 680, top: 72, width: 480, display: 'flex', flexDirection: 'column', gap: 22 } },
-      ...chapters.map((c, i) =>
-        h('div', { style: { display: 'flex', alignItems: 'center', gap: 16 } },
-          h('div', {
-            style: {
-              width: 38, height: 38, borderRadius: 9999, background: ORANGE, color: '#FFFFFF',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: 'Jost', fontWeight: 600, fontSize: 17,
-            },
-          }, String(i + 1).padStart(2, '0')),
-          h('div', { style: { display: 'flex', fontFamily: 'Jost', fontWeight: 500, fontSize: 24, color: CREAM } }, c),
-        ),
-      ),
-    ),
-  );
-}
 
 // /learn article cards. Batch 1's three cards were produced outside this
 // script (Cowork session, July 2026); this template reproduces that design so
@@ -489,10 +423,6 @@ const CARDS = {
         headline: 'Watch How It Works',
         subline: 'See the revenue engine framework in action',
       }),
-  },
-  playbook: {
-    changed: false,
-    element: () => playbookCard(),
   },
   'learn-ideal-customer-profile': {
     changed: false,

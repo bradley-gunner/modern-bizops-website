@@ -155,7 +155,7 @@ describe("learn page registry", () => {
       // registry entry may ever carry one. The Wave 4 bridge-to-service pages
       // (reduce-customer-churn, payment-recovery, conversion-rate-optimization)
       // point at /book, still plain and UTM-free.
-      expect(e.ctaUrl).toMatch(/^\/(scorecard|playbook|book)$/);
+      expect(e.ctaUrl).toMatch(/^\/(scorecard|book)$/);
     }
   });
 
