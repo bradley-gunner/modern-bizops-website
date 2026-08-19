@@ -16,7 +16,7 @@ const URL = "https://modernbizops.com";
 const OG_IMAGE = "https://modernbizops.com/og/og-homepage.png";
 const TITLE = "AI Automation Partner for B2B Go-to-Market";
 const DESCRIPTION =
-  "The AI automation partner for B2B go-to-market: more leads, more booked calls, more closed deals, and a team with less busywork. Fixed published prices.";
+  "The AI automation partner for B2B go-to-market: more leads, more sales, and less busywork. Fixed published prices.";
 
 // The homepage keeps the brand suffix: 42 characters plus the 16-character
 // " | Modern BizOps" renders at 58, inside Google's truncation point, and this
