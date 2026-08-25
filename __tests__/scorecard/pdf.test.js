@@ -15,7 +15,9 @@ function ans() {
   };
 }
 
-describe('renderResultPdf', () => {
+// The first render on a cold run takes ~7s while @react-pdf/renderer warms
+// its fonts, which blows the default 5s timeout under machine load.
+describe('renderResultPdf', { timeout: 30_000 }, () => {
   it('renders a non-empty Buffer', async () => {
     const result = buildResult(ans(), { generatedAt: '2026-06-11T12:00:00.000Z' });
     const buf = await renderResultPdf(result);
