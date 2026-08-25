@@ -9,6 +9,7 @@ import HubSpotMeetingRedirect from "@/components/HubSpotMeetingRedirect";
 import { trackFormSubmit, identifyLead } from "@/lib/analytics";
 import { getUtms } from "@/lib/utm";
 import { getHubspotutk } from "@/lib/hubspot-client";
+import { readScanLeadPrefill } from "@/lib/scan-lead";
 
 const revenueOptions = [
   "Under $1M",
@@ -100,8 +101,10 @@ export default function BookPageClient() {
   // reading them during render would mismatch the server render.
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
+    // Scan handoff first, then query params, so an explicit link's values win
+    // over the stored scan identity. Everything stays editable either way.
+    const prefill = readScanLeadPrefill();
     const params = new URLSearchParams(window.location.search);
-    const prefill = {};
     if (params.get("firstname")) prefill.firstName = params.get("firstname");
     if (params.get("lastname"))  prefill.lastName  = params.get("lastname");
     if (params.get("email"))     prefill.email     = params.get("email");
