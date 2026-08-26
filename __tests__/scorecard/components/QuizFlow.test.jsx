@@ -122,6 +122,29 @@ describe('QuizFlow sessionStorage persistence', () => {
     render(<QuizFlow utms={{}} />);
     expect(screen.getByText(/Which best describes how your business sells/)).toBeInTheDocument();
   });
+
+  it('saves the /book prefill identity only on an accepted submit', async () => {
+    render(<QuizFlow utms={{}} />);
+    answerEveryQuestion();
+    await waitFor(() => screen.getByText(/One last step before your results/i));
+
+    fireEvent.change(screen.getByLabelText(/First name/i), { target: { value: 'Jane' } });
+    fireEvent.change(screen.getByLabelText(/^Email/i), { target: { value: 'jane@example.com' } });
+    fireEvent.change(screen.getByLabelText(/^Company$/i), { target: { value: 'Acme' } });
+    expect(sessionStorage.getItem('scorecard:lead')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /show me my result/i }));
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+    await waitFor(() =>
+      expect(JSON.parse(sessionStorage.getItem('scorecard:lead'))).toEqual({
+        firstName: 'Jane',
+        email: 'jane@example.com',
+        company: 'Acme',
+        revenueBand: 'under_1m', // first option on q1
+        teamSize: 'just_me', // first option on q3
+      })
+    );
+  });
 });
 
 // The revenue bands were realigned to the /book set, retiring 3m_7m, 7m_15m and

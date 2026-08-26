@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { getQuestionsFor } from '@/lib/scorecard/questions';
 import { trackFormSubmit, trackLeadGenerated, identifyLead } from '@/lib/analytics';
 import { getHubspotutk } from '@/lib/hubspot-client';
+import { saveScanLead } from '@/lib/scan-lead';
 import SectionHeader from './SectionHeader';
 import QuestionCard from './QuestionCard';
 import EmailGateForm from './EmailGateForm';
@@ -148,6 +149,16 @@ export default function QuizFlow({ utms = {} }) {
         setStep('error');
         return;
       }
+      // A completed scan should not mean re-typing the same fields at /book;
+      // its prefill reads this. Only on an accepted submission, so an errored
+      // attempt never seeds an identity.
+      saveScanLead({
+        firstName,
+        email,
+        company,
+        revenueBand: answers.q1?.value,
+        teamSize: answers.q3?.value,
+      });
       // Fire analytics AFTER the API accepts the submission so we never count
       // failed attempts as leads. `generate_lead` is the GA4-recommended
       // conversion event; `lead_magnet` records which magnet produced it.
