@@ -25,6 +25,9 @@ import ReduceCustomerChurnBody from "@/components/learn/content/ReduceCustomerCh
 import PaymentRecoveryBody from "@/components/learn/content/PaymentRecoveryBody";
 import CustomerLifecycleMarketingBody from "@/components/learn/content/CustomerLifecycleMarketingBody";
 import ConversionRateOptimizationBody from "@/components/learn/content/ConversionRateOptimizationBody";
+import AiAutomationAgencyCostBody from "@/components/learn/content/AiAutomationAgencyCostBody";
+import AiConsultantVsInHouseBody from "@/components/learn/content/AiConsultantVsInHouseBody";
+import BestAiAutomationAgenciesBody from "@/components/learn/content/BestAiAutomationAgenciesBody";
 import {
   getBreadcrumbSchema,
   getFaqSchema,
@@ -59,6 +62,9 @@ const BODIES = {
   "payment-recovery": PaymentRecoveryBody,
   "customer-lifecycle-marketing": CustomerLifecycleMarketingBody,
   "conversion-rate-optimization": ConversionRateOptimizationBody,
+  "ai-automation-agency-cost": AiAutomationAgencyCostBody,
+  "ai-consultant-vs-in-house": AiConsultantVsInHouseBody,
+  "best-ai-automation-agencies-b2b": BestAiAutomationAgenciesBody,
 };
 
 // hub -> DefinedTermSet; competency -> DefinedTerm (standalone when the entry

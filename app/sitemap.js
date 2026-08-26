@@ -41,6 +41,9 @@ const LAST_MODIFIED = {
   learnPaymentRecovery: "2026-07-23",
   learnCustomerLifecycleMarketing: "2026-07-23",
   learnConversionRateOptimization: "2026-07-23",
+  learnAiAutomationAgencyCost: "2026-08-26",
+  learnAiConsultantVsInHouse: "2026-08-26",
+  learnBestAiAutomationAgenciesB2b: "2026-08-26",
 };
 
 export default function sitemap() {
@@ -271,6 +274,24 @@ export default function sitemap() {
     {
       url: `${baseUrl}/learn/conversion-rate-optimization`,
       lastModified: new Date(LAST_MODIFIED.learnConversionRateOptimization),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/ai-automation-agency-cost`,
+      lastModified: new Date(LAST_MODIFIED.learnAiAutomationAgencyCost),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/ai-consultant-vs-in-house`,
+      lastModified: new Date(LAST_MODIFIED.learnAiConsultantVsInHouse),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/best-ai-automation-agencies-b2b`,
+      lastModified: new Date(LAST_MODIFIED.learnBestAiAutomationAgenciesB2b),
       changeFrequency: "monthly",
       priority: 0.7,
     },
