@@ -416,12 +416,18 @@ const CARDS = {
         subline: "45 minutes. No obligation. Let's find your biggest revenue growth lever.",
       }),
   },
+  // Subline read 'See the revenue engine framework in action' until
+  // 2026-08-26, a pre-pivot frame: the VSL on /watch has been 'Why AI
+  // Automation Fails for Small and Mid-Sized Businesses' since the 2026-08
+  // refit, so the card sold a framework the page no longer shows. New subline
+  // is the video's own title, words from the page. Headline keeps the page's
+  // title tag.
   watch: {
     changed: false,
     element: () =>
       watchCard({
         headline: 'Watch How It Works',
-        subline: 'See the revenue engine framework in action',
+        subline: 'Why AI automation fails for small and mid-sized businesses',
       }),
   },
   'learn-ideal-customer-profile': {
