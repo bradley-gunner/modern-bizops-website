@@ -144,20 +144,32 @@ function htmlToText_(html) {
  *  never deleted, because historical links keep firing them). The sender has never
  *  sent a live email, so no historical link of ours carries the old campaign.
  *
- *  KNOWN DISCREPANCY, left as the approved doc has it: section 7 changed the CAMPAIGN
- *  to lm_welcome_scan but left the utm_content list reading welcome_scorecard_0X_v1.
- *  Content is kept on the track identifier, which deliberately stayed "scorecard" (same
- *  reason /scorecard and lead_magnet=scorecard did). Flagged to Bradley rather than
- *  resolved here; it is a one-line change either way and nothing has shipped on it.
+ *  DISCREPANCY RESOLVED 2026-08-25 (Bradley's call): utm_content becomes
+ *  welcome_scan_0X_v1, so it agrees with the campaign slug and the live product name.
+ *  Section 7 had changed the CAMPAIGN to lm_welcome_scan while leaving its utm_content
+ *  list on welcome_scorecard_0X_v1, and the mismatch had been flagged to him twice
+ *  without a decision. Nothing had ever shipped on either value (the sender has never
+ *  sent a live email), so there is no historical traffic to preserve and no in-place
+ *  retirement is owed.
  *
- *  Both values still need registering in UTM Campaign Registry - Content.csv and the
- *  dashboard REGISTERED_CONTENT allowlist before switch-on.
+ *  The stem is a per-track MAP rather than a hardcoded 'scan', because the track
+ *  identifier is deliberately still "scorecard" everywhere it names state (/scorecard,
+ *  lead_magnet, nurture_track, scorecard_email1_status). Only the OUTWARD-facing
+ *  attribution value moves to the product name. A second magnet adds a row here.
+ *
+ *  Registry: the campaign and both content rows are registered in UTM Campaign Registry
+ *  - Content.csv and - Campaigns.csv (2026-08-19, re-stemmed 2026-08-25). The dashboard
+ *  REGISTERED_CONTENT allowlist in marketing-engine-dashboard.html is a MANUAL mirror
+ *  and must be re-synced in the same pass as any Content.csv change.
  */
+var UTM_CONTENT_STEM = { scorecard: 'scan' };
+
 function bookLink(track, step) {
+  var stem = UTM_CONTENT_STEM[track] || track;
   return 'https://modernbizops.com/book' +
     '?utm_source=email&utm_medium=nurture' +
     '&utm_campaign=lm_welcome_scan' +
-    '&utm_content=welcome_' + track + '_0' + step + '_v1';
+    '&utm_content=welcome_' + stem + '_0' + step + '_v1';
 }
 
 // --- Approved templated copy (Rev 5, E2-6). No em dashes. --------------------
@@ -381,7 +393,13 @@ function processContact_(contact, live) {
     return 'stopped';
   }
 
-  var targetStep = step + 1;
+  // nurture_step counts TEMPLATED emails only (0 = none sent yet; E1 is personalized
+  // and never sent here), so the first due step for a fresh contact is E2, not
+  // step + 1 = 1. With the bare increment the E1 gate below (targetStep === 2)
+  // was unreachable for every step-0 contact, no step-1 template exists, and the
+  // sequence could never start for anyone. Found 2026-08-25 by the first live test
+  // (board item nurture-sender-live-test), before any real lead hit it.
+  var targetStep = step === 0 ? 2 : step + 1;
 
   // E1 gate: never send E2 until this lead's personalized Email 1 has been sent.
   // The Email 1 skills stage a Gmail draft that Bradley sends by hand, so the
