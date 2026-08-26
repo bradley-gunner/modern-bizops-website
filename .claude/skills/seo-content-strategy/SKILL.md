@@ -15,7 +15,7 @@ description: >-
 
 This site's content is a keyword-research-driven, pillar-first topic cluster for
 B2B companies with a real sales motion, $1M to $50M revenue (the bounding
-document is `Coaching Service/ICP/Ideal Customer Profile v2.md` in the Modern
+document is `Go-to-Market/Audience/Ideal Customer Profile v2.md` in the Modern
 BizOps folder; "founder-led" and "owner-led" are retired as ICP vocabulary). The
 domain has low organic authority, so the guiding rule is **concentrate, do not
 spread**: one strong cornerstone at a time, spokes grow under it.
@@ -89,7 +89,7 @@ lands (in progress 2026-08-19). -->
 ## Reference implementations
 
 - **Pillar:** `/predictable-revenue-engine` (the GTM Maturity Framework;
-  instrument doc: `Coaching Service/App/Modern BizOps GTM Maturity Framework.md`
+  instrument doc: `Go-to-Market/Portal/Modern BizOps GTM Maturity Framework.md`
   v1.1 in the Modern BizOps folder). Data in `lib/maturity/`, components in
   `components/maturity/`, spec and plan in `docs/superpowers/`. The page's
   metadata title deliberately retains the older "Revenue Operations" term
