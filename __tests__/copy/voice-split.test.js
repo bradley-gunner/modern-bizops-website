@@ -233,6 +233,16 @@ const AUTHORED_SILENT_SO_FAR = [
   "components/learn/content/PipelineStageDesignBody.jsx",
   "components/learn/content/RevenueLifecycleDesignBody.jsx",
   "components/learn/content/SmarketingBody.jsx",
+  // The step-15 AEO batch (2026-08-26) is deliberately company-voice, not
+  // silent-authored: the approved drafts speak as "we" throughout (the
+  // listicle ranks Modern BizOps as "us", the cost guide publishes "our"
+  // prices), matching the root-level BOFU precedent in AiConsultingBody
+  // ("We work differently"). They sit in this list because the accounting
+  // above needs every body in exactly one list, and what they must never
+  // gain is the author's singular "I", which is what the other list guards.
+  "components/learn/content/AiAutomationAgencyCostBody.jsx",
+  "components/learn/content/AiConsultantVsInHouseBody.jsx",
+  "components/learn/content/BestAiAutomationAgenciesBody.jsx",
 ];
 
 const LEARN_BODIES = sourceFiles(join(ROOT, "components/learn/content")).map(rel);
@@ -246,7 +256,7 @@ const THIRD_PERSON_AUTHOR = /\bour founder\b|\bBradley\b/i;
 
 describe("authored content speaks as I", () => {
   it("accounts for every /learn body exactly once", () => {
-    expect(LEARN_BODIES.length).toBe(24);
+    expect(LEARN_BODIES.length).toBe(27);
     const listed = [
       ...AUTHORED_SPEAKS_AS_I.filter((f) => f.startsWith("components/learn/")),
       ...AUTHORED_SILENT_SO_FAR,

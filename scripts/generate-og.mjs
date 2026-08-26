@@ -695,6 +695,36 @@ const CARDS = {
         headlineSize: 52,
       }),
   },
+  // Step-15 AEO batch, 2026-08-26: the three buying-decision pages. Headlines
+  // follow the batch precedent (the title tag's hook, in the words the page
+  // uses), kickers name the target query noun.
+  'learn-ai-automation-agency-cost': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'AI AUTOMATION AGENCY COST',
+        headline: 'How Much Does an AI Automation Agency Cost?',
+        headlineSize: 52,
+      }),
+  },
+  'learn-ai-consultant-vs-in-house': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'AI CONSULTANT VS. IN-HOUSE',
+        headline: 'How to Actually Decide',
+        headlineSize: 60,
+      }),
+  },
+  'learn-best-ai-automation-agencies-b2b': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'BEST AI AUTOMATION AGENCIES',
+        headline: 'Ranked by What Each Firm Is Actually Best At',
+        headlineSize: 52,
+      }),
+  },
 };
 
 // ---- render ---------------------------------------------------------------

@@ -35,6 +35,9 @@ const SLUGS = [
   "payment-recovery",
   "customer-lifecycle-marketing",
   "conversion-rate-optimization",
+  "ai-automation-agency-cost",
+  "ai-consultant-vs-in-house",
+  "best-ai-automation-agencies-b2b",
 ];
 const BATCH_1_SLUGS = [
   "revenue-operations-maturity-stage-1-reactive",
@@ -66,11 +69,19 @@ const WAVE_4_SLUGS = [
   "customer-lifecycle-marketing",
   "conversion-rate-optimization",
 ];
+// Step-15 AEO batch: last updated 2026-08-26 (the three buying-decision
+// pages: cost guide, consultant vs. in-house, self-ranking listicle).
+const AEO_BATCH_SLUGS = [
+  "ai-automation-agency-cost",
+  "ai-consultant-vs-in-house",
+  "best-ai-automation-agencies-b2b",
+];
 function expectedLastUpdated(slug) {
   if (BATCH_1_SLUGS.includes(slug)) return "2026-07-09";
   if (WAVE_1_REMAINING_SLUGS.includes(slug)) return "2026-07-15";
   if (WAVE_2_SLUGS.includes(slug)) return "2026-07-22";
   if (WAVE_4_SLUGS.includes(slug)) return "2026-07-23";
+  if (AEO_BATCH_SLUGS.includes(slug)) return "2026-08-26";
   return "2026-07-14";
 }
 // Stage 1 competency pages that carry a DefinedTerm joined to the hub's set.
@@ -99,6 +110,7 @@ const PILLAR_ARTICLE_SLUGS = [
   "ai-for-small-business",
   "ai-tools-for-small-business",
   ...WAVE_4_SLUGS,
+  ...AEO_BATCH_SLUGS,
 ];
 // The sixteen entries whose metaDescription carries a negation pivot, a
 // "Here is how to" opener, or (fractional-coo-cost) a snippet too long to read
@@ -127,7 +139,7 @@ const CARD_BLURB_SLUGS = [
 const STANDALONE_TERM_SLUGS = ["net-revenue-retention"];
 
 describe("learn page registry", () => {
-  it("has exactly the twenty-four approved slugs as keys", () => {
+  it("has exactly the twenty-seven approved slugs as keys", () => {
     expect(Object.keys(LEARN_PAGES).sort()).toEqual([...SLUGS].sort());
   });
 

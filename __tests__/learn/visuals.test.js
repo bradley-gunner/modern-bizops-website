@@ -29,6 +29,9 @@ const PUBLISH_ORDER = [
   "payment-recovery",
   "customer-lifecycle-marketing",
   "conversion-rate-optimization",
+  "ai-automation-agency-cost",
+  "ai-consultant-vs-in-house",
+  "best-ai-automation-agencies-b2b",
 ];
 
 describe("learn visual system", () => {

@@ -32,6 +32,7 @@ const GROUP_ORDER = [
   "Revenue Operations",
   "GTM Maturity Framework",
   "AI for Revenue Operations",
+  "Buying AI Automation",
 ];
 
 // One page carries the kicker "Fractional COO · Cost", which is a cluster of
@@ -48,6 +49,8 @@ const GROUP_BLURBS = {
     "The four stages and the competencies each one rests on. The whole framework lives on a single page.",
   "AI for Revenue Operations":
     "Where AI actually earns its keep in a smaller business, and which tools are worth paying for.",
+  "Buying AI Automation":
+    "What outside help actually costs, when to hire instead, and how to choose a firm. Read these before you sign anything.",
 };
 
 // A page with no kicker still has to appear somewhere, so it falls into the
