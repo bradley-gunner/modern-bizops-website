@@ -7,8 +7,10 @@ import { HOMEPAGE_BUILDS } from "@/lib/offers";
 // 4 of the 12 torn-down competitor sites publish any, and 49% of buyers name
 // opaque pricing as the single thing they most want fixed.
 //
-// Six of the twelve, rendered from lib/offers.js so the homepage can never
-// disagree with the Services or Pricing page about a price.
+// Six of the eleven, rendered from lib/offers.js so the homepage can never
+// disagree with the services page about a price. (Eleven, not twelve: doc 10
+// v5 moved CRM Cleanup onto the Cleanup Services menu on 2026-08-27, and this
+// site still said twelve in four places until 2026-09-01.)
 //
 // 2026-08-12: six cards of name, price and scope read as one uniform block of
 // text, so every card now leads with the price at display scale and draws its
@@ -49,11 +51,12 @@ export default function BuildsPreview() {
     <Section bg="cream" narrow={false}>
       <div className="max-w-[760px] mb-10">
         <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-4">
-          Named systems, published prices.
+          You can price the work before anyone calls you back.
         </h2>
         <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-          Each one is a fixed price, a named scope, and a clock. The runbook
-          goes to a named person on your side. Here are six of the twelve.
+          Six of the eleven builds are below, with the number we actually
+          charge. Each is a fixed price on a clock, and the runbook goes to a
+          named person on your side at the end.
         </p>
       </div>
 
@@ -87,7 +90,7 @@ export default function BuildsPreview() {
           href="/ai-automation-services"
           className="font-body text-base font-semibold text-navy underline underline-offset-4 hover:text-amber transition-colors"
         >
-          See all twelve builds and what each one costs
+          See all eleven builds, the six cleanup services, and every price
         </Link>
       </div>
     </Section>

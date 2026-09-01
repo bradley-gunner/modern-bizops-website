@@ -22,8 +22,18 @@ import { BYLINE } from "@/lib/learn/registry";
 //      words: "If the page is set to be authored by a specific person such as
 //      myself then first person language still makes sense to use in that
 //      instance. It would be like a blog post and the author of the blog post
-//      talking in first person." The 24 /learn article bodies, the registry
-//      strings that render under the byline, and the About page.
+//      talking in first person." The 24 /learn article bodies and the registry
+//      strings that render under the byline.
+//
+//      THE ABOUT PAGE IS DISPUTED AND DELIBERATELY UNGUARDED. This comment
+//      listed it under half 2 until 2026-09-01. On 2026-08-26 Bradley ruled the
+//      other way ("the About page should be 'our founder has worked with ...'")
+//      and the brand-voice skill moved it to half 1 the same day, but the page
+//      itself was never converted and still reads in the first person. Neither
+//      half guards it right now, on purpose: guarding it under half 1 would
+//      fail the build on live copy, and guarding it under half 2 would freeze
+//      copy a later ruling retired. Board item web-newness-risk owns the
+//      conversion; delete this note when the page lands on one side.
 //
 // Reader-voice "I" is untouched by both halves. A competency question, a Scan
 // answer option and a FAQ question phrased as the visitor speaking are the
@@ -88,7 +98,8 @@ function rel(absolute) {
 // and miss the words.
 const BRAND_SURFACES = [
   ...sourceFiles(join(ROOT, "components/home")).map(rel),
-  "app/pricing/page.js",
+  // app/pricing/page.js left this list on 2026-09-01 when it merged into
+  // app/ai-automation-services/page.js, which is still guarded below.
   "app/ai-readiness-assessment/page.js",
   "app/ai-automation-services/page.js",
   "app/founding-clients/page.js",
@@ -134,7 +145,11 @@ describe("brand surfaces speak as we", () => {
     // today, so an exemption that stopped matching would start failing the
     // build on copy that is correct.
     const exempted = [
-      "app/pricing/page.js",
+      // The merged services and pricing page carries the money FAQ, whose
+      // questions are the visitor speaking ("How do I avoid getting locked
+      // in?"). It replaced app/pricing/page.js here on 2026-09-01 and carries
+      // the same reader-voice lines.
+      "app/ai-automation-services/page.js",
       "app/founding-clients/page.js",
       "lib/scorecard/questions.js",
     ].flatMap((file) =>
@@ -372,5 +387,102 @@ describe("the comment stripper", () => {
     expect(out).toContain(BYLINE);
     // 93KB of registry survived as 3KB under the old stripper.
     expect(out.length).toBeGreaterThan(80_000);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The About page: company voice, with every "I" visibly attributed
+// ---------------------------------------------------------------------------
+
+// This page is the one surface where the two halves above collide, and it has
+// been ruled on three times.
+//
+//   2026-08-12  A "we" sweep converted the whole page to the third person.
+//               Bradley reversed it the same day; the page went back to "I".
+//   2026-08-26  He ruled it a brand surface ("the About page should be 'our
+//               founder has worked with ...'"). Nobody converted it, and this
+//               file kept listing it on the authored side.
+//   2026-09-01  Asked to settle it after David Ellis (Tugboat) rated the
+//               I-versus-we tension his highest-consequence finding, he chose a
+//               third thing: "I want the page to be company voice and for me to
+//               be quoted as telling the story or for the section that is using
+//               the I voice to be obvious that it's something that is authored
+//               by me."
+//
+// So the page is company voice, and the first person survives inside regions
+// fenced by /* authored-by-bradley:start */ and :end, each rendered under an
+// <AuthoredNote> byline. That keeps the doc 08 positioning paragraphs verbatim,
+// which doc 08 requires, and keeps the three Contactually stories in the voice
+// that makes them worth reading, while the sentences where the COMPANY makes a
+// promise say "we".
+//
+// The fence is a comment, so it has to be read off the RAW source before
+// stripComments runs.
+const AUTHORED_REGION =
+  /\/\*\s*authored-by-bradley:start\s*\*\/[\s\S]*?\/\*\s*authored-by-bradley:end\s*\*\//g;
+
+// "Professional Scrum Master I" is a certification level in Roman numerals, not
+// a pronoun. Listed as an exact string rather than loosened into a pattern,
+// because a pattern for "a capital I at the end of a quoted string" would also
+// swallow real copy.
+const PROPER_NOUN_I = ['"Professional Scrum Master I"'];
+
+describe("the About page is company voice with attributed first person", () => {
+  const ABOUT = "app/about/page.js";
+  const raw = readSource(ABOUT);
+
+  it("fences at least three authored regions", () => {
+    const regions = raw.match(AUTHORED_REGION) ?? [];
+    expect(
+      regions.length,
+      `${ABOUT} has no authored-by-bradley regions. Either the fences were ` +
+        `deleted, or the page was swept to "we" for the second time. The ` +
+        `2026-08-12 sweep was reversed the same day.`,
+    ).toBeGreaterThanOrEqual(3);
+  });
+
+  it("puts a visible byline on the page, not just a comment", () => {
+    // A fence is invisible to a reader. The rule Bradley set is that the "I"
+    // has to be OBVIOUS, which is a rendered element, so the fences are only
+    // honest while this renders.
+    expect(raw).toContain("function AuthoredNote(");
+    expect(raw).toContain("<AuthoredNote>");
+    expect(raw).toMatch(/in his own words/);
+    const uses = raw.match(/<AuthoredNote[\s>]/g) ?? [];
+    expect(uses.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("keeps real first person inside the fences", () => {
+    // Without this the fences could be moved onto copy that no longer contains
+    // any "I", and the page would pass while having been swept anyway.
+    const regions = raw.match(AUTHORED_REGION) ?? [];
+    for (const region of regions) {
+      expect(
+        FIRST_PERSON_I.test(region) || FIRST_PERSON_OTHER.test(region),
+        `An authored-by-bradley region contains no first person. Either move ` +
+          `the fence or drop it.`,
+      ).toBe(true);
+    }
+  });
+
+  it("carries no first person outside the fences", () => {
+    let outside = raw.replace(AUTHORED_REGION, "");
+    for (const literal of PROPER_NOUN_I) outside = outside.split(literal).join("");
+    const hits = firstPersonViolations(outside);
+    expect(
+      hits,
+      `${ABOUT} speaks in the first person outside an authored-by-bradley ` +
+        `region. On this page the company speaks as "we" and Bradley speaks ` +
+        `inside a fenced, bylined region. A guarantee about runbooks or ` +
+        `lock-in is the company promising, so it says "we".\n${hits.join("\n")}`,
+    ).toEqual([]);
+  });
+
+  it("keeps the sentences that moved to we from drifting back", () => {
+    // The exact strings that carried an unmarked "I" until 2026-09-01.
+    expect(raw).toContain("We are not for everyone. Here is who we are for.");
+    expect(raw).not.toContain("I am not for everyone");
+    expect(raw).not.toContain("stay dependent on me");
+    expect(raw).not.toContain("rule me out");
   });
 });

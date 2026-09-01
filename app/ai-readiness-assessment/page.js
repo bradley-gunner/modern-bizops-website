@@ -398,10 +398,10 @@ export default function AiReadinessAssessmentPage() {
             invoice from there. Every other number you might want first is
             already published on the{" "}
             <Link
-              href="/pricing"
+              href="/ai-automation-services"
               className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
             >
-              pricing page
+              services and pricing page
             </Link>
             .
           </p>

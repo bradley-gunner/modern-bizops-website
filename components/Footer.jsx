@@ -13,8 +13,8 @@ const FOOTER_COLUMNS = [
   {
     heading: "Work with us",
     links: [
-      { label: "AI Automation Services", href: "/ai-automation-services" },
-      { label: "Pricing", href: "/pricing" },
+      // Services and Pricing merged 2026-09-01. One page, one link.
+      { label: "Services and Pricing", href: "/ai-automation-services" },
       { label: "The AI Revenue Audit", href: "/ai-readiness-assessment" },
       { label: "Free AI Revenue Scan", href: "/scorecard" },
       // The only nav-surface link this page gets. It is a hand-raise for a

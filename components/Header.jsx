@@ -14,9 +14,14 @@ import Button from "./ui/Button";
 // in both after the homepage section carrying its anchor was deleted, leaving a
 // nav item that scrolled to nothing. They now map the same source, so the two
 // menus cannot disagree.
+//
+// 2026-09-01: "Services" and "Pricing" were two nav items pointing at two pages
+// that were about 90% the same content. The pages merged; the nav keeps ONE
+// entry and it is labelled "Pricing", because publishing prices is the position
+// and that word is what a buyer scans the nav for. The destination is the
+// services slug, which is the one that can carry the category noun in search.
 const NAV_LINKS = [
-  { label: "Services", href: "/ai-automation-services" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Pricing", href: "/ai-automation-services" },
   { label: "The Audit", href: "/ai-readiness-assessment" },
   { label: "Learn", href: "/learn" },
   { label: "About", href: "/about" },

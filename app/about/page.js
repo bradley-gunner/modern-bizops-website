@@ -22,10 +22,17 @@ import CtaCallout from "@/components/learn/CtaCallout";
 // rewrote this whole page into the third person and recorded the divergence
 // from doc 08 as deliberate. Bradley reversed that the same day: "If the page
 // is set to be authored by a specific person such as myself then first person
-// language still makes sense to use in that instance." This page is his story
-// told by him, so it reads as "I" and matches doc 08 byte for byte. The brand
-// surfaces (homepage, offer pages, /founding-clients, nav, footer, the Scan)
-// keep the "we" voice; do not sweep this page with them.
+// language still makes sense to use in that instance."
+//
+// SETTLED 2026-09-01, AND THE ANSWER IS NOT EITHER OF THE TWO OBVIOUS ONES.
+// The page is company voice now, but the paragraphs below are still verbatim
+// doc 08 in the first person, because they are BYLINED rather than swept. See
+// the AuthoredNote comment further down for his wording and the full history.
+// The rule in one line: an "I" on this page lives inside an
+// authored-by-bradley region under a visible byline, and a sentence where the
+// COMPANY promises something says "we". A voice sweep that removes the first
+// person from these paragraphs is repeating 2026-08-12 and will fail
+// __tests__/copy/voice-split.test.js on the way.
 //
 // "our customers" in the Contactually sentence is safe ONLY in the first
 // person, where "our" is Contactually's. The sweep had to rewrite it to
@@ -42,6 +49,43 @@ import CtaCallout from "@/components/learn/CtaCallout";
 //     tested in January and abandoned, inside the origin narrative. It is not a
 //     description of what Modern BizOps sells, which is the thing that had to
 //     come off this page.
+// EVERY FIRST-PERSON REGION ON THIS PAGE CARRIES ONE OF THESE.
+//
+// Bradley, 2026-09-01, deciding the conflict below: "I want the page to be
+// company voice and for me to be quoted as telling the story or for the section
+// that is using the I voice to be obvious that it's something that is authored
+// by me."
+//
+// The conflict: David Ellis (Tugboat) rated the I-versus-we tension his
+// highest-consequence finding on 2026-08-24, saying the two voices read as
+// interchangeable the longer you spend on the site. On 2026-08-26 Bradley ruled
+// this a brand surface. But a "we" sweep of this page ALREADY HAPPENED on
+// 2026-08-12 and he reversed it the same day, and the paragraphs below are
+// transcribed verbatim from doc 08, which forbids translating them out of the
+// first person.
+//
+// So the first person did not get swept off this page again. It got a byline,
+// and the sections where the COMPANY is the one making a promise moved to "we".
+// That is where the interchangeability actually bit: a reader cannot tell who
+// is speaking when an unmarked "I" guarantees a runbook.
+//
+// The markers around each region are read by __tests__/copy/voice-split.test.js,
+// which now guards this page. An "I" outside a marked region fails the build.
+function AuthoredNote({ children, tone = "light" }) {
+  const colour = tone === "dark" ? "text-amber-light" : "text-amber";
+  const rule = tone === "dark" ? "bg-amber-light/50" : "bg-amber/50";
+  return (
+    <p
+      className={`mb-6 flex items-center justify-center gap-3 font-body text-[13px] font-medium uppercase tracking-[0.22em] ${colour}`}
+    >
+      <span aria-hidden="true" className={`h-px w-8 ${rule}`} />
+      {children}
+      <span aria-hidden="true" className={`h-px w-8 ${rule}`} />
+    </p>
+  );
+}
+
+/* authored-by-bradley:start */
 const POSITIONING = [
   "I spent over a decade building revenue engines at high-growth startups, as the person doing the work. At Contactually I carried an inside sales quota and closed $318,000 in churn-adjusted ARR. I built the onboarding program that cut first-90-day churn in half, which saved about a million dollars in revenue over six quarters. I was the company's first recruiter and stood up the applicant tracking system. And I taught realtors, our customers, how to generate real business from their networks with CRM technology. At FiscalNote I was a client success manager with a portfolio that included Fortune 500 companies. I founded Tasting Club, a virtual tastings marketplace, and ran it for three years. Then I spent four and a half years as COO of iExcel, a digital marketing agency, where I doubled revenue, ran delivery, invoicing, hiring, and payroll, and executed marketing and sales operations for clients like Dapper Labs, Tock, and SalesIntel while I was there.",
   "In January I left and gave myself one rule: build everything with AI, or do not build it at all. I was not setting out to start an AI automation company. I tested company ideas, field-operations systems for HVAC companies, a RevOps coaching business, and built every system AI-first. Teaching myself to build was not new: I built Tasting Club's product myself on Bubble, a no-code tool. What was new was how far AI took it. I built my marketing website from scratch with AI coding tools. I built a working diagnostic web app the same way, the one that runs my audits: it connects to more than twenty tools through their APIs and computes a maturity heat map from a client's actual stack. I wired my own operations to APIs and MCP servers for analytics, search, CRM, and publishing. Six months of doing nothing but building with AI later, an AI automation company stopped being an idea and became the obvious thing to build. That is how I became an AI guy: not by rebranding, by shipping. And because I have sat in the executor seat and rolled out new process to real teams, I know where adoption sticks and where it dies. So every automation I build ships with the adoption work on the other side.",
@@ -57,6 +101,7 @@ const POSITIONING = [
   // leaves. Both per the same amendment.
   "We fix the foundation and build the automation on top of it, one named system at a time, at a published price, with your team owning it when the engagement ends.",
 ];
+/* authored-by-bradley:end */
 
 export const metadata = {
   // Root layout applies a "%s | Modern BizOps" template, so this bare title
@@ -116,6 +161,7 @@ const certifications = [
 // services roles overlapped in real life, which is why two rows carry the same
 // span; the page previously split them into tidy non-overlapping ranges that
 // the record does not support.
+/* authored-by-bradley:start */
 const stories = [
   {
     years: "2014 to 2016",
@@ -178,6 +224,7 @@ const stories = [
     stat3: { value: "8x", label: "Price premium" },
   },
 ];
+/* authored-by-bradley:end */
 
 export default function AboutPage() {
   return (
@@ -257,6 +304,7 @@ export default function AboutPage() {
         {/* ── THE POSITIONING PARAGRAPH, VERBATIM ──────────────────────────── */}
         <section className="bg-white">
           <div className="mx-auto max-w-[760px] px-6 md:px-8 py-16 md:py-24">
+            <AuthoredNote>Bradley de Wet, in his own words</AuthoredNote>
             <div className="space-y-6 font-body text-text-primary text-[17px] md:text-lg leading-relaxed">
               {POSITIONING.map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
@@ -268,6 +316,10 @@ export default function AboutPage() {
         {/* ── BRIDGE INTO THE THREE STORIES ────────────────────────────────── */}
         <section className="bg-navy">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-14 md:py-20 text-center">
+            <AuthoredNote tone="dark">
+              The next three sections are Bradley&rsquo;s account
+            </AuthoredNote>
+            {/* authored-by-bradley:start */}
             <h2 className="font-display text-[26px] md:text-[34px] font-semibold text-cream mb-5">
               Everything I build, I have run myself
             </h2>
@@ -277,6 +329,7 @@ export default function AboutPage() {
               service I priced and sold myself. Every number in them is one I
               carried.
             </p>
+            {/* authored-by-bradley:end */}
           </div>
         </section>
 
@@ -354,8 +407,12 @@ export default function AboutPage() {
             the playing field" outright. The Why is shown, never announced. */}
         <section className="bg-navy">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-16 md:py-24">
+            {/* The eyebrow carries the attribution rather than a second label
+                being added beside it. Doc 08 section 3 fences "mission", "our
+                mission" and "purpose-driven" to internal use, so this names the
+                author, never the genre. */}
             <p className="font-body text-sm font-semibold tracking-widest uppercase text-amber mb-4">
-              The reason behind the company
+              Bradley, on the reason behind the company
             </p>
             <h2 className="font-display text-[28px] md:text-[38px] font-semibold text-cream mb-8 leading-tight">
               AI is about to make a small number of companies enormously more productive, and most of them are already the biggest
@@ -386,6 +443,7 @@ export default function AboutPage() {
                 their underlying systems, and that unglamorous part is the
                 biggest part of the job.
               </p>
+              {/* authored-by-bradley:start */}
               <p>
                 If this holds, the productivity gains from this decade land
                 almost entirely on people who were already ahead. I do not think
@@ -406,6 +464,7 @@ export default function AboutPage() {
                 running eleven trucks. A CPA firm that has done the same three
                 things well for twenty years.
               </p>
+              {/* authored-by-bradley:end */}
               <p>
                 When one of them gets meaningfully cheaper to run, the money
                 does not leave town. It turns into a raise, or a hire, or a
@@ -464,11 +523,11 @@ export default function AboutPage() {
             <div className="space-y-5 font-body text-text-primary text-base md:text-lg leading-relaxed">
               <p>
                 Modern BizOps is new. It has no case studies and no client
-                results, and I am not going to borrow someone else&rsquo;s or
-                dress up work I did under another company&rsquo;s name as if it
-                were ours. Everything above happened before Modern BizOps
-                existed, in seats I held at other companies and in the one
-                company I founded myself.
+                results, and we are not going to borrow someone
+                else&rsquo;s, or dress up work our founder did under another
+                company&rsquo;s name as if it were ours. Everything above
+                happened before Modern BizOps existed, in seats he held at other
+                companies and in the one company he founded himself.
               </p>
               <p>
                 That is the whole reason the{" "}
@@ -489,8 +548,15 @@ export default function AboutPage() {
         {/* ── WHO THIS IS NOT FOR ───────────────────────────────────────────── */}
         <section className="bg-white">
           <div className="mx-auto max-w-[720px] px-6 md:px-8 py-16 md:py-24">
+            {/* This heading and the last paragraph below are where the
+                unmarked first person did real damage, and they are the reason
+                the page moved rather than the stories. A guarantee about
+                runbooks and lock-in is the COMPANY promising, and an unmarked
+                "I" made a reader work out which of the two voices was on the
+                hook for it. Ellis called that interchangeable, and here he was
+                right. */}
             <h2 className="font-display text-[26px] md:text-[34px] font-semibold text-navy mb-8">
-              I am not for everyone. Here is who I am for.
+              We are not for everyone. Here is who we are for.
             </h2>
             <div className="space-y-5 font-body text-text-primary text-base leading-relaxed">
               <p>
@@ -506,10 +572,10 @@ export default function AboutPage() {
                 willing to run it.
               </p>
               <p>
-                And I am not going to build something you stay dependent on me to
-                maintain. Every system ships with a runbook and a handover to the
-                person on your side who owns it. Every price is on the pricing
-                page, so you can rule me out without booking a call.
+                And we are not going to build something you stay dependent on
+                us to maintain. Every system ships with a runbook and a handover
+                to the person on your side who owns it. Every price we charge is
+                published, so you can rule us out without booking a call.
               </p>
             </div>
           </div>

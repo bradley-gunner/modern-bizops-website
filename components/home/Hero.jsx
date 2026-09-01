@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Button from "../ui/Button";
+import { AUDIENCE_BAND } from "@/lib/offers";
 
 // Section 1 of the modal homepage anatomy: category, audience, outcome, in
 // plain words, and one CTA. The 10-second test is the whole job here (Hinge:
@@ -16,12 +17,23 @@ import Button from "../ui/Button";
 // it earns more in the founder section further down than it does fighting the
 // H1 for the first two seconds. Putting it in both places reads as stock.
 //
-// One primary CTA site-wide is the Scan. "See pricing" is a text link, not a
-// second button, on purpose: two buttons of equal weight is two primary CTAs.
+// One primary CTA site-wide is the Scan. "See every price" is a text link, not
+// a second button, on purpose: two buttons of equal weight is two primary CTAs.
 // The trade is that a plain Link fires no cta_click, because Button is what
-// carries the analytics. Accepted here, and still true: "/pricing" is now in
-// CTA_DESTINATIONS (components/ui/Button.jsx), so a Button pointing there does
-// track, but this link is deliberately not one and still reports nothing.
+// carries the analytics, and this link is deliberately not a Button.
+//
+// 2026-09-01, the subhead. It read "Fixing foundational systems first.
+// Transparent pricing. Never manufacturing unnecessary lock-in." Three
+// fragments of near-identical length with the third reaching for grandeur is
+// the single most recognizable machine-written cadence there is, and the same
+// shape was running in two other heroes on the site. It is now two sentences of
+// different lengths that say the same three things.
+//
+// It also carries the revenue band, which is board item web-audience-legibility.
+// David Ellis (Tugboat) read the whole site for an hour and came away thinking
+// we serve $10M+ companies, which made Motion A of ICP v2 ($1-10M, the free
+// Scan and the $2,500 audit) invisible. The band is now in the first thing a
+// visitor reads after the H1.
 export default function Hero() {
   return (
     <section className="bg-cream py-16 md:py-24 lg:py-28">
@@ -32,18 +44,19 @@ export default function Hero() {
             and less busywork for your B2B business
           </h1>
           <p className="font-body text-[17px] md:text-lg lg:text-xl text-text-mid leading-relaxed mb-9 max-w-[640px]">
-            Fixing foundational systems first. Transparent pricing. Never
-            manufacturing unnecessary lock-in.
+            For {AUDIENCE_BAND.sentence}. We fix the foundation the automation
+            has to stand on, and every price we charge is published before you
+            talk to anyone.
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center gap-5">
             <Button href="/scorecard" size="large" ctaLocation="home_hero">
               Get the Free Scan
             </Button>
             <Link
-              href="/pricing"
+              href="/ai-automation-services"
               className="font-body text-base text-navy-mid underline underline-offset-4 hover:text-navy transition-colors"
             >
-              See pricing
+              See every price
             </Link>
           </div>
         </div>

@@ -6,6 +6,11 @@ import { LEARN_INDEX } from "@/lib/learnIndex";
 import sitemap from "@/app/sitemap";
 import {
   BUILDS,
+  HOMEPAGE_BUILDS,
+  HOMEPAGE_BUILD_IDS,
+  CLEANUP_SERVICES,
+  CLEANUP_PRICE_FLOOR,
+  CLEANUP_PRICE_CEILING,
   LADDER,
   CARE_PLAN,
   TRAINING,
@@ -43,6 +48,7 @@ const PAGES = [
     page: OFFER_PAGES.audit,
     metadata: OFFER_PAGES.audit.metadata,
     priority: 0.9,
+    lastModified: "2026-08-11",
   },
   {
     name: "services",
@@ -50,13 +56,8 @@ const PAGES = [
     page: OFFER_PAGES.services,
     metadata: OFFER_PAGES.services.metadata,
     priority: 0.8,
-  },
-  {
-    name: "pricing",
-    file: "app/pricing/page.js",
-    page: OFFER_PAGES.pricing,
-    metadata: OFFER_PAGES.pricing.metadata,
-    priority: 0.8,
+    // Bumped when /pricing merged into this page on 2026-09-01.
+    lastModified: "2026-09-01",
   },
   {
     name: "founding clients",
@@ -64,6 +65,7 @@ const PAGES = [
     page: OFFER_PAGES.founding,
     metadata: OFFER_PAGES.founding.metadata,
     priority: 0.7,
+    lastModified: "2026-08-11",
   },
 ];
 
@@ -166,8 +168,10 @@ describe("offer page copy law", () => {
 describe("offer page analytics wiring", () => {
   const src = readFileSync(join(ROOT, "components/ui/Button.jsx"), "utf8");
 
+  // "/pricing" left this list on 2026-09-01 when the page merged into
+  // /ai-automation-services. A Button pointing at a 301 would report a
+  // destination the visitor never lands on.
   it.each([
-    ["/pricing", "pricing"],
     ["/ai-automation-services", "ai_automation_services"],
     ["/ai-readiness-assessment", "ai_readiness_assessment"],
     ["/founding-clients", "founding_clients"],
@@ -183,15 +187,19 @@ describe("offer page analytics wiring", () => {
 describe("offer pages in the sitemap", () => {
   const entries = sitemap();
 
+  // lastModified is per page rather than one shared date. It was hardcoded to
+  // "2026-08-11" for all of them, which meant the correct act of bumping one
+  // page's date failed the build.
   it.each(PAGES)("$name is listed at priority $priority", ({
     page,
     priority,
+    lastModified,
   }) => {
     const entry = entries.find((e) => e.url === page.url);
     expect(entry, `${page.path} is missing from app/sitemap.js`).toBeTruthy();
     expect(entry.priority).toBe(priority);
     expect(entry.changeFrequency).toBe("monthly");
-    expect(entry.lastModified.toISOString().slice(0, 10)).toBe("2026-08-11");
+    expect(entry.lastModified.toISOString().slice(0, 10)).toBe(lastModified);
   });
 });
 
@@ -249,8 +257,80 @@ describe("the founding clients page", () => {
 });
 
 describe("offers module derivations", () => {
-  it("still ships the twelve builds both offer page titles claim", () => {
-    expect(BUILDS).toHaveLength(12);
+  // Doc 10 v5 (2026-08-27) moved CRM Cleanup and Architecture off the builds
+  // menu and onto the cleanup menu as C1, taking builds from 12 to 11. The site
+  // still said "twelve" in four places until 2026-09-01, so both counts are
+  // asserted here and the copy that states them is checked below.
+  it("ships the eleven builds and the six cleanup services", () => {
+    expect(BUILDS).toHaveLength(11);
+    expect(CLEANUP_SERVICES).toHaveLength(6);
+    expect(BUILDS.map((b) => b.id)).not.toContain("crm-cleanup");
+    expect(CLEANUP_SERVICES.map((c) => c.id)).toContain("crm-cleanup");
+  });
+
+  it("resolves every homepage build id and spans the published band", () => {
+    expect(HOMEPAGE_BUILDS).toHaveLength(HOMEPAGE_BUILD_IDS.length);
+    expect(HOMEPAGE_BUILDS.every(Boolean)).toBe(true);
+    const prices = HOMEPAGE_BUILDS.map((b) => priceValue(b.price));
+    expect(Math.min(...prices)).toBe(priceValue(BUILD_PRICE_FLOOR));
+    expect(Math.max(...prices)).toBe(priceValue(BUILD_PRICE_CEILING));
+  });
+
+  it("derives the cleanup band, which sits below the builds band", () => {
+    expect(CLEANUP_PRICE_FLOOR).toBe("$1,500");
+    expect(CLEANUP_PRICE_CEILING).toBe("$3,000");
+    // Doc 26 D2: the foundation being the cheaper half is the point, not an
+    // accident of pricing. If this ever inverts, the distribution argument the
+    // company is built on stops being true on its own price list.
+    expect(priceValue(CLEANUP_PRICE_CEILING)).toBeLessThan(
+      priceValue(BUILD_PRICE_CEILING),
+    );
+  });
+
+  // A count typed as a word cannot be derived from the menu, so it is read back
+  // out of the copy instead. This is the check that would have caught "twelve
+  // builds", which sat on the homepage and the services page for five days
+  // after doc 10 v5 took the menu to eleven.
+  it("states no build or cleanup count the menus disagree with", () => {
+    const WORDS = {
+      six: 6,
+      seven: 7,
+      ten: 10,
+      eleven: 11,
+      twelve: 12,
+      thirteen: 13,
+    };
+    const surfaces = [
+      "app/ai-automation-services/page.js",
+      "components/home/BuildsPreview.jsx",
+      "components/home/OperationsDebt.jsx",
+    ];
+    let checked = 0;
+    for (const relative of surfaces) {
+      const copy = readFileSync(join(ROOT, relative), "utf8")
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/^\s*\/\/.*$/gm, "");
+      for (const [word, value] of Object.entries(WORDS)) {
+        for (const [pattern, actual] of [
+          [new RegExp(`\\b${word}\\s+(?:of the\\s+)?builds?\\b`, "i"), BUILDS.length],
+          [
+            new RegExp(`\\b${word}\\s+cleanup\\b`, "i"),
+            CLEANUP_SERVICES.length,
+          ],
+        ]) {
+          if (!pattern.test(copy)) continue;
+          checked += 1;
+          expect(
+            value,
+            `${relative} says "${word}" of something the menu ships ` +
+              `${actual} of.`,
+          ).toBe(actual);
+        }
+      }
+    }
+    // Without this the loop above passes on copy that states no count at all,
+    // including copy that lost its counts to a bad edit.
+    expect(checked).toBeGreaterThanOrEqual(3);
   });
 
   it("derives the published price band from the menu itself", () => {
@@ -372,7 +452,6 @@ describe("closing CTA band", () => {
   const OWNED = [
     "app/ai-readiness-assessment/page.js",
     "app/ai-automation-services/page.js",
-    "app/pricing/page.js",
     "app/founding-clients/page.js",
     // Not an offer page, but it closes with the same CtaCallout band and was
     // written by copying the shape from these, so it inherits the same trap.

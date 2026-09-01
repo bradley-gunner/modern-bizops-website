@@ -52,7 +52,7 @@ const { url: URL } = PAGE;
 const TRUE_TODAY = [
   "Over a decade in the executor seat, four and a half years of it as an agency COO.",
   "Six months building AI-first, under one rule, with no exceptions made.",
-  "A published menu of twelve builds, each with a price and a clock on it.",
+  "A published menu of eleven builds and six cleanup services, each with a price and a clock on it.",
   "An audit instrument that connects to more than twenty of the tools you already run.",
 ];
 
@@ -196,11 +196,11 @@ export default function FoundingClientsPage() {
               </p>
               <p>
                 Six months of that produced what you can read on the rest of
-                this site. A menu of twelve named builds. Published prices. An
-                audit that computes its answer from your systems. What it has
-                not produced is a single Modern BizOps
-                case study, because the company is six months old and we are not
-                going to invent one.
+                this site: a menu of named builds with published prices on them,
+                the six cleanup services that come first, and an audit that
+                computes its answer out of your own systems. What it has not
+                produced is a single Modern BizOps case study, because the
+                company is six months old and we are not going to invent one.
               </p>
               <p className="text-navy font-medium">
                 So we are doing the version that survives a diligence-heavy
@@ -273,10 +273,10 @@ export default function FoundingClientsPage() {
                   href="/ai-automation-services"
                   className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
                 >
-                  menu of twelve builds
+                  menu
                 </Link>{" "}
-                is open to a founding client, and the audit is what decides
-                which one goes first.
+                is open to a founding client, cleanup services included, and the
+                audit is what decides which one goes first.
               </p>
               <p>{FOUNDING_TERMS.perVertical}</p>
             </div>
@@ -348,10 +348,10 @@ export default function FoundingClientsPage() {
             <p>
               Every other number is on the{" "}
               <Link
-                href="/pricing"
+                href="/ai-automation-services"
                 className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
               >
-                pricing page
+                services and pricing page
               </Link>
               , unchanged, so you can check exactly what the founding terms move
               and what they do not.

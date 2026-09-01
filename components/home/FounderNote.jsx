@@ -5,7 +5,15 @@ import Section from "../ui/Section";
 // Section 7: the founder, named and faced.
 //
 // A boutique has one proof asset a logo wall cannot fake, and it is the person
-// doing the work. The January rule is Bradley's, not the company's, so this
+// doing the work.
+//
+// 2026-09-01, the second paragraph. It said six months "turned an idea into the
+// obvious thing to build", which is a claim with nothing checkable in it. The
+// checkable version was sitting on /about the whole time: he built the audit
+// tool itself, with AI coding tools, and it connects to more than twenty
+// systems. That is the same fact the rest of the page depends on, so it belongs
+// where a reader meets him. Every number here is cleared by the
+// bradley-career-history memory; "over a decade" is the decided figure. The January rule is Bradley's, not the company's, so this
 // section names him and speaks about him in the third person. It was written in
 // his first-person singular until 2026-08-12, when he retired that as a brand
 // voice; the facts and the rule are unchanged.
@@ -47,11 +55,11 @@ export default function FounderNote() {
               build everything with AI, or do not build it at all.
             </p>
             <p>
-              Six months of doing that turned an idea into the obvious thing to
-              build. He had spent over a decade in the executor seat watching
-              good tools land on bad data, and the rule made it plain that the
-              tools were finally good enough for the foundation to be the only
-              thing still in the way.
+              Over the six months that followed he built the diagnostic that
+              runs these audits, himself, with AI coding tools, and it reads from
+              more than twenty systems. Over a decade in the executor seat had already
+              shown him where good tools land on bad data. Six months of
+              building proved the tools were finally the easy part.
             </p>
           </div>
           <div className="mt-7">

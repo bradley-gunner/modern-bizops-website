@@ -17,7 +17,8 @@ import { LADDER, BUILD_PRICE_FLOOR, BUILD_PRICE_CEILING } from "@/lib/offers";
 //     BizOps has zero clients. Structured data is the easiest place in the world
 //     to fabricate one and the easiest place for a search engine to catch it.
 //   - Prices interpolate from lib/offers.js. Never type an amount in here.
-//   - No offer catalog. /pricing owns the machine-readable ladder, and a second
+//   - No offer catalog. /ai-automation-services owns the machine-readable
+//     ladder (it absorbed /pricing on 2026-09-01), and a second
 //     OfferCatalog on all thirty-odd pages would compete with the page that is
 //     actually about the prices.
 
