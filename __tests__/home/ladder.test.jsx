@@ -11,11 +11,12 @@ import { LADDER } from "@/lib/offers";
 // copy.
 //
 // Until 2026-08-12 that card rendered the Partner NAME and SUMMARY above the
-// price string "$2,500 a month or $8,000 a month", while /pricing sold $8,000
+// price string "$2,500 a month or $8,000 a month", while the services page
+// sold $8,000
 // as a separately named rung with its own summary. One product name, two
 // prices, and a buyer who read both pages found a contradiction on the number
 // that matters most. The heading made it worse by announcing "Four rungs"
-// against /pricing's "Five rungs".
+// against the services page's "Five rungs".
 //
 // Two guards, one for each half of that.
 
@@ -54,7 +55,8 @@ describe("the homepage ladder", () => {
       expect(
         node.textContent,
         `The homepage shows ${plus.price} in copy that does not name ` +
-          `${plus.name}. On /pricing that price belongs to its own rung, so a ` +
+          `${plus.name}. On the services page that price belongs to its own ` +
+          `rung, so a ` +
           `buyer reading both pages sees one name with two prices.`,
       ).toContain(plus.name);
     }
@@ -64,7 +66,10 @@ describe("the homepage ladder", () => {
   // enforces a price. This reads both surfaces instead: state a rung total on
   // either one and it has to be the real total. Comments are stripped first,
   // because the reason for the four-card layout is explained in one.
-  it.each(["components/home/TheLadder.jsx", "app/pricing/page.js"])(
+  it.each([
+    "components/home/TheLadder.jsx",
+    "app/ai-automation-services/page.js",
+  ])(
     "%s states no rung count that disagrees with lib/offers.js",
     (relative) => {
       const copy = readFileSync(join(ROOT, relative), "utf8")

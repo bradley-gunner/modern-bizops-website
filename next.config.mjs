@@ -25,6 +25,18 @@ const nextConfig = {
         statusCode: 301,
       },
       {
+        // /pricing merged into /ai-automation-services 2026-09-01. The two
+        // pages were about 90% the same content (David Ellis, Tugboat website
+        // audit slide 6) and neither had equity to lose: Search Console over
+        // the three months to 2026-08-31 recorded no rows at all for /pricing
+        // and one impression at position 62 for the surviving slug. The nav
+        // still reads "Pricing" and points at the merged page, because the
+        // word is the trust signal and the URL never was.
+        source: '/pricing',
+        destination: '/ai-automation-services',
+        statusCode: 301,
+      },
+      {
         source: '/ig',
         destination: '/?utm_source=instagram&utm_medium=profile&utm_campaign=evergreen_home&utm_content=bio_link_v1',
         statusCode: 301,

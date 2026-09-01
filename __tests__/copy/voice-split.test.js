@@ -22,8 +22,18 @@ import { BYLINE } from "@/lib/learn/registry";
 //      words: "If the page is set to be authored by a specific person such as
 //      myself then first person language still makes sense to use in that
 //      instance. It would be like a blog post and the author of the blog post
-//      talking in first person." The 24 /learn article bodies, the registry
-//      strings that render under the byline, and the About page.
+//      talking in first person." The 24 /learn article bodies and the registry
+//      strings that render under the byline.
+//
+//      THE ABOUT PAGE IS DISPUTED AND DELIBERATELY UNGUARDED. This comment
+//      listed it under half 2 until 2026-09-01. On 2026-08-26 Bradley ruled the
+//      other way ("the About page should be 'our founder has worked with ...'")
+//      and the brand-voice skill moved it to half 1 the same day, but the page
+//      itself was never converted and still reads in the first person. Neither
+//      half guards it right now, on purpose: guarding it under half 1 would
+//      fail the build on live copy, and guarding it under half 2 would freeze
+//      copy a later ruling retired. Board item web-newness-risk owns the
+//      conversion; delete this note when the page lands on one side.
 //
 // Reader-voice "I" is untouched by both halves. A competency question, a Scan
 // answer option and a FAQ question phrased as the visitor speaking are the
@@ -88,7 +98,8 @@ function rel(absolute) {
 // and miss the words.
 const BRAND_SURFACES = [
   ...sourceFiles(join(ROOT, "components/home")).map(rel),
-  "app/pricing/page.js",
+  // app/pricing/page.js left this list on 2026-09-01 when it merged into
+  // app/ai-automation-services/page.js, which is still guarded below.
   "app/ai-readiness-assessment/page.js",
   "app/ai-automation-services/page.js",
   "app/founding-clients/page.js",
@@ -134,7 +145,11 @@ describe("brand surfaces speak as we", () => {
     // today, so an exemption that stopped matching would start failing the
     // build on copy that is correct.
     const exempted = [
-      "app/pricing/page.js",
+      // The merged services and pricing page carries the money FAQ, whose
+      // questions are the visitor speaking ("How do I avoid getting locked
+      // in?"). It replaced app/pricing/page.js here on 2026-09-01 and carries
+      // the same reader-voice lines.
+      "app/ai-automation-services/page.js",
       "app/founding-clients/page.js",
       "lib/scorecard/questions.js",
     ].flatMap((file) =>

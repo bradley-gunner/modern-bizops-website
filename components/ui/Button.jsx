@@ -38,7 +38,9 @@ export default function Button({
     "/book": "book_call",
     "/watch": "watch",
     "/scorecard": "scorecard",
-    "/pricing": "pricing",
+    // "/pricing" was here until 2026-09-01, when it merged into the services
+    // page and became a 301. A Button pointing at a redirect would report a
+    // destination the visitor never lands on.
     "/ai-automation-services": "ai_automation_services",
     "/ai-readiness-assessment": "ai_readiness_assessment",
     "/founding-clients": "founding_clients",

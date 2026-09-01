@@ -103,9 +103,12 @@ describe("every chrome link resolves to a route that exists", () => {
 });
 
 describe("the header", () => {
+  // Services and Pricing were two nav items pointing at two near-identical
+  // pages until 2026-09-01. They are one page and one item now, labelled
+  // "Pricing" because that is the word a buyer scans a nav for, pointing at the
+  // slug that can carry the category noun in search.
   const EXPECTED = [
-    ["Services", "/ai-automation-services"],
-    ["Pricing", "/pricing"],
+    ["Pricing", "/ai-automation-services"],
     ["The Audit", "/ai-readiness-assessment"],
     ["Learn", "/learn"],
     ["About", "/about"],
@@ -119,7 +122,7 @@ describe("the header", () => {
     ]);
   }
 
-  it("carries the approved five items plus the Scan CTA on desktop", () => {
+  it("carries the approved four items plus the Scan CTA on desktop", () => {
     const { container } = render(<Header />);
     const nav = container.querySelector('nav[aria-label="Main navigation"]');
     expect(linksIn(nav)).toEqual(EXPECTED);

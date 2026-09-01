@@ -176,7 +176,7 @@ export default function AiAutomationAgencyCostBody() {
         in) now decides whether AI works for you at all. Paying for the
         diagnosis before the build is how you avoid buying automation your
         foundation cannot hold. The full ladder, with every number on one page,
-        is on our <Link href="/pricing" className="text-navy underline">pricing page</Link>.
+        is on our <Link href="/ai-automation-services" className="text-navy underline">services and pricing page</Link>.
       </p>
     </>
   );

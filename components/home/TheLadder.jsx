@@ -15,14 +15,15 @@ const rung = Object.fromEntries(LADDER.map((r) => [r.id, r]));
 // Pricing page. Nothing here is a hardcoded number.
 //
 // Four cards, five rungs: Partner and Partner Plus are one decision with two
-// sizes, so they share the last card. The split is worked through on /pricing,
-// where a buyer is actually choosing between them.
+// sizes, so they share the last card. The split is worked through on
+// /ai-automation-services, where a buyer is actually choosing between them.
 //
 // The second price rides along with the NAME that carries it. It used to sit in
 // the Partner card's price line as "$2,500 a month or $8,000 a month", which
-// put two prices under one product name while /pricing sold the second one as a
-// separately named rung. Nothing on this page states a rung total any more
-// either, because the page shows four cards and /pricing lists five.
+// put two prices under one product name while the services page sold the
+// second one as a separately named rung. Nothing on this page states a rung
+// total any more either, because the page shows four cards and the services
+// page lists five.
 //
 // 2026-08-12: four priced rungs is a sequence, and it rendered as four
 // identical text cards, so nothing on screen said "ladder" except the heading.
@@ -43,11 +44,11 @@ export default function TheLadder() {
     <Section bg="white" narrow={false} id="how-it-works">
       <div className="max-w-[760px] mb-10">
         <h2 className="font-display text-[32px] md:text-[38px] font-semibold text-navy mb-4">
-          The ladder. You can stop at any rung.
+          Nothing here requires the next thing.
         </h2>
         <p className="font-body text-text-mid text-base md:text-lg leading-relaxed">
-          Nothing here requires the next thing. The first rung is free and you
-          can do it right now without talking to anyone.
+          You can stop at any rung and keep everything built up to it. The first
+          one is free and you can do it right now, without talking to anyone.
         </p>
       </div>
 
@@ -96,7 +97,7 @@ export default function TheLadder() {
 
       <div className="mt-9">
         <Link
-          href="/pricing"
+          href="/ai-automation-services"
           className="font-body text-base font-semibold text-navy underline underline-offset-4 hover:text-amber transition-colors"
         >
           See the full ladder and every published price

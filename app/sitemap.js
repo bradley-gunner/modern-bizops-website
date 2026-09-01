@@ -9,8 +9,7 @@ const LAST_MODIFIED = {
   about: "2026-04-24",
   maturityModel: "2026-07-02",
   aiReadinessAssessment: "2026-08-11",
-  aiAutomationServices: "2026-08-11",
-  pricing: "2026-08-11",
+  aiAutomationServices: "2026-09-01",
   foundingClients: "2026-08-11",
   revenueOperationsConsulting: "2026-07-21",
   learnIndex: "2026-08-11",
@@ -79,12 +78,6 @@ export default function sitemap() {
     {
       url: `${baseUrl}/ai-automation-services`,
       lastModified: new Date(LAST_MODIFIED.aiAutomationServices),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/pricing`,
-      lastModified: new Date(LAST_MODIFIED.pricing),
       changeFrequency: "monthly",
       priority: 0.8,
     },
