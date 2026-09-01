@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Section from "@/components/ui/Section";
 import LearnHero from "@/components/learn/LearnHero";
 import CtaCallout from "@/components/learn/CtaCallout";
+import AmberBand from "@/components/ui/AmberBand";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
 import {
   BUILDS,
@@ -322,6 +323,14 @@ export default function AiAutomationServicesPage() {
             </p>
           </div>
         </Section>
+
+        {/* The page's turn: the rungs are named, and everything below is a
+            number. See components/ui/AmberBand.jsx for why this treatment
+            exists and why there is exactly one per primary page. */}
+        <AmberBand statement="Every number is on this page, including the one rule that can move one. Nothing here changes because of who is asking.">
+          That is the whole reason a call with us is a fit conversation rather
+          than a quote. You have already seen the price.
+        </AmberBand>
 
         {/* THE MENU. Both halves, one shape. The cleanup half is new on
             2026-09-01: doc 26 signed six foundation services on 2026-08-27 and

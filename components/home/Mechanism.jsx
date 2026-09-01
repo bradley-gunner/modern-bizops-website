@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Section from "../ui/Section";
-import VSSLPlayer from "../VSSLPlayer";
 import { LADDER, AUDIT_TERMS } from "@/lib/offers";
 
 const audit = LADDER.find((rung) => rung.id === "audit");
@@ -29,10 +28,11 @@ const audit = LADDER.find((rung) => rung.id === "audit");
 // this one replaces already said "keep new detail on the audit page, not here."
 // If this section starts growing steps back, that is the regression.
 //
-// The runtime under the video is read from the YouTube Data API for video
-// M241NEC30D4 (PT14M13S, checked 2026-09-01), not estimated. A first draft of
-// this line guessed "eight minutes", which is exactly the invented-quantity
-// class the copy rules ban. Re-check it if the video is ever recut.
+// THE VIDEO LEFT THIS SECTION on 2026-09-01 and now leads the hero, so the
+// homepage shows it once. The runtime line that travelled with it is read from
+// the YouTube Data API for video M241NEC30D4 (PT14M13S, checked 2026-09-01),
+// not estimated: a first draft guessed "eight minutes", which is the
+// invented-quantity class the copy rules ban. Re-check it if the video is recut.
 //
 // The headline is Ellis's own note from slide 7. Reading the differentiator
 // section he wrote down what he thought the intended point was, "reading your
@@ -83,18 +83,6 @@ export default function Mechanism() {
         </Link>
       </div>
 
-      <div className="mt-14 pt-14 border-t border-border max-w-[900px] mx-auto">
-        <div className="text-center mb-7">
-          <h3 className="font-display text-2xl md:text-[28px] font-semibold text-navy mb-3">
-            Bradley, on camera, on why the foundation is the whole job
-          </h3>
-          <p className="font-body text-text-mid text-base leading-relaxed max-w-[560px] mx-auto">
-            Fourteen minutes, and there is no form in front of it.
-          </p>
-        </div>
-        {/* The video is a proof asset here, not the funnel centerpiece. */}
-        <VSSLPlayer ctaLocation="home_mid_page" />
-      </div>
     </Section>
   );
 }

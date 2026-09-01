@@ -6,6 +6,8 @@ import Button from "@/components/ui/Button";
 import LearnHero from "@/components/learn/LearnHero";
 import ContrastColumns from "@/components/learn/ContrastColumns";
 import CtaCallout from "@/components/learn/CtaCallout";
+import AmberBand from "@/components/ui/AmberBand";
+import VSSLPlayer from "@/components/VSSLPlayer";
 import MaturityFaq from "@/components/maturity/MaturityFaq";
 import {
   LADDER,
@@ -219,6 +221,14 @@ export default function AiReadinessAssessmentPage() {
           </div>
         </Section>
 
+        {/* The page's turn: the debt has been named, and from here the page is
+            about measuring it. See components/ui/AmberBand.jsx. */}
+        <AmberBand statement="You cannot fix what nobody has measured, and nobody has measured this.">
+          The audit is the measurement. It reads your systems rather than asking
+          you to score yourself, and you keep both maps whether you build with
+          us or not.
+        </AmberBand>
+
         <Section bg="white" narrow={false}>
           <div className="max-w-[760px] mb-10">
             <p className="font-body text-[13px] font-medium uppercase tracking-[0.26em] text-amber mb-4">
@@ -407,7 +417,30 @@ export default function AiReadinessAssessmentPage() {
           </p>
         </Section>
 
-        <Section bg="white" narrow>
+        {/* Video on a primary page, board item web-personality-design: the
+            done_when asks for video beyond the homepage, and this is the page
+            where a buyer is deciding whether to pay for a diagnosis. (No price
+            typed here: this file is guarded against literal dollar amounts,
+            because prices interpolate from lib/offers.js.)
+            It sits AFTER the argument and BEFORE the objections, so it plays to
+            someone who is already interested rather than competing with the
+            hero. Same player and same poster as the homepage; ctaLocation
+            splits the two in GA4. */}
+        <Section bg="white" narrow={false}>
+          <div className="mx-auto max-w-[820px]">
+            <div className="mb-7 text-center">
+              <h2 className="font-display text-2xl md:text-[28px] font-semibold text-navy mb-3">
+                Bradley, on why the foundation is the whole job
+              </h2>
+              <p className="mx-auto max-w-[560px] font-body text-base leading-relaxed text-text-mid">
+                Fourteen minutes, and there is no form in front of it.
+              </p>
+            </div>
+            <VSSLPlayer ctaLocation="audit_mid_page" className="mb-0" />
+          </div>
+        </Section>
+
+        <Section bg="cream" narrow>
           <h2 className="mb-6 text-center font-display text-3xl font-semibold text-navy">
             Questions people ask before they book
           </h2>
@@ -420,7 +453,10 @@ export default function AiReadinessAssessmentPage() {
             Tailwind's stylesheet order, not source order, picks the winner.
             The padding here also stops the callout's own margin collapsing
             out of the band. */}
-        <div className="bg-cream px-6 py-6 md:px-8 md:py-10">
+        {/* bg-white, not bg-cream: the FAQ above became a cream section when
+            the video block took the white slot, and two cream bands in a row
+            lose the alternating rhythm the rest of the page keeps. */}
+        <div className="bg-white px-6 py-6 md:px-8 md:py-10">
           <CtaCallout
             eyebrow="Start here"
             heading="Book the call and we will scope the audit."

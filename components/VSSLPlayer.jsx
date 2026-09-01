@@ -6,7 +6,14 @@ import { trackEvent } from "@/lib/analytics";
 
 const VIDEO_ID = "M241NEC30D4";
 
-export default function VSSLPlayer({ ctaLocation = "watch_hero" }) {
+// `className` owns the outer spacing. It defaulted to a baked-in mb-10, which
+// was right while the only two callers were mid-page blocks. The homepage hero
+// puts this in a two-column grid where a 40px bottom margin misaligns it
+// against the column beside it, so the margin became the caller's business.
+export default function VSSLPlayer({
+  ctaLocation = "watch_hero",
+  className = "mb-10",
+}) {
   const [playing, setPlaying] = useState(false);
 
   // The facade click is the only play signal this component can see. Once the
@@ -35,7 +42,9 @@ export default function VSSLPlayer({ ctaLocation = "watch_hero" }) {
 
   if (playing) {
     return (
-      <div className="aspect-video rounded-[14px] overflow-hidden mb-10 shadow-lg">
+      <div
+        className={`aspect-video rounded-[14px] overflow-hidden shadow-lg ${className}`}
+      >
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1&color=white`}
           title="Why AI Automation Fails for Small and Mid-Sized Businesses"
@@ -51,7 +60,7 @@ export default function VSSLPlayer({ ctaLocation = "watch_hero" }) {
   return (
     <button
       onClick={handlePlay}
-      className="relative w-full aspect-video rounded-[14px] overflow-hidden mb-10 shadow-lg cursor-pointer group block"
+      className={`relative w-full aspect-video rounded-[14px] overflow-hidden shadow-lg cursor-pointer group block ${className}`}
       aria-label="Play: Why AI Automation Fails for Small and Mid-Sized Businesses"
     >
       <Image
