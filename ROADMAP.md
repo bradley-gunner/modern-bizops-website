@@ -29,10 +29,11 @@ close-out at all. Shipped detail belongs in the receipt and the git log, not her
 
 ## Status at a Glance
 
-**Last updated:** 2026-09-01. **Last shipped:** 2026-09-01 ([#94](https://github.com/bradley-gunner/modern-bizops-website/pull/94), homepage amber band and video placement; [#93](https://github.com/bradley-gunner/modern-bizops-website/pull/93) merged /pricing into /ai-automation-services and shipped the cleanup menu).
+**Last updated:** 2026-09-02. **Last shipped:** 2026-09-02 ([#95](https://github.com/bradley-gunner/modern-bizops-website/pull/95), AEO batch 2, the pricing cluster: four `/learn` pages, each with hero, stat cards and a comparison block, plus ten cross-links on seven existing pages; [#94](https://github.com/bradley-gunner/modern-bizops-website/pull/94) homepage amber band and video placement).
 
-- **Live inventory:** 40 URLs in the sitemap, **27 of them `/learn` pages**. Verified against the live sitemap on 2026-09-01. This file does not track the page list; the sitemap and GSC do. See "Where page counts come from" below.
-- **In flight:** [#95](https://github.com/bradley-gunner/modern-bizops-website/pull/95), AEO batch 2 (the pricing cluster: four `/learn` pages plus ten cross-links). Awaiting Bradley's final check. On merge the sitemap goes to 44 and `/learn` to 31, and the post-publish loop in `publish-learn-page` runs (live snippet check, GSC and Bing indexing, receipt, drafts moved to `published/`).
+- **Live inventory:** 44 URLs in the sitemap, **31 of them `/learn` pages**. Verified against the live sitemap on 2026-09-02 after the #95 deploy. This file does not track the page list; the sitemap and GSC do. See "Where page counts come from" below.
+- **In flight:** nothing.
+- **Owed on #95:** the four link-free LinkedIn promo posts (board item `seo-batch2-publish-through-promotion`; GSC and Bing indexing are done). New reusable block `components/learn/ComparisonTable.jsx` for any future side-by-side.
 - **Next:** the October Observe pass reads the batch 2 GSC and Bing rows into next-batch sequencing. The agency income/market-size long-tail stays excluded (maker and job-seeker intent).
 - **PR #10: closed 2026-08-02** by Bradley as obsolete (see below).
 
