@@ -8,7 +8,7 @@ const LAST_MODIFIED = {
   scorecard: "2026-04-24",
   about: "2026-04-24",
   maturityModel: "2026-07-02",
-  aiReadinessAssessment: "2026-08-11",
+  aiReadinessAssessment: "2026-09-01",
   aiAutomationServices: "2026-09-01",
   foundingClients: "2026-08-11",
   revenueOperationsConsulting: "2026-07-21",
@@ -32,17 +32,24 @@ const LAST_MODIFIED = {
   learnInvoluntaryChurn: "2026-07-15",
   learnWinLossAnalysis: "2026-07-15",
   learnFractionalCooCost: "2026-07-22",
-  learnAiForSmallBusiness: "2026-07-22",
-  learnAiToolsForSmallBusiness: "2026-07-22",
-  aiConsultingForSmallBusiness: "2026-07-22",
+  learnAiForSmallBusiness: "2026-09-01",
+  learnAiToolsForSmallBusiness: "2026-09-01",
+  aiConsultingForSmallBusiness: "2026-09-01",
   learnCustomerRetentionStrategy: "2026-07-23",
   learnReduceCustomerChurn: "2026-07-23",
   learnPaymentRecovery: "2026-07-23",
   learnCustomerLifecycleMarketing: "2026-07-23",
   learnConversionRateOptimization: "2026-07-23",
-  learnAiAutomationAgencyCost: "2026-08-26",
-  learnAiConsultantVsInHouse: "2026-08-26",
-  learnBestAiAutomationAgenciesB2b: "2026-08-26",
+  // The three step-15 pages, both money pages and the two Wave 2 AI pages each
+  // gained one cross-link sentence into the batch 2 pricing cluster on
+  // 2026-09-01, so their crawl dates move with it.
+  learnAiAutomationAgencyCost: "2026-09-01",
+  learnAiConsultantVsInHouse: "2026-09-01",
+  learnBestAiAutomationAgenciesB2b: "2026-09-01",
+  learnWhatIsAnAiReadinessAssessment: "2026-09-01",
+  learnAiConsultantCost: "2026-09-01",
+  learnAiAutomationServicesPricing: "2026-09-01",
+  learnAiConsultantVsAiAgency: "2026-09-01",
 };
 
 export default function sitemap() {
@@ -285,6 +292,30 @@ export default function sitemap() {
     {
       url: `${baseUrl}/learn/best-ai-automation-agencies-b2b`,
       lastModified: new Date(LAST_MODIFIED.learnBestAiAutomationAgenciesB2b),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/what-is-an-ai-readiness-assessment`,
+      lastModified: new Date(LAST_MODIFIED.learnWhatIsAnAiReadinessAssessment),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/ai-consultant-cost`,
+      lastModified: new Date(LAST_MODIFIED.learnAiConsultantCost),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/ai-automation-services-pricing`,
+      lastModified: new Date(LAST_MODIFIED.learnAiAutomationServicesPricing),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/learn/ai-consultant-vs-ai-agency`,
+      lastModified: new Date(LAST_MODIFIED.learnAiConsultantVsAiAgency),
       changeFrequency: "monthly",
       priority: 0.7,
     },

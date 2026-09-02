@@ -5,7 +5,7 @@ description: Change the words, logo or artwork on the modernbizops.com Open Grap
 
 # Regenerate the share cards on modernbizops.com
 
-38 PNGs in `public/og`, 1200x630, all produced by `scripts/generate-og.mjs`. **The words are
+45 PNGs in `public/og` (counted 2026-09-02; the number moves with every /learn batch, so count it rather than trust this line), 1200x630, all produced by `scripts/generate-og.mjs`. **The words are
 baked into the pixels.** That single fact drives everything below: the copy audit greps
 cannot see them, the page tests cannot see them, and the card and the page it fronts can
 contradict each other indefinitely with nobody noticing.
@@ -75,7 +75,7 @@ in the built HTML and all passed.
 
 Sample across templates, not just the card you edited: one `heroCard`, one `learnCard`, and
 `aboutCard` if the frame changed. A change to `Frame`, `Logo`, `Headshot` or `Footer`
-touches all 38.
+touches every card.
 
 ### 4. Reset the `changed` flags
 

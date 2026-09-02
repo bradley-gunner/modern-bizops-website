@@ -263,6 +263,13 @@ export default function AiConsultingBody() {
           .
         </li>
         <li>
+          Comparing quotes? Read{" "}
+          <Link href="/learn/ai-consultant-cost" className={link}>
+            how much an AI consultant costs in 2026
+          </Link>
+          .
+        </li>
+        <li>
           Want to see the destination the whole method builds toward? Read about the{" "}
           <Link href="/predictable-revenue-engine" className={link}>
             predictable revenue engine

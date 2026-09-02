@@ -43,6 +43,15 @@ export default function AiConsultantVsInHouseBody() {
         <Link href="/learn/ai-automation-agency-cost" className={link}>
           cost guide
         </Link>
+        . The{" "}
+        <Link href="/learn/ai-consultant-cost" className={link}>
+          real 2026 AI consultant rates
+        </Link>{" "}
+        are on their own page, and if the question is which of the two to hire,
+        read{" "}
+        <Link href="/learn/ai-consultant-vs-ai-agency" className={link}>
+          AI consultant vs. AI automation agency
+        </Link>
         .
       </p>
       <p>

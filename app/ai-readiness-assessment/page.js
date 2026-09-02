@@ -296,6 +296,17 @@ export default function AiReadinessAssessmentPage() {
                 in a busy quarter is a different thing. Your systems have a
                 record of the second one.
               </p>
+              <p>
+                If you want the category explained before the pitch, we wrote
+                up{" "}
+                <Link
+                  href="/learn/what-is-an-ai-readiness-assessment"
+                  className="text-navy underline underline-offset-4 hover:text-amber transition-colors"
+                >
+                  what an AI readiness assessment measures and what one costs
+                </Link>
+                .
+              </p>
             </div>
           </div>
 

@@ -1,4 +1,7 @@
+import Link from "next/link";
+
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
+const link = "text-navy underline";
 
 // Verbatim transcription of the approved AEO asset 3 source copy
 // (Marketing Systems/SEO Pilot/pending-approval/aeo-3-best-ai-automation-agencies.md,
@@ -34,7 +37,11 @@ export default function BestAiAutomationAgenciesBody() {
         broken foundation: dirty CRM data, undocumented process, definitions
         nobody agreed on. Any agency that quotes you a build without diagnosing
         that first is guessing at your expense. Every firm below clears a
-        version of that bar.
+        version of that bar. If you are still deciding{" "}
+        <Link href="/learn/ai-consultant-vs-ai-agency" className={link}>
+          whether you need an agency at all
+        </Link>
+        , that comparison comes before this list.
       </p>
 
       <h2 className={h2}>The list, by what each is best at</h2>
@@ -119,7 +126,11 @@ export default function BestAiAutomationAgenciesBody() {
         <li>
           <strong>Prefer published prices.</strong> They constrain the seller,
           not you. Two firms here publish theirs; that is not a coincidence of
-          ranking.
+          ranking. For the market bands to hold any quote against, see{" "}
+          <Link href="/learn/ai-automation-services-pricing" className={link}>
+            AI automation services pricing, item by item
+          </Link>
+          .
         </li>
         <li>
           <strong>Ask the foundation question first.</strong> &ldquo;What has

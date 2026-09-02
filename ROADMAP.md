@@ -29,11 +29,11 @@ close-out at all. Shipped detail belongs in the receipt and the git log, not her
 
 ## Status at a Glance
 
-**Last updated:** 2026-07-30. **Last shipped:** 2026-07-28 ([#55](https://github.com/bradley-gunner/modern-bizops-website/pull/55), board receipt step + repo conventions).
+**Last updated:** 2026-09-01. **Last shipped:** 2026-09-01 ([#94](https://github.com/bradley-gunner/modern-bizops-website/pull/94), homepage amber band and video placement; [#93](https://github.com/bradley-gunner/modern-bizops-website/pull/93) merged /pricing into /ai-automation-services and shipped the cleanup menu).
 
-- **Live inventory:** 34 URLs in the sitemap, **24 of them `/learn` pages**. Verified against the live sitemap on 2026-07-28. This file does not track the page list — the sitemap and GSC do. See "Where page counts come from" below.
-- **In flight:** nothing. `learn-pages-ctr` was killed on the board; the title/meta rewrite is not in flight.
-- **Next:** `learn-pages-rank`, then the two never-indexed pages.
+- **Live inventory:** 40 URLs in the sitemap, **27 of them `/learn` pages**. Verified against the live sitemap on 2026-09-01. This file does not track the page list; the sitemap and GSC do. See "Where page counts come from" below.
+- **In flight:** [#95](https://github.com/bradley-gunner/modern-bizops-website/pull/95), AEO batch 2 (the pricing cluster: four `/learn` pages plus ten cross-links). Awaiting Bradley's final check. On merge the sitemap goes to 44 and `/learn` to 31, and the post-publish loop in `publish-learn-page` runs (live snippet check, GSC and Bing indexing, receipt, drafts moved to `published/`).
+- **Next:** the October Observe pass reads the batch 2 GSC and Bing rows into next-batch sequencing. The agency income/market-size long-tail stays excluded (maker and job-seeker intent).
 - **PR #10: closed 2026-08-02** by Bradley as obsolete (see below).
 
 ---

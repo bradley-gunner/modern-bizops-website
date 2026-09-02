@@ -731,6 +731,46 @@ const CARDS = {
         headlineSize: 52,
       }),
   },
+  // AEO batch 2, 2026-09-01: the pricing cluster. Same convention as the
+  // step-15 cards: the kicker names the target query noun, the headline is the
+  // title tag's hook clause in the page's own words. "ai audit" stays off the
+  // readiness card, as it stays off that page's title and slug.
+  'learn-what-is-an-ai-readiness-assessment': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'AI READINESS ASSESSMENT',
+        headline: 'What It Measures and What It Costs',
+        headlineSize: 56,
+      }),
+  },
+  'learn-ai-consultant-cost': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'AI CONSULTANT COST',
+        headline: 'How Much Does an AI Consultant Cost?',
+        headlineSize: 52,
+      }),
+  },
+  'learn-ai-automation-services-pricing': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'AI AUTOMATION SERVICES PRICING',
+        headline: 'Real 2026 Numbers, Item by Item',
+        headlineSize: 56,
+      }),
+  },
+  'learn-ai-consultant-vs-ai-agency': {
+    changed: false,
+    element: () =>
+      learnCard({
+        kicker: 'AI CONSULTANT VS. AI AGENCY',
+        headline: 'Which Should You Hire in 2026?',
+        headlineSize: 56,
+      }),
+  },
 };
 
 // ---- render ---------------------------------------------------------------
