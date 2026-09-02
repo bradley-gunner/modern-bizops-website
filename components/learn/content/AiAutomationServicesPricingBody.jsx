@@ -120,11 +120,11 @@ export default function AiAutomationServicesPricingBody() {
             ],
           },
           {
-            label: "When a quote leaves it out",
+            label: "The tell in a bad quote",
             cells: [
-              "The automation gets built on records nobody trusted, and is quietly abandoned",
-              "You cannot tell what you are paying for, and that is usually the point",
-              "A planned lifespan nobody mentioned",
+              "Ignored, so the automation gets built on records nobody trusted and is quietly abandoned",
+              "Blended into one number with the other two layers, so you cannot tell what you are paying for, and that is usually the point",
+              "No maintenance line, which means a planned lifespan nobody mentioned",
             ],
           },
         ]}

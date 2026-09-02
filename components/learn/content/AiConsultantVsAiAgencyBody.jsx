@@ -146,7 +146,7 @@ export default function AiConsultantVsAiAgencyBody() {
         options={[
           "Independent consultant",
           "AI automation agency",
-          "Build it and hand it over",
+          "The third structure",
         ]}
         highlight={2}
         rows={[
@@ -171,7 +171,7 @@ export default function AiConsultantVsAiAgencyBody() {
             cells: [
               "Capacity: one calendar, one set of hands, and the knowledge moves on when they do",
               "The demo that never becomes a system, because nobody on your side owned it",
-              "Designed to end, so ownership is the deliverable rather than the risk",
+              "Explicitly designed to end, with your team owning every system when it does",
             ],
           },
           {
@@ -179,7 +179,7 @@ export default function AiConsultantVsAiAgencyBody() {
             cells: [
               "Should name a maintenance arrangement",
               "Should name a number",
-              "Runbooks, training, and a named owner on your team",
+              "Runbooks, training, and your team owning every system",
             ],
           },
           {
