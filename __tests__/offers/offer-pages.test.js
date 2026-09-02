@@ -48,7 +48,9 @@ const PAGES = [
     page: OFFER_PAGES.audit,
     metadata: OFFER_PAGES.audit.metadata,
     priority: 0.9,
-    lastModified: "2026-08-11",
+    // Bumped when the page gained its link to the readiness-assessment
+    // explainer (/learn/what-is-an-ai-readiness-assessment) on 2026-09-01.
+    lastModified: "2026-09-01",
   },
   {
     name: "services",

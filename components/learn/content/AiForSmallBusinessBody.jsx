@@ -298,6 +298,11 @@ export default function AiForSmallBusinessBody() {
         <Link href="/ai-consulting-for-small-business" className={link}>
           AI consulting for small business
         </Link>
+        . If you want to know what a paid diagnosis actually looks at before you
+        take one, read{" "}
+        <Link href="/learn/what-is-an-ai-readiness-assessment" className={link}>
+          an AI readiness assessment, explained
+        </Link>
         . And if you want to see how these fundamentals connect into one system
         that produces revenue you can forecast, start with the{" "}
         <Link href="/predictable-revenue-engine" className={link}>

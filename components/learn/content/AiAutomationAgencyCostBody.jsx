@@ -40,7 +40,12 @@ export default function AiAutomationAgencyCostBody() {
         one deadline. Simple single-system builds (lead routing, follow-up
         sequences, CRM cleanup) typically run $2,000 to $6,500. Multi-system
         builds and custom agent work run $7,500 to $25,000. Above that you are
-        usually buying either genuine enterprise complexity or a brand name.
+        usually buying either genuine enterprise complexity or a brand name. We
+        also priced{" "}
+        <Link href="/learn/ai-automation-services-pricing" className="text-navy underline">
+          what each automation service costs, item by item
+        </Link>
+        , on its own page.
       </p>
       <p>
         <strong>Monthly retainers.</strong> Ongoing build-and-maintain
@@ -54,7 +59,12 @@ export default function AiAutomationAgencyCostBody() {
         <strong>Hourly consulting.</strong> $100 to $300 an hour for automation
         consultants and engineers, higher for named specialists. Hourly works
         for scoping and advice. It works badly for builds, because the incentive
-        runs against finishing.
+        runs against finishing. If you are pricing one person rather than a
+        firm, we have a separate guide to{" "}
+        <Link href="/learn/ai-consultant-cost" className="text-navy underline">
+          what an independent AI consultant costs
+        </Link>
+        .
       </p>
       <p>
         <strong>The fourth number nobody quotes: the diagnostic.</strong> Some

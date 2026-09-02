@@ -28,6 +28,10 @@ import ConversionRateOptimizationBody from "@/components/learn/content/Conversio
 import AiAutomationAgencyCostBody from "@/components/learn/content/AiAutomationAgencyCostBody";
 import AiConsultantVsInHouseBody from "@/components/learn/content/AiConsultantVsInHouseBody";
 import BestAiAutomationAgenciesBody from "@/components/learn/content/BestAiAutomationAgenciesBody";
+import WhatIsAnAiReadinessAssessmentBody from "@/components/learn/content/WhatIsAnAiReadinessAssessmentBody";
+import AiConsultantCostBody from "@/components/learn/content/AiConsultantCostBody";
+import AiAutomationServicesPricingBody from "@/components/learn/content/AiAutomationServicesPricingBody";
+import AiConsultantVsAiAgencyBody from "@/components/learn/content/AiConsultantVsAiAgencyBody";
 import {
   getBreadcrumbSchema,
   getFaqSchema,
@@ -65,6 +69,10 @@ const BODIES = {
   "ai-automation-agency-cost": AiAutomationAgencyCostBody,
   "ai-consultant-vs-in-house": AiConsultantVsInHouseBody,
   "best-ai-automation-agencies-b2b": BestAiAutomationAgenciesBody,
+  "what-is-an-ai-readiness-assessment": WhatIsAnAiReadinessAssessmentBody,
+  "ai-consultant-cost": AiConsultantCostBody,
+  "ai-automation-services-pricing": AiAutomationServicesPricingBody,
+  "ai-consultant-vs-ai-agency": AiConsultantVsAiAgencyBody,
 };
 
 // hub -> DefinedTermSet; competency -> DefinedTerm (standalone when the entry

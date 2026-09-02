@@ -258,6 +258,12 @@ const AUTHORED_SILENT_SO_FAR = [
   "components/learn/content/AiAutomationAgencyCostBody.jsx",
   "components/learn/content/AiConsultantVsInHouseBody.jsx",
   "components/learn/content/BestAiAutomationAgenciesBody.jsx",
+  // AEO batch 2 (2026-09-01), the pricing cluster, is company-voice for the
+  // same reason: the drafts publish "our" prices and say "we sell it".
+  "components/learn/content/WhatIsAnAiReadinessAssessmentBody.jsx",
+  "components/learn/content/AiConsultantCostBody.jsx",
+  "components/learn/content/AiAutomationServicesPricingBody.jsx",
+  "components/learn/content/AiConsultantVsAiAgencyBody.jsx",
 ];
 
 const LEARN_BODIES = sourceFiles(join(ROOT, "components/learn/content")).map(rel);
@@ -271,7 +277,7 @@ const THIRD_PERSON_AUTHOR = /\bour founder\b|\bBradley\b/i;
 
 describe("authored content speaks as I", () => {
   it("accounts for every /learn body exactly once", () => {
-    expect(LEARN_BODIES.length).toBe(27);
+    expect(LEARN_BODIES.length).toBe(31);
     const listed = [
       ...AUTHORED_SPEAKS_AS_I.filter((f) => f.startsWith("components/learn/")),
       ...AUTHORED_SILENT_SO_FAR,

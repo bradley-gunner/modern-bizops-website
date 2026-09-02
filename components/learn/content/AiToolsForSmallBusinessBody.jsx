@@ -357,7 +357,11 @@ export default function AiToolsForSmallBusinessBody() {
         own revenue engine. We work differently. We build one named system at a time,
         at a fixed price, and hand it over with a runbook and an internal owner we
         train to run it. You end up with a person on your payroll who owns it, not a
-        dependency on us.
+        dependency on us. If you want to know{" "}
+        <Link href="/learn/ai-automation-services-pricing" className={link}>
+          what it costs to have these automations built
+        </Link>
+        , we priced the common items one by one.
       </p>
       <p>
         We did not just decide AI belongs on top of clean fundamentals. We built a

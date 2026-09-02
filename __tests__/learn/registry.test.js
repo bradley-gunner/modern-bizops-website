@@ -38,6 +38,10 @@ const SLUGS = [
   "ai-automation-agency-cost",
   "ai-consultant-vs-in-house",
   "best-ai-automation-agencies-b2b",
+  "what-is-an-ai-readiness-assessment",
+  "ai-consultant-cost",
+  "ai-automation-services-pricing",
+  "ai-consultant-vs-ai-agency",
 ];
 const BATCH_1_SLUGS = [
   "revenue-operations-maturity-stage-1-reactive",
@@ -76,12 +80,22 @@ const AEO_BATCH_SLUGS = [
   "ai-consultant-vs-in-house",
   "best-ai-automation-agencies-b2b",
 ];
+// AEO batch 2: last updated 2026-09-01 (the pricing cluster: readiness
+// assessment explainer, consultant cost guide, services pricing by item,
+// consultant vs. agency).
+const AEO_BATCH_2_SLUGS = [
+  "what-is-an-ai-readiness-assessment",
+  "ai-consultant-cost",
+  "ai-automation-services-pricing",
+  "ai-consultant-vs-ai-agency",
+];
 function expectedLastUpdated(slug) {
   if (BATCH_1_SLUGS.includes(slug)) return "2026-07-09";
   if (WAVE_1_REMAINING_SLUGS.includes(slug)) return "2026-07-15";
   if (WAVE_2_SLUGS.includes(slug)) return "2026-07-22";
   if (WAVE_4_SLUGS.includes(slug)) return "2026-07-23";
   if (AEO_BATCH_SLUGS.includes(slug)) return "2026-08-26";
+  if (AEO_BATCH_2_SLUGS.includes(slug)) return "2026-09-01";
   return "2026-07-14";
 }
 // Stage 1 competency pages that carry a DefinedTerm joined to the hub's set.
@@ -111,6 +125,7 @@ const PILLAR_ARTICLE_SLUGS = [
   "ai-tools-for-small-business",
   ...WAVE_4_SLUGS,
   ...AEO_BATCH_SLUGS,
+  ...AEO_BATCH_2_SLUGS,
 ];
 // The sixteen entries whose metaDescription carries a negation pivot, a
 // "Here is how to" opener, or (fractional-coo-cost) a snippet too long to read
@@ -139,7 +154,7 @@ const CARD_BLURB_SLUGS = [
 const STANDALONE_TERM_SLUGS = ["net-revenue-retention"];
 
 describe("learn page registry", () => {
-  it("has exactly the twenty-seven approved slugs as keys", () => {
+  it("has exactly the thirty-one approved slugs as keys", () => {
     expect(Object.keys(LEARN_PAGES).sort()).toEqual([...SLUGS].sort());
   });
 

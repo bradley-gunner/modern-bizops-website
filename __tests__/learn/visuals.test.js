@@ -32,6 +32,10 @@ const PUBLISH_ORDER = [
   "ai-automation-agency-cost",
   "ai-consultant-vs-in-house",
   "best-ai-automation-agencies-b2b",
+  "what-is-an-ai-readiness-assessment",
+  "ai-consultant-cost",
+  "ai-automation-services-pricing",
+  "ai-consultant-vs-ai-agency",
 ];
 
 describe("learn visual system", () => {
