@@ -33,7 +33,7 @@ close-out at all. Shipped detail belongs in the receipt and the git log, not her
 
 - **Live inventory:** 44 URLs in the sitemap, **31 of them `/learn` pages**. Verified against the live sitemap on 2026-09-02 after the #95 deploy. This file does not track the page list; the sitemap and GSC do. See "Where page counts come from" below.
 - **In flight:** nothing.
-- **Owed on #95:** the four link-free LinkedIn promo posts (board item `seo-batch2-publish-through-promotion`; GSC and Bing indexing are done). New reusable block `components/learn/ComparisonTable.jsx` for any future side-by-side.
+- **After #95:** GSC and Bing indexing done; the four link-free LinkedIn promo posts sit in Buffer as drafts (Sep 15, 22, 24, 29) awaiting Bradley's tap, which is the last clause of board item `seo-batch2-publish-through-promotion`. New reusable block `components/learn/ComparisonTable.jsx` for any future side-by-side.
 - **Next:** the October Observe pass reads the batch 2 GSC and Bing rows into next-batch sequencing. The agency income/market-size long-tail stays excluded (maker and job-seeker intent).
 - **PR #10: closed 2026-08-02** by Bradley as obsolete (see below).
 
