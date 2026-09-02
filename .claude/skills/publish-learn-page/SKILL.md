@@ -104,6 +104,21 @@ which is where a batch moves on publish). Each file:
 Plus assets: copy the staged OG PNG into `public/og/` (chmod 644) and point
 the registry `ogImage` at its absolute URL.
 
+5. **Data blocks (REQUIRED, not optional).** Each draft note carries a
+   "Visual blocks" line. It is part of the spec, the same as the FAQ. Build
+   every block it names before asking for a preview: `StatCards` for the
+   stat pair, `ContrastColumns` for a two-way either/or, `ComparisonTable`
+   (`components/learn/ComparisonTable.jsx`, data-driven, `highlight` index)
+   for three or more options. The spec is hero plus two or three blocks
+   (`Marketing Systems/SEO Pilot/visual-system/VISUAL-SYSTEM-SPEC.md`).
+   Every cell and stat is condensed or quoted from the page's own prose: no
+   new number, no new claim, and nothing about our results. Highlight a
+   column only when the page argues for it. After building, diff each cell
+   against the paragraph it came from; an independent review on 2026-09-02
+   found three cells that asserted things the page did not say. The
+   step-15 pages (PR #91) shipped hero-only and were the exception, not the
+   precedent: batch 2 went back to Bradley unreviewed for exactly this.
+
 ## When a formerly forthcoming page ships
 
 Three upgrades in the same PR, not just the new page:
@@ -125,6 +140,14 @@ verification per ship-to-production's worktree gotcha (run `next dev` from
 the worktree on an alt port): check body, FAQ accordion, breadcrumb links,
 JSON-LD parses with the right `@type`s, outbound links have target=_blank,
 OG image returns 200, forthcoming mentions have no href.
+
+## Before the PR: an independent review
+
+Dispatch a clean-context subagent to audit the branch against the drafts,
+the handoff and this skill (verbatim copy, hard rules, cross-links, block
+cells, schema, tests run). On 2026-09-02 it found three overstated table
+cells and one comment misquote that the author had read past. Fix what it
+finds, then send Bradley the preview.
 
 ## Ship and post-publish loop
 
@@ -162,3 +185,15 @@ live verify). Then:
    **A page batch always changes the page inventory, so the receipt must say so
    and give the new total**, which is the field the board has had wrong twice:
    `curl -s https://modernbizops.com/sitemap.xml | grep -c '<loc>'`
+
+6. **Bing.** `submit_url_batch` on the `https://www.modernbizops.com/` property
+   with the apex URLs (accepted 2026-09-02; quota 100/day).
+
+7. **Promotion, in this session.** One link-free LinkedIn post per page via
+   the `linkedin-text-post-to-buffer` skill in the Modern BizOps folder
+   (viral-content pass, then voice pass), each with a 1080x1350 image rendered
+   from the page's data block, staged in the earliest open weekday slots.
+   This is the last clause of the board item and it is drafting work, so it
+   is never handed off as "needs Bradley". His tap in Buffer is the only
+   thing left after this step. Move the drafts and the handoff to
+   `published/` with banners, then rewrite ROADMAP "Status at a Glance".
