@@ -1,4 +1,6 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
+import ComparisonTable from "@/components/learn/ComparisonTable";
 import { LADDER } from "@/lib/offers";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
@@ -54,6 +56,26 @@ export default function AiConsultantVsAiAgencyBody() {
         finding of this comparison: the choice is not really about price. It
         is about failure modes.
       </p>
+
+      {/* The draft note's stat pair: the consultant hourly band and the agency
+          retainer cluster. Both restate the two cost guides linked above, which
+          is why the source lines name them rather than an outside site. */}
+      <StatCards
+        label="The benchmarks"
+        title="The price bands overlap almost completely"
+        stats={[
+          {
+            big: "$150 to $350",
+            desc: "an hour is the typical 2026 rate for an independent consultant, with project work commonly quoted at $5,000 to $25,000.",
+            source: "Our AI consultant cost guide",
+          },
+          {
+            big: "$2,000 to $8,000",
+            desc: "a month is where agency retainers cluster, with fixed projects at roughly $2,000 to $25,000 per system.",
+            source: "Our AI automation agency cost guide",
+          },
+        ]}
+      />
 
       <h2 className={h2}>Where each one fails</h2>
       <p>
@@ -112,6 +134,65 @@ export default function AiConsultantVsAiAgencyBody() {
         designed to end, with runbooks, training, and your team owning every
         system when it does.
       </p>
+
+      {/* The page's signature block per the draft note: the decision table
+          with the third structure as the highlighted column, same pattern as
+          the in-house page's HireComparisonTable. Cells condense the two
+          "what each one is" paragraphs, the failure modes, the four-question
+          test, and the paragraph above. */}
+      <ComparisonTable
+        label="Side by side"
+        title="The honest comparison"
+        options={[
+          "Independent consultant",
+          "AI automation agency",
+          "Build it and hand it over",
+        ]}
+        highlight={2}
+        rows={[
+          {
+            label: "Typical 2026 cost",
+            cells: [
+              "$150 to $350 an hour; projects $5,000 to $25,000",
+              "$2,000 to $25,000 per system; retainers $2,000 to $8,000 a month",
+              `${rung.audit.price} audit, then ${rung.builds.price} per named system, or ${rung.partner.price} for ongoing capacity`,
+            ],
+          },
+          {
+            label: "Best for",
+            cells: [
+              "Advice, scoping, or one narrow workflow built by a single senior brain",
+              "Several systems built and maintained on a cadence",
+              "Named systems at fixed prices, with your team owning every one when the engagement ends",
+            ],
+          },
+          {
+            label: "Failure mode",
+            cells: [
+              "Capacity: one calendar, one set of hands, and the knowledge moves on when they do",
+              "The demo that never becomes a system, because nobody on your side owned it",
+              "Designed to end, so ownership is the deliverable rather than the risk",
+            ],
+          },
+          {
+            label: "Month four",
+            cells: [
+              "Should name a maintenance arrangement",
+              "Should name a number",
+              "Runbooks, training, and a named owner on your team",
+            ],
+          },
+          {
+            label: "Where the knowledge lives",
+            cells: [
+              "Outside your business, rented back monthly",
+              "Outside your business, rented back monthly",
+              "Inside your business",
+            ],
+          },
+        ]}
+      />
+
       <p>
         That is how we sell it, and the prices are published: an{" "}
         {rung.audit.name} at {rung.audit.price} that maps the work before

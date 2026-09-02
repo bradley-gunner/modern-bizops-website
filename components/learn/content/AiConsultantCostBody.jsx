@@ -1,4 +1,6 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
+import ComparisonTable from "@/components/learn/ComparisonTable";
 import {
   LADDER,
   TRAINING,
@@ -44,6 +46,25 @@ export default function AiConsultantCostBody() {
         prices, because a cost guide from a company that hides its own pricing
         is not much of a guide.
       </p>
+
+      {/* The draft note's stat pair: the independent hourly range and the
+          small-business project band, both from the opening paragraph. */}
+      <StatCards
+        label="The benchmarks"
+        title="What an independent AI consultant charges in 2026"
+        stats={[
+          {
+            big: "$150 to $350",
+            desc: "an hour is what most independent AI consultants charge. Named specialists and boutique firms run $300 to $500 and up; big-firm consulting sits at $500 an hour and up.",
+            source: "2026 market rates, this guide",
+          },
+          {
+            big: "$5,000 to $25,000",
+            desc: "is the commonly quoted project band for a small or mid-sized business. Single-system builds sit at the bottom of it.",
+            source: "2026 market rates, this guide",
+          },
+        ]}
+      />
 
       <h2 className={h2}>The three jobs hiding inside one title</h2>
       <p>
@@ -116,6 +137,50 @@ export default function AiConsultantCostBody() {
           on day one.
         </li>
       </ul>
+
+      {/* The draft note's comparison graphic: hourly vs project vs retainer.
+          Each cell is condensed from the three-jobs section and the rates list
+          above. No column is highlighted: the page's point is that each model
+          is honest for one job and wrong for another. */}
+      <ComparisonTable
+        label="Side by side"
+        title="Three pricing models, and the job each one is honest for"
+        options={["Hourly", "Fixed-price project", "Monthly retainer"]}
+        rows={[
+          {
+            label: "Typical 2026 price",
+            cells: [
+              "$100 to $150 junior, $150 to $350 experienced, $300 to $500 and up for named specialists",
+              "$5,000 to $25,000 for a small or mid-sized business",
+              "$2,000 to $10,000 a month",
+            ],
+          },
+          {
+            label: "The job it fits",
+            cells: [
+              "The advisor: strategy, use-case selection, vendor evaluation",
+              "The builder: a named system, priced separately from the next one",
+              "The staff augmentation seat: a contractor inside your team",
+            ],
+          },
+          {
+            label: "Why it is honest there",
+            cells: [
+              "Advice is genuinely open-ended",
+              "The deliverable can be named before the work starts",
+              "Priced like a fractional hire, and comparable against one",
+            ],
+          },
+          {
+            label: "Where it goes wrong",
+            cells: [
+              "Applied to a build, the incentive runs against finishing",
+              "One blended number instead of a price per system",
+              "A month that buys access rather than named deliverables. Always ask which",
+            ],
+          },
+        ]}
+      />
 
       <h2 className={h2}>What a fair quote includes, and what most skip</h2>
       <p>

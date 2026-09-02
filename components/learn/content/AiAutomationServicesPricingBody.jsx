@@ -1,4 +1,6 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
+import ComparisonTable from "@/components/learn/ComparisonTable";
 import {
   LADDER,
   TRAINING,
@@ -87,6 +89,47 @@ export default function AiAutomationServicesPricingBody() {
         mentioned.
       </p>
 
+      {/* The draft note's comparison graphic: the three layers side by side.
+          Layer 1 is picked out because it is the layer market guides mostly
+          ignore, which is the page's argument. Cells condense the three
+          paragraphs above. */}
+      <ComparisonTable
+        label="Side by side"
+        title="The three layers a trustworthy quote keeps separate"
+        options={[
+          "Layer 1: the foundation",
+          "Layer 2: the build",
+          "Layer 3: keeping it alive",
+        ]}
+        highlight={0}
+        rows={[
+          {
+            label: "What it is",
+            cells: [
+              "Cleanup of the data and process the automation will stand on: deduplication, field consolidation, stage definitions, a documented process",
+              "The named automation itself, one system at a time",
+              "Monitoring and upkeep after launch, because the tools underneath change on their own schedule",
+            ],
+          },
+          {
+            label: "Fair 2026 price",
+            cells: [
+              "$1,500 to $3,000 per system as fixed-scope items",
+              "$1,500 to $4,000 for simple single-workflow builds, with multi-step and integration work above that",
+              "$300 to $800 a month per system",
+            ],
+          },
+          {
+            label: "When a quote leaves it out",
+            cells: [
+              "The automation gets built on records nobody trusted, and is quietly abandoned",
+              "You cannot tell what you are paying for, and that is usually the point",
+              "A planned lifespan nobody mentioned",
+            ],
+          },
+        ]}
+      />
+
       <h2 className={h2}>What the common items cost</h2>
       <p>
         Market bands, at small and mid-sized B2B scope, read off the published
@@ -137,6 +180,25 @@ export default function AiAutomationServicesPricingBody() {
           attached to an assembled-workflow scope.
         </li>
       </ul>
+
+      {/* The draft note's stat pair: the simple-build market band and the
+          per-system maintenance band, both from the layers section above. */}
+      <StatCards
+        label="The benchmarks"
+        title="The two numbers every automation quote should carry"
+        stats={[
+          {
+            big: "$1,500 to $4,000",
+            desc: "is what simple single-workflow builds are quoted at across the market, with multi-step and mid-tier integration work above that.",
+            source: "Digital Agency Network, January 2026",
+          },
+          {
+            big: "$300 to $800",
+            desc: "a month per system for monitoring and upkeep at market rates. A quote with no maintenance line is a quote for a system with a planned lifespan nobody mentioned.",
+            source: "2026 market rates, this guide",
+          },
+        ]}
+      />
 
       <h2 className={h2}>Our prices, published</h2>
       <p>

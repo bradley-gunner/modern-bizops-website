@@ -1,4 +1,6 @@
 import Link from "next/link";
+import StatCards from "@/components/learn/StatCards";
+import ContrastColumns from "@/components/learn/ContrastColumns";
 import { LADDER, AUDIT_TERMS } from "@/lib/offers";
 
 const h2 = "font-display font-semibold text-navy text-2xl mt-10 mb-3";
@@ -126,6 +128,29 @@ export default function WhatIsAnAiReadinessAssessmentBody() {
         with you. A questionnaire cannot, and that difference is roughly what
         you are paying for.
       </p>
+
+      {/* The draft note's comparison graphic: questionnaire vs connected
+          assessment. Both columns are condensed from the two paragraphs above,
+          per the visual-system rule that a block is made from the article. */}
+      <ContrastColumns
+        label="Two kinds of assessment"
+        title="What the score is actually built from"
+        leftTitle="The questionnaire"
+        leftItems={[
+          "You self-report how good your data is.",
+          "The score reflects how you feel about your operations, not the state of them.",
+          "Self-reported data quality is exactly the thing operations debt hides from.",
+          "It cannot disagree with you.",
+        ]}
+        rightTitle="The connected assessment"
+        rightItems={[
+          "Connects to your actual systems and reads the real records.",
+          "Computes how many contacts are missing the fields your automations would key on.",
+          "Shows which stages are actually used and where the handoffs silently drop.",
+          "It can disagree with you, and that difference is roughly what you are paying for.",
+        ]}
+      />
+
       <p>
         If you want the five-minute self-serve version first, that is exactly
         what our free scan is for:{" "}
@@ -154,6 +179,27 @@ export default function WhatIsAnAiReadinessAssessmentBody() {
           with those problems.
         </li>
       </ul>
+
+      {/* The draft note's stat pair: the Cisco pacesetter figure and the
+          consultant-led market band. Both numbers and both descriptions are
+          the page's own sentences. */}
+      <StatCards
+        label="The benchmarks"
+        title="How rare readiness is, and what measuring it costs"
+        stats={[
+          {
+            big: "13%",
+            desc: "of organizations surveyed qualified as fully ready to deploy AI in Cisco's 2024 AI Readiness Index.",
+            source: "Cisco AI Readiness Index, 2024",
+          },
+          {
+            big: "$1,000 to $5,000",
+            desc: "The common band for a consultant-led assessment or paid diagnostic, often credited toward later work. Expect connected-systems analysis here, not an interview writeup.",
+            source: "Consultant-led assessments, 2026 market band",
+          },
+        ]}
+      />
+
       <p>
         Our version sits in the middle band and is published: the{" "}
         {rung.audit.name} is {rung.audit.price}, connects to your actual stack,
